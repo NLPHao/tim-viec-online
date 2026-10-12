@@ -1,23 +1,21 @@
-# TÀI LIỆU HƯỚNG DẪN SETUP DỰ ÁN & PHÂN CÔNG THÀNH VIÊN (SETUP_GUIDE.MD)
-> **Dự án:** Web Tìm Việc Làm Online (`tim-viec-online`)  
-> **Kiến trúc:** Monorepo (`/backend` và `/frontend`)  
-> **Cập nhật:** Học kỳ đồ án tốt nghiệp / Bài tập lớn
-
----
+# TÀI LIỆU HƯỚNG DẪN SETUP DỰ ÁN & PHÂN CÔNG THÀNH VIÊN
 
 ## MỤC LỤC
 1. [Yêu cầu Môi trường & Công cụ Cài đặt](#1-yêu-cầu-môi-trường--công-cụ-cài-đặt)
-2. [Hướng dẫn Clone & Quy tắc Phân nhánh Git](#2-hướng-dẫn-clone--quy-tắc-phân-nhánh-git)
-3. [Cài đặt Cơ sở Dữ liệu (MySQL / phpMyAdmin)](#3-cài-đặt-cơ-sở-dữ-liệu-mysql--phpmyadmin)
-4. [Hướng dẫn Khởi chạy Backend (Laravel 11)](#4-hướng-dẫn-khởi-chạy-backend-laravel-11)
-5. [Hướng dẫn Khởi chạy Frontend (Next.js 14)](#5-hướng-dẫn-khởi-chạy-frontend-nextjs-14)
-6. [Hướng dẫn Chi tiết & Checklist Từng Thành viên](#6-hướng-dẫn-chi-tiết--checklist-từng-thành-viên)
+2. [Quy tắc Phân nhánh Git & Quy trình Làm việc](#2-quy-tắc-phân-nhánh-git--quy-trình-làm-việc)
+3. [Cài đặt & Khởi chạy Backend (Laravel 11 API)](#3-cài-đặt--khởi-chạy-backend-laravel-11-api)
+   - [3.1. Khởi tạo mới từ đầu (Nếu thư mục /backend chưa có)](#31-khởi-tạo-mới-từ-đầu-nếu-thư-mục-backend-chưa-có)
+   - [3.2. Khởi chạy dự án (Khi đã có thư mục /backend từ Git)](#32-khởi-chạy-dự-án-khi-đã-có-thư-mục-backend-từ-git)
+4. [Cài đặt & Khởi chạy Frontend (Next.js 14 App Router)](#4-cài-đặt--khởi-chạy-frontend-nextjs-14-app-router)
+   - [4.1. Khởi tạo mới từ đầu (Nếu thư mục /frontend chưa có)](#41-khởi-tạo-mới-từ-đầu-nếu-thư-mục-frontend-chưa-có)
+   - [4.2. Khởi chạy dự án (Khi đã có thư mục /frontend từ Git)](#42-khởi-chạy-dự-án-khi-đã-có-thư-mục-frontend-từ-git)
+5. [Hướng dẫn Chi tiết & Checklist Từng Thành viên](#5-hướng-dẫn-chi-tiết--checklist-từng-thành-viên)
    - [Member 1: Backend Lead (Auth, System & AI CV Analysis)](#member-1--backend-lead-auth-system--ai-cv-analysis)
    - [Member 2: Backend Core (Job Core, Application & Realtime Chat)](#member-2--backend-core-job-core-application--realtime-chat)
    - [Member 3: Frontend (Candidate UI, Job Flow & AI Results)](#member-3--frontend-candidate-ui-job-flow--ai-results)
    - [Member 4: Frontend (Auth, Employer Portal & Realtime Chatbox)](#member-4--frontend-auth-employer-portal--realtime-chatbox)
-7. [Quy chuẩn Phối hợp & Tiêu chuẩn API](#7-quy-chuẩn-phối-hợp--tiêu-chuẩn-api)
-8. [Xử lý Các Lỗi Thường Gặp (Troubleshooting)](#8-xử-lý-các-lỗi-thường-gặp-troubleshooting)
+6. [Quy chuẩn Phối hợp & Tiêu chuẩn API](#6-quy-chuẩn-phối-hợp--tiêu-chuẩn-api)
+7. [Xử lý Các Lỗi Thường Gặp (Troubleshooting)](#7-xử-lý-các-lỗi-thường-gặp-troubleshooting)
 
 ---
 
@@ -30,45 +28,35 @@ Trước khi bắt đầu, mọi thành viên trong nhóm bắt buộc phải c�
 | **Git** | >= 2.30 | Quản lý mã nguồn | `git --version` |
 | **PHP** | >= 8.2 (Khuyên dùng PHP 8.2 hoặc 8.3) | Chạy Laravel 11 | `php -v` |
 | **Composer** | >= 2.5 | Quản lý gói thư viện PHP | `composer -v` |
-| **Node.js** | >= 18.17 (LTS khuyên dùng: v20.x) | Chạy Next.js | `node -v` |
+| **Node.js** | >= 18.17 (LTS khuyên dùng: v20.x hoặc v22.x) | Chạy Next.js | `node -v` |
 | **NPM** | >= 9.x | Quản lý package Node | `npm -v` |
 | **MySQL** | >= 8.0 (hoặc MariaDB >= 10.4) | Cơ sở dữ liệu | Đi kèm trong Laragon hoặc XAMPP |
 | **Môi trường Web Server** | **Laragon** (Khuyên dùng) hoặc **XAMPP** | Chạy Apache, MySQL, phpMyAdmin | Bật Service MySQL & Apache |
 
-> [!TIP]
-> Khuyên khích dùng **Laragon** trên Windows vì tốc độ nhanh hơn XAMPP, đã tích hợp sẵn PHP 8.2+, Composer, Git và hỗ trợ tạo Virtual Host tự động.
 
 ---
 
-## 2. Hướng dẫn Clone & Quy tắc Phân nhánh Git
+## 2. Quy tắc Phân nhánh Git & Quy trình Làm việc
 
-### 2.1. Clone dự án về máy
-Mở Terminal / PowerShell và chạy:
-```bash
-git clone https://github.com/ngocbinh15/tim-viec-online.git
-cd tim-viec-online
-```
-
-### 2.2. Quy tắc Phân nhánh (Branching Strategy)
+### 2.1. Quy tắc Phân nhánh (Branching Strategy)
 - **Tuyệt đối KHÔNG commit và push trực tiếp lên nhánh `main`**.
-- Nhánh `main` chỉ dùng để merge phiên bản ổn định cuối mỗi tuần để nghiệm thu.
 - Nhánh phát triển chính của nhóm là `develop`.
 - Mỗi thành viên khi làm tính năng mới phải tạo nhánh riêng từ `develop`:
   ```bash
   # Chuyển sang develop và cập nhật mới nhất
-  git checkout develop
+  git switch develop
   git pull origin develop
 
   # Tạo nhánh tính năng mới theo quy ước
-  git checkout -b feature/<tên-tính-năng>-<tên-member>
+  git switch -c feature/<tên-tính-năng>
   ```
   *Ví dụ:*
-  - Member 1: `git checkout -b feature/auth-sanctum-m1`
-  - Member 2: `git checkout -b feature/job-crud-api-m2`
-  - Member 3: `git checkout -b feature/candidate-ui-m3`
-  - Member 4: `git checkout -b feature/chat-websocket-m4`
+  -  `git switch -c feature/auth-sanctum`
+  -  `git switch -c feature/job-crud-api`
+  -  `git switch -c feature/candidate-ui`
+  -  `git switch -c feature/chat-websocket`
 
-### 2.3. Quy trình Commit & Tạo Pull Request (PR)
+### 2.2. Quy trình Commit & Tạo Pull Request (PR)
 1. Thường xuyên commit các thay đổi có ý nghĩa:
    ```bash
    git add .
@@ -76,140 +64,209 @@ cd tim-viec-online
    git push origin feature/<tên-nhánh>
    ```
 2. Vào GitHub tạo **Pull Request** trỏ vào nhánh `develop`.
-3. Báo nhóm qua Zalo/Discord để ít nhất 1 thành viên review trước khi merge.
 
 ---
 
-## 3. Cài đặt Cơ sở Dữ liệu (MySQL / phpMyAdmin)
+## 3. Cài đặt & Khởi chạy Backend (Laravel 11 API)
 
-Hệ thống đã có sẵn file lược đồ cơ sở dữ liệu hoàn chỉnh tại thư mục [`db/tim_viec_online.sql`](file:///f:/Soure_Code/tim-viec-online/db/tim_viec_online.sql).
+### 3.1. Khởi tạo mới từ đầu
 
-### Cách 1: Import trực tiếp qua giao diện phpMyAdmin
-1. Khởi động **Laragon** hoặc **XAMPP**, bấm **Start All** (chạy MySQL).
-2. Truy cập trình duyệt: `http://localhost/phpmyadmin`
-3. Tạo cơ sở dữ liệu mới:
-   - Tên database: `tim_viec_online`
-   - Bảng mã (Collation): `utf8mb4_unicode_ci`
-4. Chọn database `tim_viec_online` vừa tạo, bấm tab **Import (Nhập)**.
-5. Chọn file `db/tim_viec_online.sql` trong thư mục dự án và bấm **Import (Thực hiện)**.
-6. Kiểm tra thấy xuất hiện đủ 15 bảng và dữ liệu mẫu test ban đầu.
-
-### Cách 2: Import bằng dòng lệnh Command Line
-```bash
-mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS tim_viec_online CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
-mysql -u root -p tim_viec_online < db/tim_viec_online.sql
-```
-*(Nếu dùng XAMPP/Laragon mặc định không có mật khẩu, chỉ cần bấm Enter khi được hỏi password).*
-
----
-
-## 4. Hướng dẫn Khởi chạy Backend (Laravel 11)
-
-Toàn bộ mã nguồn API nằm trong thư mục `/backend`.
-
-### Bước 1: Di chuyển vào thư mục backend & Cài đặt thư viện
-```bash
-cd backend
-composer install
-```
-
-### Bước 2: Thiết lập file môi trường `.env`
-Sao chép từ file mẫu:
-```bash
-cp .env.example .env
-```
-*(Nếu trên PowerShell Windows, dùng lệnh: `copy .env.example .env`)*
-
-### Bước 3: Tạo Application Key
-```bash
-php artisan key:generate
-```
-
-### Bước 4: Cấu hình thông số trong file `.env`
-Mở file `.env` và chỉnh sửa các thông số sau:
-```ini
-APP_NAME="TimViecOnline"
-APP_ENV=local
-APP_DEBUG=true
-APP_URL=http://localhost:8000
-
-# Cấu hình Database
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=tim_viec_online
-DB_USERNAME=root
-DB_PASSWORD=
-
-# Cấu hình File Storage (Lưu trữ CV PDF và Avatar)
-FILESYSTEM_DISK=public
-
-# Cấu hình Realtime WebSocket (Reverb hoặc Pusher)
-BROADCAST_CONNECTION=reverb
-REVERB_APP_ID=timviec_app
-REVERB_APP_KEY=timviec_key
-REVERB_APP_SECRET=timviec_secret
-REVERB_HOST="localhost"
-REVERB_PORT=8080
-REVERB_SCHEME=http
-
-# Khóa AI Google Gemini (Dành cho Member 1 tích hợp)
-GEMINI_API_KEY=your_gemini_api_key_here
-```
-
-### Bước 5: Tạo liên kết Symbolic Link cho thư mục lưu trữ file
-Bắt buộc chạy lệnh này để xem được file CV và Avatar qua URL công khai:
-```bash
-php artisan storage:link
-```
-
-### Bước 6: Khởi chạy Server Backend
-```bash
-php artisan serve --port=8000
-```
-API Backend sẽ chạy tại địa chỉ: **`http://localhost:8000`**.  
-Kiểm tra sức khỏe hệ thống: truy cập trình duyệt `http://localhost:8000/api` hoặc endpoint bất kỳ để xác nhận backend hoạt động.
+1. **Mở Terminal tại thư mục gốc của repository (`tim-viec-online`):**
+   ```bash
+   composer config --global policy.advisories.block false
+   composer create-project laravel/laravel:^11.0 backend
+   ```
+2. **Di chuyển vào thư mục backend và cài các gói thư viện quan trọng:**
+   ```bash
+   cd backend
+   composer require laravel/sanctum
+   composer require laravel/reverb
+   ```
+3. **Cấu hình file `.env` kết nối MySQL trước khi cài API:**
+   > Mở file `backend/.env`, đổi `DB_CONNECTION=sqlite` thành `DB_CONNECTION=mysql`, bổ sung `DB_COLLATION`
+   ```ini
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=tim_viec_online
+   DB_USERNAME=root
+   DB_PASSWORD=
+   DB_COLLATION=utf8mb4_unicode_ci
+   DB_QUEUE_TABLE=queue_jobs
+   ```
+4. **Cài đặt cấu hình API & Sanctum:**
+   ```bash
+   php artisan install:api
+   ```
+5. **Cài đặt Reverb WebSocket:**
+   ```bash
+   php artisan reverb:install
+   ```
+6. **Tạo Application Key và liên kết Symbolic Link:**
+   ```bash
+   php artisan key:generate
+   php artisan storage:link
+   ```
+7. **Commit và đẩy thư mục `backend` lên nhánh `develop`:**
+   ```bash
+   git add backend
+   git commit -m "chore(backend): khởi tạo project Laravel 11 API, Sanctum và Reverb"
+   git push origin develop
+   ```
 
 ---
 
-## 5. Hướng dẫn Khởi chạy Frontend (Next.js 14)
+### 3.2. Khởi chạy dự án (Khi đã có thư mục `/backend` từ Git)
+> **Dành cho các thành viên còn lại** sau khi đã kéo (pull) thư mục `backend` về máy:
 
-Mã nguồn giao diện người dùng nằm trong thư mục `/frontend`.
+1. **Di chuyển vào thư mục backend & Cài đặt dependencies:**
+   ```bash
+   cd backend
+   composer install
+   ```
 
-### Bước 1: Mở terminal mới, di chuyển vào thư mục frontend & Cài đặt dependencies
-```bash
-cd frontend
-npm install
-```
+2. **Thiết lập file môi trường `.env`:**
+   ```bash
+   # Trên Git Bash / Linux / macOS
+   cp .env.example .env
 
-### Bước 2: Thiết lập file môi trường `.env.local`
-Sao chép file cấu hình:
-```bash
-cp .env.example .env.local
-```
-*(Trên PowerShell Windows: `copy .env.example .env.local`)*
+   # Hoặc trên PowerShell Windows
+   copy .env.example .env
+   ```
 
-Mở file `.env.local` và kiểm tra các cấu hình:
-```ini
-NEXT_PUBLIC_API_URL=http://localhost:8000/api
-NEXT_PUBLIC_STORAGE_URL=http://localhost:8000/storage
+3. **Tạo Application Key:**
+   ```bash
+   php artisan key:generate
+   ```
 
-# Cấu hình kết nối WebSocket phía Client
-NEXT_PUBLIC_REVERB_APP_KEY=timviec_key
-NEXT_PUBLIC_REVERB_HOST=localhost
-NEXT_PUBLIC_REVERB_PORT=8080
-NEXT_PUBLIC_REVERB_SCHEME=http
-```
+4. **Cấu hình các thông số trong file `.env`:**
+   Mở file `.env` và cập nhật các dòng sau:
+   ```ini
+   APP_NAME="TimViecOnline"
+   APP_ENV=local
+   APP_DEBUG=true
+   APP_URL=http://localhost:8000
 
-### Bước 3: Khởi chạy Frontend Dev Server
-```bash
-npm run dev
-```
-Mở trình duyệt truy cập: **`http://localhost:3000`**.
+   # Kết nối MySQL (Đảm bảo Laragon/XAMPP đã Start MySQL)
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=tim_viec_online
+   DB_USERNAME=root
+   DB_PASSWORD=
+
+   # File Storage (Để xem được ảnh đại diện và CV PDF)
+   FILESYSTEM_DISK=public
+
+   # WebSocket Reverb
+   BROADCAST_CONNECTION=reverb
+   REVERB_APP_ID=timviec_app
+   REVERB_APP_KEY=timviec_key
+   REVERB_APP_SECRET=timviec_secret
+   REVERB_HOST="localhost"
+   REVERB_PORT=8080
+   REVERB_SCHEME=http
+
+   # Khóa Google Gemini AI
+   GEMINI_API_KEY=your_gemini_api_key_here
+   ```
+
+5. **Tạo liên kết Symbolic Link lưu trữ file:**
+   ```bash
+   php artisan storage:link
+   ```
+
+6. **Khởi chạy Server Backend:**
+   ```bash
+   php artisan serve --port=8000
+   ```
+   API Backend sẽ chạy tại: **`http://localhost:8000`**.
 
 ---
 
-## 6. Hướng dẫn Chi tiết & Checklist Từng Thành viên
+## 4. Cài đặt & Khởi chạy Frontend (Next.js 14 App Router)
+
+### 4.1. Khởi tạo mới từ đầu (Nếu thư mục `/frontend` chưa có)
+
+1. **Mở Terminal tại thư mục gốc của repository (`tim-viec-online`):**
+   ```bash
+   npx create-next-app@latest frontend --typescript --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm
+   ```
+2. **Di chuyển vào thư mục frontend và cài đặt các thư viện cần thiết:**
+   ```bash
+   cd frontend
+   npm install axios lucide-react sonner clsx tailwind-merge
+   npm install laravel-echo pusher-js
+   ```
+
+   > [!NOTE]
+   > **Nếu gặp cảnh báo `high severity vulnerabilities` khi chạy npm install:**  
+   > - Đây chỉ là cảnh báo công cụ kiểm tra cú pháp dev (gói `braces` trong ESLint), hoàn toàn không ảnh hưởng đến website.  
+   > - ⚠️ **TUYỆT ĐỐI KHÔNG chạy `npm audit fix --force`** vì sẽ làm hạ cấp phiên bản Next.js và gây lỗi xung đột hệ thống!  
+   > - Hãy cấu hình `"overrides": {"fast-glob": "^3.3.3", "micromatch": "^4.0.8", "braces": "^3.0.3" }` trong `frontend/package.json` để vá an toàn. Bạn có thể bỏ qua và tiếp tục làm bước 3.
+
+3. **Cài đặt thư viện giao diện shadcn/ui:**
+   ```bash
+   npx shadcn@latest init
+   ```
+   *(Chọn Nova, Style: Default, Base color: Slate, CSS variables: Yes)*
+4. **Tạo file `.env.example` trong thư mục frontend:**
+   Tạo file `frontend/.env.example` với nội dung:
+   ```ini
+   NEXT_PUBLIC_API_URL=http://localhost:8000/api
+   NEXT_PUBLIC_STORAGE_URL=http://localhost:8000/storage
+   NEXT_PUBLIC_REVERB_APP_KEY=timviec_key
+   NEXT_PUBLIC_REVERB_HOST=localhost
+   NEXT_PUBLIC_REVERB_PORT=8080
+   NEXT_PUBLIC_REVERB_SCHEME=http
+   ```
+5. **Commit và đẩy thư mục `frontend` lên nhánh `develop`:**
+   ```bash
+   git add frontend
+   git commit -m "chore(frontend): khởi tạo project Next.js 14 App Router, Tailwind, Axios và Echo"
+   git push origin develop
+   ```
+
+---
+
+### 4.2. Khởi chạy dự án (Khi đã có thư mục `/frontend` từ Git)
+> **Dành cho các thành viên còn lại** sau khi đã kéo (pull) thư mục `frontend` về máy:
+
+1. **Di chuyển vào thư mục frontend & Cài đặt dependencies:**
+   ```bash
+   cd frontend
+   npm install
+   ```
+
+2. **Thiết lập file môi trường `.env.local`:**
+   ```bash
+   # Trên Git Bash / Linux / macOS
+   cp .env.example .env.local
+
+   # Hoặc trên PowerShell Windows
+   copy .env.example .env.local
+   ```
+
+3. **Kiểm tra thông số cấu hình trong file `.env.local`:**
+   ```ini
+   NEXT_PUBLIC_API_URL=http://localhost:8000/api
+   NEXT_PUBLIC_STORAGE_URL=http://localhost:8000/storage
+
+   NEXT_PUBLIC_REVERB_APP_KEY=timviec_key
+   NEXT_PUBLIC_REVERB_HOST=localhost
+   NEXT_PUBLIC_REVERB_PORT=8080
+   NEXT_PUBLIC_REVERB_SCHEME=http
+   ```
+
+4. **Khởi chạy Frontend Dev Server:**
+   ```bash
+   npm run dev
+   ```
+   Mở trình duyệt truy cập: **`http://localhost:3000`**.
+
+---
+
+## 5. Hướng dẫn Chi tiết & Checklist Từng Thành viên
 
 ---
 
@@ -234,18 +291,30 @@ Mở trình duyệt truy cập: **`http://localhost:3000`**.
     - `PUT /api/employer/company`: Cập nhật thông tin công ty, logo, website, quy mô.
   - Tích hợp **Google Gemini 1.5 Flash API**:
     - Tạo `app/Services/GeminiService.php`.
-    - Truyền nội dung CV PDF và JD công việc vào Gemini Prompt với định dạng trả về **Structured JSON Output**:
+    - Truyền nội dung CV PDF và JD công việc vào Gemini Prompt với định dạng trả về **Structured JSON Output** (khớp 100% với các cột trong bảng `ai_cv_analyses`):
       ```json
       {
         "match_score": 85,
         "summary": "Ứng viên có kỹ năng backend tốt, phù hợp cao với vị trí.",
-        "matched_skills": ["PHP", "Laravel", "MySQL"],
-        "missing_skills": ["Docker", "Redis"],
-        "strengths": ["Đúng khung công nghệ", "2 năm kinh nghiệm thực chiến"],
-        "recommendations": ["Cần bổ sung kiến thức về Caching và containerization"]
+        "matched_skills": [
+          "PHP",
+          "Laravel",
+          "MySQL"
+        ],
+        "missing_skills": [
+          "Docker",
+          "Redis"
+        ],
+        "strengths": [
+          "Đúng khung công nghệ",
+          "2 năm kinh nghiệm thực chiến"
+        ],
+        "recommendations": [
+          "Cần bổ sung kiến thức về Caching và containerization"
+        ]
       }
       ```
-    - Lưu kết quả vào bảng `ai_cv_analyses` (lưu vĩnh viễn, không tính toán lại).
+    - Lưu kết quả vào bảng `ai_cv_analyses` (lưu vĩnh viễn, không tính toán lại theo FR-07.5).
 * **Tuần 3 (Admin API & Nghiệm thu):**
   - Viết API cho Admin:
     - `GET /api/admin/stats`: Thống kê tổng số Ứng viên, NTD, Jobs, Lượt nộp.
@@ -383,9 +452,9 @@ Mở trình duyệt truy cập: **`http://localhost:3000`**.
 
 ---
 
-## 7. Quy chuẩn Phối hợp & Tiêu chuẩn API
+## 6. Quy chuẩn Phối hợp & Tiêu chuẩn API
 
-### 7.1. Định dạng JSON Response thống nhất giữa BE và FE
+### 6.1. Định dạng JSON Response thống nhất giữa BE và FE
 Mọi API trả về bắt buộc tuân thủ đúng định dạng chuẩn:
 
 * **Khi thành công (HTTP 200, 201):**
@@ -414,7 +483,7 @@ Mọi API trả về bắt buộc tuân thủ đúng định dạng chuẩn:
 }
 ```
 
-### 7.2. Quy tắc Họp nhanh (Daily Standup)
+### 6.2. Quy tắc Họp nhanh (Daily Standup)
 Mỗi tối lúc **21:30 - 22:00**, tất cả thành viên dành 10 phút nhắn tin vào nhóm:
 1. **Hôm nay tôi đã làm được gì?** (Gửi kèm link PR hoặc ảnh chụp màn hình demo).
 2. **Ngày mai tôi sẽ làm gì?**
@@ -422,7 +491,7 @@ Mỗi tối lúc **21:30 - 22:00**, tất cả thành viên dành 10 phút nhắ
 
 ---
 
-## 8. Xử lý Các Lỗi Thường Gặp (Troubleshooting)
+## 7. Xử lý Các Lỗi Thường Gặp (Troubleshooting)
 
 ### Lỗi 1: Bị chặn CORS khi gọi từ Frontend sang Backend
 * **Triệu chứng:** Console trình duyệt báo đỏ: `Access to XMLHttpRequest blocked by CORS policy`.
@@ -460,6 +529,73 @@ Mỗi tối lúc **21:30 - 22:00**, tất cả thành viên dành 10 phút nhắ
 ### Lỗi 4: Xung đột Port khi chạy server
 * **Port 8000 bị chiếm:** Chạy backend với port khác: `php artisan serve --port=8001` (đồng thời sửa `NEXT_PUBLIC_API_URL` ở frontend).
 * **Port 3000 bị chiếm:** Next.js sẽ tự động hỏi chuyển sang port `3001` hoặc chạy: `npm run dev -- -p 3001`.
+
+### Lỗi 5: Composer chặn cài đặt Laravel (Security Advisories)
+* **Triệu chứng:** Khi chạy `composer create-project` hoặc `composer install`, terminal báo:
+  `Root composer.json requires laravel/framework ^11.0... because they are affected by security advisories ("PKSA-...")`.
+* **Nguyên nhân:** Composer (phiên bản 2.8+) mặc định kích hoạt tính năng chặn cài đặt các package có cảnh báo bảo mật.
+* **Cách sửa:**
+  - Tắt chặn trên toàn máy:
+    ```bash
+    composer config --global policy.advisories.block false
+    ```
+  - Hoặc nếu thư mục `backend/` đã tạo dở dang:
+    ```bash
+    cd backend
+    composer config policy.advisories.block false
+    composer update
+    ```
+
+### Lỗi 6: Lỗi SQLite khi chạy `php artisan install:api`
+* **Triệu chứng:** Terminal báo đỏ: `Database file at path [...database.sqlite] does not exist. (Connection: sqlite...)`.
+* **Nguyên nhân:** Laravel 11 mặc định đặt `DB_CONNECTION=sqlite` trong file `.env`. Khi chạy `install:api`, Laravel cố gắng migrate bảng vào SQLite nhưng file chưa tồn tại.
+* **Cách sửa:**
+  1. Mở file `backend/.env`.
+  2. Đổi kết nối sang MySQL:
+     ```ini
+     DB_CONNECTION=mysql
+     DB_HOST=127.0.0.1
+     DB_PORT=3306
+     DB_DATABASE=tim_viec_online
+     DB_USERNAME=root
+     DB_PASSWORD=
+     ```
+  3. Đảm bảo MySQL trong Laragon/XAMPP đang bật, sau đó chạy lại:
+     ```bash
+     php artisan migrate
+     ```
+
+### Lỗi 7: NPM báo `high severity vulnerabilities` ở Frontend
+* **Triệu chứng:** Khi chạy `npm install`, terminal thông báo:
+  `5 high severity vulnerabilities. To address all issues (including breaking changes), run: npm audit fix --force`.
+* **Nguyên nhân:** Gói `braces` phụ thuộc sâu trong plugin kiểm tra cú pháp ESLint của Next.js có cảnh báo bảo mật. Đây là công cụ dev, không ảnh hưởng đến mã nguồn ứng dụng hay người dùng cuối.
+* **CẢNH BÁO QUAN TRỌNG:**
+  ⚠️ **TUYỆT ĐỐI KHÔNG CHẠY `npm audit fix --force`**! Lệnh này sẽ tự động hạ cấp `eslint-config-next` về phiên bản cũ và gây lỗi phá vỡ dự án (Breaking changes).
+* **Cách sửa chuẩn:**
+  1. Mở file `frontend/package.json`.
+  2. Thêm thuộc tính `overrides` để ép NPM dùng bản vá an toàn:
+     ```json
+     "overrides": {
+       "braces": "^3.0.3"
+     }
+     ```
+### Lỗi 8: Unknown collation 'utf8mb4_0900_ai_ci' trên MariaDB / XAMPP
+* **Triệu chứng:** Khi chạy `php artisan install:api` hoặc `php artisan migrate`, terminal báo lỗi:
+  `SQLSTATE[HY000]: General error: 1273 Unknown collation: 'utf8mb4_0900_ai_ci'`.
+* **Nguyên nhân:** Laravel 11 mặc định sử dụng bộ mã hóa collation `utf8mb4_0900_ai_ci` của MySQL 8.0+. Trong khi đó, phần mềm XAMPP chạy cơ sở dữ liệu **MariaDB** (thường là bản 10.4.x) chưa hỗ trợ collation này.
+* **Cách sửa:**
+  1. Mở file `backend/.env`, thêm dòng cấu hình:
+     ```ini
+     DB_COLLATION=utf8mb4_unicode_ci
+     ```
+  2. Trong file `backend/config/database.php`, đảm bảo collation mặc định của mysql là `utf8mb4_unicode_ci`:
+     ```php
+     'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
+     ```
+  3. Chạy lại lệnh bình thường:
+     ```bash
+     php artisan migrate
+     ```
 
 ---
 *Chúc cả nhóm phối hợp hiệu quả và hoàn thành xuất sắc đồ án!*
