@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Việc Làm Đã Lưu - Quản Lý Cơ Hội Nghề Nghiệp | VietnamWorks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            vnw: {
+              navy: '#002B7F',
+              navyDark: '#001E5B',
+              coral: '#FF6A39',
+              coralHover: '#F4511E',
+              emerald: '#00A862',
+              grayBg: '#F4F6F9',
+              border: '#E2E8F0',
+            }
+          },
+          fontFamily: {
+            sans: ['"Be Vietnam Pro"', 'Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Be Vietnam Pro', Inter, sans-serif;
+      background-color: #F4F6F9;
+    }
+
+    .job-card {
+      transition: all 0.2s ease-in-out;
+    }
+
+    .job-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px -5px rgba(0, 43, 127, 0.1);
+      border-color: #005AFF;
+    }
+  </style>
+</head>
+
+<body
+  class="bg-[#F4F6F9] text-slate-800 antialiased min-h-screen flex flex-col selection:bg-[#FF6A39] selection:text-white">
+
+  <!-- MAIN CANDIDATE NAVBAR -->
+  <header class="sticky top-0 z-40 bg-[#002B7F] text-white shadow-md border-b border-[#002060]">
+    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 h-[72px] flex items-center justify-between gap-4">
+
+      <!-- Brand Logo & Nav -->
+      <div class="flex items-center gap-8">
+        <a href="../page_home/index.html" class="flex items-center gap-2.5 group">
+          <svg class="h-8 w-auto shrink-0" viewBox="0 0 52 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="17" cy="16" rx="12" ry="9" stroke="#00C2F3" stroke-width="4.5" fill="none"
+              transform="rotate(-18 17 16)" />
+            <ellipse cx="32" cy="16" rx="12" ry="9" stroke="#005AFF" stroke-width="4.5" fill="none"
+              transform="rotate(18 32 16)" />
+          </svg>
+          <div class="flex flex-col -space-y-0.5">
+            <span class="text-[21px] font-black tracking-tight text-white leading-none font-sans lowercase">
+              vietnam<span class="text-white">works</span>
+            </span>
+            <span class="text-[8.5px] font-semibold tracking-wider text-[#7dd3fc] uppercase leading-none pl-0.5">
+              empower growth
+            </span>
+          </div>
+        </a>
+
+        <!-- Candidate Main Links -->
+        <nav class="hidden lg:flex items-center gap-1 text-[14px]">
+          <a href="../page_jobs/index.html"
+            class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
+            Tìm Việc Làm
+          </a>
+          <a href="../page_saved_jobs/index.html"
+            class="px-3.5 py-1.5 rounded-full bg-[#001E5B] text-white font-bold transition">
+            Việc Làm Đã Lưu
+          </a>
+          <a href="../page_candidate_dashboard/index.html"
+            class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
+            Lịch Sử Ứng Tuyển
+          </a>
+          <a href="../page_companies/index.html"
+            class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
+            Top Công Ty
+          </a>
+        </nav>
+      </div>
+
+      <!-- Candidate Right Controls -->
+      <div class="flex items-center gap-3">
+        <!-- Chat icon with unread count -->
+        <a href="../page_chat/index.html"
+          class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center relative transition"
+          title="Tin nhắn">
+          <i data-lucide="message-square" class="w-4 h-4"></i>
+          <span
+            class="absolute -top-1 -right-1 bg-[#FF6A39] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">1</span>
+        </a>
+
+        <!-- Notifications with unread badge -->
+        <a href="../page_notifications/index.html"
+          class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center relative transition"
+          title="Thông báo">
+          <i data-lucide="bell" class="w-4 h-4"></i>
+          <span
+            class="absolute -top-1 -right-1 bg-[#FF6A39] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">2</span>
+        </a>
+
+        <!-- User Profile Dropdown -->
+        <div class="flex items-center gap-2 pl-2 border-l border-white/20">
+          <div
+            class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-400 to-blue-600 text-white font-bold text-xs flex items-center justify-center shadow-sm">
+            NA
+          </div>
+          <span class="text-xs font-semibold hidden md:inline text-white">Nguyễn Văn A</span>
+          <a href="../page_settings/index.html"
+            class="p-1 hover:bg-white/10 rounded-full text-white/80 hover:text-white" title="Cài đặt">
+            <i data-lucide="settings" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN SAVED JOBS CONTENT -->
+  <main class="max-w-[1100px] mx-auto px-4 lg:px-6 py-8 flex-1 w-full space-y-6">
+
+    <!-- HEADER CARD -->
+    <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 text-xs text-slate-500 font-semibold mb-1">
+            <a href="../page_home/index.html" class="hover:text-[#002B7F]">Trang chủ</a>
+            <span>/</span>
+            <span class="text-slate-900">Việc làm đã lưu</span>
+          </div>
+          <h1 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2.5">
+            <i data-lucide="bookmark" class="w-6 h-6 text-[#FF6A39] fill-[#FF6A39]"></i>
+            Danh Sách Việc Làm Đã Lưu
+          </h1>
+          <p class="text-xs text-slate-500 mt-1">
+            Bạn đang lưu trữ <strong>4 cơ hội việc làm</strong> phù hợp với chuyên môn của mình.
+          </p>
+        </div>
+
+        <a href="../page_jobs/index.html"
+          class="px-5 py-2.5 rounded-full bg-[#002B7F] hover:bg-[#001E5B] text-white text-xs font-bold transition flex items-center gap-2 shadow-sm self-start sm:self-auto">
+          <i data-lucide="search" class="w-4 h-4"></i>
+          <span>Tìm Thêm Việc Làm</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- SAVED JOBS LIST -->
+    <div class="space-y-4">
+
+      <!-- Job 1 -->
+      <div
+        class="job-card bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="flex items-start gap-4">
+          <div
+            class="w-14 h-14 rounded-xl border border-slate-100 p-2 flex items-center justify-center shrink-0 bg-white shadow-sm">
+            <span class="text-[#005AFF] font-black text-lg">FPT</span>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2 py-0.5 rounded-full bg-red-50 text-red-600 font-bold text-[10px] uppercase">Tuyển
+                Gấp</span>
+              <span class="text-xs text-slate-400">Đã lưu 2 ngày trước</span>
+            </div>
+            <h2 class="text-base font-bold text-slate-900 hover:text-[#005AFF] transition">
+              <a href="../page_job_detail/index.html">Senior Fullstack Developer (Laravel & React/Next.js)</a>
+            </h2>
+            <div class="text-xs text-slate-600 font-medium mt-0.5">FPT Software</div>
+            <div class="flex flex-wrap items-center gap-3 text-xs mt-2">
+              <span class="font-bold text-[#FF6A39]">30 - 45 triệu VNĐ</span>
+              <span class="text-slate-300">•</span>
+              <span class="text-slate-600 flex items-center gap-1">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i>
+                TP. Hồ Chí Minh
+              </span>
+              <span class="text-slate-300">•</span>
+              <span class="text-slate-500">Hạn nộp: 30/11/2026</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 shrink-0 self-end md:self-center">
+          <button
+            class="p-2 rounded-full border border-slate-200 text-slate-400 hover:text-red-600 hover:bg-red-50 transition"
+            title="Bỏ lưu việc làm">
+            <i data-lucide="trash-2" class="w-4 h-4"></i>
+          </button>
+          <a href="../page_job_detail/index.html"
+            class="px-5 py-2.5 rounded-full bg-[#FF6A39] hover:bg-[#F4511E] text-white text-xs font-bold shadow-md transition active:scale-95">
+            Ứng Tuyển Ngay
+          </a>
+        </div>
+      </div>
+
+      <!-- Job 2 -->
+      <div
+        class="job-card bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="flex items-start gap-4">
+          <div
+            class="w-14 h-14 rounded-xl border border-slate-100 p-2 flex items-center justify-center shrink-0 bg-white shadow-sm">
+            <span class="text-red-600 font-black text-sm">VIX</span>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2 py-0.5 rounded-full bg-blue-50 text-[#002B7F] font-bold text-[10px] uppercase">Mới
+                Đăng</span>
+              <span class="text-xs text-slate-400">Đã lưu 3 ngày trước</span>
+            </div>
+            <h2 class="text-base font-bold text-slate-900 hover:text-[#005AFF] transition">
+              <a href="../page_job_detail/index.html">Frontend Engineer (React, Tailwind CSS, TypeScript)</a>
+            </h2>
+            <div class="text-xs text-slate-600 font-medium mt-0.5">VIX Securities</div>
+            <div class="flex flex-wrap items-center gap-3 text-xs mt-2">
+              <span class="font-bold text-[#FF6A39]">22 - 35 triệu VNĐ</span>
+              <span class="text-slate-300">•</span>
+              <span class="text-slate-600 flex items-center gap-1">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i>
+                Hà Nội
+              </span>
+              <span class="text-slate-300">•</span>
+              <span class="text-slate-500">Hạn nộp: 15/12/2026</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 shrink-0 self-end md:self-center">
+          <button
+            class="p-2 rounded-full border border-slate-200 text-slate-400 hover:text-red-600 hover:bg-red-50 transition"
+            title="Bỏ lưu việc làm">
+            <i data-lucide="trash-2" class="w-4 h-4"></i>
+          </button>
+          <a href="../page_job_detail/index.html"
+            class="px-5 py-2.5 rounded-full bg-[#FF6A39] hover:bg-[#F4511E] text-white text-xs font-bold shadow-md transition active:scale-95">
+            Ứng Tuyển Ngay
+          </a>
+        </div>
+      </div>
+
+      <!-- Job 3 -->
+      <div
+        class="job-card bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="flex items-start gap-4">
+          <div
+            class="w-14 h-14 rounded-xl border border-slate-100 p-2 flex items-center justify-center shrink-0 bg-white shadow-sm">
+            <span class="text-red-700 font-black text-xs">TECHCOM</span>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-[#00A862] font-bold text-[10px] uppercase">Lương
+                Cao</span>
+              <span class="text-xs text-slate-400">Đã lưu 1 tuần trước</span>
+            </div>
+            <h2 class="text-base font-bold text-slate-900 hover:text-[#005AFF] transition">
+              <a href="../page_job_detail/index.html">Backend Tech Lead (PHP Laravel & Cloud Services)</a>
+            </h2>
+            <div class="text-xs text-slate-600 font-medium mt-0.5">Techcombank</div>
+            <div class="flex flex-wrap items-center gap-3 text-xs mt-2">
+              <span class="font-bold text-[#FF6A39]">Từ 50 triệu VNĐ</span>
+              <span class="text-slate-300">•</span>
+              <span class="text-slate-600 flex items-center gap-1">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i>
+                Hà Nội
+              </span>
+              <span class="text-slate-300">•</span>
+              <span class="text-slate-500">Hạn nộp: 20/12/2026</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 shrink-0 self-end md:self-center">
+          <button
+            class="p-2 rounded-full border border-slate-200 text-slate-400 hover:text-red-600 hover:bg-red-50 transition"
+            title="Bỏ lưu việc làm">
+            <i data-lucide="trash-2" class="w-4 h-4"></i>
+          </button>
+          <a href="../page_job_detail/index.html"
+            class="px-5 py-2.5 rounded-full bg-[#FF6A39] hover:bg-[#F4511E] text-white text-xs font-bold shadow-md transition active:scale-95">
+            Ứng Tuyển Ngay
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#001744] text-white/80 text-xs py-10 mt-16 border-t border-white/10">
+    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-2.5">
+        <svg class="h-6 w-auto shrink-0" viewBox="0 0 52 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="17" cy="16" rx="12" ry="9" stroke="#00C2F3" stroke-width="4.5" fill="none"
+            transform="rotate(-18 17 16)" />
+          <ellipse cx="32" cy="16" rx="12" ry="9" stroke="#005AFF" stroke-width="4.5" fill="none"
+            transform="rotate(18 32 16)" />
+        </svg>
+        <span class="text-sm font-extrabold text-white">vietnamworks</span>
+      </div>
+      <p class="text-slate-400 text-center md:text-left">
+        © 2026 VietnamWorks - Navigos Group Vietnam. Mọi quyền được bảo lưu.
+      </p>
+      <div class="flex items-center gap-4 text-slate-300">
+        <a href="../page_home/index.html" class="hover:text-white">Trang chủ</a>
+        <a href="../page_jobs/index.html" class="hover:text-white">Việc làm</a>
+        <a href="../page_companies/index.html" class="hover:text-white">Công ty</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING PROTOTYPE ROUTES DRAWER (18 PAGES) -->
+  <div class="fixed bottom-6 right-6 z-50">
+    <button id="toggleRoutesDrawer"
+      class="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#002B7F] hover:bg-[#001E5B] text-white shadow-2xl border border-white/20 text-xs font-bold transition transform hover:scale-105 active:scale-95">
+      <i data-lucide="map" class="w-4 h-4 text-cyan-300"></i>
+      <span>Routes (18)</span>
+    </button>
+  </div>
+
+  <div id="routesDrawerBackdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden transition-opacity">
+  </div>
+  <div id="routesDrawer"
+    class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="p-5 bg-[#002B7F] text-white flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <i data-lucide="compass" class="w-5 h-5 text-cyan-300"></i>
+        <h3 class="font-bold text-base">Hệ Thống 18 Màn Hình</h3>
+      </div>
+      <button id="closeRoutesDrawer" class="p-1.5 rounded-full hover:bg-white/10 text-white transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+    <div class="p-4 flex-1 overflow-y-auto space-y-4 text-xs">
+      <div>
+        <div class="font-bold text-slate-400 uppercase text-[10px] tracking-wider mb-2">1. Dành Cho Khách & Ứng Viên
+        </div>
+        <div class="space-y-1">
+          <a href="../page_home/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>1. Trang
+              Chủ</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_jobs/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>2. Tìm Kiếm
+              Việc Làm</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_job_detail/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>3. Chi Tiết
+              Việc Làm</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_companies/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>4. Top
+              Doanh Nghiệp Hàng Đầu</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_company_detail/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>5. Hồ Sơ
+              Doanh Nghiệp</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_saved_jobs/index.html"
+            class="flex items-center justify-between p-2 rounded-lg bg-blue-50 text-[#002B7F] font-bold"><span>6. Việc
+              Làm Đã Lưu</span><i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></a>
+          <a href="../page_candidate_dashboard/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>7. Hồ Sơ CV
+              & Lịch Sử Nộp Đơn</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_settings/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>8. Cài Đặt
+              Tài Khoản & Mật Khẩu</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+        </div>
+      </div>
+      <div>
+        <div class="font-bold text-slate-400 uppercase text-[10px] tracking-wider mb-2">2. Dành Cho Nhà Tuyển Dụng</div>
+        <div class="space-y-1">
+          <a href="../page_employer_dashboard/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>9.
+              Dashboard Tuyển Dụng</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_post_job/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>10. Đăng
+              Tin Tuyển Dụng</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_employer_candidates/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>11. Quản Lý
+              & Lọc Ứng Viên Bằng AI</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_ai_cv_report/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>12. Báo Cáo
+              Phân Tích AI Ứng Viên</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+        </div>
+      </div>
+      <div>
+        <div class="font-bold text-slate-400 uppercase text-[10px] tracking-wider mb-2">3. Realtime & Quản Trị</div>
+        <div class="space-y-1">
+          <a href="../page_chat/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>13. Nhắn
+              Tin Realtime 1-1</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_notifications/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>14. Trung
+              Tâm Thông Báo</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_admin_portal/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>15. Cổng
+              Quản Trị Hệ Thống (Admin)</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_login/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>16. Đăng
+              Nhập</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_register/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>17. Đăng Ký
+              Tài Khoản</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_forgot_password/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>18. Quên
+              Mật Khẩu</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    const btn = document.getElementById('toggleRoutesDrawer');
+    const closeBtn = document.getElementById('closeRoutesDrawer');
+    const drawer = document.getElementById('routesDrawer');
+    const backdrop = document.getElementById('routesDrawerBackdrop');
+    function toggleDrawer(open) {
+      if (open) {
+        drawer.classList.remove('translate-x-full');
+        backdrop.classList.remove('hidden');
+      } else {
+        drawer.classList.add('translate-x-full');
+        backdrop.classList.add('hidden');
+      }
+    }
+    btn?.addEventListener('click', () => toggleDrawer(true));
+    closeBtn?.addEventListener('click', () => toggleDrawer(false));
+    backdrop?.addEventListener('click', () => toggleDrawer(false));
+  </script>
+</body>
+
+</html>

@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Senior Fullstack Developer (Laravel & React) - FPT Software | VieclamOnline</title>
+  <title>Senior Fullstack Developer (Laravel & React) - FPT Software | VietnamWorks</title>
+  <meta name="description" content="Tuyển dụng vị trí Senior Fullstack Developer (Laravel 11 & React/Next.js) tại FPT Software. Lương 25 - 40 triệu VNĐ, môi trường quốc tế chuyên nghiệp.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <script>
@@ -15,21 +16,17 @@
         extend: {
           colors: {
             vnw: {
-              navy: '#003699',
-              navyDark: '#002466',
-              navyDeep: '#001744',
-              blue: '#005AFF',
-              blueHover: '#004BD6',
-              blueLight: '#EBF3FE',
-              orange: '#FF7D55',
-              orangeHover: '#FD6B3E',
+              navy: '#002B7F',
+              navyDark: '#001E5B',
+              coral: '#FF6A39',
+              coralHover: '#F4511E',
               emerald: '#00A862',
-              bg: '#F4F6F9',
+              grayBg: '#F4F6F9',
+              border: '#E2E8F0',
             }
           },
           fontFamily: {
             sans: ['"Be Vietnam Pro"', 'Inter', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace'],
           }
         }
       }
@@ -39,52 +36,69 @@
     body { font-family: 'Be Vietnam Pro', Inter, sans-serif; background-color: #F4F6F9; }
   </style>
 </head>
-<body class="bg-[#F4F6F9] text-slate-800 antialiased min-h-screen flex flex-col">
+<body class="bg-[#F4F6F9] text-slate-800 antialiased min-h-screen flex flex-col selection:bg-[#FF6A39] selection:text-white">
 
-  <!-- TOP BAR -->
-  <!-- TOP UTILITY / SAFETY BAR -->
-  <div class="bg-[#002466] text-white/90 text-xs py-2 px-4 border-b border-white/10">
+  <!-- TOP SAFETY / UTILITY BAR -->
+  <div class="bg-[#001E5B] text-white/90 text-xs py-2 px-4 border-b border-white/10">
     <div class="max-w-[1360px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-      <div class="flex items-center gap-3">
-        <a href="../page_jobs/index.html" class="inline-flex items-center gap-1.5 text-white/90 hover:text-white font-semibold transition">
-          <i data-lucide="arrow-left" class="w-3.5 h-3.5 text-[#FF7D55]"></i>
-          Quay lại danh sách việc làm
-        </a>
+      <div class="flex items-center gap-3 text-[12px]">
+        <span class="flex items-center gap-1.5 text-white/90">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+          Hãy cẩn trọng trước các hành vi giả mạo thương hiệu VietnamWorks để lừa đảo tuyển dụng.
+        </span>
       </div>
       <div class="flex items-center gap-4 text-[12px]">
-        <a href="../page_home/index.html" class="hover:text-white transition">Trang chủ</a>
-        <span class="text-white/30">•</span>
-        <a href="../page_employer_dashboard/index.html" class="hover:text-white transition">Dành cho Nhà tuyển dụng</a>
+        <span class="text-white/80 hidden md:inline flex items-center gap-1">
+          <i data-lucide="phone-call" class="w-3 h-3 text-[#FF6A39]"></i>
+          Hotline: <strong class="text-white">1900 6868</strong>
+        </span>
+        <span class="text-white/30 hidden md:inline">|</span>
+        <a href="../page_employer_dashboard/index.html" class="text-white/90 hover:text-white font-medium transition flex items-center gap-1">
+          <i data-lucide="building" class="w-3.5 h-3.5 text-cyan-300"></i>
+          Dành cho Nhà tuyển dụng
+        </a>
       </div>
     </div>
   </div>
 
-  <!-- MAIN HEADER (VIETNAMWORKS ROYAL NAVY #003699) -->
-  <header class="sticky top-0 z-40 bg-[#003699] text-white shadow-md border-b border-[#002B7A]">
+  <!-- MAIN HEADER (PUBLIC ROLE) -->
+  <header class="sticky top-0 z-40 bg-[#002B7F] text-white shadow-md border-b border-[#002060]">
     <div class="max-w-[1360px] mx-auto px-4 lg:px-6 h-[72px] flex items-center justify-between gap-4">
+      
       <div class="flex items-center gap-8">
-        <a href="../page_home/index.html" class="flex items-center gap-3 group">
-          <div class="w-10 h-10 rounded-xl bg-white text-[#003699] flex items-center justify-center font-black text-xl shadow-md group-hover:scale-105 transition">
-            V
+        <a href="../page_home/index.html" class="flex items-center gap-2.5 group">
+          <svg class="h-8 w-auto shrink-0" viewBox="0 0 52 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="17" cy="16" rx="12" ry="9" stroke="#00C2F3" stroke-width="4.5" fill="none" transform="rotate(-18 17 16)"/>
+            <ellipse cx="32" cy="16" rx="12" ry="9" stroke="#005AFF" stroke-width="4.5" fill="none" transform="rotate(18 32 16)"/>
+          </svg>
+          <div class="flex flex-col -space-y-0.5">
+            <span class="text-[21px] font-black tracking-tight text-white leading-none font-sans lowercase">
+              vietnam<span class="text-white">works</span>
+            </span>
+            <span class="text-[8.5px] font-semibold tracking-wider text-[#7dd3fc] uppercase leading-none pl-0.5">
+              empower growth
+            </span>
           </div>
-          <span class="text-2xl font-black tracking-tight text-white flex items-center">
-            Vieclam<span class="text-[#FF7D55]">Online</span>
-          </span>
         </a>
+
         <nav class="hidden lg:flex items-center gap-1 text-[14px]">
-          <a href="../page_home/index.html" class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition">Trang chủ</a>
-          <a href="../page_jobs/index.html" class="px-3.5 py-1.5 rounded-full bg-[#002B7A] text-white font-bold shadow-inner">Tìm việc làm</a>
-          <a href="../page_company_detail/index.html" class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition">Top Công ty</a>
-          <a href="../page_ai_cv_report/index.html" class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition">AI Match CV</a>
+          <a href="../page_home/index.html" class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
+            Trang chủ
+          </a>
+          <a href="../page_jobs/index.html" class="px-3.5 py-1.5 rounded-full bg-[#001E5B] text-white font-bold transition">
+            Việc làm
+          </a>
+          <a href="../page_companies/index.html" class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
+            Top Công ty
+          </a>
         </nav>
       </div>
 
       <div class="flex items-center gap-3">
-        <a href="../page_chat/index.html" class="w-9 h-9 rounded-full bg-[#002B7A] hover:bg-[#002263] border border-white/15 text-white flex items-center justify-center relative transition" title="Tin nhắn Realtime">
-          <i data-lucide="message-square" class="w-4 h-4"></i>
-          <span class="absolute -top-1 -right-1 bg-[#FF7D55] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">3</span>
+        <a href="../page_saved_jobs/index.html" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition" title="Việc làm đã lưu">
+          <i data-lucide="bookmark" class="w-4 h-4"></i>
         </a>
-        <button onclick="openApplyModal()" class="px-6 py-2.5 bg-[#FF7D55] hover:bg-[#FD6B3E] text-white text-xs font-bold rounded-full shadow-md shadow-orange-950/20 transition active:scale-95 flex items-center gap-2">
+        <button onclick="openApplyModal()" class="px-6 py-2.5 bg-[#FF6A39] hover:bg-[#F4511E] text-white text-xs font-bold rounded-full shadow-md transition active:scale-95 flex items-center gap-2">
           <i data-lucide="send" class="w-3.5 h-3.5"></i>
           <span>Ứng Tuyển Ngay</span>
         </button>
@@ -93,11 +107,11 @@
   </header>
 
   <!-- BREADCRUMBS -->
-  <div class="bg-white border-b border-slate-200 text-xs py-3 px-4 text-slate-500 shadow-sm">
+  <div class="bg-white border-b border-slate-200 text-xs py-3 px-4 text-slate-500 shadow-xs">
     <div class="max-w-[1360px] mx-auto flex items-center gap-2">
-      <a href="../page_home/index.html" class="hover:text-[#005AFF] transition">Trang chủ</a>
+      <a href="../page_home/index.html" class="hover:text-[#002B7F] transition">Trang chủ</a>
       <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
-      <a href="../page_jobs/index.html" class="hover:text-[#005AFF] transition">Công nghệ thông tin</a>
+      <a href="../page_jobs/index.html" class="hover:text-[#002B7F] transition">Công nghệ thông tin</a>
       <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
       <span class="text-slate-800 font-semibold truncate">Senior Fullstack Developer (Laravel & React)</span>
     </div>
@@ -107,18 +121,18 @@
   <main class="max-w-[1360px] mx-auto px-4 lg:px-6 py-6 flex-1 w-full space-y-6">
     
     <!-- TOP HEADER CARD (JOB SUMMARY) -->
-    <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+    <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
       <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
         
         <div class="flex items-start gap-5">
           <a href="../page_company_detail/index.html" class="w-20 h-20 rounded-2xl border border-slate-100 p-2 flex items-center justify-center bg-white shadow-sm shrink-0">
-            <div class="w-full h-full rounded-xl bg-orange-600 text-white font-black text-xl flex items-center justify-center">FPT</div>
+            <span class="text-[#005AFF] font-black text-2xl">FPT</span>
           </a>
           <div>
             <div class="flex items-center gap-2">
-              <a href="../page_company_detail/index.html" class="text-sm font-bold text-slate-600 hover:text-[#005AFF] flex items-center gap-1 transition">
+              <a href="../page_company_detail/index.html" class="text-sm font-bold text-slate-600 hover:text-[#002B7F] flex items-center gap-1 transition">
                 FPT Software
-                <i data-lucide="badge-check" class="w-4 h-4 text-[#005AFF] fill-blue-50"></i>
+                <i data-lucide="badge-check" class="w-4 h-4 text-[#002B7F]"></i>
               </a>
               <span class="text-slate-300">•</span>
               <span class="text-xs text-slate-500">Quy mô: 30.000+ nhân viên</span>
@@ -128,24 +142,24 @@
               Senior Fullstack Developer (Laravel 11 & React/Next.js)
             </h1>
 
-            <div class="flex flex-wrap items-center gap-4 mt-3">
-              <div class="flex items-center gap-1.5 font-mono text-base font-bold text-[#00A862]">
+            <div class="flex flex-wrap items-center gap-4 mt-3 text-xs">
+              <div class="flex items-center gap-1.5 font-bold text-base text-[#FF6A39]">
                 <i data-lucide="banknote" class="w-5 h-5"></i>
                 <span>25 - 40 Triệu VNĐ</span>
               </div>
               <span class="text-slate-300">|</span>
-              <div class="flex items-center gap-1.5 text-xs text-slate-600">
-                <i data-lucide="map-pin" class="w-4 h-4 text-[#005AFF]"></i>
-                <span>Quận 9, TP. Hồ Chí Minh</span>
+              <div class="flex items-center gap-1.5 text-slate-600">
+                <i data-lucide="map-pin" class="w-4 h-4 text-[#002B7F]"></i>
+                <span>TP. Thủ Đức, TP. Hồ Chí Minh</span>
               </div>
               <span class="text-slate-300">|</span>
-              <div class="flex items-center gap-1.5 text-xs text-slate-600">
+              <div class="flex items-center gap-1.5 text-slate-600">
                 <i data-lucide="briefcase" class="w-4 h-4 text-slate-400"></i>
                 <span>Senior (3+ năm kinh nghiệm)</span>
               </div>
               <span class="text-slate-300">|</span>
-              <div class="flex items-center gap-1.5 text-xs text-[#FF7D55] font-semibold">
-                <i data-lucide="hourglass" class="w-4 h-4"></i>
+              <div class="flex items-center gap-1.5 text-slate-500 font-medium">
+                <i data-lucide="clock" class="w-4 h-4 text-slate-400"></i>
                 <span>Hạn nộp: 30/11/2026 (Còn 15 ngày)</span>
               </div>
             </div>
@@ -154,51 +168,18 @@
 
         <!-- Action CTAs -->
         <div class="flex flex-wrap sm:flex-nowrap items-center gap-3 shrink-0">
-          <button onclick="openApplyModal()" class="w-full sm:w-auto px-8 py-3.5 bg-[#FF7D55] hover:bg-[#FD6B3E] text-white font-bold text-sm rounded-full shadow-lg shadow-orange-500/25 transition active:scale-95 flex items-center justify-center gap-2">
+          <button onclick="openApplyModal()" class="w-full sm:w-auto px-8 py-3.5 bg-[#FF6A39] hover:bg-[#F4511E] text-white font-bold text-sm rounded-full shadow-md transition active:scale-95 flex items-center justify-center gap-2">
             <i data-lucide="send" class="w-4 h-4"></i>
             <span>Ứng Tuyển Ngay</span>
           </button>
-          <a href="../page_chat/index.html" class="p-3.5 rounded-full border border-slate-200 text-slate-700 hover:text-[#005AFF] hover:border-blue-300 hover:bg-slate-50 transition flex items-center justify-center gap-1.5 text-xs font-bold" title="Chat trực tiếp với nhà tuyển dụng">
+          <a href="../page_chat/index.html" class="p-3.5 rounded-full border border-slate-200 text-slate-700 hover:text-[#002B7F] hover:bg-slate-50 transition flex items-center justify-center" title="Nhắn tin với nhà tuyển dụng">
             <i data-lucide="message-square" class="w-4 h-4"></i>
-            <span>Chat 1-1</span>
           </a>
-          <button class="p-3.5 rounded-full border border-slate-200 text-slate-400 hover:text-rose-500 hover:border-rose-200 hover:bg-rose-50 transition" title="Lưu việc làm">
-            <i data-lucide="heart" class="w-4 h-4"></i>
-          </button>
+          <a href="../page_saved_jobs/index.html" class="p-3.5 rounded-full border border-slate-200 text-slate-400 hover:text-[#FF6A39] hover:bg-orange-50 transition" title="Lưu việc làm">
+            <i data-lucide="bookmark" class="w-4 h-4"></i>
+          </a>
         </div>
 
-      </div>
-    </div>
-
-    <!-- AI MATCH SCORE PREVIEW BANNER (FR-07) -->
-    <div class="bg-gradient-to-r from-blue-50/80 via-white to-emerald-50/70 border border-blue-200/80 rounded-2xl p-5 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
-      <div class="flex items-center gap-4">
-        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-[#005AFF] to-[#00A862] text-white font-mono font-black text-2xl flex items-center justify-center shrink-0 shadow-md shadow-blue-500/20">
-          92%
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="px-2.5 py-0.5 rounded-full bg-emerald-600 text-white text-[11px] font-bold uppercase tracking-wider">
-              Rất Phù Hợp
-            </span>
-            <span class="text-xs text-slate-500 font-medium">Chấm điểm bởi Google Gemini AI theo CV của bạn</span>
-          </div>
-          <h2 class="text-base font-bold text-slate-900 mt-1">
-            CV của bạn khớp <span class="text-[#00A862] font-mono">92/100 điểm</span> với bản mô tả công việc (JD) này
-          </h2>
-          <div class="flex flex-wrap items-center gap-3 mt-1.5 text-xs text-slate-600">
-            <span>• Kỹ năng (40%): <strong>38/40</strong></span>
-            <span>• Kinh nghiệm (30%): <strong>28/30</strong></span>
-            <span>• Học vấn (15%): <strong>14/15</strong></span>
-            <span>• Ngoại ngữ (15%): <strong>12/15</strong></span>
-          </div>
-        </div>
-      </div>
-      <div class="shrink-0 flex items-center gap-3">
-        <a href="../page_ai_cv_report/index.html" class="px-5 py-2.5 bg-[#003699] hover:bg-[#002466] text-white text-xs font-bold rounded-full transition flex items-center gap-1.5 shadow-sm">
-          <span>Xem phân tích chi tiết</span>
-          <i data-lucide="arrow-right" class="w-4 h-4"></i>
-        </a>
       </div>
     </div>
 
@@ -206,28 +187,28 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
       
       <!-- LEFT 8 COLS: JOB DESCRIPTION DETAILS -->
-      <div class="lg:col-span-8 bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 space-y-8 shadow-sm">
+      <div class="lg:col-span-8 bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-8 shadow-sm">
         
         <!-- Section 1: Mô tả công việc -->
         <div class="space-y-3">
-          <h2 class="text-lg font-bold text-slate-900 border-l-4 border-[#003699] pl-3">
+          <h2 class="text-base font-bold text-slate-900 border-l-4 border-[#002B7F] pl-3">
             Mô tả công việc (JD)
           </h2>
           <div class="text-sm text-slate-700 leading-relaxed space-y-2">
             <p>Tham gia phát triển hệ thống web ứng dụng tuyển dụng trực tuyến quy mô lớn phục vụ hàng triệu người dùng.</p>
             <ul class="list-disc pl-5 space-y-1.5 text-slate-600">
-              <li>Xây dựng và bảo trì các RESTful API hiệu năng cao bằng <strong>Laravel 11</strong>, áp dụng Eloquent ORM, Service Layer và Repository Pattern.</li>
+              <li>Xây dựng và bảo trì các RESTful API hiệu năng cao bằng <strong>Laravel 11</strong>, áp dụng Eloquent ORM, Service Layer và FormRequest validation.</li>
               <li>Phát triển giao diện phía client bằng <strong>ReactJS / Next.js 14 App Router</strong>, tích hợp Tailwind CSS và TypeScript.</li>
-              <li>Tích hợp cơ chế realtime chat và thông báo qua <strong>WebSocket (Laravel Reverb / Pusher)</strong>.</li>
-              <li>Tối ưu hóa cơ sở dữ liệu MySQL, index các trường tìm kiếm và caching với Redis.</li>
-              <li>Phối hợp cùng đội ngũ AI để kết nối API Gemini 1.5 Flash phục vụ phân tích CV tự động.</li>
+              <li>Tích hợp cơ chế realtime chat và thông báo tức thời qua <strong>WebSocket (Laravel Reverb)</strong>.</li>
+              <li>Tối ưu hóa cơ sở dữ liệu MySQL, index các trường tìm kiếm và truy vấn lọc đa tiêu chí.</li>
+              <li>Phối hợp cùng đội ngũ kỹ thuật đảm bảo chuẩn bảo mật cao (ngăn chặn triệt để SQL Injection, XSS, CSRF).</li>
             </ul>
           </div>
         </div>
 
         <!-- Section 2: Yêu cầu ứng viên -->
         <div class="space-y-3 pt-6 border-t border-slate-100">
-          <h2 class="text-lg font-bold text-slate-900 border-l-4 border-[#003699] pl-3">
+          <h2 class="text-base font-bold text-slate-900 border-l-4 border-[#002B7F] pl-3">
             Yêu cầu chuyên môn
           </h2>
           <div class="text-sm text-slate-700 leading-relaxed space-y-2">
@@ -235,121 +216,111 @@
               <li>Có từ <strong>3 năm kinh nghiệm</strong> làm việc thực tế với PHP (Laravel framework) và JavaScript/TypeScript.</li>
               <li>Thành thạo cấu trúc dữ liệu MySQL, viết Query tối ưu và thiết kế Database Schema chuẩn hóa.</li>
               <li>Kinh nghiệm vững chắc với Next.js (SSR, Server Components, Client State).</li>
-              <li>Hiểu biết tốt về bảo mật web: ngăn chặn SQL Injection, XSS, CSRF, Token Authentication (Sanctum/JWT).</li>
-              <li>Khả năng đọc hiểu tài liệu kỹ thuật tiếng Anh tốt (tương đương TOEIC 650+).</li>
+              <li>Hiểu biết tốt về bảo mật web: Token Authentication (Sanctum), Session và Policy authorization.</li>
+              <li>Tinh thần trách nhiệm cao, khả năng làm việc độc lập và phối hợp nhóm tốt.</li>
             </ul>
           </div>
         </div>
 
         <!-- Section 3: Quyền lợi & Chế độ đãi ngộ -->
         <div class="space-y-3 pt-6 border-t border-slate-100">
-          <h2 class="text-lg font-bold text-slate-900 border-l-4 border-[#003699] pl-3">
+          <h2 class="text-base font-bold text-slate-900 border-l-4 border-[#002B7F] pl-3">
             Quyền lợi & Đãi ngộ
           </h2>
           <div class="text-sm text-slate-700 leading-relaxed space-y-2">
             <ul class="list-disc pl-5 space-y-1.5 text-slate-600">
-              <li>Mức lương cạnh tranh từ <strong>25 - 40 triệu VNĐ/tháng</strong> (xét tăng lương 2 lần/năm).</li>
-              <li>Thưởng tháng 13 + thưởng hiệu quả kinh doanh dự án lên tới 2-3 tháng lương.</li>
-              <li>Gói bảo hiểm sức khỏe FPT Care cao cấp cho nhân viên và người thân.</li>
-              <li>Trang bị máy tính Macbook Pro hoặc Laptop chuyên dụng cấu hình cao.</li>
-              <li>Chính sách làm việc linh hoạt (Hybrid Remote 2 ngày/tuần).</li>
+              <li>Mức lương cạnh tranh từ <strong>25 - 40 triệu VNĐ/tháng</strong> (xét tăng lương định kỳ hàng năm).</li>
+              <li>Thưởng tháng 13 + thưởng hiệu quả kinh doanh dự án hấp dẫn.</li>
+              <li>Gói bảo hiểm sức khỏe FPT Care cao cấp dành riêng cho nhân viên và người thân.</li>
+              <li>Trang bị máy tính làm việc cấu hình cao (MacBook Pro / Dell Precision).</li>
+              <li>Chế độ làm việc linh hoạt (hỗ trợ Hybrid Working linh động).</li>
             </ul>
           </div>
         </div>
 
-        <!-- Section 4: Địa điểm làm việc -->
+        <!-- Section 4: Địa điểm & Thời gian làm việc -->
         <div class="space-y-3 pt-6 border-t border-slate-100">
-          <h2 class="text-lg font-bold text-slate-900 border-l-4 border-[#003699] pl-3">
-            Địa điểm làm việc
+          <h2 class="text-base font-bold text-slate-900 border-l-4 border-[#002B7F] pl-3">
+            Địa điểm & Thời gian làm việc
           </h2>
-          <p class="text-sm text-slate-700">
-            Tòa nhà FPT Software, Lô T2, Đường D1, Khu Công nghệ cao, Phường Tăng Nhơn Phú B, TP. Thủ Đức, TP. Hồ Chí Minh.
-          </p>
-        </div>
-
-        <!-- Bottom Apply Banner -->
-        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div>
-            <h3 class="font-bold text-slate-900 text-sm">Bạn đã sẵn sàng gia nhập FPT Software?</h3>
-            <p class="text-xs text-slate-500 mt-0.5">Ứng tuyển chỉ với 1 click bằng file CV PDF có sẵn trong hồ sơ.</p>
+          <div class="text-sm text-slate-600 space-y-1">
+            <div>• <strong>Địa điểm:</strong> Tòa nhà FPT Software, Khu Công Nghệ Cao, TP. Thủ Đức, TP. Hồ Chí Minh.</div>
+            <div>• <strong>Thời gian:</strong> Thứ Hai – Thứ Sáu (8:30 – 17:30), nghỉ Thứ Bảy và Chủ Nhật.</div>
           </div>
-          <button onclick="openApplyModal()" class="px-6 py-3 bg-[#FF7D55] hover:bg-[#FD6B3E] text-white font-bold text-xs rounded-full shadow-md transition active:scale-95 shrink-0 flex items-center gap-2">
-            <i data-lucide="send" class="w-4 h-4"></i>
-            <span>Ứng Tuyển Công Việc Này</span>
-          </button>
         </div>
 
       </div>
 
-      <!-- RIGHT 4 COLS: COMPANY INFO & RELATED JOBS -->
-      <aside class="lg:col-span-4 space-y-6">
+      <!-- RIGHT 4 COLS: COMPANY INFO & SIMILAR JOBS -->
+      <div class="lg:col-span-4 space-y-6">
         
-        <!-- Company Profile Card -->
-        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-4">
+        <!-- Company Spotlight Card -->
+        <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm space-y-4">
           <div class="flex items-center gap-3">
-            <div class="w-14 h-14 rounded-xl border border-slate-100 p-2 flex items-center justify-center bg-white shadow-sm shrink-0">
-              <div class="w-full h-full rounded bg-orange-600 text-white font-black text-sm flex items-center justify-center">FPT</div>
+            <div class="w-14 h-14 rounded-xl border border-slate-100 p-2 flex items-center justify-center bg-white shadow-xs">
+              <span class="text-[#005AFF] font-black text-xl">FPT</span>
             </div>
             <div>
-              <h3 class="font-bold text-slate-900 text-sm">FPT Software</h3>
+              <h3 class="text-base font-bold text-slate-900">FPT Software</h3>
               <p class="text-xs text-slate-500">Tập đoàn Công nghệ FPT</p>
             </div>
           </div>
-
-          <div class="space-y-2 text-xs text-slate-600 pt-2 border-t border-slate-100">
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Công ty phần mềm hàng đầu Đông Nam Á, cung cấp dịch vụ chuyển đổi số và phát triển phần mềm cho các tập đoàn Fortune 500.
+          </p>
+          <div class="space-y-2 pt-2 text-xs text-slate-600 border-t border-slate-100">
             <div class="flex items-center justify-between">
-              <span class="text-slate-400">Quy mô nhân sự:</span>
-              <span class="font-semibold text-slate-800">30.000+ nhân viên</span>
+              <span class="text-slate-400">Quy mô:</span>
+              <span class="font-semibold text-slate-800">10.000+ nhân viên</span>
             </div>
             <div class="flex items-center justify-between">
-              <span class="text-slate-400">Trụ sở chính:</span>
-              <span class="font-semibold text-slate-800">Cầu Giấy, Hà Nội</span>
+              <span class="text-slate-400">Trụ sở:</span>
+              <span class="font-semibold text-slate-800">Hà Nội & TP.HCM</span>
             </div>
             <div class="flex items-center justify-between">
               <span class="text-slate-400">Website:</span>
-              <a href="https://fpt-software.com" target="_blank" class="font-semibold text-[#005AFF] hover:underline">fpt-software.com</a>
-            </div>
-            <div class="flex items-center justify-between">
-              <span class="text-slate-400">Tin đang mở:</span>
-              <span class="font-bold text-[#00A862]">58 vị trí</span>
+              <a href="https://fptsoftware.com" target="_blank" class="font-semibold text-[#002B7F] hover:underline">fptsoftware.com</a>
             </div>
           </div>
-
-          <a href="../page_company_detail/index.html" class="w-full py-2.5 rounded-full border border-[#003699] text-[#003699] hover:bg-blue-50 font-bold text-xs flex items-center justify-center gap-1.5 transition">
-            <span>Xem trang hồ sơ công ty</span>
-            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+          <a href="../page_company_detail/index.html" class="block w-full py-2.5 rounded-full border border-[#002B7F] text-[#002B7F] hover:bg-[#002B7F] hover:text-white text-xs font-bold text-center transition">
+            Xem Trang Công Ty & 18 Việc Làm
           </a>
         </div>
 
-        <!-- Quick Safety Tip Card -->
-        <div class="bg-blue-50/70 rounded-2xl border border-blue-100 p-4 text-xs text-slate-600 space-y-2">
-          <div class="flex items-center gap-2 font-bold text-[#003699]">
-            <i data-lucide="shield-alert" class="w-4 h-4 text-[#FF7D55]"></i>
-            Lưu ý an toàn tuyển dụng
+        <!-- Similar Jobs Widget -->
+        <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm space-y-4">
+          <h3 class="font-bold text-slate-900 text-sm">Việc Làm Tương Tự</h3>
+          <div class="space-y-3">
+            <a href="../page_job_detail/index.html" class="block p-3 rounded-2xl border border-slate-100 hover:border-blue-200 hover:bg-slate-50 transition">
+              <div class="font-bold text-xs text-slate-900 truncate">Backend Tech Lead (PHP Laravel)</div>
+              <div class="text-[11px] text-slate-500">Techcombank • Hà Nội</div>
+              <div class="text-xs font-bold text-[#FF6A39] mt-1">Từ 45 triệu VNĐ</div>
+            </a>
+            <a href="../page_job_detail/index.html" class="block p-3 rounded-2xl border border-slate-100 hover:border-blue-200 hover:bg-slate-50 transition">
+              <div class="font-bold text-xs text-slate-900 truncate">Senior Fullstack Node.js / React</div>
+              <div class="text-[11px] text-slate-500">Shopee Vietnam • TP.HCM</div>
+              <div class="text-xs font-bold text-[#FF6A39] mt-1">35 - 55 triệu VNĐ</div>
+            </a>
           </div>
-          <p class="leading-relaxed text-[11px] text-slate-500">
-            VieclamOnline cam kết không thu bất kỳ khoản phí nào từ người tìm việc. Tuyệt đối không chuyển tiền đặt cọc hoặc cung cấp mã OTP ngân hàng.
-          </p>
         </div>
 
-      </aside>
+      </div>
 
     </div>
 
   </main>
 
-  <!-- APPLY MODAL OVERLAY (FR-06.2: Modal Ứng Tuyển Chuẩn SRS) -->
-  <div id="apply-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative animate-in fade-in duration-200">
+  <!-- MODAL: NỘP HỒ SƠ ỨNG TUYỂN (SRS FR-06) -->
+  <div id="apply-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100">
       
-      <!-- Close button -->
-      <button onclick="closeApplyModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 p-1">
+      <button onclick="closeApplyModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
       <div class="mb-5">
-        <span class="px-2.5 py-0.5 rounded-full bg-orange-100 text-[#FF7D55] text-[10px] font-bold uppercase tracking-wider">
-          FR-06: Ứng Tuyển Trực Tuyến
+        <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-[#002B7F] text-[10px] font-bold uppercase tracking-wider">
+          Ứng Tuyển Nhanh
         </span>
         <h3 class="text-xl font-black text-slate-900 mt-1">Nộp Hồ Sơ Ứng Tuyển</h3>
         <p class="text-xs text-slate-500 mt-0.5 truncate">Vị trí: <strong>Senior Fullstack Developer (Laravel & React)</strong></p>
@@ -366,14 +337,14 @@
               <input type="radio" name="cv_type" value="existing" checked class="text-emerald-600 focus:ring-0">
               <div class="flex-1 min-w-0">
                 <div class="font-bold text-slate-900 truncate">CV_NguyenVanA_Senior_Fullstack.pdf</div>
-                <div class="text-[10px] text-slate-500">CV chính trên hệ thống • 2.4 MB • Cập nhật 10/2026</div>
+                <div class="text-[10px] text-slate-500">CV chính trên hệ thống • 2.4 MB</div>
               </div>
               <span class="text-[10px] font-bold text-emerald-700 px-2 py-0.5 bg-emerald-100 rounded">Mặc định</span>
             </label>
 
             <!-- Option B: Upload new PDF -->
             <label class="flex items-center gap-3 p-3 rounded-2xl border border-slate-200 hover:border-slate-300 cursor-pointer">
-              <input type="radio" name="cv_type" value="new" class="text-[#005AFF] focus:ring-0">
+              <input type="radio" name="cv_type" value="new" class="text-[#002B7F] focus:ring-0">
               <div class="flex-1">
                 <div class="font-bold text-slate-800">Tải lên file CV PDF mới riêng cho vị trí này</div>
                 <div class="text-[10px] text-slate-400">Chỉ chấp nhận file định dạng .PDF (dung lượng tối đa 5MB)</div>
@@ -385,20 +356,19 @@
         <!-- Cover Letter -->
         <div>
           <label class="block font-bold text-slate-800 mb-1">Thư giới thiệu (Cover Letter - Tùy chọn):</label>
-          <textarea rows="3" placeholder="Kính gửi Nhà tuyển dụng FPT Software, tôi có 3.5 năm kinh nghiệm lập trình Laravel và Next.js..." class="w-full p-3 rounded-xl border border-slate-200 focus:border-[#005AFF] focus:outline-none text-xs leading-relaxed"></textarea>
+          <textarea rows="3" placeholder="Kính gửi Quý công ty FPT Software, tôi có 3.5 năm kinh nghiệm lập trình Laravel và Next.js..." class="w-full p-3 rounded-xl border border-slate-200 focus:border-[#002B7F] focus:outline-none text-xs leading-relaxed"></textarea>
         </div>
 
-        <!-- Rule FR-06.4 Warning -->
-        <div class="p-3 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-800 flex items-start gap-2">
-          <i data-lucide="info" class="w-4 h-4 shrink-0 text-amber-600 mt-0.5"></i>
-          <span>Lưu ý: Mỗi ứng viên chỉ được gửi hồ sơ ứng tuyển <strong>1 lần duy nhất</strong> cho vị trí công việc này.</span>
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-[11px] text-slate-600 flex items-start gap-2">
+          <i data-lucide="info" class="w-4 h-4 shrink-0 text-[#002B7F] mt-0.5"></i>
+          <span>Mỗi ứng viên chỉ được gửi hồ sơ ứng tuyển <strong>1 lần duy nhất</strong> cho tin tuyển dụng này.</span>
         </div>
 
         <div class="flex items-center justify-end gap-3 pt-2">
           <button type="button" onclick="closeApplyModal()" class="px-5 py-2.5 rounded-full border border-slate-200 text-slate-600 hover:bg-slate-50 font-semibold">
             Hủy bỏ
           </button>
-          <button type="submit" class="px-6 py-2.5 rounded-full bg-[#FF7D55] hover:bg-[#FD6B3E] text-white font-bold transition flex items-center gap-2 shadow-md">
+          <button type="submit" class="px-6 py-2.5 rounded-full bg-[#FF6A39] hover:bg-[#F4511E] text-white font-bold transition flex items-center gap-2 shadow-md">
             <i data-lucide="check" class="w-4 h-4"></i>
             <span>Xác nhận Nộp Hồ Sơ</span>
           </button>
@@ -416,53 +386,86 @@
     </div>
     <div>
       <div class="font-bold text-sm text-emerald-400">Nộp hồ sơ thành công!</div>
-      <div class="text-slate-300">AI đang tự động chấm điểm Match Score cho hồ sơ của bạn...</div>
+      <div class="text-slate-300">Nhà tuyển dụng FPT Software đã nhận được hồ sơ của bạn.</div>
     </div>
-    <a href="../page_ai_cv_report/index.html" class="px-4 py-2 rounded-full bg-[#FF7D55] text-white font-bold ml-2 hover:bg-[#FD6B3E] transition shadow-md">
-      Xem AI Score
+    <a href="../page_candidate_dashboard/index.html" class="px-4 py-2 rounded-full bg-[#FF6A39] text-white font-bold ml-2 hover:bg-[#F4511E] transition shadow-md">
+      Xem Lịch Sử Ứng Tuyển
     </a>
   </div>
 
   <!-- FOOTER -->
-  <footer class="bg-[#001744] text-slate-300 pt-8 pb-6 text-xs border-t border-[#002466] mt-auto">
-    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <div>© 2026 VieclamOnline.vn - Nền tảng việc làm và tuyển dụng hàng đầu Việt Nam.</div>
-      <div class="flex items-center gap-3">
-        <a href="../page_home/index.html" class="hover:text-white transition">Trang chủ</a>
-        <span class="text-white/30">•</span>
-        <a href="../page_jobs/index.html" class="hover:text-white transition">Tìm việc làm</a>
+  <footer class="bg-[#001744] text-white/80 text-xs py-10 mt-16 border-t border-white/10">
+    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-2.5">
+        <svg class="h-6 w-auto shrink-0" viewBox="0 0 52 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="17" cy="16" rx="12" ry="9" stroke="#00C2F3" stroke-width="4.5" fill="none" transform="rotate(-18 17 16)"/>
+          <ellipse cx="32" cy="16" rx="12" ry="9" stroke="#005AFF" stroke-width="4.5" fill="none" transform="rotate(18 32 16)"/>
+        </svg>
+        <span class="text-sm font-extrabold text-white">vietnamworks</span>
+      </div>
+      <p class="text-slate-400 text-center md:text-left">
+        © 2026 VietnamWorks - Navigos Group Vietnam. Mọi quyền được bảo lưu.
+      </p>
+      <div class="flex items-center gap-4 text-slate-300">
+        <a href="../page_home/index.html" class="hover:text-white">Trang chủ</a>
+        <a href="../page_jobs/index.html" class="hover:text-white">Việc làm</a>
+        <a href="../page_companies/index.html" class="hover:text-white">Công ty</a>
       </div>
     </div>
   </footer>
 
-  <!-- FLOATING PROTOTYPE SWITCHER (RENAMED TO Routes) -->
-  <div class="fixed bottom-5 right-5 z-50">
-    <button id="proto-switcher-btn" onclick="toggleProtoMenu()" class="flex items-center gap-2 bg-[#003699] hover:bg-[#002466] text-white px-4 py-2 rounded-full shadow-2xl border-2 border-white/20 transition active:scale-95 text-xs font-bold font-mono">
-      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-      <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
-      <span>Routes</span>
+  <!-- FLOATING PROTOTYPE ROUTES DRAWER (18 PAGES) -->
+  <div class="fixed bottom-6 right-6 z-50">
+    <button id="toggleRoutesDrawer" class="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#002B7F] hover:bg-[#001E5B] text-white shadow-2xl border border-white/20 text-xs font-bold transition transform hover:scale-105 active:scale-95">
+      <i data-lucide="map" class="w-4 h-4 text-cyan-300"></i>
+      <span>Routes (18)</span>
     </button>
-    <div id="proto-menu" class="hidden absolute bottom-12 right-0 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200 p-4 text-xs z-50 max-h-[80vh] overflow-y-auto text-slate-800">
-      <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
-        <span class="font-bold text-slate-900 font-mono">Danh mục Routes (15 Trang)</span>
-        <button onclick="toggleProtoMenu()" class="text-slate-400 hover:text-slate-700"><i data-lucide="x" class="w-4 h-4"></i></button>
+  </div>
+
+  <div id="routesDrawerBackdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden transition-opacity"></div>
+  <div id="routesDrawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="p-5 bg-[#002B7F] text-white flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <i data-lucide="compass" class="w-5 h-5 text-cyan-300"></i>
+        <h3 class="font-bold text-base">Hệ Thống 18 Màn Hình</h3>
       </div>
-      <div class="space-y-1">
-        <a href="../page_home/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>01. Trang Chủ</span></a>
-        <a href="../page_jobs/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>02. Danh Sách Việc Làm</span></a>
-        <a href="../page_job_detail/index.html" class="flex items-center justify-between p-1.5 rounded-lg bg-blue-50 text-[#003699] font-bold"><span>03. Chi Tiết Việc Làm</span><span class="text-[10px] text-emerald-600">Đang xem</span></a>
-        <a href="../page_ai_cv_report/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>04. Báo Cáo Phù Hợp CV</span></a>
-        <a href="../page_candidate_dashboard/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>05. Dashboard Ứng Viên</span></a>
-        <a href="../page_employer_dashboard/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>06. Dashboard NTD</span></a>
-        <a href="../page_post_job/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>07. Đăng Tin Tuyển Dụng</span></a>
-        <a href="../page_company_detail/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>08. Hồ Sơ Doanh Nghiệp</span></a>
-        <a href="../page_employer_candidates/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>09. Quản Lý Ứng Viên</span></a>
-        <a href="../page_chat/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>10. Nhắn Tin Trực Tuyến</span></a>
-        <a href="../page_admin_portal/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>11. Quản Trị Admin</span></a>
-        <a href="../page_login/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>12. Đăng Nhập</span></a>
-        <a href="../page_register/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>13. Đăng Ký</span></a>
-        <a href="../page_forgot_password/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>14. Quên Mật Khẩu</span></a>
-        <a href="../page_notifications/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>15. Thông Báo</span></a>
+      <button id="closeRoutesDrawer" class="p-1.5 rounded-full hover:bg-white/10 text-white transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+    <div class="p-4 flex-1 overflow-y-auto space-y-4 text-xs">
+      <div>
+        <div class="font-bold text-slate-400 uppercase text-[10px] tracking-wider mb-2">1. Dành Cho Khách & Ứng Viên</div>
+        <div class="space-y-1">
+          <a href="../page_home/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>1. Trang Chủ</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_jobs/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>2. Tìm Kiếm Việc Làm</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_job_detail/index.html" class="flex items-center justify-between p-2 rounded-lg bg-blue-50 text-[#002B7F] font-bold"><span>3. Chi Tiết Việc Làm</span><i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></a>
+          <a href="../page_companies/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>4. Top Doanh Nghiệp Hàng Đầu</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_company_detail/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>5. Hồ Sơ Doanh Nghiệp</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_saved_jobs/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>6. Việc Làm Đã Lưu</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_candidate_dashboard/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>7. Hồ Sơ CV & Lịch Sử Nộp Đơn</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_settings/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>8. Cài Đặt Tài Khoản & Mật Khẩu</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+        </div>
+      </div>
+      <div>
+        <div class="font-bold text-slate-400 uppercase text-[10px] tracking-wider mb-2">2. Dành Cho Nhà Tuyển Dụng</div>
+        <div class="space-y-1">
+          <a href="../page_employer_dashboard/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>9. Dashboard Tuyển Dụng</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_post_job/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>10. Đăng Tin Tuyển Dụng</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_employer_candidates/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>11. Quản Lý & Lọc Ứng Viên Bằng AI</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_ai_cv_report/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>12. Báo Cáo Phân Tích AI Ứng Viên</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+        </div>
+      </div>
+      <div>
+        <div class="font-bold text-slate-400 uppercase text-[10px] tracking-wider mb-2">3. Realtime & Quản Trị</div>
+        <div class="space-y-1">
+          <a href="../page_chat/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>13. Nhắn Tin Realtime 1-1</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_notifications/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>14. Trung Tâm Thông Báo</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_admin_portal/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>15. Cổng Quản Trị Hệ Thống (Admin)</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_login/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>16. Đăng Nhập</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_register/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>17. Đăng Ký Tài Khoản</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_forgot_password/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>18. Quên Mật Khẩu</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+        </div>
       </div>
     </div>
   </div>
@@ -476,21 +479,23 @@
       closeApplyModal();
       const toast = document.getElementById('apply-success-toast');
       toast.classList.remove('hidden');
-      setTimeout(() => {
-        window.location.href = '../page_ai_cv_report/index.html';
-      }, 1500);
     }
-    function toggleProtoMenu() {
-      const menu = document.getElementById('proto-menu');
-      if (menu) menu.classList.toggle('hidden');
-    }
-    document.addEventListener('click', function(e) {
-      const protoBtn = document.getElementById('proto-switcher-btn');
-      const protoMenu = document.getElementById('proto-menu');
-      if (protoBtn && protoMenu && !protoBtn.contains(e.target) && !protoMenu.contains(e.target)) {
-        protoMenu.classList.add('hidden');
+    const btn = document.getElementById('toggleRoutesDrawer');
+    const closeBtn = document.getElementById('closeRoutesDrawer');
+    const drawer = document.getElementById('routesDrawer');
+    const backdrop = document.getElementById('routesDrawerBackdrop');
+    function toggleDrawer(open) {
+      if (open) {
+        drawer.classList.remove('translate-x-full');
+        backdrop.classList.remove('hidden');
+      } else {
+        drawer.classList.add('translate-x-full');
+        backdrop.classList.add('hidden');
       }
-    });
+    }
+    btn?.addEventListener('click', () => toggleDrawer(true));
+    closeBtn?.addEventListener('click', () => toggleDrawer(false));
+    backdrop?.addEventListener('click', () => toggleDrawer(false));
   </script>
 </body>
 </html>

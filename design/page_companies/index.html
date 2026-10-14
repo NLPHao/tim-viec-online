@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top Doanh Nghiệp Hàng Đầu - Tuyển Dụng Uy Tín | VietnamWorks</title>
+  <meta name="description" content="Khám phá danh sách các công ty, tập đoàn hàng đầu Việt Nam. Tìm hiểu môi trường làm việc, chế độ đãi ngộ và cơ hội nghề nghiệp hấp dẫn.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            vnw: {
+              navy: '#002B7F',
+              navyDark: '#001E5B',
+              navyLight: '#EBF2FF',
+              blue: '#005AFF',
+              coral: '#FF6A39',
+              coralHover: '#F4511E',
+              emerald: '#00A862',
+              grayBg: '#F4F6F9',
+              border: '#E2E8F0',
+            }
+          },
+          fontFamily: {
+            sans: ['"Be Vietnam Pro"', 'Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Be Vietnam Pro', Inter, sans-serif; background-color: #F4F6F9; }
+    .company-card { transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+    .company-card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px -6px rgba(0, 43, 127, 0.12); border-color: #005AFF; }
+  </style>
+</head>
+<body class="bg-[#F4F6F9] text-slate-800 antialiased min-h-screen flex flex-col selection:bg-[#FF6A39] selection:text-white">
+
+  <!-- TOP SAFETY / UTILITY BAR (PUBLIC STANDARD) -->
+  <div class="bg-[#001E5B] text-white/90 text-xs py-2 px-4 border-b border-white/10">
+    <div class="max-w-[1360px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+      <div class="flex items-center gap-3 text-[12px]">
+        <span class="flex items-center gap-1.5 text-white/90">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+          Hãy cẩn trọng trước các hành vi giả mạo thương hiệu VietnamWorks để lừa đảo tuyển dụng.
+        </span>
+      </div>
+      <div class="flex items-center gap-4 text-[12px]">
+        <span class="text-white/80 hidden md:inline flex items-center gap-1">
+          <i data-lucide="phone-call" class="w-3 h-3 text-[#FF6A39]"></i>
+          Hotline: <strong class="text-white">1900 6868</strong>
+        </span>
+        <span class="text-white/30 hidden md:inline">|</span>
+        <a href="../page_employer_dashboard/index.html" class="text-white/90 hover:text-white font-medium transition flex items-center gap-1">
+          <i data-lucide="building" class="w-3.5 h-3.5 text-cyan-300"></i>
+          Dành cho Nhà tuyển dụng
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN NAVBAR (PUBLIC ROLE) -->
+  <header class="sticky top-0 z-40 bg-[#002B7F] text-white shadow-md border-b border-[#002060]">
+    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 h-[72px] flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo & Main Nav -->
+      <div class="flex items-center gap-8">
+        <a href="../page_home/index.html" class="flex items-center gap-2.5 group">
+          <svg class="h-8 w-auto shrink-0" viewBox="0 0 52 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="17" cy="16" rx="12" ry="9" stroke="#00C2F3" stroke-width="4.5" fill="none" transform="rotate(-18 17 16)"/>
+            <ellipse cx="32" cy="16" rx="12" ry="9" stroke="#005AFF" stroke-width="4.5" fill="none" transform="rotate(18 32 16)"/>
+          </svg>
+          <div class="flex flex-col -space-y-0.5">
+            <span class="text-[21px] font-black tracking-tight text-white leading-none font-sans lowercase">
+              vietnam<span class="text-white">works</span>
+            </span>
+            <span class="text-[8.5px] font-semibold tracking-wider text-[#7dd3fc] uppercase leading-none pl-0.5">
+              empower growth
+            </span>
+          </div>
+        </a>
+
+        <!-- Main Links -->
+        <nav class="hidden lg:flex items-center gap-1 text-[14px]">
+          <a href="../page_home/index.html" class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
+            Trang chủ
+          </a>
+          <a href="../page_jobs/index.html" class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
+            Việc làm
+          </a>
+          <a href="../page_companies/index.html" class="px-3.5 py-1.5 rounded-full bg-[#001E5B] text-white font-bold transition">
+            Top Công ty
+          </a>
+        </nav>
+      </div>
+
+      <!-- Right Action Controls -->
+      <div class="flex items-center gap-3">
+        <a href="../page_employer_dashboard/index.html" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-white/20 hover:bg-white/10 text-white text-xs font-semibold transition">
+          <i data-lucide="building-2" class="w-3.5 h-3.5 text-cyan-300"></i>
+          <span>Đăng tuyển dụng</span>
+        </a>
+        <a href="../page_login/index.html" class="text-white hover:text-cyan-200 text-xs font-semibold px-2 py-1 transition">
+          Đăng Nhập
+        </a>
+        <a href="../page_register/index.html" class="px-5 py-2 rounded-full bg-[#FF6A39] hover:bg-[#F4511E] text-white text-xs font-bold shadow-md transition active:scale-95">
+          Đăng Ký
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO BANNER SECTION -->
+  <section class="bg-gradient-to-r from-[#001744] via-[#002B7F] to-[#005AFF] text-white py-12 px-4 relative overflow-hidden">
+    <div class="max-w-[1360px] mx-auto text-center relative z-10">
+      <span class="px-3.5 py-1 rounded-full bg-white/10 border border-white/20 text-xs font-medium text-blue-100 uppercase tracking-wider inline-block mb-3">
+        Danh Bạ Nhà Tuyển Dụng Hàng Đầu
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-black tracking-tight mb-3">
+        Khám Phá Các Doanh Nghiệp Hàng Đầu Việt Nam
+      </h1>
+      <p class="text-blue-100 text-sm max-w-2xl mx-auto">
+        Tìm hiểu văn hóa doanh nghiệp, chế độ đãi ngộ và kết nối với các nhà tuyển dụng hàng đầu trên VietnamWorks.
+      </p>
+
+      <!-- SEARCH COMPANIES CARD -->
+      <div class="max-w-3xl mx-auto mt-8 bg-white rounded-full p-2 shadow-2xl flex items-center gap-2 text-slate-800">
+        <div class="flex-1 flex items-center gap-3 px-4 py-1">
+          <i data-lucide="search" class="w-5 h-5 text-slate-400"></i>
+          <input type="text" placeholder="Nhập tên công ty, tập đoàn bạn muốn tìm kiếm..." class="w-full bg-transparent text-sm font-semibold text-slate-900 placeholder:text-slate-400 focus:outline-none">
+        </div>
+        <button class="px-6 py-2.5 rounded-full bg-[#FF6A39] hover:bg-[#F4511E] text-white font-bold text-xs shadow-md transition flex items-center gap-1.5 shrink-0">
+          <i data-lucide="search" class="w-4 h-4"></i>
+          <span>Tìm Công Ty</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN DIRECTORY CONTENT -->
+  <main class="max-w-[1360px] mx-auto px-4 lg:px-6 py-10 flex-1 w-full space-y-8">
+    
+    <!-- FILTER BAR -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm flex flex-wrap items-center justify-between gap-4">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mr-2">Lọc theo ngành:</span>
+        <button class="px-3.5 py-1.5 rounded-full bg-[#002B7F] text-white text-xs font-bold shadow-sm">Tất cả ngành nghề</button>
+        <button class="px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium transition">Công nghệ thông tin (IT)</button>
+        <button class="px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium transition">Ngân hàng / Tài chính</button>
+        <button class="px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium transition">Bán lẻ / FMCG</button>
+        <button class="px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium transition">Sản xuất / Vận tải</button>
+      </div>
+      <div class="text-xs text-slate-500">
+        Hiển thị <strong class="text-slate-900">12</strong> doanh nghiệp tiêu biểu
+      </div>
+    </div>
+
+    <!-- COMPANIES GRID -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <!-- Company 1: FPT Software -->
+      <div class="company-card bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm">
+        <div>
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div class="w-16 h-16 rounded-xl border border-slate-100 bg-white p-2 flex items-center justify-center shadow-sm">
+              <span class="text-[#005AFF] font-black text-xl tracking-tighter">FPT</span>
+            </div>
+            <span class="px-2.5 py-1 rounded-full bg-blue-50 text-[#002B7F] text-[11px] font-bold">
+              Công Nghệ Thông Tin
+            </span>
+          </div>
+          <h2 class="text-lg font-bold text-slate-900 hover:text-[#005AFF] transition">
+            <a href="../page_company_detail/index.html">FPT Software</a>
+          </h2>
+          <p class="text-xs text-slate-500 flex items-center gap-1.5 mt-1">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i>
+            Hà Nội, TP. Hồ Chí Minh, Đà Nẵng
+          </p>
+          <p class="text-xs text-slate-500 flex items-center gap-1.5 mt-1">
+            <i data-lucide="users" class="w-3.5 h-3.5 text-slate-400"></i>
+            Quy mô: 10.000+ nhân viên
+          </p>
+          <p class="text-xs text-slate-600 line-clamp-2 mt-3 leading-relaxed">
+            Công ty phần mềm hàng đầu Đông Nam Á, cung cấp dịch vụ chuyển đổi số và phát triển phần mềm toàn cầu.
+          </p>
+        </div>
+        <div class="pt-5 mt-5 border-t border-slate-100 flex items-center justify-between">
+          <span class="text-xs font-bold text-[#FF6A39] flex items-center gap-1">
+            <i data-lucide="briefcase" class="w-3.5 h-3.5"></i>
+            18 việc làm đang tuyển
+          </span>
+          <a href="../page_company_detail/index.html" class="px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-[#002B7F] hover:text-white text-slate-800 text-xs font-bold transition">
+            Xem hồ sơ
+          </a>
+        </div>
+      </div>
+
+      <!-- Company 2: Viettel Group -->
+      <div class="company-card bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm">
+        <div>
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div class="w-16 h-16 rounded-xl border border-slate-100 bg-white p-2 flex items-center justify-center shadow-sm">
+              <span class="text-red-600 font-black text-lg tracking-tighter">VIETTEL</span>
+            </div>
+            <span class="px-2.5 py-1 rounded-full bg-blue-50 text-[#002B7F] text-[11px] font-bold">
+              Viễn Thông & CNTT
+            </span>
+          </div>
+          <h2 class="text-lg font-bold text-slate-900 hover:text-[#005AFF] transition">
+            <a href="../page_company_detail/index.html">Tập Đoàn Công Nghiệp - Viễn Thông Quân Đội</a>
+          </h2>
+          <p class="text-xs text-slate-500 flex items-center gap-1.5 mt-1">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i>
+            Hà Nội & Toàn quốc
+          </p>
+          <p class="text-xs text-slate-500 flex items-center gap-1.5 mt-1">
+            <i data-lucide="users" class="w-3.5 h-3.5 text-slate-400"></i>
+            Quy mô: 50.000+ nhân sự
+          </p>
+          <p class="text-xs text-slate-600 line-clamp-2 mt-3 leading-relaxed">
+            Tập đoàn công nghệ viễn thông lớn nhất Việt Nam, tiên phong trong mạng di động 5G, AI và an ninh mạng.
+          </p>
+        </div>
+        <div class="pt-5 mt-5 border-t border-slate-100 flex items-center justify-between">
+          <span class="text-xs font-bold text-[#FF6A39] flex items-center gap-1">
+            <i data-lucide="briefcase" class="w-3.5 h-3.5"></i>
+            25 việc làm đang tuyển
+          </span>
+          <a href="../page_company_detail/index.html" class="px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-[#002B7F] hover:text-white text-slate-800 text-xs font-bold transition">
+            Xem hồ sơ
+          </a>
+        </div>
+      </div>
+
+      <!-- Company 3: Vinamilk -->
+      <div class="company-card bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm">
+        <div>
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div class="w-16 h-16 rounded-xl border border-slate-100 bg-white p-2 flex items-center justify-center shadow-sm">
+              <span class="text-blue-700 font-black text-base tracking-tighter">VINAMILK</span>
+            </div>
+            <span class="px-2.5 py-1 rounded-full bg-emerald-50 text-[#00A862] text-[11px] font-bold">
+              FMCG / Thực Phẩm
+            </span>
+          </div>
+          <h2 class="text-lg font-bold text-slate-900 hover:text-[#005AFF] transition">
+            <a href="../page_company_detail/index.html">Công Ty Cổ Phần Sữa Việt Nam</a>
+          </h2>
+          <p class="text-xs text-slate-500 flex items-center gap-1.5 mt-1">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i>
+            TP. Hồ Chí Minh
+          </p>
+          <p class="text-xs text-slate-500 flex items-center gap-1.5 mt-1">
+            <i data-lucide="users" class="w-3.5 h-3.5 text-slate-400"></i>
+            Quy mô: 10.000+ nhân viên
+          </p>
+          <p class="text-xs text-slate-600 line-clamp-2 mt-3 leading-relaxed">
+            Thương hiệu sữa quốc dân hàng đầu Việt Nam, môi trường làm việc tốt nhất ngành hàng tiêu dùng nhanh.
+          </p>
+        </div>
+        <div class="pt-5 mt-5 border-t border-slate-100 flex items-center justify-between">
+          <span class="text-xs font-bold text-[#FF6A39] flex items-center gap-1">
+            <i data-lucide="briefcase" class="w-3.5 h-3.5"></i>
+            12 việc làm đang tuyển
+          </span>
+          <a href="../page_company_detail/index.html" class="px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-[#002B7F] hover:text-white text-slate-800 text-xs font-bold transition">
+            Xem hồ sơ
+          </a>
+        </div>
+      </div>
+
+      <!-- Company 4: Techcombank -->
+      <div class="company-card bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm">
+        <div>
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div class="w-16 h-16 rounded-xl border border-slate-100 bg-white p-2 flex items-center justify-center shadow-sm">
+              <span class="text-red-700 font-black text-sm tracking-tighter">TECHCOMBANK</span>
+            </div>
+            <span class="px-2.5 py-1 rounded-full bg-blue-50 text-[#002B7F] text-[11px] font-bold">
+              Ngân Hàng & Tài Chính
+            </span>
+          </div>
+          <h2 class="text-lg font-bold text-slate-900 hover:text-[#005AFF] transition">
+            <a href="../page_company_detail/index.html">Ngân Hàng TMCP Kỹ Thương Việt Nam</a>
+          </h2>
+          <p class="text-xs text-slate-500 flex items-center gap-1.5 mt-1">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i>
+            Hà Nội, TP. Hồ Chí Minh
+          </p>
+          <p class="text-xs text-slate-500 flex items-center gap-1.5 mt-1">
+            <i data-lucide="users" class="w-3.5 h-3.5 text-slate-400"></i>
+            Quy mô: 12.000+ nhân viên
+          </p>
+          <p class="text-xs text-slate-600 line-clamp-2 mt-3 leading-relaxed">
+            Ngân hàng tư nhân dẫn đầu về chuyển đổi số tài chính và đãi ngộ nhân tài tại Việt Nam.
+          </p>
+        </div>
+        <div class="pt-5 mt-5 border-t border-slate-100 flex items-center justify-between">
+          <span class="text-xs font-bold text-[#FF6A39] flex items-center gap-1">
+            <i data-lucide="briefcase" class="w-3.5 h-3.5"></i>
+            15 việc làm đang tuyển
+          </span>
+          <a href="../page_company_detail/index.html" class="px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-[#002B7F] hover:text-white text-slate-800 text-xs font-bold transition">
+            Xem hồ sơ
+          </a>
+        </div>
+      </div>
+
+      <!-- Company 5: Shopee Vietnam -->
+      <div class="company-card bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm">
+        <div>
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div class="w-16 h-16 rounded-xl border border-slate-100 bg-white p-2 flex items-center justify-center shadow-sm">
+              <span class="text-orange-500 font-black text-lg tracking-tighter">Shopee</span>
+            </div>
+            <span class="px-2.5 py-1 rounded-full bg-orange-50 text-[#FF6A39] text-[11px] font-bold">
+              Thương Mại Điện Tử
+            </span>
+          </div>
+          <h2 class="text-lg font-bold text-slate-900 hover:text-[#005AFF] transition">
+            <a href="../page_company_detail/index.html">Shopee & Sea Group Vietnam</a>
+          </h2>
+          <p class="text-xs text-slate-500 flex items-center gap-1.5 mt-1">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i>
+            TP. Hồ Chí Minh
+          </p>
+          <p class="text-xs text-slate-500 flex items-center gap-1.5 mt-1">
+            <i data-lucide="users" class="w-3.5 h-3.5 text-slate-400"></i>
+            Quy mô: 5.000+ nhân viên
+          </p>
+          <p class="text-xs text-slate-600 line-clamp-2 mt-3 leading-relaxed">
+            Sàn thương mại điện tử hàng đầu khu vực, văn phòng hiện đại chuẩn quốc tế và cơ hội thăng tiến nhanh.
+          </p>
+        </div>
+        <div class="pt-5 mt-5 border-t border-slate-100 flex items-center justify-between">
+          <span class="text-xs font-bold text-[#FF6A39] flex items-center gap-1">
+            <i data-lucide="briefcase" class="w-3.5 h-3.5"></i>
+            22 việc làm đang tuyển
+          </span>
+          <a href="../page_company_detail/index.html" class="px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-[#002B7F] hover:text-white text-slate-800 text-xs font-bold transition">
+            Xem hồ sơ
+          </a>
+        </div>
+      </div>
+
+      <!-- Company 6: Vingroup -->
+      <div class="company-card bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm">
+        <div>
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <div class="w-16 h-16 rounded-xl border border-slate-100 bg-white p-2 flex items-center justify-center shadow-sm">
+              <span class="text-red-600 font-black text-base tracking-tighter">VINGROUP</span>
+            </div>
+            <span class="px-2.5 py-1 rounded-full bg-blue-50 text-[#002B7F] text-[11px] font-bold">
+              Đa Ngành / Công Nghệ
+            </span>
+          </div>
+          <h2 class="text-lg font-bold text-slate-900 hover:text-[#005AFF] transition">
+            <a href="../page_company_detail/index.html">Tập Đoàn Vingroup</a>
+          </h2>
+          <p class="text-xs text-slate-500 flex items-center gap-1.5 mt-1">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i>
+            Hà Nội & Hải Phòng
+          </p>
+          <p class="text-xs text-slate-500 flex items-center gap-1.5 mt-1">
+            <i data-lucide="users" class="w-3.5 h-3.5 text-slate-400"></i>
+            Quy mô: 60.000+ nhân viên
+          </p>
+          <p class="text-xs text-slate-600 line-clamp-2 mt-3 leading-relaxed">
+            Tập đoàn kinh tế tư nhân đa ngành lớn nhất Việt Nam với các trụ cột Công nghệ - Công nghiệp (VinFast) và Dịch vụ.
+          </p>
+        </div>
+        <div class="pt-5 mt-5 border-t border-slate-100 flex items-center justify-between">
+          <span class="text-xs font-bold text-[#FF6A39] flex items-center gap-1">
+            <i data-lucide="briefcase" class="w-3.5 h-3.5"></i>
+            30 việc làm đang tuyển
+          </span>
+          <a href="../page_company_detail/index.html" class="px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-[#002B7F] hover:text-white text-slate-800 text-xs font-bold transition">
+            Xem hồ sơ
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PAGINATION -->
+    <div class="flex items-center justify-center gap-2 pt-6">
+      <button class="w-9 h-9 rounded-full border border-slate-200 bg-white text-slate-500 flex items-center justify-center hover:bg-slate-50">
+        <i data-lucide="chevron-left" class="w-4 h-4"></i>
+      </button>
+      <button class="w-9 h-9 rounded-full bg-[#002B7F] text-white font-bold text-xs">1</button>
+      <button class="w-9 h-9 rounded-full border border-slate-200 bg-white text-slate-700 font-semibold text-xs hover:bg-slate-50">2</button>
+      <button class="w-9 h-9 rounded-full border border-slate-200 bg-white text-slate-700 font-semibold text-xs hover:bg-slate-50">3</button>
+      <button class="w-9 h-9 rounded-full border border-slate-200 bg-white text-slate-500 flex items-center justify-center hover:bg-slate-50">
+        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+      </button>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#001744] text-white/80 text-xs py-10 mt-16 border-t border-white/10">
+    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-2.5">
+        <svg class="h-6 w-auto shrink-0" viewBox="0 0 52 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="17" cy="16" rx="12" ry="9" stroke="#00C2F3" stroke-width="4.5" fill="none" transform="rotate(-18 17 16)"/>
+          <ellipse cx="32" cy="16" rx="12" ry="9" stroke="#005AFF" stroke-width="4.5" fill="none" transform="rotate(18 32 16)"/>
+        </svg>
+        <span class="text-sm font-extrabold text-white">vietnamworks</span>
+      </div>
+      <p class="text-slate-400 text-center md:text-left">
+        © 2026 VietnamWorks - Navigos Group Vietnam. Mọi quyền được bảo lưu.
+      </p>
+      <div class="flex items-center gap-4 text-slate-300">
+        <a href="../page_home/index.html" class="hover:text-white">Trang chủ</a>
+        <a href="../page_jobs/index.html" class="hover:text-white">Việc làm</a>
+        <a href="../page_companies/index.html" class="hover:text-white">Công ty</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING PROTOTYPE ROUTES DRAWER (18 PAGES) -->
+  <div class="fixed bottom-6 right-6 z-50">
+    <button id="toggleRoutesDrawer" class="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#002B7F] hover:bg-[#001E5B] text-white shadow-2xl border border-white/20 text-xs font-bold transition transform hover:scale-105 active:scale-95">
+      <i data-lucide="map" class="w-4 h-4 text-cyan-300"></i>
+      <span>Routes (18)</span>
+    </button>
+  </div>
+
+  <div id="routesDrawerBackdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden transition-opacity"></div>
+  <div id="routesDrawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="p-5 bg-[#002B7F] text-white flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <i data-lucide="compass" class="w-5 h-5 text-cyan-300"></i>
+        <h3 class="font-bold text-base">Hệ Thống 18 Màn Hình</h3>
+      </div>
+      <button id="closeRoutesDrawer" class="p-1.5 rounded-full hover:bg-white/10 text-white transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+    <div class="p-4 flex-1 overflow-y-auto space-y-4 text-xs">
+      <div>
+        <div class="font-bold text-slate-400 uppercase text-[10px] tracking-wider mb-2">1. Dành Cho Khách & Ứng Viên</div>
+        <div class="space-y-1">
+          <a href="../page_home/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>1. Trang Chủ</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_jobs/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>2. Tìm Kiếm Việc Làm</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_job_detail/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>3. Chi Tiết Việc Làm</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_companies/index.html" class="flex items-center justify-between p-2 rounded-lg bg-blue-50 text-[#002B7F] font-bold"><span>4. Top Doanh Nghiệp Hàng Đầu</span><i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></a>
+          <a href="../page_company_detail/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>5. Hồ Sơ Doanh Nghiệp</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_saved_jobs/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>6. Việc Làm Đã Lưu</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_candidate_dashboard/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>7. Hồ Sơ CV & Lịch Sử Nộp Đơn</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_settings/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>8. Cài Đặt Tài Khoản & Mật Khẩu</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+        </div>
+      </div>
+      <div>
+        <div class="font-bold text-slate-400 uppercase text-[10px] tracking-wider mb-2">2. Dành Cho Nhà Tuyển Dụng</div>
+        <div class="space-y-1">
+          <a href="../page_employer_dashboard/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>9. Dashboard Tuyển Dụng</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_post_job/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>10. Đăng Tin Tuyển Dụng</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_employer_candidates/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>11. Quản Lý & Lọc Ứng Viên Bằng AI</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_ai_cv_report/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>12. Báo Cáo Phân Tích AI Ứng Viên</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+        </div>
+      </div>
+      <div>
+        <div class="font-bold text-slate-400 uppercase text-[10px] tracking-wider mb-2">3. Realtime & Quản Trị</div>
+        <div class="space-y-1">
+          <a href="../page_chat/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>13. Nhắn Tin Realtime 1-1</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_notifications/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>14. Trung Tâm Thông Báo</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_admin_portal/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>15. Cổng Quản Trị Hệ Thống (Admin)</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_login/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>16. Đăng Nhập</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_register/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>17. Đăng Ký Tài Khoản</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_forgot_password/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>18. Quên Mật Khẩu</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    const btn = document.getElementById('toggleRoutesDrawer');
+    const closeBtn = document.getElementById('closeRoutesDrawer');
+    const drawer = document.getElementById('routesDrawer');
+    const backdrop = document.getElementById('routesDrawerBackdrop');
+    function toggleDrawer(open) {
+      if (open) {
+        drawer.classList.remove('translate-x-full');
+        backdrop.classList.remove('hidden');
+      } else {
+        drawer.classList.add('translate-x-full');
+        backdrop.classList.add('hidden');
+      }
+    }
+    btn?.addEventListener('click', () => toggleDrawer(true));
+    closeBtn?.addEventListener('click', () => toggleDrawer(false));
+    backdrop?.addEventListener('click', () => toggleDrawer(false));
+  </script>
+</body>
+</html>
