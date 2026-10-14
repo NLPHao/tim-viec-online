@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng Ký Tài Khoản Mới (FR-01) | VieclamOnline</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              blue: '#0B2B68',
+              blueHover: '#08204F',
+              blueLight: '#EBF3FE',
+              navy: '#071A3D',
+              orange: '#FF5A00',
+              orangeHover: '#E65100',
+              orangeLight: '#FFF2EB',
+              emerald: '#00A862',
+              emeraldLight: '#E8F7F0',
+            }
+          },
+          fontFamily: {
+            sans: ['"Be Vietnam Pro"', 'Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Be Vietnam Pro', Inter, sans-serif; }
+  </style>
+</head>
+<body class="bg-[#F8FAFC] text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+  <!-- TOP BAR -->
+  <div class="bg-[#071A3D] text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+    <div class="max-w-[1360px] mx-auto flex justify-between items-center">
+      <a href="../page_home/index.html" class="inline-flex items-center gap-1.5 text-blue-400 hover:text-white font-mono font-semibold transition">
+        <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+        Trang chủ VieclamOnline
+      </a>
+      <span class="text-emerald-400 font-semibold text-xs">13. Đăng Ký Tài Khoản (FR-01 Chuẩn SRS)</span>
+    </div>
+  </div>
+
+  <!-- MAIN REGISTER CARD -->
+  <main class="flex-1 flex items-center justify-center p-4 py-10">
+    <div class="bg-white rounded-3xl border border-slate-200 shadow-xl max-w-lg w-full p-8 sm:p-10 space-y-6">
+      
+      <!-- Brand Logo -->
+      <div class="text-center space-y-2">
+        <a href="../page_home/index.html" class="inline-flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#0B2B68] to-[#164494] flex items-center justify-center text-white font-black text-xl shadow-md">
+            V
+          </div>
+          <span class="text-2xl font-black tracking-tight text-[#0B2B68]">
+            Vieclam<span class="text-[#FF5A00]">Online</span>
+          </span>
+        </a>
+        <h1 class="text-xl font-black text-slate-900 tracking-tight">Tạo Tài Khoản Mới</h1>
+        <p class="text-xs text-slate-500">Khám phá cơ hội nghề nghiệp và kết nối với hàng nghìn doanh nghiệp</p>
+      </div>
+
+      <!-- Form (FR-01) -->
+      <form onsubmit="handleRegisterSubmit(event)" class="space-y-4 text-xs text-slate-700">
+        
+        <!-- Role Selection (FR-01.1) -->
+        <div class="space-y-1.5">
+          <label class="block font-bold text-slate-900">Bạn tham gia với vai trò: <span class="text-rose-500">*</span></label>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="flex items-center gap-2 p-3 rounded-xl border-2 border-[#0B2B68] bg-blue-50/50 cursor-pointer font-bold text-[#0B2B68]">
+              <input type="radio" name="role" value="candidate" checked class="text-[#0B2B68] focus:ring-0">
+              <i data-lucide="user" class="w-4 h-4"></i>
+              <span>Tôi là Ứng viên</span>
+            </label>
+            <label class="flex items-center gap-2 p-3 rounded-xl border border-slate-200 hover:border-slate-300 cursor-pointer font-bold text-slate-700">
+              <input type="radio" name="role" value="employer" class="text-[#0B2B68] focus:ring-0">
+              <i data-lucide="building-2" class="w-4 h-4"></i>
+              <span>Nhà tuyển dụng</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Full Name (FR-01.2: 2 - 100 characters) -->
+        <div class="space-y-1">
+          <label class="block font-bold text-slate-900">Họ và tên <span class="text-rose-500">*</span></label>
+          <input type="text" required minlength="2" maxlength="100" placeholder="Nguyễn Văn A (2 - 100 ký tự FR-01.2)" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-[#0B2B68] text-xs font-medium focus:outline-none">
+        </div>
+
+        <!-- Email (FR-01.3: RFC valid & unique) -->
+        <div class="space-y-1">
+          <label class="block font-bold text-slate-900">Địa chỉ Email <span class="text-rose-500">*</span></label>
+          <input type="email" required placeholder="user@example.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-[#0B2B68] text-xs font-medium focus:outline-none font-mono">
+        </div>
+
+        <!-- Phone (FR-01.5: 10 digits starting with 03, 05, 07, 08, 09) -->
+        <div class="space-y-1">
+          <label class="block font-bold text-slate-900">Số điện thoại (Đầu số VN 03, 05, 07, 08, 09)</label>
+          <input type="tel" pattern="^(03|05|07|08|09)[0-9]{8}$" placeholder="Ví dụ: 0912345678 (Đúng 10 số FR-01.5)" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-[#0B2B68] text-xs font-mono focus:outline-none">
+        </div>
+
+        <!-- Password (FR-01.4: 8-32 chars, Upper, Lower, Number, Special) -->
+        <div class="space-y-1">
+          <label class="block font-bold text-slate-900">Mật khẩu <span class="text-rose-500">*</span></label>
+          <input type="password" required minlength="8" maxlength="32" placeholder="8-32 ký tự, gồm chữ hoa, thường, số, ký tự đặc biệt" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-[#0B2B68] text-xs font-mono focus:outline-none">
+          <span class="text-[10px] text-slate-400">Tiêu chuẩn bảo mật Bcrypt (FR-01.4 & NFR-05)</span>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="space-y-1">
+          <label class="block font-bold text-slate-900">Xác nhận mật khẩu <span class="text-rose-500">*</span></label>
+          <input type="password" required minlength="8" maxlength="32" placeholder="Nhập lại mật khẩu giống 100%" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-[#0B2B68] text-xs font-mono focus:outline-none">
+        </div>
+
+        <!-- Terms agreement -->
+        <label class="flex items-start gap-2 pt-1 cursor-pointer">
+          <input type="checkbox" required checked class="mt-0.5 rounded text-[#0B2B68] focus:ring-0">
+          <span class="text-[11px] text-slate-500 leading-tight">
+            Tôi xác nhận từ 15 tuổi trở lên (SRS 2.2) và đồng ý với Điều khoản dịch vụ và Chính sách bảo mật của VieclamOnline.
+          </span>
+        </label>
+
+        <button type="submit" class="w-full py-3 bg-[#FF5A00] hover:bg-[#E65100] text-white font-bold text-sm rounded-xl shadow-md transition active:scale-95 flex items-center justify-center gap-2">
+          <span>Đăng Ký Tài Khoản</span>
+          <i data-lucide="check" class="w-4 h-4"></i>
+        </button>
+      </form>
+
+      <!-- Login link -->
+      <div class="text-center text-xs text-slate-500 pt-2 border-t border-slate-100">
+        Đã có tài khoản?
+        <a href="../page_login/index.html" class="font-bold text-[#0B2B68] hover:underline ml-1">Đăng nhập ngay (FR-02)</a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="text-center text-xs text-slate-400 py-4 border-t border-slate-200 bg-white">
+    © 2026 VieclamOnline.vn - Quy chuẩn đăng ký người dùng FR-01
+  </footer>
+
+  <!-- FLOATING PROTOTYPE SWITCHER -->
+  <div class="fixed bottom-5 right-5 z-50">
+    <button id="proto-switcher-btn" onclick="toggleProtoMenu()" class="flex items-center gap-2 bg-[#0B2B68] hover:bg-[#071A3D] text-white px-4 py-2.5 rounded-full shadow-2xl border-2 border-white/20 transition active:scale-95 text-xs font-bold font-mono">
+      <span class="w-2.5 h-2.5 rounded-full bg-[#FF5A00] animate-pulse"></span>
+      <i data-lucide="layout-grid" class="w-4 h-4"></i>
+      <span>FIGMA PROTOTYPE (15 TRANG)</span>
+    </button>
+    <div id="proto-menu" class="hidden absolute bottom-12 right-0 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200 p-4 text-xs z-50 max-h-[80vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
+        <span class="font-bold text-slate-900 font-mono">Chuyển Màn Hình Demo</span>
+        <button onclick="toggleProtoMenu()" class="text-slate-400 hover:text-slate-700"><i data-lucide="x" class="w-4 h-4"></i></button>
+      </div>
+      <div class="space-y-1">
+        <a href="../page_login/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>12. Đăng Nhập</span></a>
+        <a href="../page_register/index.html" class="flex items-center justify-between p-1.5 rounded-lg bg-blue-50 text-[#0B2B68] font-bold"><span>13. Đăng Ký Tài Khoản</span><span class="text-[10px] text-emerald-600">Đang xem</span></a>
+        <a href="../index.html" class="flex items-center justify-between p-1.5 rounded-lg bg-slate-900 text-white font-bold mt-2"><span>Hub Tổng Quan</span></a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    function handleRegisterSubmit(e) {
+      e.preventDefault();
+      alert("Đăng ký tài khoản thành công theo quy chuẩn FR-01! Hệ thống đã tạo hồ sơ người dùng tương ứng. Chuyển hướng tới trang Đăng nhập.");
+      window.location.href = '../page_login/index.html';
+    }
+
+    function toggleProtoMenu() {
+      const menu = document.getElementById('proto-menu');
+      if (menu) menu.classList.toggle('hidden');
+    }
+    document.addEventListener('click', function(e) {
+      const protoBtn = document.getElementById('proto-switcher-btn');
+      const protoMenu = document.getElementById('proto-menu');
+      if (protoBtn && protoMenu && !protoBtn.contains(e.target) && !protoMenu.contains(e.target)) {
+        protoMenu.classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
