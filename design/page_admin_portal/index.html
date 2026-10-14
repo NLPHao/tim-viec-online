@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cổng Quản Trị Hệ Thống (Admin Portal - FR-09) | VieclamOnline</title>
+  <title>Cổng Quản Trị Hệ Thống | VieclamOnline</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <script>
@@ -14,16 +14,17 @@
       theme: {
         extend: {
           colors: {
-            brand: {
-              blue: '#0B2B68',
-              blueHover: '#08204F',
+            vnw: {
+              navy: '#003699',
+              navyDark: '#002466',
+              navyDeep: '#001744',
+              blue: '#005AFF',
+              blueHover: '#004BD6',
               blueLight: '#EBF3FE',
-              navy: '#071A3D',
-              orange: '#FF5A00',
-              orangeHover: '#E65100',
-              orangeLight: '#FFF2EB',
+              orange: '#FF7D55',
+              orangeHover: '#FD6B3E',
               emerald: '#00A862',
-              emeraldLight: '#E8F7F0',
+              bg: '#F4F6F9',
             }
           },
           fontFamily: {
@@ -35,62 +36,58 @@
     }
   </script>
   <style>
-    body { font-family: 'Be Vietnam Pro', Inter, sans-serif; }
+    body { font-family: 'Be Vietnam Pro', Inter, sans-serif; background-color: #F4F6F9; }
   </style>
 </head>
-<body class="bg-[#F8FAFC] text-slate-800 antialiased min-h-screen flex flex-col">
+<body class="bg-[#F4F6F9] text-slate-800 antialiased min-h-screen flex flex-col">
 
   <!-- TOP BAR -->
-  <div class="bg-[#071A3D] text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+  <div class="bg-[#002466] text-white/90 text-xs py-2 px-4 border-b border-white/10">
     <div class="max-w-[1360px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
       <div class="flex items-center gap-3">
-        <a href="../page_home/index.html" class="inline-flex items-center gap-1.5 text-blue-400 hover:text-white font-mono font-semibold transition">
+        <a href="../page_home/index.html" class="inline-flex items-center gap-1.5 text-slate-200 hover:text-white font-medium transition">
           <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
           Trang chủ VieclamOnline
         </a>
-        <span class="text-slate-600">|</span>
-        <span class="text-rose-400 font-semibold">11. Cổng Quản Trị Hệ Thống (FR-09 Admin Portal)</span>
+        <span class="text-white/30">|</span>
+        <span class="text-slate-200">Cổng Quản Trị Trung Tâm</span>
       </div>
       <div class="flex items-center gap-4 text-[12px]">
-        <span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold font-mono">QUYỀN HẠN: SUPER ADMIN</span>
+        <span class="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 font-bold font-mono">QUYỀN HẠN: SUPER ADMIN</span>
       </div>
     </div>
   </div>
 
-  <!-- HEADER -->
-  <header class="sticky top-0 z-40 bg-white border-b border-slate-200 shadow-sm">
-    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 h-20 flex items-center justify-between gap-4">
+  <!-- MAIN HEADER (VIETNAMWORKS ROYAL NAVY #003699) -->
+  <header class="sticky top-0 z-40 bg-[#003699] text-white shadow-md border-b border-[#002B7A]">
+    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 h-[72px] flex items-center justify-between gap-4">
       <div class="flex items-center gap-8">
-        <a href="../page_home/index.html" class="flex items-center gap-3">
-          <div class="w-11 h-11 rounded-xl bg-slate-900 text-white font-black text-xl flex items-center justify-center shadow-md">
-            <i data-lucide="shield-check" class="w-6 h-6 text-rose-500"></i>
+        <a href="../page_home/index.html" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-xl bg-white/10 backdrop-blur border border-white/25 flex items-center justify-center text-white font-black text-xl shadow-inner group-hover:scale-105 transition">
+            <i data-lucide="shield-check" class="w-6 h-6 text-rose-400"></i>
           </div>
           <div class="flex flex-col">
-            <span class="text-2xl font-black tracking-tight text-slate-900">
-              Vieclam<span class="text-rose-600">Admin</span>
+            <span class="text-2xl font-black tracking-tight text-white flex items-center">
+              Vieclam<span class="text-[#FF7D55]">Admin</span>
             </span>
-            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider -mt-1">System Management</span>
           </div>
         </a>
-        <nav class="hidden lg:flex items-center gap-1 text-[15px] font-medium text-slate-700">
-          <button onclick="switchAdminTab('overview')" id="tab-btn-overview" class="px-3.5 py-2 rounded-lg text-slate-900 bg-slate-100 font-bold">
+        <nav class="hidden lg:flex items-center gap-1 text-[14px]">
+          <button onclick="switchAdminTab('overview')" id="tab-btn-overview" class="px-3.5 py-1.5 rounded-full bg-[#002B7A] text-white font-bold shadow-inner transition">
             Tổng quan sàn
           </button>
-          <button onclick="switchAdminTab('jobs')" id="tab-btn-jobs" class="px-3.5 py-2 rounded-lg hover:text-slate-900">
-            Kiểm duyệt tin (FR-09.1)
+          <button onclick="switchAdminTab('jobs')" id="tab-btn-jobs" class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition">
+            Kiểm duyệt tin đăng
           </button>
-          <button onclick="switchAdminTab('users')" id="tab-btn-users" class="px-3.5 py-2 rounded-lg hover:text-slate-900">
-            Quản lý tài khoản (FR-09.4)
-          </button>
-          <button onclick="switchAdminTab('master')" id="tab-btn-master" class="px-3.5 py-2 rounded-lg hover:text-slate-900">
-            Danh mục & Kỹ năng (FR-09.5)
+          <button onclick="switchAdminTab('users')" id="tab-btn-users" class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition">
+            Quản lý người dùng
           </button>
         </nav>
       </div>
 
       <div class="flex items-center gap-3">
-        <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 text-xs font-semibold text-slate-700">
-          <i data-lucide="user-check" class="w-4 h-4 text-emerald-600"></i>
+        <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-xs font-semibold text-white">
+          <i data-lucide="user-check" class="w-4 h-4 text-emerald-400"></i>
           <span>Admin Root</span>
         </div>
       </div>
@@ -109,28 +106,28 @@
         <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
           <div class="flex items-center justify-between text-slate-500 text-xs font-medium">
             <span>Tổng người dùng</span>
-            <i data-lucide="users" class="w-4 h-4 text-blue-600"></i>
+            <i data-lucide="users" class="w-4 h-4 text-[#005AFF]"></i>
           </div>
-          <div class="text-3xl font-black font-mono text-slate-900 mt-2">18.420</div>
-          <div class="text-[11px] text-emerald-600 font-medium mt-1">16.200 Ứng viên • 2.220 Doanh nghiệp</div>
+          <div class="text-3xl font-black font-mono text-[#003699] mt-2">18.420</div>
+          <div class="text-[11px] text-[#00A862] font-semibold mt-1">16.200 Ứng viên • 2.220 Doanh nghiệp</div>
         </div>
 
         <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
           <div class="flex items-center justify-between text-slate-500 text-xs font-medium">
             <span>Tổng tin tuyển dụng</span>
-            <i data-lucide="briefcase" class="w-4 h-4 text-emerald-600"></i>
+            <i data-lucide="briefcase" class="w-4 h-4 text-[#00A862]"></i>
           </div>
-          <div class="text-3xl font-black font-mono text-slate-900 mt-2">45.890</div>
-          <div class="text-[11px] text-emerald-600 font-medium mt-1">42.150 Đang mở • 3.740 Đã đóng</div>
+          <div class="text-3xl font-black font-mono text-[#00A862] mt-2">45.890</div>
+          <div class="text-[11px] text-[#00A862] font-semibold mt-1">42.150 Đang mở • 3.740 Đã đóng</div>
         </div>
 
         <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
           <div class="flex items-center justify-between text-slate-500 text-xs font-medium">
             <span>Lượt ứng tuyển & AI Chấm</span>
-            <i data-lucide="sparkles" class="w-4 h-4 text-purple-600"></i>
+            <i data-lucide="sparkles" class="w-4 h-4 text-[#005AFF]"></i>
           </div>
-          <div class="text-3xl font-black font-mono text-slate-900 mt-2">89.340</div>
-          <div class="text-[11px] text-purple-700 font-medium mt-1">100% Phân tích tự động qua Gemini</div>
+          <div class="text-3xl font-black font-mono text-purple-700 mt-2">89.340</div>
+          <div class="text-[11px] text-purple-700 font-semibold mt-1">100% Phân tích tự động qua Gemini</div>
         </div>
 
         <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
@@ -139,7 +136,7 @@
             <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-600"></i>
           </div>
           <div class="text-3xl font-black font-mono text-rose-600 mt-2">2 Tin</div>
-          <div class="text-[11px] text-rose-500 font-medium mt-1">Báo cáo từ ứng viên cần xử lý</div>
+          <div class="text-[11px] text-rose-500 font-semibold mt-1">Báo cáo từ ứng viên cần xử lý</div>
         </div>
 
       </div>
@@ -152,9 +149,9 @@
         <div>
           <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
             <i data-lucide="flag" class="w-4 h-4 text-rose-600"></i>
-            Danh Sách Tin Tuyển Dụng Bị Báo Cáo / Chờ Duyệt (FR-09.1)
+            Danh Sách Tin Tuyển Dụng Bị Báo Cáo / Chờ Duyệt
           </h2>
-          <p class="text-xs text-slate-500 mt-0.5">Quản trị viên có quyền Xóa tin vi phạm và gửi thông báo kỷ luật tới NTD (FR-09.2)</p>
+          <p class="text-xs text-slate-500 mt-0.5">Quản trị viên có quyền xử lý tin vi phạm và gửi thông báo kỷ luật tới nhà tuyển dụng</p>
         </div>
         <span class="px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 text-xs font-bold font-mono">2 Yêu cầu</span>
       </div>
@@ -171,9 +168,9 @@
             <p class="text-xs text-slate-500 mt-1">Đăng bởi: <strong>Công ty TNHH Dịch vụ Toàn Cầu</strong> • Ứng viên báo cáo: "Yêu cầu chuyển cọc tiền bảo hiểm trước khi giao việc".</p>
           </div>
           <div class="flex items-center gap-2 shrink-0">
-            <a href="../page_job_detail/index.html" class="px-3 py-1.5 rounded-xl border border-slate-200 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-50">Xem nội dung</a>
-            <button onclick="rejectReportedJob(1)" class="px-4 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-sm transition">
-              Xóa tin & Khóa tài khoản (FR-09.2)
+            <a href="../page_job_detail/index.html" class="px-4 py-1.5 rounded-full border border-slate-200 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-50">Xem nội dung</a>
+            <button onclick="rejectReportedJob(1)" class="px-5 py-1.5 rounded-full bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-sm transition">
+              Xóa tin & Khóa tài khoản
             </button>
           </div>
         </div>
@@ -188,7 +185,7 @@
             <p class="text-xs text-slate-500 mt-1">Doanh nghiệp mới đăng ký lần đầu • Đang chờ Admin xác thực giấy phép kinh doanh.</p>
           </div>
           <div class="flex items-center gap-2 shrink-0">
-            <button onclick="approveJob(2)" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm transition">
+            <button onclick="approveJob(2)" class="px-5 py-1.5 rounded-full bg-[#00A862] hover:bg-[#00874E] text-white font-bold text-xs shadow-sm transition">
               Phê duyệt tin (Approve)
             </button>
           </div>
@@ -202,13 +199,13 @@
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
         <div>
           <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
-            <i data-lucide="user-x" class="w-4 h-4 text-[#0B2B68]"></i>
-            Quản Lý Tài Khoản & Khóa Vi Phạm (FR-09.4)
+            <i data-lucide="user-x" class="w-4 h-4 text-[#003699]"></i>
+            Quản Lý Tài Khoản Người Dùng
           </h2>
-          <p class="text-xs text-slate-500 mt-0.5">Tài khoản bị khóa sẽ lập tức bị hủy phiên làm việc và từ chối đăng nhập (FR-02.5)</p>
+          <p class="text-xs text-slate-500 mt-0.5">Tài khoản bị khóa sẽ lập tức bị đình chỉ quyền truy cập hệ thống</p>
         </div>
         <div class="flex items-center gap-2">
-          <input type="text" placeholder="Tìm theo tên hoặc email..." class="px-3 py-1.5 rounded-xl border border-slate-200 text-xs focus:outline-none">
+          <input type="text" placeholder="Tìm theo tên hoặc email..." class="px-4 py-1.5 rounded-full border border-slate-200 text-xs focus:outline-none focus:border-[#005AFF]">
         </div>
       </div>
 
@@ -217,9 +214,9 @@
           <thead class="bg-slate-50 text-slate-500 font-bold uppercase text-[10px] tracking-wider border-y border-slate-100">
             <tr>
               <th class="py-3 px-4">Họ tên & Email</th>
-              <th class="py-3 px-4">Vai trò (Role)</th>
+              <th class="py-3 px-4">Vai trò</th>
               <th class="py-3 px-4">Số điện thoại</th>
-              <th class="py-3 px-4">Trạng thái (FR-09.4)</th>
+              <th class="py-3 px-4">Trạng thái</th>
               <th class="py-3 px-4 text-right">Thao tác</th>
             </tr>
           </thead>
@@ -231,15 +228,15 @@
                 <div class="font-bold text-slate-900">Nguyễn Văn A</div>
                 <div class="text-slate-400 font-mono text-[11px]">nguyen.vana@example.com</div>
               </td>
-              <td class="py-3.5 px-4 font-semibold text-blue-700">Ứng viên (Candidate)</td>
+              <td class="py-3.5 px-4 font-semibold text-[#005AFF]">Ứng viên (Candidate)</td>
               <td class="py-3.5 px-4 font-mono">0912 345 678</td>
               <td class="py-3.5 px-4">
-                <span id="user-status-1" class="px-2 py-0.5 rounded-full font-bold text-[10px] bg-emerald-100 text-emerald-800">
+                <span id="user-status-1" class="px-2.5 py-0.5 rounded-full font-bold text-[10px] bg-emerald-100 text-[#00A862]">
                   Hoạt động (Active)
                 </span>
               </td>
               <td class="py-3.5 px-4 text-right">
-                <button onclick="toggleUserLock(1)" id="user-lock-btn-1" class="px-3 py-1 rounded-lg border border-rose-200 text-rose-600 hover:bg-rose-50 font-bold text-[11px] transition">
+                <button onclick="toggleUserLock(1)" id="user-lock-btn-1" class="px-3.5 py-1 rounded-full border border-rose-200 text-rose-600 hover:bg-rose-50 font-bold text-[11px] transition">
                   Khóa tài khoản
                 </button>
               </td>
@@ -254,12 +251,12 @@
               <td class="py-3.5 px-4 font-semibold text-purple-700">Nhà tuyển dụng (Employer)</td>
               <td class="py-3.5 px-4 font-mono">024 7300 7300</td>
               <td class="py-3.5 px-4">
-                <span id="user-status-2" class="px-2 py-0.5 rounded-full font-bold text-[10px] bg-emerald-100 text-emerald-800">
+                <span id="user-status-2" class="px-2.5 py-0.5 rounded-full font-bold text-[10px] bg-emerald-100 text-[#00A862]">
                   Hoạt động (Active)
                 </span>
               </td>
               <td class="py-3.5 px-4 text-right">
-                <button onclick="toggleUserLock(2)" id="user-lock-btn-2" class="px-3 py-1 rounded-lg border border-rose-200 text-rose-600 hover:bg-rose-50 font-bold text-[11px] transition">
+                <button onclick="toggleUserLock(2)" id="user-lock-btn-2" class="px-3.5 py-1 rounded-full border border-rose-200 text-rose-600 hover:bg-rose-50 font-bold text-[11px] transition">
                   Khóa tài khoản
                 </button>
               </td>
@@ -272,23 +269,44 @@
 
   </main>
 
-  <!-- FLOATING PROTOTYPE SWITCHER -->
+  <!-- FOOTER -->
+  <footer class="bg-[#001744] text-slate-300 pt-8 pb-6 text-xs border-t border-[#002466] mt-auto">
+    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div>© 2026 VieclamOnline.vn - Nền tảng việc làm và tuyển dụng hàng đầu Việt Nam.</div>
+      <div class="flex items-center gap-3">
+        <a href="../page_home/index.html" class="hover:text-white transition">Trang chủ</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING PROTOTYPE SWITCHER (RENAMED TO Routes) -->
   <div class="fixed bottom-5 right-5 z-50">
-    <button id="proto-switcher-btn" onclick="toggleProtoMenu()" class="flex items-center gap-2 bg-[#0B2B68] hover:bg-[#071A3D] text-white px-4 py-2.5 rounded-full shadow-2xl border-2 border-white/20 transition active:scale-95 text-xs font-bold font-mono">
-      <span class="w-2.5 h-2.5 rounded-full bg-[#FF5A00] animate-pulse"></span>
-      <i data-lucide="layout-grid" class="w-4 h-4"></i>
-      <span>FIGMA PROTOTYPE (15 TRANG)</span>
+    <button id="proto-switcher-btn" onclick="toggleProtoMenu()" class="flex items-center gap-2 bg-[#003699] hover:bg-[#002466] text-white px-4 py-2 rounded-full shadow-2xl border-2 border-white/20 transition active:scale-95 text-xs font-bold font-mono">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+      <span>Routes</span>
     </button>
-    <div id="proto-menu" class="hidden absolute bottom-12 right-0 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200 p-4 text-xs z-50 max-h-[80vh] overflow-y-auto">
+    <div id="proto-menu" class="hidden absolute bottom-12 right-0 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200 p-4 text-xs z-50 max-h-[80vh] overflow-y-auto text-slate-800">
       <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
-        <span class="font-bold text-slate-900 font-mono">Chuyển Màn Hình Demo</span>
+        <span class="font-bold text-slate-900 font-mono">Danh mục Routes (15 Trang)</span>
         <button onclick="toggleProtoMenu()" class="text-slate-400 hover:text-slate-700"><i data-lucide="x" class="w-4 h-4"></i></button>
       </div>
       <div class="space-y-1">
         <a href="../page_home/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>01. Trang Chủ</span></a>
+        <a href="../page_jobs/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>02. Danh Sách Việc Làm</span></a>
+        <a href="../page_job_detail/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>03. Chi Tiết Việc Làm</span></a>
+        <a href="../page_ai_cv_report/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>04. Báo Cáo Phù Hợp CV</span></a>
+        <a href="../page_candidate_dashboard/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>05. Dashboard Ứng Viên</span></a>
         <a href="../page_employer_dashboard/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>06. Dashboard NTD</span></a>
-        <a href="../page_admin_portal/index.html" class="flex items-center justify-between p-1.5 rounded-lg bg-blue-50 text-[#0B2B68] font-bold"><span>11. Cổng Quản Trị Admin</span><span class="text-[10px] text-emerald-600">Đang xem</span></a>
-        <a href="../index.html" class="flex items-center justify-between p-1.5 rounded-lg bg-slate-900 text-white font-bold mt-2"><span>Hub Tổng Quan</span></a>
+        <a href="../page_post_job/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>07. Đăng Tin Tuyển Dụng</span></a>
+        <a href="../page_company_detail/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>08. Hồ Sơ Doanh Nghiệp</span></a>
+        <a href="../page_employer_candidates/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>09. Quản Lý Ứng Viên</span></a>
+        <a href="../page_chat/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>10. Nhắn Tin Trực Tuyến</span></a>
+        <a href="../page_admin_portal/index.html" class="flex items-center justify-between p-1.5 rounded-lg bg-blue-50 text-[#003699] font-bold"><span>11. Quản Trị Admin</span><span class="text-[10px] text-emerald-600">Đang xem</span></a>
+        <a href="../page_login/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>12. Đăng Nhập</span></a>
+        <a href="../page_register/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>13. Đăng Ký</span></a>
+        <a href="../page_forgot_password/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>14. Quên Mật Khẩu</span></a>
+        <a href="../page_notifications/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>15. Thông Báo</span></a>
       </div>
     </div>
   </div>
@@ -297,7 +315,7 @@
     lucide.createIcons();
 
     function rejectReportedJob(id) {
-      if (confirm("Xác nhận xóa tin tuyển dụng vi phạm và gửi thông báo cảnh cáo tới Nhà tuyển dụng (theo FR-09.2)?")) {
+      if (confirm("Xác nhận xóa tin tuyển dụng vi phạm và gửi thông báo đến Nhà tuyển dụng?")) {
         const item = document.getElementById(`report-item-${id}`);
         item.remove();
         alert("Đã xóa tin tuyển dụng vi phạm thành công!");
@@ -307,7 +325,7 @@
     function approveJob(id) {
       const item = document.getElementById(`report-item-${id}`);
       item.innerHTML = `
-        <div class="p-3 bg-emerald-100 text-emerald-800 rounded-xl font-bold text-xs flex items-center gap-2">
+        <div class="p-3 bg-emerald-100 text-[#00A862] rounded-xl font-bold text-xs flex items-center gap-2">
           <i data-lucide="check-circle" class="w-4 h-4"></i>
           Tin tuyển dụng đã được phê duyệt sang trạng thái Active (Đang tuyển) thành công!
         </div>
@@ -319,15 +337,15 @@
       const statusEl = document.getElementById(`user-status-${id}`);
       const btnEl = document.getElementById(`user-lock-btn-${id}`);
       if (statusEl.innerText.includes('Active') || statusEl.innerText.includes('Hoạt động')) {
-        statusEl.className = "px-2 py-0.5 rounded-full font-bold text-[10px] bg-rose-100 text-rose-800";
-        statusEl.innerText = "Bị khóa (Locked FR-09.4)";
-        btnEl.className = "px-3 py-1 rounded-lg border border-emerald-200 text-emerald-700 hover:bg-emerald-50 font-bold text-[11px] transition";
+        statusEl.className = "px-2.5 py-0.5 rounded-full font-bold text-[10px] bg-rose-100 text-rose-800";
+        statusEl.innerText = "Bị khóa (Locked)";
+        btnEl.className = "px-3.5 py-1 rounded-full border border-emerald-200 text-[#00A862] hover:bg-emerald-50 font-bold text-[11px] transition";
         btnEl.innerText = "Mở khóa";
-        alert("Đã khóa tài khoản! Mọi phiên đăng nhập của người dùng này lập tức bị thu hồi (theo FR-09.4 & FR-02.5).");
+        alert("Đã khóa tài khoản thành công! Các phiên đăng nhập hiện tại đã bị thu hồi.");
       } else {
-        statusEl.className = "px-2 py-0.5 rounded-full font-bold text-[10px] bg-emerald-100 text-emerald-800";
+        statusEl.className = "px-2.5 py-0.5 rounded-full font-bold text-[10px] bg-emerald-100 text-[#00A862]";
         statusEl.innerText = "Hoạt động (Active)";
-        btnEl.className = "px-3 py-1 rounded-lg border border-rose-200 text-rose-600 hover:bg-rose-50 font-bold text-[11px] transition";
+        btnEl.className = "px-3.5 py-1 rounded-full border border-rose-200 text-rose-600 hover:bg-rose-50 font-bold text-[11px] transition";
         btnEl.innerText = "Khóa tài khoản";
         alert("Đã mở khóa tài khoản thành công!");
       }

@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VieclamOnline - Cổng Tuyển Dụng & Việc Làm Hàng Đầu Việt Nam (Chuẩn VietnamWorks)</title>
+  <title>Nền tảng Việc làm chất lượng & Tuyển dụng hiệu quả - VieclamOnline</title>
+  <meta name="description" content="Nền tảng tuyển dụng lớn tại Việt Nam với hơn 45.000 cơ hội việc làm mới nhất, chất lượng từ 12.000+ doanh nghiệp uy tín. Tra cứu lương, nộp đơn ứng tuyển nhanh chóng.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
@@ -14,16 +15,22 @@
       theme: {
         extend: {
           colors: {
-            brand: {
-              blue: '#0B2B68',
-              blueHover: '#08204F',
-              blueLight: '#EBF3FE',
-              navy: '#071A3D',
-              orange: '#FF5A00',
-              orangeHover: '#E65100',
-              orangeLight: '#FFF2EB',
+            vnw: {
+              navy: '#003699',
+              navyDark: '#002466',
+              navyDeep: '#001744',
+              navyLight: '#EBF2FF',
+              blue: '#005AFF',
+              blueHover: '#004BD6',
+              coral: '#FF7D55',
+              coralHover: '#FD6B3E',
+              coralLight: '#FFF0EC',
               emerald: '#00A862',
               emeraldLight: '#E8F7F0',
+              grayBg: '#F4F6F9',
+              slateText: '#1E293B',
+              slateMuted: '#64748B',
+              border: '#E2E8F0',
             }
           },
           fontFamily: {
@@ -35,162 +42,134 @@
     }
   </script>
   <style>
-    body { font-family: 'Be Vietnam Pro', Inter, sans-serif; }
-    .job-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px -5px rgba(11, 43, 104, 0.08); }
-    .company-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06); }
+    body { font-family: 'Be Vietnam Pro', Inter, sans-serif; background-color: #F4F6F9; }
+    .job-card { transition: all 0.2s ease-in-out; }
+    .job-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px -6px rgba(0, 54, 153, 0.12); border-color: #005AFF; }
+    .company-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px -5px rgba(0, 0, 0, 0.08); border-color: #005AFF; }
   </style>
 </head>
-<body class="bg-[#F8FAFC] text-slate-800 antialiased min-h-screen flex flex-col">
+<body class="bg-[#F4F6F9] text-slate-800 antialiased min-h-screen flex flex-col selection:bg-vnw-coral selection:text-white">
 
-  <!-- TOP UTILITY BAR (Chuẩn VietnamWorks Enterprise) -->
-  <div class="bg-[#071A3D] text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+  <!-- TOP SAFETY / UTILITY BAR (Chuẩn VietnamWorks) -->
+  <div class="bg-[#002466] text-white/90 text-xs py-2 px-4 border-b border-white/10">
     <div class="max-w-[1360px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-      <div class="flex items-center gap-4 text-[12px]">
-        <span class="flex items-center gap-1.5 text-emerald-400 font-medium">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          Sàn tuyển dụng xác thực số 1 Việt Nam
+      <div class="flex items-center gap-3 text-[12px]">
+        <span class="flex items-center gap-1.5 text-white/90">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+          Hãy bảo vệ chính mình trước các trường hợp mạo danh VieclamOnline.
         </span>
-        <span class="text-slate-600 hidden md:inline">|</span>
-        <span class="text-slate-300 hidden md:inline flex items-center gap-1">
-          <i data-lucide="phone-call" class="w-3.5 h-3.5 text-brand-orange"></i>
-          Hotline hỗ trợ: <strong class="text-white">1900 6868</strong> (8h - 18h)
-        </span>
+        <a href="../page_jobs/index.html" class="text-blue-300 hover:text-white underline hidden md:inline">Xem cảnh báo</a>
       </div>
       <div class="flex items-center gap-4 text-[12px]">
-        <span class="text-slate-400">Dành cho Nhà Tuyển Dụng:</span>
-        <a href="../page_post_job/index.html" class="text-brand-orange hover:text-white font-semibold transition flex items-center gap-1">
-          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-          Đăng tin tuyển dụng
-        </a>
-        <span class="text-slate-600">|</span>
-        <a href="../page_admin_portal/index.html" class="text-slate-300 hover:text-white font-medium flex items-center gap-1">
-          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-blue-400"></i>
-          Admin Portal
+        <span class="text-white/80 hidden md:inline flex items-center gap-1">
+          <i data-lucide="phone-call" class="w-3 h-3 text-[#FF7D55]"></i>
+          Hotline CSKH: <strong class="text-white">1900 6868</strong>
+        </span>
+        <span class="text-white/30 hidden md:inline">|</span>
+        <a href="../page_employer_dashboard/index.html" class="text-white/90 hover:text-white font-medium transition flex items-center gap-1">
+          <i data-lucide="building" class="w-3.5 h-3.5 text-blue-300"></i>
+          Dành cho Nhà tuyển dụng
         </a>
       </div>
     </div>
   </div>
 
-  <!-- MAIN HEADER & NAVIGATION (100% VIETNAMWORKS STYLE) -->
-  <header class="sticky top-0 z-40 bg-white border-b border-slate-200 shadow-sm">
-    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 h-20 flex items-center justify-between gap-4">
+  <!-- MAIN NAVBAR (AUTHENTIC VIETNAMWORKS NAVY #003699) -->
+  <header class="sticky top-0 z-40 bg-[#003699] text-white shadow-md border-b border-[#002B7A]">
+    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 h-[72px] flex items-center justify-between gap-4">
       
-      <!-- Brand Logo -->
+      <!-- Brand Logo & Main Navigation -->
       <div class="flex items-center gap-8">
         <a href="../page_home/index.html" class="flex items-center gap-3 group">
-          <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-[#0B2B68] to-[#164494] flex items-center justify-center text-white font-black text-xl shadow-md shadow-blue-900/20 group-hover:scale-105 transition">
+          <div class="w-10 h-10 rounded-xl bg-white text-[#003699] flex items-center justify-center font-black text-xl shadow-md group-hover:scale-105 transition">
             V
           </div>
-          <div class="flex flex-col">
-            <span class="text-2xl font-black tracking-tight text-[#0B2B68] flex items-center">
-              Vieclam<span class="text-[#FF5A00]">Online</span>
-            </span>
-            <span class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider -mt-1">VietnamWorks Style Hub</span>
-          </div>
+          <span class="text-2xl font-black tracking-tight text-white flex items-center">
+            Vieclam<span class="text-[#FF7D55]">Online</span>
+          </span>
         </a>
 
         <!-- Main Navigation Links -->
-        <nav class="hidden lg:flex items-center gap-1 text-[15px] font-medium text-slate-700">
-          <a href="../page_home/index.html" class="px-3.5 py-2 rounded-lg text-[#0B2B68] bg-blue-50/80 font-bold flex items-center gap-1.5 transition">
-            <i data-lucide="home" class="w-4 h-4 text-[#0B2B68]"></i>
+        <nav class="hidden lg:flex items-center gap-1 text-[14px]">
+          <a href="../page_home/index.html" class="px-3.5 py-1.5 rounded-full bg-[#002B7A] text-white font-bold flex items-center gap-1.5 transition">
             Trang chủ
           </a>
-          <a href="../page_jobs/index.html" class="px-3.5 py-2 rounded-lg hover:text-[#0B2B68] hover:bg-slate-50 transition flex items-center gap-1.5">
-            <i data-lucide="briefcase" class="w-4 h-4 text-slate-400"></i>
-            Tìm việc làm
+          <a href="../page_jobs/index.html" class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition flex items-center gap-1.5 font-medium">
+            Việc làm
           </a>
-          <a href="../page_company_detail/index.html" class="px-3.5 py-2 rounded-lg hover:text-[#0B2B68] hover:bg-slate-50 transition flex items-center gap-1.5">
-            <i data-lucide="building-2" class="w-4 h-4 text-slate-400"></i>
-            Top Công ty
+          <a href="../page_company_detail/index.html" class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition flex items-center gap-1.5 font-medium">
+            Công ty
           </a>
-          <a href="../page_ai_cv_report/index.html" class="px-3.5 py-2 rounded-lg hover:text-[#0B2B68] hover:bg-slate-50 transition flex items-center gap-1.5 relative group">
-            <i data-lucide="cpu" class="w-4 h-4 text-emerald-600"></i>
-            AI Match CV
-            <span class="px-1.5 py-0.5 text-[10px] font-bold bg-emerald-500 text-white rounded-full leading-none group-hover:scale-110 transition">MỚI</span>
+          <a href="../page_ai_cv_report/index.html" class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition flex items-center gap-1.5 font-medium">
+            Gợi ý việc làm
+            <span class="px-1.5 py-0.2 text-[10px] font-bold bg-[#00E599] text-[#002466] rounded-full">MỚI</span>
           </a>
-          <a href="../page_candidate_dashboard/index.html" class="px-3.5 py-2 rounded-lg hover:text-[#0B2B68] hover:bg-slate-50 transition flex items-center gap-1.5">
-            <i data-lucide="layout-dashboard" class="w-4 h-4 text-slate-400"></i>
-            Dashboard Ứng viên
-          </a>
-          <a href="../page_employer_dashboard/index.html" class="px-3.5 py-2 rounded-lg hover:text-[#0B2B68] hover:bg-slate-50 transition flex items-center gap-1.5">
-            <i data-lucide="layers" class="w-4 h-4 text-slate-400"></i>
-            Dashboard NTD
+          <a href="../page_candidate_dashboard/index.html" class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition flex items-center gap-1.5 font-medium">
+            Hồ sơ & CV
           </a>
         </nav>
       </div>
 
       <!-- Right Action Controls -->
-      <div class="flex items-center gap-2.5 sm:gap-3.5">
-        <!-- Chat 1-1 realtime trigger (FR-08) -->
-        <a href="../page_chat/index.html" class="relative p-2.5 rounded-xl border border-slate-200 text-slate-600 hover:text-[#0B2B68] hover:border-blue-300 hover:bg-blue-50/50 transition" title="Tin nhắn Realtime (FR-08)">
-          <i data-lucide="message-square" class="w-5 h-5"></i>
-          <span class="absolute -top-1 -right-1 bg-[#FF5A00] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">3</span>
+      <div class="flex items-center gap-2.5 sm:gap-3">
+        
+        <!-- Language Switcher -->
+        <button class="hidden sm:inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white font-bold text-xs hover:bg-white/20 transition">
+          Vi
+        </button>
+
+        <!-- Chat icon -->
+        <a href="../page_chat/index.html" class="w-9 h-9 rounded-full bg-[#002B7A] hover:bg-[#002263] border border-white/15 text-white flex items-center justify-center relative transition" title="Tin nhắn">
+          <i data-lucide="message-square" class="w-4 h-4"></i>
+          <span class="absolute -top-1 -right-1 bg-[#FF7D55] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">3</span>
         </a>
 
-        <!-- Notifications trigger (FR-10) -->
-        <a href="../page_notifications/index.html" class="relative p-2.5 rounded-xl border border-slate-200 text-slate-600 hover:text-[#0B2B68] hover:border-blue-300 hover:bg-blue-50/50 transition" title="Thông báo hệ thống (FR-10)">
-          <i data-lucide="bell" class="w-5 h-5"></i>
-          <span class="absolute top-2 right-2 w-2 h-2 bg-emerald-500 rounded-full ring-2 ring-white"></span>
+        <!-- Notifications icon -->
+        <a href="../page_notifications/index.html" class="w-9 h-9 rounded-full bg-[#002B7A] hover:bg-[#002263] border border-white/15 text-white flex items-center justify-center relative transition" title="Thông báo">
+          <i data-lucide="bell" class="w-4 h-4"></i>
+          <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-[#FF7D55] rounded-full ring-2 ring-[#003699]"></span>
         </a>
 
-        <!-- Post Job Primary CTA (VietnamWorks Orange) -->
-        <a href="../page_post_job/index.html" class="hidden sm:inline-flex items-center gap-2 bg-[#FF5A00] hover:bg-[#E65100] text-white text-sm font-bold px-4 py-2.5 rounded-xl shadow-md shadow-orange-500/20 transition active:scale-95">
-          <i data-lucide="plus-circle" class="w-4 h-4"></i>
-          <span>Đăng tin tuyển dụng</span>
-        </a>
-
-        <!-- User Profile Dropdown -->
+        <!-- User Profile Pill -->
         <div class="relative">
-          <button id="user-menu-btn" onclick="toggleUserDropdown()" class="flex items-center gap-2.5 pl-2 pr-3 py-1.5 rounded-xl border border-slate-200 hover:border-blue-300 hover:bg-slate-50 transition">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#0B2B68] to-blue-600 text-white font-bold text-xs flex items-center justify-center shadow-sm">
+          <button id="user-menu-btn" onclick="toggleUserDropdown()" class="flex items-center gap-2 pl-1.5 pr-3 py-1 rounded-full bg-[#005AFF] hover:bg-[#004BD6] text-white border border-white/20 transition shadow-sm">
+            <div class="w-7 h-7 rounded-full bg-white text-[#003699] font-black text-xs flex items-center justify-center shadow-inner">
               NA
             </div>
-            <div class="text-left hidden md:block">
-              <div class="text-xs font-bold text-slate-800 leading-tight">Nguyễn Văn A</div>
-              <div class="text-[10px] text-emerald-600 font-medium">Ứng viên Online</div>
-            </div>
-            <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400"></i>
+            <span class="text-xs font-bold hidden md:inline">Nguyễn Văn A</span>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-white/80"></i>
           </button>
 
           <!-- Dropdown items -->
-          <div id="user-dropdown-menu" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-slate-200 py-2.5 text-sm text-slate-700 z-50">
+          <div id="user-dropdown-menu" class="hidden absolute right-0 mt-2 w-60 bg-white rounded-2xl shadow-2xl border border-slate-200 py-2.5 text-xs text-slate-700 z-50">
             <div class="px-4 py-2 border-b border-slate-100">
-              <div class="font-bold text-slate-900">Nguyễn Văn A</div>
-              <div class="text-xs text-slate-500 font-mono">nguyen.vana@example.com</div>
-              <span class="inline-block mt-1 px-2 py-0.5 text-[10px] font-semibold bg-blue-100 text-[#0B2B68] rounded-full">Ứng viên tích cực</span>
+              <div class="font-bold text-slate-900 text-sm">Nguyễn Văn A</div>
+              <div class="text-slate-500 font-mono text-[11px]">nguyen.vana@example.com</div>
             </div>
             <div class="py-1.5">
-              <a href="../page_candidate_dashboard/index.html" class="flex items-center gap-2.5 px-4 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#0B2B68]">
+              <a href="../page_candidate_dashboard/index.html" class="flex items-center gap-2.5 px-4 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF]">
                 <i data-lucide="user" class="w-4 h-4 text-slate-400"></i>
-                Hồ sơ cá nhân & CV PDF
+                Hồ sơ cá nhân & CV
               </a>
-              <a href="../page_candidate_dashboard/index.html#applications" class="flex items-center gap-2.5 px-4 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#0B2B68]">
+              <a href="../page_candidate_dashboard/index.html#applications" class="flex items-center gap-2.5 px-4 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF]">
                 <i data-lucide="file-check-2" class="w-4 h-4 text-slate-400"></i>
-                Lịch sử ứng tuyển (6 trạng thái)
+                Đơn ứng tuyển của tôi
               </a>
-              <a href="../page_ai_cv_report/index.html" class="flex items-center gap-2.5 px-4 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#0B2B68]">
+              <a href="../page_ai_cv_report/index.html" class="flex items-center gap-2.5 px-4 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF]">
                 <i data-lucide="sparkles" class="w-4 h-4 text-emerald-600"></i>
-                Báo cáo AI Match Score
+                Độ phù hợp hồ sơ (Match Score)
               </a>
               <div class="border-t border-slate-100 my-1"></div>
-              <a href="../page_employer_dashboard/index.html" class="flex items-center gap-2.5 px-4 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#0B2B68]">
+              <a href="../page_employer_dashboard/index.html" class="flex items-center gap-2.5 px-4 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF]">
                 <i data-lucide="briefcase" class="w-4 h-4 text-slate-400"></i>
-                Chuyển sang Dashboard NTD
+                Dành cho Nhà tuyển dụng
               </a>
-              <a href="../page_admin_portal/index.html" class="flex items-center gap-2.5 px-4 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#0B2B68]">
+              <a href="../page_admin_portal/index.html" class="flex items-center gap-2.5 px-4 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF]">
                 <i data-lucide="shield" class="w-4 h-4 text-slate-400"></i>
-                Quản trị sàn (Admin Portal)
+                Quản trị hệ thống
               </a>
             </div>
             <div class="border-t border-slate-100 pt-1.5">
-              <a href="../page_login/index.html" class="flex items-center gap-2.5 px-4 py-2 hover:bg-slate-50 text-slate-700">
-                <i data-lucide="log-in" class="w-4 h-4 text-slate-400"></i>
-                Đăng nhập tài khoản khác
-              </a>
-              <a href="../page_register/index.html" class="flex items-center gap-2.5 px-4 py-2 hover:bg-slate-50 text-slate-700">
-                <i data-lucide="user-plus" class="w-4 h-4 text-slate-400"></i>
-                Đăng ký tài khoản mới
-              </a>
               <a href="../page_login/index.html" class="flex items-center gap-2.5 px-4 py-2 hover:bg-rose-50 text-rose-600 font-medium">
                 <i data-lucide="log-out" class="w-4 h-4"></i>
                 Đăng xuất
@@ -199,62 +178,54 @@
           </div>
         </div>
 
+        <!-- Đăng tuyển CTA Button (VietnamWorks Coral) -->
+        <a href="../page_post_job/index.html" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#FF7D55] hover:bg-[#FD6B3E] text-white text-xs font-bold shadow-md transition active:scale-95">
+          <span>Đăng tuyển</span>
+        </a>
+
       </div>
     </div>
   </header>
 
-  <!-- HERO SECTION WITH SIGNATURE VIETNAMWORKS MEGA SEARCH -->
-  <section class="bg-gradient-to-b from-[#071A3D] via-[#0B2B68] to-[#0A2458] text-white pt-12 pb-20 relative overflow-hidden">
-    <!-- Subtle clean geometric background pattern -->
-    <div class="absolute inset-0 opacity-10 pointer-events-none">
-      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="vw-grid" width="48" height="48" patternUnits="userSpaceOnUse">
-            <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#FFFFFF" stroke-width="1"></path>
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#vw-grid)"></rect>
-      </svg>
-    </div>
-
+  <!-- HERO SECTION WITH SIGNATURE VIETNAMWORKS GRADIENT & SEARCH -->
+  <section class="bg-gradient-to-r from-[#001744] via-[#003699] to-[#005AFF] text-white pt-12 pb-20 relative overflow-hidden">
     <div class="max-w-[1360px] mx-auto px-4 lg:px-6 relative z-10">
       
-      <!-- Top Pill -->
+      <!-- Top Subtitle Pill -->
       <div class="flex justify-center mb-4">
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-medium text-slate-200 shadow-sm">
-          <span class="w-2 h-2 rounded-full bg-[#FF5A00] animate-ping"></span>
-          <span>Hơn <strong>45.000+</strong> việc làm chất lượng cao & <strong>12.000+</strong> nhà tuyển dụng hàng đầu</span>
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-medium text-slate-200">
+          <span>Hơn <strong>45.000+</strong> cơ hội nghề nghiệp chất lượng cao đang chờ đón bạn</span>
           <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-slate-300"></i>
         </div>
       </div>
 
-      <!-- Main Headline -->
+      <!-- Main Headline (Authentic Corporate Copywriting) -->
       <div class="text-center max-w-3xl mx-auto mb-8">
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight mb-3">
-          Tìm Việc Làm Mơ Ước. <br>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF7A00] to-[#FFB703]">
-            Nâng Tầm Sự Nghiệp Với AI
-          </span>
+          Tìm Việc Làm Mơ Ước Của Bạn Tại Việt Nam
         </h1>
-        <p class="text-slate-300 text-sm sm:text-base font-normal max-w-2xl mx-auto leading-relaxed">
-          Nền tảng tuyển dụng chuyên nghiệp áp dụng công nghệ Google Gemini AI chấm điểm tương thích CV (Match Score) chuẩn xác đến 98%.
+        <p class="text-blue-100 text-sm sm:text-base font-normal max-w-2xl mx-auto leading-relaxed">
+          Tiếp cận hàng nghìn cơ hội nghề nghiệp với mức đãi ngộ hấp dẫn từ các doanh nghiệp uy tín hàng đầu trên toàn quốc.
         </p>
       </div>
 
-      <!-- SIGNATURE VIETNAMWORKS COMPOUND SEARCH BOX -->
-      <div class="max-w-5xl mx-auto bg-white rounded-2xl p-3 sm:p-4 shadow-2xl shadow-blue-950/40 text-slate-800">
-        <form action="../page_jobs/index.html" method="GET" class="flex flex-col lg:flex-row items-center gap-2.5">
+      <!-- SIGNATURE VIETNAMWORKS COMPOUND SEARCH PILL -->
+      <div class="max-w-5xl mx-auto bg-white rounded-2xl lg:rounded-full p-2.5 shadow-2xl text-slate-800">
+        <form action="../page_jobs/index.html" method="GET" class="flex flex-col lg:flex-row items-center gap-2">
           
-          <!-- Input 1: Keyword -->
-          <div class="w-full lg:flex-1 flex items-center gap-3 px-3.5 py-3 rounded-xl bg-slate-50 border border-slate-200 focus-within:border-[#0B2B68] focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-100 transition">
+          <!-- Input: Keyword -->
+          <div class="w-full lg:flex-1 flex items-center gap-3 px-4 py-2">
             <i data-lucide="search" class="w-5 h-5 text-slate-400 shrink-0"></i>
-            <input type="text" name="keyword" placeholder="Vị trí tuyển dụng, kỹ năng, tên công ty..." value="Senior Fullstack Developer" class="w-full bg-transparent text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none">
+            <input type="text" name="keyword" placeholder="Tìm kiếm việc làm, công ty, kỹ năng..." value="Senior Fullstack Developer" class="w-full bg-transparent text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none">
           </div>
 
-          <!-- Input 2: Location -->
-          <div class="w-full lg:w-64 flex items-center gap-3 px-3.5 py-3 rounded-xl bg-slate-50 border border-slate-200 focus-within:border-[#0B2B68] focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-100 transition relative">
-            <i data-lucide="map-pin" class="w-5 h-5 text-slate-400 shrink-0"></i>
-            <select name="city" class="w-full bg-transparent text-sm font-medium text-slate-800 focus:outline-none appearance-none cursor-pointer pr-6">
+          <!-- Divider -->
+          <div class="hidden lg:block w-[1px] h-8 bg-slate-200"></div>
+
+          <!-- Input: Location -->
+          <div class="w-full lg:w-56 flex items-center gap-2 px-3 py-2 bg-[#F4F6F9] rounded-xl lg:rounded-full border border-slate-200 relative">
+            <i data-lucide="map-pin" class="w-4 h-4 text-[#005AFF] shrink-0"></i>
+            <select name="city" class="w-full bg-transparent text-xs font-semibold text-slate-800 focus:outline-none appearance-none cursor-pointer pr-5">
               <option value="">Tất cả địa điểm</option>
               <option value="hcm" selected>TP. Hồ Chí Minh</option>
               <option value="hn">Hà Nội</option>
@@ -262,13 +233,13 @@
               <option value="bd">Bình Dương</option>
               <option value="remote">Làm việc từ xa (Remote)</option>
             </select>
-            <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 absolute right-3 pointer-events-none"></i>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 absolute right-3 pointer-events-none"></i>
           </div>
 
-          <!-- Input 3: Industry / Category -->
-          <div class="w-full lg:w-64 flex items-center gap-3 px-3.5 py-3 rounded-xl bg-slate-50 border border-slate-200 focus-within:border-[#0B2B68] focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-100 transition relative">
-            <i data-lucide="layers" class="w-5 h-5 text-slate-400 shrink-0"></i>
-            <select name="category" class="w-full bg-transparent text-sm font-medium text-slate-800 focus:outline-none appearance-none cursor-pointer pr-6">
+          <!-- Input: Category -->
+          <div class="w-full lg:w-56 flex items-center gap-2 px-3 py-2 bg-[#F4F6F9] rounded-xl lg:rounded-full border border-slate-200 relative">
+            <i data-lucide="layers" class="w-4 h-4 text-[#005AFF] shrink-0"></i>
+            <select name="category" class="w-full bg-transparent text-xs font-semibold text-slate-800 focus:outline-none appearance-none cursor-pointer pr-5">
               <option value="">Tất cả ngành nghề</option>
               <option value="it" selected>Công nghệ thông tin</option>
               <option value="marketing">Marketing / Truyền thông</option>
@@ -276,74 +247,69 @@
               <option value="finance">Tài chính / Kế toán</option>
               <option value="hr">Nhân sự / Hành chính</option>
             </select>
-            <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 absolute right-3 pointer-events-none"></i>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 absolute right-3 pointer-events-none"></i>
           </div>
 
-          <!-- Search Button (VietnamWorks Vivid Orange) -->
-          <button type="submit" class="w-full lg:w-auto px-8 py-3.5 bg-[#FF5A00] hover:bg-[#E65100] text-white font-bold text-sm rounded-xl shadow-lg shadow-orange-500/30 flex items-center justify-center gap-2 transition active:scale-95 shrink-0">
+          <!-- Button Search -->
+          <button type="submit" class="w-full lg:w-auto px-8 py-3 bg-[#FF7D55] hover:bg-[#FD6B3E] text-white font-bold text-sm rounded-xl lg:rounded-full shadow-md flex items-center justify-center gap-2 transition active:scale-95 shrink-0">
             <i data-lucide="search" class="w-4 h-4"></i>
-            <span>Tìm Việc Ngay</span>
+            <span>Tìm Kiếm</span>
           </button>
         </form>
 
-        <!-- Popular Keywords Strip -->
-        <div class="pt-3 mt-3 border-t border-slate-100 flex flex-wrap items-center gap-2 text-xs text-slate-500">
+        <!-- Popular Searches Strip -->
+        <div class="pt-3 mt-2 border-t border-slate-100 px-3 flex flex-wrap items-center gap-2 text-xs text-slate-500">
           <span class="font-semibold text-slate-700 flex items-center gap-1">
-            <i data-lucide="trending-up" class="w-3.5 h-3.5 text-[#FF5A00]"></i>
+            <i data-lucide="trending-up" class="w-3.5 h-3.5 text-[#FF7D55]"></i>
             Xu hướng tìm kiếm:
           </span>
-          <a href="../page_jobs/index.html?keyword=React" class="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-blue-50 hover:text-[#0B2B68] transition">ReactJS</a>
-          <a href="../page_jobs/index.html?keyword=Laravel" class="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-blue-50 hover:text-[#0B2B68] transition">PHP Laravel</a>
-          <a href="../page_jobs/index.html?keyword=Java" class="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-blue-50 hover:text-[#0B2B68] transition">Java Spring</a>
-          <a href="../page_jobs/index.html?keyword=Marketing" class="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-blue-50 hover:text-[#0B2B68] transition">Digital Marketing</a>
-          <a href="../page_jobs/index.html?keyword=KeToan" class="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-blue-50 hover:text-[#0B2B68] transition">Kế toán tổng hợp</a>
-          <a href="../page_jobs/index.html?keyword=Tester" class="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-blue-50 hover:text-[#0B2B68] transition">QC / Tester</a>
-          <a href="../page_jobs/index.html?keyword=Fresher" class="px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 font-semibold hover:bg-emerald-100 transition">Thực tập sinh IT</a>
+          <a href="../page_jobs/index.html?keyword=React" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-blue-50 hover:text-[#005AFF] transition">ReactJS</a>
+          <a href="../page_jobs/index.html?keyword=Laravel" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-blue-50 hover:text-[#005AFF] transition">Laravel</a>
+          <a href="../page_jobs/index.html?keyword=Java" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-blue-50 hover:text-[#005AFF] transition">Java</a>
+          <a href="../page_jobs/index.html?keyword=Marketing" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-blue-50 hover:text-[#005AFF] transition">Digital Marketing</a>
+          <a href="../page_jobs/index.html?keyword=KeToan" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-blue-50 hover:text-[#005AFF] transition">Kế toán</a>
+          <a href="../page_jobs/index.html?keyword=Tester" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-blue-50 hover:text-[#005AFF] transition">Tester / QA</a>
+          <a href="../page_jobs/index.html?keyword=NodeJS" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-blue-50 hover:text-[#005AFF] transition">Node.js</a>
         </div>
       </div>
 
     </div>
   </section>
 
-  <!-- AI HIGHLIGHT BANNER (FR-07: Match Score Feature) -->
+  <!-- HERO BRAND BANNER SLIDER (VietnamWorks Featured Employer Brand) -->
   <section class="max-w-[1360px] mx-auto px-4 lg:px-6 -mt-8 relative z-20">
-    <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-lg flex flex-col md:flex-row items-center justify-between gap-6 bg-gradient-to-r from-blue-50/50 via-white to-emerald-50/40">
+    <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
       <div class="flex items-center gap-4">
-        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 text-white flex items-center justify-center shrink-0 shadow-md shadow-emerald-500/20">
-          <i data-lucide="sparkles" class="w-7 h-7"></i>
+        <div class="w-14 h-14 rounded-2xl bg-orange-600 text-white font-black text-sm flex items-center justify-center shrink-0 shadow-sm">
+          FPT
         </div>
         <div>
-          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold uppercase tracking-wider mb-1">
-            <i data-lucide="check-circle-2" class="w-3 h-3"></i>
-            Độc quyền: Gemini 1.5 Flash AI
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-orange-100 text-orange-800 text-[11px] font-bold uppercase tracking-wider mb-1">
+            Nhà tuyển dụng nổi bật
           </div>
-          <h2 class="text-lg font-bold text-slate-900">Tính năng AI CV Match Score - Chấm điểm độ tương thích CV & JD</h2>
-          <p class="text-xs text-slate-600 mt-0.5">Tải lên file PDF CV của bạn để AI tự động so khớp kỹ năng, kinh nghiệm và tính điểm từ 0-100%.</p>
+          <h2 class="text-lg font-bold text-slate-900">Cùng FPT Software Kiến Tạo Tương Lai Công Nghệ Số</h2>
+          <p class="text-xs text-slate-600 mt-0.5">Khám phá hơn 58 cơ hội nghề nghiệp đa dạng với môi trường làm việc toàn cầu và chế độ đãi ngộ vượt trội.</p>
         </div>
       </div>
       <div class="flex items-center gap-3 shrink-0">
-        <a href="../page_ai_cv_report/index.html" class="px-5 py-2.5 rounded-xl bg-[#0B2B68] hover:bg-[#08204F] text-white text-xs font-bold transition flex items-center gap-2 shadow-sm">
-          <span>Xem báo cáo AI mẫu</span>
+        <a href="../page_company_detail/index.html" class="px-5 py-2.5 rounded-full bg-[#003699] hover:bg-[#002466] text-white text-xs font-bold transition flex items-center gap-2 shadow-sm">
+          <span>Khám phá ngay</span>
           <i data-lucide="arrow-right" class="w-4 h-4"></i>
-        </a>
-        <a href="../page_candidate_dashboard/index.html" class="px-4 py-2.5 rounded-xl border border-slate-300 hover:border-slate-400 bg-white text-slate-700 text-xs font-semibold transition">
-          Tải CV lên ngay
         </a>
       </div>
     </div>
   </section>
 
-  <!-- TOP NHÀ TUYỂN DỤNG HÀNG ĐẦU (FEATURED COMPANIES) -->
+  <!-- TOP NHÀ TUYỂN DỤNG HÀNG ĐẦU -->
   <section class="max-w-[1360px] mx-auto px-4 lg:px-6 pt-12 pb-8">
     <div class="flex items-center justify-between mb-6">
       <div>
         <h2 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
-          <i data-lucide="award" class="w-6 h-6 text-[#FF5A00]"></i>
-          Top Nhà Tuyển Dụng Hàng Đầu
+          Các Công Ty Hàng Đầu
         </h2>
-        <p class="text-xs text-slate-500 mt-1">Các tập đoàn công nghệ và doanh nghiệp uy tín đang mở đợt tuyển dụng lớn</p>
+        <p class="text-xs text-slate-500 mt-1">Các tập đoàn và doanh nghiệp uy tín đang mở đợt tuyển dụng lớn</p>
       </div>
-      <a href="../page_company_detail/index.html" class="text-xs font-bold text-[#0B2B68] hover:text-[#FF5A00] flex items-center gap-1 transition">
+      <a href="../page_company_detail/index.html" class="text-xs font-bold text-[#005AFF] hover:text-[#003699] flex items-center gap-1 transition">
         Xem tất cả công ty <i data-lucide="chevron-right" class="w-4 h-4"></i>
       </a>
     </div>
@@ -352,73 +318,73 @@
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
       
       <!-- Company 1: FPT Software -->
-      <a href="../page_company_detail/index.html" class="company-card bg-white p-4 rounded-xl border border-slate-200 text-center flex flex-col items-center justify-between transition group">
+      <a href="../page_company_detail/index.html" class="company-card bg-white p-4 rounded-2xl border border-slate-200 text-center flex flex-col items-center justify-between transition group shadow-sm">
         <div class="w-16 h-16 rounded-xl border border-slate-100 p-2 flex items-center justify-center bg-white shadow-sm mb-3">
           <div class="w-full h-full rounded bg-orange-600 text-white font-black text-xs flex items-center justify-center">FPT</div>
         </div>
         <div>
-          <h3 class="text-xs font-bold text-slate-900 group-hover:text-[#0B2B68] line-clamp-1">FPT Software</h3>
-          <p class="text-[11px] text-emerald-600 font-semibold mt-0.5">58 vị trí đang tuyển</p>
+          <h3 class="text-xs font-bold text-slate-900 group-hover:text-[#005AFF] line-clamp-1">FPT Software</h3>
+          <p class="text-[11px] text-[#00A862] font-semibold mt-0.5">58 việc làm</p>
         </div>
         <span class="mt-2 text-[10px] text-slate-400 font-medium">Hà Nội & TP.HCM</span>
       </a>
 
       <!-- Company 2: VNG Corporation -->
-      <a href="../page_company_detail/index.html" class="company-card bg-white p-4 rounded-xl border border-slate-200 text-center flex flex-col items-center justify-between transition group">
+      <a href="../page_company_detail/index.html" class="company-card bg-white p-4 rounded-2xl border border-slate-200 text-center flex flex-col items-center justify-between transition group shadow-sm">
         <div class="w-16 h-16 rounded-xl border border-slate-100 p-2 flex items-center justify-center bg-white shadow-sm mb-3">
           <div class="w-full h-full rounded bg-amber-500 text-white font-black text-xs flex items-center justify-center">VNG</div>
         </div>
         <div>
-          <h3 class="text-xs font-bold text-slate-900 group-hover:text-[#0B2B68] line-clamp-1">VNG Corporation</h3>
-          <p class="text-[11px] text-emerald-600 font-semibold mt-0.5">34 vị trí đang tuyển</p>
+          <h3 class="text-xs font-bold text-slate-900 group-hover:text-[#005AFF] line-clamp-1">VNG Corporation</h3>
+          <p class="text-[11px] text-[#00A862] font-semibold mt-0.5">34 việc làm</p>
         </div>
         <span class="mt-2 text-[10px] text-slate-400 font-medium">TP. Hồ Chí Minh</span>
       </a>
 
-      <!-- Company 3: Viettel Telecom -->
-      <a href="../page_company_detail/index.html" class="company-card bg-white p-4 rounded-xl border border-slate-200 text-center flex flex-col items-center justify-between transition group">
+      <!-- Company 3: Viettel Group -->
+      <a href="../page_company_detail/index.html" class="company-card bg-white p-4 rounded-2xl border border-slate-200 text-center flex flex-col items-center justify-between transition group shadow-sm">
         <div class="w-16 h-16 rounded-xl border border-slate-100 p-2 flex items-center justify-center bg-white shadow-sm mb-3">
           <div class="w-full h-full rounded bg-red-600 text-white font-black text-xs flex items-center justify-center">VIETTEL</div>
         </div>
         <div>
-          <h3 class="text-xs font-bold text-slate-900 group-hover:text-[#0B2B68] line-clamp-1">Viettel Group</h3>
-          <p class="text-[11px] text-emerald-600 font-semibold mt-0.5">42 vị trí đang tuyển</p>
+          <h3 class="text-xs font-bold text-slate-900 group-hover:text-[#005AFF] line-clamp-1">Viettel Group</h3>
+          <p class="text-[11px] text-[#00A862] font-semibold mt-0.5">42 việc làm</p>
         </div>
         <span class="mt-2 text-[10px] text-slate-400 font-medium">Toàn quốc</span>
       </a>
 
       <!-- Company 4: Techcombank -->
-      <a href="../page_company_detail/index.html" class="company-card bg-white p-4 rounded-xl border border-slate-200 text-center flex flex-col items-center justify-between transition group">
+      <a href="../page_company_detail/index.html" class="company-card bg-white p-4 rounded-2xl border border-slate-200 text-center flex flex-col items-center justify-between transition group shadow-sm">
         <div class="w-16 h-16 rounded-xl border border-slate-100 p-2 flex items-center justify-center bg-white shadow-sm mb-3">
           <div class="w-full h-full rounded bg-red-700 text-white font-black text-[10px] flex items-center justify-center">TCB</div>
         </div>
         <div>
-          <h3 class="text-xs font-bold text-slate-900 group-hover:text-[#0B2B68] line-clamp-1">Techcombank</h3>
-          <p class="text-[11px] text-emerald-600 font-semibold mt-0.5">26 vị trí đang tuyển</p>
+          <h3 class="text-xs font-bold text-slate-900 group-hover:text-[#005AFF] line-clamp-1">Techcombank</h3>
+          <p class="text-[11px] text-[#00A862] font-semibold mt-0.5">26 việc làm</p>
         </div>
         <span class="mt-2 text-[10px] text-slate-400 font-medium">Hà Nội & TP.HCM</span>
       </a>
 
       <!-- Company 5: Shopee Vietnam -->
-      <a href="../page_company_detail/index.html" class="company-card bg-white p-4 rounded-xl border border-slate-200 text-center flex flex-col items-center justify-between transition group">
+      <a href="../page_company_detail/index.html" class="company-card bg-white p-4 rounded-2xl border border-slate-200 text-center flex flex-col items-center justify-between transition group shadow-sm">
         <div class="w-16 h-16 rounded-xl border border-slate-100 p-2 flex items-center justify-center bg-white shadow-sm mb-3">
           <div class="w-full h-full rounded bg-orange-500 text-white font-black text-[10px] flex items-center justify-center">SHOPEE</div>
         </div>
         <div>
-          <h3 class="text-xs font-bold text-slate-900 group-hover:text-[#0B2B68] line-clamp-1">Shopee Vietnam</h3>
-          <p class="text-[11px] text-emerald-600 font-semibold mt-0.5">38 vị trí đang tuyển</p>
+          <h3 class="text-xs font-bold text-slate-900 group-hover:text-[#005AFF] line-clamp-1">Shopee Vietnam</h3>
+          <p class="text-[11px] text-[#00A862] font-semibold mt-0.5">38 việc làm</p>
         </div>
         <span class="mt-2 text-[10px] text-slate-400 font-medium">TP. Hồ Chí Minh</span>
       </a>
 
       <!-- Company 6: Vinamilk -->
-      <a href="../page_company_detail/index.html" class="company-card bg-white p-4 rounded-xl border border-slate-200 text-center flex flex-col items-center justify-between transition group">
+      <a href="../page_company_detail/index.html" class="company-card bg-white p-4 rounded-2xl border border-slate-200 text-center flex flex-col items-center justify-between transition group shadow-sm">
         <div class="w-16 h-16 rounded-xl border border-slate-100 p-2 flex items-center justify-center bg-white shadow-sm mb-3">
           <div class="w-full h-full rounded bg-blue-700 text-white font-black text-[10px] flex items-center justify-center">VNM</div>
         </div>
         <div>
-          <h3 class="text-xs font-bold text-slate-900 group-hover:text-[#0B2B68] line-clamp-1">Vinamilk Corp</h3>
-          <p class="text-[11px] text-emerald-600 font-semibold mt-0.5">19 vị trí đang tuyển</p>
+          <h3 class="text-xs font-bold text-slate-900 group-hover:text-[#005AFF] line-clamp-1">Vinamilk Corp</h3>
+          <p class="text-[11px] text-[#00A862] font-semibold mt-0.5">19 việc làm</p>
         </div>
         <span class="mt-2 text-[10px] text-slate-400 font-medium">Toàn quốc</span>
       </a>
@@ -426,34 +392,31 @@
     </div>
   </section>
 
-  <!-- VIỆC LÀM HẤP DẪN & TUYỂN GẤP (FEATURED JOBS GRID) -->
+  <!-- VIỆC LÀM HẤP DẪN & MỚI NHẤT -->
   <section class="max-w-[1360px] mx-auto px-4 lg:px-6 py-8">
     <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
       <div>
-        <div class="inline-flex items-center gap-1.5 text-xs font-bold text-[#FF5A00] uppercase tracking-wider mb-1">
-          <i data-lucide="flame" class="w-4 h-4 fill-[#FF5A00]"></i>
-          Cơ hội nghề nghiệp HOT
-        </div>
-        <h2 class="text-2xl font-black text-slate-900 tracking-tight">Việc Làm Mới Nhất & Được AI Gợi Ý</h2>
+        <h2 class="text-2xl font-black text-slate-900 tracking-tight">Việc Làm Tốt Nhất</h2>
+        <p class="text-xs text-slate-500 mt-1">Các vị trí tuyển dụng được cập nhật liên tục từ những doanh nghiệp hàng đầu</p>
       </div>
 
       <!-- Quick Category Tabs -->
       <div class="flex items-center gap-1.5 overflow-x-auto pb-2 sm:pb-0 text-xs font-semibold">
-        <button class="px-3.5 py-1.5 rounded-lg bg-[#0B2B68] text-white">Tất cả việc làm</button>
-        <button class="px-3.5 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">CNTT - Phần mềm</button>
-        <button class="px-3.5 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">Kinh doanh / Bán hàng</button>
-        <button class="px-3.5 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 hover:bg-slate-50">Marketing</button>
-        <a href="../page_jobs/index.html" class="px-3.5 py-1.5 rounded-lg text-[#0B2B68] hover:underline flex items-center gap-1 font-bold">
+        <button class="px-4 py-2 rounded-full bg-[#003699] text-white">Tất cả việc làm</button>
+        <button class="px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-700 hover:border-[#005AFF] hover:text-[#005AFF]">CNTT - Phần mềm</button>
+        <button class="px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-700 hover:border-[#005AFF] hover:text-[#005AFF]">Kinh doanh / Bán hàng</button>
+        <button class="px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-700 hover:border-[#005AFF] hover:text-[#005AFF]">Marketing</button>
+        <a href="../page_jobs/index.html" class="px-4 py-2 rounded-full text-[#005AFF] hover:underline flex items-center gap-1 font-bold">
           Xem 1.250+ tin <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
         </a>
       </div>
     </div>
 
-    <!-- 8 VIETNAMWORKS STANDARD JOB CARDS -->
+    <!-- JOB CARDS GRID -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
       <!-- Job Card 1 -->
-      <div class="job-card bg-white rounded-2xl p-5 border border-slate-200 transition-all flex flex-col justify-between">
+      <div class="job-card bg-white rounded-2xl p-5 border border-slate-200 transition-all flex flex-col justify-between shadow-sm">
         <div>
           <div class="flex items-start gap-4">
             <a href="../page_company_detail/index.html" class="w-14 h-14 rounded-xl border border-slate-100 p-2 flex items-center justify-center bg-white shadow-sm shrink-0">
@@ -461,20 +424,20 @@
             </a>
             <div class="flex-1 min-w-0">
               <div class="flex items-center justify-between gap-2">
-                <a href="../page_company_detail/index.html" class="text-xs font-medium text-slate-500 hover:text-[#0B2B68] truncate">FPT Software</a>
-                <button class="text-slate-400 hover:text-rose-500 transition" title="Lưu việc làm (FR-05.6)">
+                <a href="../page_company_detail/index.html" class="text-xs font-medium text-slate-500 hover:text-[#005AFF] truncate">FPT Software</a>
+                <button class="text-slate-400 hover:text-rose-500 transition" title="Lưu việc làm">
                   <i data-lucide="heart" class="w-4 h-4"></i>
                 </button>
               </div>
-              <h3 class="text-base font-bold text-slate-900 hover:text-[#0B2B68] transition mt-0.5 line-clamp-1">
+              <h3 class="text-base font-bold text-slate-900 hover:text-[#005AFF] transition mt-0.5 line-clamp-1">
                 <a href="../page_job_detail/index.html">Senior Fullstack Developer (Laravel & React/Next.js)</a>
               </h3>
-              <!-- Salary VNĐ & AI Match Score Pill -->
+              <!-- Salary & Match Pill -->
               <div class="flex items-center gap-3 mt-2">
                 <span class="font-mono font-bold text-sm text-[#00A862]">25 - 40 Triệu VNĐ</span>
-                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                  <i data-lucide="sparkles" class="w-3 h-3"></i>
-                  92% Match AI
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#EBF3FE] text-[#005AFF] border border-[#005AFF]/30">
+                  <i data-lucide="sparkles" class="w-3 h-3 text-[#005AFF]"></i>
+                  92% Phù hợp
                 </span>
               </div>
             </div>
@@ -482,25 +445,25 @@
 
           <!-- Tags -->
           <div class="flex flex-wrap items-center gap-1.5 mt-4">
-            <span class="px-2 py-1 rounded-md bg-slate-100 text-slate-600 text-xs">TP. Hồ Chí Minh</span>
-            <span class="px-2 py-1 rounded-md bg-slate-100 text-slate-600 text-xs">Toàn thời gian</span>
-            <span class="px-2 py-1 rounded-md bg-slate-100 text-slate-600 text-xs">Senior (3+ năm)</span>
-            <span class="px-2 py-1 rounded-md bg-blue-50 text-[#0B2B68] text-xs font-semibold">Laravel</span>
-            <span class="px-2 py-1 rounded-md bg-blue-50 text-[#0B2B68] text-xs font-semibold">ReactJS</span>
+            <span class="px-2.5 py-1 rounded-md bg-[#F4F6F9] text-slate-700 text-xs">TP. Hồ Chí Minh</span>
+            <span class="px-2.5 py-1 rounded-md bg-[#F4F6F9] text-slate-700 text-xs">Toàn thời gian</span>
+            <span class="px-2.5 py-1 rounded-md bg-[#F4F6F9] text-slate-700 text-xs">Senior (3+ năm)</span>
+            <span class="px-2.5 py-1 rounded-md bg-blue-50 text-[#005AFF] text-xs font-semibold">Laravel</span>
+            <span class="px-2.5 py-1 rounded-md bg-blue-50 text-[#005AFF] text-xs font-semibold">ReactJS</span>
           </div>
         </div>
 
         <div class="pt-3.5 mt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
           <span class="flex items-center gap-1 text-slate-500">
             <i data-lucide="clock" class="w-3.5 h-3.5"></i>
-            Cập nhật: 2 giờ trước (Đẩy tin tự động FR-05.4)
+            Cập nhật: 2 giờ trước
           </span>
           <div class="flex items-center gap-2">
-            <a href="../page_chat/index.html" class="px-2.5 py-1 rounded-lg text-slate-600 hover:text-[#0B2B68] hover:bg-slate-100 transition flex items-center gap-1" title="Chat với NTD (FR-08)">
+            <a href="../page_chat/index.html" class="px-3 py-1.5 rounded-full text-slate-600 hover:text-[#005AFF] hover:bg-slate-100 transition flex items-center gap-1">
               <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
-              <span>Chat</span>
+              <span>Nhắn tin</span>
             </a>
-            <a href="../page_job_detail/index.html" class="px-3.5 py-1.5 rounded-lg bg-[#FF5A00] hover:bg-[#E65100] text-white font-bold transition flex items-center gap-1">
+            <a href="../page_job_detail/index.html" class="px-4 py-1.5 rounded-full bg-[#FF7D55] hover:bg-[#FD6B3E] text-white font-bold transition flex items-center gap-1 shadow-sm">
               <span>Ứng Tuyển</span>
               <i data-lucide="arrow-right" class="w-3 h-3"></i>
             </a>
@@ -509,7 +472,7 @@
       </div>
 
       <!-- Job Card 2 -->
-      <div class="job-card bg-white rounded-2xl p-5 border border-slate-200 transition-all flex flex-col justify-between">
+      <div class="job-card bg-white rounded-2xl p-5 border border-slate-200 transition-all flex flex-col justify-between shadow-sm">
         <div>
           <div class="flex items-start gap-4">
             <a href="../page_company_detail/index.html" class="w-14 h-14 rounded-xl border border-slate-100 p-2 flex items-center justify-center bg-white shadow-sm shrink-0">
@@ -517,29 +480,29 @@
             </a>
             <div class="flex-1 min-w-0">
               <div class="flex items-center justify-between gap-2">
-                <a href="../page_company_detail/index.html" class="text-xs font-medium text-slate-500 hover:text-[#0B2B68] truncate">VNG Corporation</a>
+                <a href="../page_company_detail/index.html" class="text-xs font-medium text-slate-500 hover:text-[#005AFF] truncate">VNG Corporation</a>
                 <button class="text-slate-400 hover:text-rose-500 transition">
                   <i data-lucide="heart" class="w-4 h-4"></i>
                 </button>
               </div>
-              <h3 class="text-base font-bold text-slate-900 hover:text-[#0B2B68] transition mt-0.5 line-clamp-1">
+              <h3 class="text-base font-bold text-slate-900 hover:text-[#005AFF] transition mt-0.5 line-clamp-1">
                 <a href="../page_job_detail/index.html">Chuyên Viên Digital Marketing & Growth Lead</a>
               </h3>
               <div class="flex items-center gap-3 mt-2">
                 <span class="font-mono font-bold text-sm text-[#00A862]">18 - 28 Triệu VNĐ</span>
-                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold bg-blue-50 text-blue-700 border border-blue-200">
-                  <i data-lucide="sparkles" class="w-3 h-3"></i>
-                  78% Match AI
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#EBF3FE] text-[#005AFF] border border-[#005AFF]/30">
+                  <i data-lucide="sparkles" class="w-3 h-3 text-[#005AFF]"></i>
+                  78% Phù hợp
                 </span>
               </div>
             </div>
           </div>
           <div class="flex flex-wrap items-center gap-1.5 mt-4">
-            <span class="px-2 py-1 rounded-md bg-slate-100 text-slate-600 text-xs">TP. Hồ Chí Minh</span>
-            <span class="px-2 py-1 rounded-md bg-slate-100 text-slate-600 text-xs">Toàn thời gian</span>
-            <span class="px-2 py-1 rounded-md bg-slate-100 text-slate-600 text-xs">2 năm kinh nghiệm</span>
-            <span class="px-2 py-1 rounded-md bg-blue-50 text-[#0B2B68] text-xs font-semibold">Google Ads</span>
-            <span class="px-2 py-1 rounded-md bg-blue-50 text-[#0B2B68] text-xs font-semibold">SEO</span>
+            <span class="px-2.5 py-1 rounded-md bg-[#F4F6F9] text-slate-700 text-xs">TP. Hồ Chí Minh</span>
+            <span class="px-2.5 py-1 rounded-md bg-[#F4F6F9] text-slate-700 text-xs">Toàn thời gian</span>
+            <span class="px-2.5 py-1 rounded-md bg-[#F4F6F9] text-slate-700 text-xs">2 năm kinh nghiệm</span>
+            <span class="px-2.5 py-1 rounded-md bg-blue-50 text-[#005AFF] text-xs font-semibold">Google Ads</span>
+            <span class="px-2.5 py-1 rounded-md bg-blue-50 text-[#005AFF] text-xs font-semibold">SEO</span>
           </div>
         </div>
         <div class="pt-3.5 mt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
@@ -548,11 +511,11 @@
             Cập nhật: 4 giờ trước
           </span>
           <div class="flex items-center gap-2">
-            <a href="../page_chat/index.html" class="px-2.5 py-1 rounded-lg text-slate-600 hover:text-[#0B2B68] hover:bg-slate-100 transition flex items-center gap-1">
+            <a href="../page_chat/index.html" class="px-3 py-1.5 rounded-full text-slate-600 hover:text-[#005AFF] hover:bg-slate-100 transition flex items-center gap-1">
               <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
-              <span>Chat</span>
+              <span>Nhắn tin</span>
             </a>
-            <a href="../page_job_detail/index.html" class="px-3.5 py-1.5 rounded-lg bg-[#FF5A00] hover:bg-[#E65100] text-white font-bold transition flex items-center gap-1">
+            <a href="../page_job_detail/index.html" class="px-4 py-1.5 rounded-full bg-[#FF7D55] hover:bg-[#FD6B3E] text-white font-bold transition flex items-center gap-1 shadow-sm">
               <span>Ứng Tuyển</span>
               <i data-lucide="arrow-right" class="w-3 h-3"></i>
             </a>
@@ -561,7 +524,7 @@
       </div>
 
       <!-- Job Card 3 -->
-      <div class="job-card bg-white rounded-2xl p-5 border border-slate-200 transition-all flex flex-col justify-between">
+      <div class="job-card bg-white rounded-2xl p-5 border border-slate-200 transition-all flex flex-col justify-between shadow-sm">
         <div>
           <div class="flex items-start gap-4">
             <a href="../page_company_detail/index.html" class="w-14 h-14 rounded-xl border border-slate-100 p-2 flex items-center justify-center bg-white shadow-sm shrink-0">
@@ -569,28 +532,28 @@
             </a>
             <div class="flex-1 min-w-0">
               <div class="flex items-center justify-between gap-2">
-                <a href="../page_company_detail/index.html" class="text-xs font-medium text-slate-500 hover:text-[#0B2B68] truncate">Viettel Telecom</a>
+                <a href="../page_company_detail/index.html" class="text-xs font-medium text-slate-500 hover:text-[#005AFF] truncate">Viettel Group</a>
                 <button class="text-slate-400 hover:text-rose-500 transition">
                   <i data-lucide="heart" class="w-4 h-4"></i>
                 </button>
               </div>
-              <h3 class="text-base font-bold text-slate-900 hover:text-[#0B2B68] transition mt-0.5 line-clamp-1">
+              <h3 class="text-base font-bold text-slate-900 hover:text-[#005AFF] transition mt-0.5 line-clamp-1">
                 <a href="../page_job_detail/index.html">Kỹ Sư An Toàn Thông Tin (Cyber Security Specialist)</a>
               </h3>
               <div class="flex items-center gap-3 mt-2">
                 <span class="font-mono font-bold text-sm text-[#00A862]">30 - 45 Triệu VNĐ</span>
-                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                  <i data-lucide="sparkles" class="w-3 h-3"></i>
-                  88% Match AI
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#EBF3FE] text-[#005AFF] border border-[#005AFF]/30">
+                  <i data-lucide="sparkles" class="w-3 h-3 text-[#005AFF]"></i>
+                  88% Phù hợp
                 </span>
               </div>
             </div>
           </div>
           <div class="flex flex-wrap items-center gap-1.5 mt-4">
-            <span class="px-2 py-1 rounded-md bg-slate-100 text-slate-600 text-xs">Hà Nội</span>
-            <span class="px-2 py-1 rounded-md bg-slate-100 text-slate-600 text-xs">Toàn thời gian</span>
-            <span class="px-2 py-1 rounded-md bg-blue-50 text-[#0B2B68] text-xs font-semibold">SOC / SIEM</span>
-            <span class="px-2 py-1 rounded-md bg-blue-50 text-[#0B2B68] text-xs font-semibold">Penetration Test</span>
+            <span class="px-2.5 py-1 rounded-md bg-[#F4F6F9] text-slate-700 text-xs">Hà Nội</span>
+            <span class="px-2.5 py-1 rounded-md bg-[#F4F6F9] text-slate-700 text-xs">Toàn thời gian</span>
+            <span class="px-2.5 py-1 rounded-md bg-blue-50 text-[#005AFF] text-xs font-semibold">SOC / SIEM</span>
+            <span class="px-2.5 py-1 rounded-md bg-blue-50 text-[#005AFF] text-xs font-semibold">Penetration Test</span>
           </div>
         </div>
         <div class="pt-3.5 mt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
@@ -599,11 +562,11 @@
             Cập nhật: Hôm nay
           </span>
           <div class="flex items-center gap-2">
-            <a href="../page_chat/index.html" class="px-2.5 py-1 rounded-lg text-slate-600 hover:text-[#0B2B68] hover:bg-slate-100 transition flex items-center gap-1">
+            <a href="../page_chat/index.html" class="px-3 py-1.5 rounded-full text-slate-600 hover:text-[#005AFF] hover:bg-slate-100 transition flex items-center gap-1">
               <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
-              <span>Chat</span>
+              <span>Nhắn tin</span>
             </a>
-            <a href="../page_job_detail/index.html" class="px-3.5 py-1.5 rounded-lg bg-[#FF5A00] hover:bg-[#E65100] text-white font-bold transition flex items-center gap-1">
+            <a href="../page_job_detail/index.html" class="px-4 py-1.5 rounded-full bg-[#FF7D55] hover:bg-[#FD6B3E] text-white font-bold transition flex items-center gap-1 shadow-sm">
               <span>Ứng Tuyển</span>
               <i data-lucide="arrow-right" class="w-3 h-3"></i>
             </a>
@@ -612,7 +575,7 @@
       </div>
 
       <!-- Job Card 4 -->
-      <div class="job-card bg-white rounded-2xl p-5 border border-slate-200 transition-all flex flex-col justify-between">
+      <div class="job-card bg-white rounded-2xl p-5 border border-slate-200 transition-all flex flex-col justify-between shadow-sm">
         <div>
           <div class="flex items-start gap-4">
             <a href="../page_company_detail/index.html" class="w-14 h-14 rounded-xl border border-slate-100 p-2 flex items-center justify-center bg-white shadow-sm shrink-0">
@@ -620,28 +583,28 @@
             </a>
             <div class="flex-1 min-w-0">
               <div class="flex items-center justify-between gap-2">
-                <a href="../page_company_detail/index.html" class="text-xs font-medium text-slate-500 hover:text-[#0B2B68] truncate">Techcombank</a>
+                <a href="../page_company_detail/index.html" class="text-xs font-medium text-slate-500 hover:text-[#005AFF] truncate">Techcombank</a>
                 <button class="text-slate-400 hover:text-rose-500 transition">
                   <i data-lucide="heart" class="w-4 h-4"></i>
                 </button>
               </div>
-              <h3 class="text-base font-bold text-slate-900 hover:text-[#0B2B68] transition mt-0.5 line-clamp-1">
+              <h3 class="text-base font-bold text-slate-900 hover:text-[#005AFF] transition mt-0.5 line-clamp-1">
                 <a href="../page_job_detail/index.html">Chuyên Viên Kế Toán Tổng Hợp & Thuế Doanh Nghiệp</a>
               </h3>
               <div class="flex items-center gap-3 mt-2">
                 <span class="font-mono font-bold text-sm text-[#00A862]">15 - 22 Triệu VNĐ</span>
-                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-700 border border-slate-200">
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-700 border border-slate-200">
                   <i data-lucide="sparkles" class="w-3 h-3"></i>
-                  65% Match AI
+                  65% Phù hợp
                 </span>
               </div>
             </div>
           </div>
           <div class="flex flex-wrap items-center gap-1.5 mt-4">
-            <span class="px-2 py-1 rounded-md bg-slate-100 text-slate-600 text-xs">Hà Nội</span>
-            <span class="px-2 py-1 rounded-md bg-slate-100 text-slate-600 text-xs">Toàn thời gian</span>
-            <span class="px-2 py-1 rounded-md bg-blue-50 text-[#0B2B68] text-xs font-semibold">MISA</span>
-            <span class="px-2 py-1 rounded-md bg-blue-50 text-[#0B2B68] text-xs font-semibold">Báo cáo tài chính</span>
+            <span class="px-2.5 py-1 rounded-md bg-[#F4F6F9] text-slate-700 text-xs">Hà Nội</span>
+            <span class="px-2.5 py-1 rounded-md bg-[#F4F6F9] text-slate-700 text-xs">Toàn thời gian</span>
+            <span class="px-2.5 py-1 rounded-md bg-blue-50 text-[#005AFF] text-xs font-semibold">MISA</span>
+            <span class="px-2.5 py-1 rounded-md bg-blue-50 text-[#005AFF] text-xs font-semibold">Báo cáo tài chính</span>
           </div>
         </div>
         <div class="pt-3.5 mt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
@@ -650,11 +613,11 @@
             Cập nhật: 1 ngày trước
           </span>
           <div class="flex items-center gap-2">
-            <a href="../page_chat/index.html" class="px-2.5 py-1 rounded-lg text-slate-600 hover:text-[#0B2B68] hover:bg-slate-100 transition flex items-center gap-1">
+            <a href="../page_chat/index.html" class="px-3 py-1.5 rounded-full text-slate-600 hover:text-[#005AFF] hover:bg-slate-100 transition flex items-center gap-1">
               <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
-              <span>Chat</span>
+              <span>Nhắn tin</span>
             </a>
-            <a href="../page_job_detail/index.html" class="px-3.5 py-1.5 rounded-lg bg-[#FF5A00] hover:bg-[#E65100] text-white font-bold transition flex items-center gap-1">
+            <a href="../page_job_detail/index.html" class="px-4 py-1.5 rounded-full bg-[#FF7D55] hover:bg-[#FD6B3E] text-white font-bold transition flex items-center gap-1 shadow-sm">
               <span>Ứng Tuyển</span>
               <i data-lucide="arrow-right" class="w-3 h-3"></i>
             </a>
@@ -666,143 +629,202 @@
 
     <!-- View All Button -->
     <div class="text-center mt-8">
-      <a href="../page_jobs/index.html" class="inline-flex items-center gap-2 px-8 py-3.5 bg-white border-2 border-[#0B2B68] text-[#0B2B68] hover:bg-blue-50 text-sm font-bold rounded-xl shadow-sm transition">
-        <span>Xem tất cả 45.000+ tin tuyển dụng khác</span>
+      <a href="../page_jobs/index.html" class="inline-flex items-center gap-2 px-8 py-3.5 bg-white border-2 border-[#003699] text-[#003699] hover:bg-[#003699] hover:text-white text-sm font-bold rounded-full shadow-sm transition">
+        <span>Xem tất cả 45.000+ tin tuyển dụng</span>
         <i data-lucide="arrow-right" class="w-4 h-4"></i>
       </a>
     </div>
   </section>
 
+  <!-- VIỆC LÀM THEO NGÀNH NGHỀ TRỌNG ĐIỂM -->
+  <section class="max-w-[1360px] mx-auto px-4 lg:px-6 py-8">
+    <div class="mb-6">
+      <h2 class="text-2xl font-black text-slate-900 tracking-tight">Ngành Nghề Trọng Điểm</h2>
+      <p class="text-xs text-slate-500 mt-1">Khám phá các vị trí công việc theo lĩnh vực chuyên môn của bạn</p>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+      <a href="../page_jobs/index.html?category=it" class="p-4 bg-white rounded-2xl border border-slate-200 hover:border-[#005AFF] hover:shadow-md transition text-center group">
+        <div class="w-12 h-12 rounded-xl bg-blue-50 text-[#005AFF] flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition">
+          <i data-lucide="code" class="w-6 h-6"></i>
+        </div>
+        <div class="font-bold text-xs text-slate-900 group-hover:text-[#005AFF]">CNTT - Phần Mềm</div>
+        <div class="text-[11px] text-slate-500 mt-1">1.450 việc làm</div>
+      </a>
+
+      <a href="../page_jobs/index.html?category=sales" class="p-4 bg-white rounded-2xl border border-slate-200 hover:border-[#005AFF] hover:shadow-md transition text-center group">
+        <div class="w-12 h-12 rounded-xl bg-orange-50 text-[#FF7D55] flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition">
+          <i data-lucide="trending-up" class="w-6 h-6"></i>
+        </div>
+        <div class="font-bold text-xs text-slate-900 group-hover:text-[#005AFF]">Kinh Doanh / Bán Hàng</div>
+        <div class="text-[11px] text-slate-500 mt-1">2.320 việc làm</div>
+      </a>
+
+      <a href="../page_jobs/index.html?category=marketing" class="p-4 bg-white rounded-2xl border border-slate-200 hover:border-[#005AFF] hover:shadow-md transition text-center group">
+        <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition">
+          <i data-lucide="megaphone" class="w-6 h-6"></i>
+        </div>
+        <div class="font-bold text-xs text-slate-900 group-hover:text-[#005AFF]">Marketing / Truyền Thông</div>
+        <div class="text-[11px] text-slate-500 mt-1">890 việc làm</div>
+      </a>
+
+      <a href="../page_jobs/index.html?category=finance" class="p-4 bg-white rounded-2xl border border-slate-200 hover:border-[#005AFF] hover:shadow-md transition text-center group">
+        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition">
+          <i data-lucide="badge-dollar-sign" class="w-6 h-6"></i>
+        </div>
+        <div class="font-bold text-xs text-slate-900 group-hover:text-[#005AFF]">Tài Chính / Kế Toán</div>
+        <div class="text-[11px] text-slate-500 mt-1">1.120 việc làm</div>
+      </a>
+
+      <a href="../page_jobs/index.html?category=hr" class="p-4 bg-white rounded-2xl border border-slate-200 hover:border-[#005AFF] hover:shadow-md transition text-center group">
+        <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition">
+          <i data-lucide="users" class="w-6 h-6"></i>
+        </div>
+        <div class="font-bold text-xs text-slate-900 group-hover:text-[#005AFF]">Nhân Sự / Hành Chính</div>
+        <div class="text-[11px] text-slate-500 mt-1">650 việc làm</div>
+      </a>
+
+      <a href="../page_jobs/index.html?category=engineering" class="p-4 bg-white rounded-2xl border border-slate-200 hover:border-[#005AFF] hover:shadow-md transition text-center group">
+        <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition">
+          <i data-lucide="wrench" class="w-6 h-6"></i>
+        </div>
+        <div class="font-bold text-xs text-slate-900 group-hover:text-[#005AFF]">Kỹ Thuật / Cơ Khí</div>
+        <div class="text-[11px] text-slate-500 mt-1">940 việc làm</div>
+      </a>
+    </div>
+  </section>
+
   <!-- EMPLOYER BANNER CTA (VIETNAMWORKS SIGNATURE) -->
-  <section class="max-w-[1360px] mx-auto px-4 lg:px-6 py-12">
-    <div class="rounded-3xl bg-gradient-to-r from-[#071A3D] to-[#0B2B68] text-white p-8 lg:p-12 relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8 shadow-xl">
+  <section class="max-w-[1360px] mx-auto px-4 lg:px-6 py-10">
+    <div class="rounded-3xl bg-gradient-to-r from-[#001744] via-[#003699] to-[#005AFF] text-white p-8 lg:p-12 relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8 shadow-xl">
       <div class="max-w-2xl relative z-10">
-        <span class="px-3 py-1 rounded-full bg-[#FF5A00]/20 text-[#FF7A00] font-mono text-xs font-bold uppercase tracking-wider mb-3 inline-block">
+        <span class="px-3 py-1 rounded-full bg-[#FF7D55]/20 text-[#FF7D55] text-xs font-bold uppercase tracking-wider mb-3 inline-block">
           Dành riêng cho Doanh Nghiệp
         </span>
         <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight mb-3">
-          Tuyển Dụng Nhân Tài Nhanh Chóng Với Sức Mạnh Của AI
+          Giải Pháp Tuyển Dụng Nhân Tài Hiệu Quả Cho Doanh Nghiệp
         </h2>
-        <p class="text-slate-300 text-sm leading-relaxed mb-6">
-          Tiếp cận hơn 2.500.000+ ứng viên tiềm năng trên toàn quốc. Hệ thống tự động phân loại, xếp hạng ứng viên theo AI Match Score giúp tiết kiệm 70% thời gian duyệt hồ sơ.
+        <p class="text-blue-100 text-sm leading-relaxed mb-6">
+          Tiếp cận hơn 2.500.000+ hồ sơ ứng viên chất lượng cao trên toàn quốc. Đăng tin tuyển dụng nhanh chóng và kết nối trực tiếp với những ứng viên phù hợp nhất.
         </p>
         <div class="flex flex-wrap items-center gap-4">
-          <a href="../page_post_job/index.html" class="px-6 py-3.5 bg-[#FF5A00] hover:bg-[#E65100] text-white text-sm font-bold rounded-xl shadow-lg shadow-orange-500/25 transition flex items-center gap-2">
+          <a href="../page_post_job/index.html" class="px-6 py-3.5 bg-[#FF7D55] hover:bg-[#FD6B3E] text-white text-sm font-bold rounded-full shadow-lg transition flex items-center gap-2">
             <i data-lucide="plus-circle" class="w-4 h-4"></i>
             <span>Đăng Tin Tuyển Dụng Ngay</span>
           </a>
-          <a href="../page_employer_dashboard/index.html" class="px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white text-sm font-bold rounded-xl border border-white/20 transition">
-            Khám phá Employer Portal
+          <a href="../page_employer_dashboard/index.html" class="px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white text-sm font-bold rounded-full border border-white/25 transition">
+            Dành cho Nhà tuyển dụng
           </a>
         </div>
       </div>
       <div class="relative z-10 grid grid-cols-2 gap-4 text-center">
         <div class="bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/10">
-          <div class="text-3xl font-black text-[#FF5A00] font-mono">15 Phút</div>
-          <div class="text-xs text-slate-300 mt-1">Đăng tin & duyệt tự động</div>
+          <div class="text-3xl font-black text-[#FF7D55] font-mono">45.000+</div>
+          <div class="text-xs text-blue-100 mt-1">Việc làm đang tuyển</div>
         </div>
         <div class="bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/10">
-          <div class="text-3xl font-black text-emerald-400 font-mono">98%</div>
-          <div class="text-xs text-slate-300 mt-1">Khớp năng lực ứng viên</div>
+          <div class="text-3xl font-black text-emerald-300 font-mono">12.000+</div>
+          <div class="text-xs text-blue-100 mt-1">Doanh nghiệp uy tín</div>
         </div>
         <div class="bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/10">
-          <div class="text-3xl font-black text-blue-400 font-mono">&lt; 1s</div>
-          <div class="text-xs text-slate-300 mt-1">Chat Realtime WebSocket</div>
+          <div class="text-3xl font-black text-blue-200 font-mono">2.500.000+</div>
+          <div class="text-xs text-blue-100 mt-1">Hồ sơ ứng viên</div>
         </div>
         <div class="bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/10">
-          <div class="text-3xl font-black text-amber-300 font-mono">5MB</div>
-          <div class="text-xs text-slate-300 mt-1">Xem PDF CV trực tiếp</div>
+          <div class="text-3xl font-black text-amber-300 font-mono">1900 6868</div>
+          <div class="text-xs text-blue-100 mt-1">Hỗ trợ khách hàng</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER (CHUẨN VIETNAMWORKS) -->
-  <footer class="bg-white border-t border-slate-200 mt-auto pt-12 pb-8 text-xs text-slate-600">
-    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
+  <!-- FOOTER (AUTHENTIC VIETNAMWORKS DEEP NAVY #001744) -->
+  <footer class="bg-[#001744] text-slate-300 mt-auto pt-14 pb-8 text-xs border-t border-[#002466]">
+    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
       
       <!-- Col 1: Brand Info -->
-      <div class="lg:col-span-2 space-y-3">
+      <div class="space-y-3">
         <a href="../page_home/index.html" class="flex items-center gap-2.5">
-          <div class="w-9 h-9 rounded-xl bg-[#0B2B68] text-white flex items-center justify-center font-black text-lg">
+          <div class="w-9 h-9 rounded-xl bg-white text-[#003699] flex items-center justify-center font-black text-lg">
             V
           </div>
-          <span class="text-xl font-black tracking-tight text-[#0B2B68]">
-            Vieclam<span class="text-[#FF5A00]">Online</span>
+          <span class="text-xl font-black tracking-tight text-white">
+            Vieclam<span class="text-[#FF7D55]">Online</span>
           </span>
         </a>
-        <p class="text-slate-500 leading-relaxed text-xs max-w-sm">
-          Cổng thông tin tuyển dụng & việc làm chất lượng cao theo chuẩn VietnamWorks. Tích hợp AI phân tích CV và hệ sinh thái việc làm thời gian thực.
+        <p class="text-slate-400 leading-relaxed text-xs">
+          Nền tảng việc làm và tuyển dụng hàng đầu tại Việt Nam. Kết nối nhân tài với cơ hội nghề nghiệp chất lượng cao từ các doanh nghiệp uy tín.
         </p>
-        <div class="pt-2 text-slate-500 space-y-1">
-          <div>Trụ sở: Tầng 8, Tòa nhà Công Nghệ, Quận Cầu Giấy, TP. Hà Nội</div>
-          <div>Văn phòng TP.HCM: Tòa nhà TechPark, Quận 1, TP. Hồ Chí Minh</div>
-          <div>Email hỗ trợ: <strong class="text-slate-700">hotro@vieclamonline.vn</strong></div>
+        <div class="pt-2 text-slate-400 space-y-1">
+          <div>Trụ sở TP.HCM: Tòa nhà E.Town Central, 11 Đoàn Văn Bơ, Quận 4</div>
+          <div>Chi nhánh Hà Nội: Tòa nhà VCCI, 9 Đào Duy Anh, Đống Đa</div>
+          <div>Tổng đài CSKH: <strong class="text-white">1900 6868</strong></div>
+          <div>Email: <strong class="text-white">support@vieclamonline.vn</strong></div>
         </div>
       </div>
 
       <!-- Col 2: Dành cho ứng viên -->
       <div class="space-y-2.5">
-        <h4 class="font-bold text-slate-900 uppercase tracking-wider text-[11px]">Dành Cho Ứng Viên</h4>
+        <h4 class="font-bold text-white uppercase tracking-wider text-[11px]">Dành Cho Ứng Viên</h4>
         <ul class="space-y-2">
-          <li><a href="../page_jobs/index.html" class="hover:text-[#0B2B68] transition">Tìm kiếm việc làm</a></li>
-          <li><a href="../page_candidate_dashboard/index.html" class="hover:text-[#0B2B68] transition">Quản lý hồ sơ & CV PDF</a></li>
-          <li><a href="../page_ai_cv_report/index.html" class="hover:text-[#0B2B68] transition">Chấm điểm AI Match Score</a></li>
-          <li><a href="../page_candidate_dashboard/index.html#saved" class="hover:text-[#0B2B68] transition">Việc làm đã lưu</a></li>
-          <li><a href="../page_chat/index.html" class="hover:text-[#0B2B68] transition">Chat trực tiếp với NTD</a></li>
+          <li><a href="../page_jobs/index.html" class="hover:text-white transition">Tìm việc làm mới nhất</a></li>
+          <li><a href="../page_candidate_dashboard/index.html" class="hover:text-white transition">Quản lý hồ sơ & CV</a></li>
+          <li><a href="../page_ai_cv_report/index.html" class="hover:text-white transition">Gợi ý việc làm phù hợp</a></li>
+          <li><a href="../page_candidate_dashboard/index.html#applications" class="hover:text-white transition">Đơn ứng tuyển đã nộp</a></li>
+          <li><a href="../page_chat/index.html" class="hover:text-white transition">Tin nhắn trực tiếp</a></li>
         </ul>
       </div>
 
       <!-- Col 3: Dành cho nhà tuyển dụng -->
       <div class="space-y-2.5">
-        <h4 class="font-bold text-slate-900 uppercase tracking-wider text-[11px]">Dành Cho Doanh Nghiệp</h4>
+        <h4 class="font-bold text-white uppercase tracking-wider text-[11px]">Dành Cho Doanh Nghiệp</h4>
         <ul class="space-y-2">
-          <li><a href="../page_post_job/index.html" class="hover:text-[#0B2B68] transition">Đăng tin tuyển dụng mới</a></li>
-          <li><a href="../page_employer_dashboard/index.html" class="hover:text-[#0B2B68] transition">Quản lý tin đăng (Active/Closed)</a></li>
-          <li><a href="../page_employer_candidates/index.html" class="hover:text-[#0B2B68] transition">Xếp hạng ứng viên bằng AI</a></li>
-          <li><a href="../page_company_detail/index.html" class="hover:text-[#0B2B68] transition">Hồ sơ thương hiệu tuyển dụng</a></li>
+          <li><a href="../page_post_job/index.html" class="hover:text-white transition">Đăng tin tuyển dụng</a></li>
+          <li><a href="../page_employer_dashboard/index.html" class="hover:text-white transition">Quản lý tin tuyển dụng</a></li>
+          <li><a href="../page_employer_candidates/index.html" class="hover:text-white transition">Quản lý ứng viên</a></li>
+          <li><a href="../page_company_detail/index.html" class="hover:text-white transition">Trang thương hiệu doanh nghiệp</a></li>
         </ul>
       </div>
 
-      <!-- Col 4: Hệ thống & Quy chuẩn -->
+      <!-- Col 4: Về VieclamOnline -->
       <div class="space-y-2.5">
-        <h4 class="font-bold text-slate-900 uppercase tracking-wider text-[11px]">Hệ Thống & Quy Chuẩn</h4>
+        <h4 class="font-bold text-white uppercase tracking-wider text-[11px]">Về VieclamOnline</h4>
         <ul class="space-y-2">
-          <li><a href="../page_admin_portal/index.html" class="hover:text-[#0B2B68] transition">Cổng quản trị Admin (FR-09)</a></li>
-          <li><a href="../index.html" class="hover:text-[#0B2B68] font-bold text-[#FF5A00] transition">Showcase Hub (15 màn hình)</a></li>
-          <li><a href="../page_login/index.html" class="hover:text-[#0B2B68] transition">Đăng nhập hệ thống</a></li>
-          <li><a href="../page_register/index.html" class="hover:text-[#0B2B68] transition">Đăng ký tài khoản mới</a></li>
-          <li><a href="../page_forgot_password/index.html" class="hover:text-[#0B2B68] transition">Quên mật khẩu</a></li>
+          <li><a href="../page_home/index.html" class="hover:text-white transition">Giới thiệu về chúng tôi</a></li>
+          <li><a href="../page_login/index.html" class="hover:text-white transition">Đăng nhập tài khoản</a></li>
+          <li><a href="../page_register/index.html" class="hover:text-white transition">Đăng ký thành viên mới</a></li>
+          <li><a href="../page_forgot_password/index.html" class="hover:text-white transition">Quên mật khẩu</a></li>
+          <li><a href="../page_admin_portal/index.html" class="hover:text-white transition">Cổng quản trị</a></li>
         </ul>
       </div>
 
     </div>
 
     <!-- Bottom copyright -->
-    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-slate-400">
-      <div>© 2026 VieclamOnline.vn - Bản quyền thuộc về Đồ Án Tốt Nghiệp Web Tìm Việc Làm Online.</div>
+    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-slate-400">
+      <div>© 2026 VieclamOnline. Toàn bộ bản quyền được bảo lưu.</div>
       <div class="flex items-center gap-4">
-        <span>Chuẩn nghiệp vụ: <strong>SRS & README</strong></span>
+        <span>Hotline: 1900 6868</span>
         <span>•</span>
-        <span>Công nghệ: <strong>Next.js + Laravel 11 + Gemini AI</strong></span>
+        <span>Email: support@vieclamonline.vn</span>
       </div>
     </div>
   </footer>
 
-  <!-- FLOATING PROTOTYPE SWITCHER (FIGMA-LIKE NAVIGATOR) -->
+  <!-- FLOATING PROTOTYPE SWITCHER (RENAMED TO 'Routes') -->
   <div class="fixed bottom-5 right-5 z-50">
-    <button id="proto-switcher-btn" onclick="toggleProtoMenu()" class="flex items-center gap-2 bg-[#0B2B68] hover:bg-[#071A3D] text-white px-4 py-2.5 rounded-full shadow-2xl border-2 border-white/20 transition active:scale-95 text-xs font-bold font-mono">
-      <span class="w-2.5 h-2.5 rounded-full bg-[#FF5A00] animate-pulse"></span>
-      <i data-lucide="layout-grid" class="w-4 h-4"></i>
-      <span>FIGMA PROTOTYPE (15 TRANG)</span>
+    <button id="proto-switcher-btn" onclick="toggleProtoMenu()" class="flex items-center gap-2 bg-[#003699] hover:bg-[#002466] text-white px-4 py-2 rounded-full shadow-2xl border-2 border-white/20 transition active:scale-95 text-xs font-bold font-mono">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+      <span>Routes</span>
     </button>
 
     <!-- Drawer / Popup menu -->
-    <div id="proto-menu" class="hidden absolute bottom-12 right-0 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200 p-4 text-xs z-50 max-h-[80vh] overflow-y-auto">
+    <div id="proto-menu" class="hidden absolute bottom-12 right-0 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200 p-4 text-xs z-50 max-h-[80vh] overflow-y-auto text-slate-800">
       <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
         <span class="font-bold text-slate-900 font-mono flex items-center gap-1.5">
-          <i data-lucide="compass" class="w-4 h-4 text-[#FF5A00]"></i>
-          Chuyển Màn Hình Demo
+          <i data-lucide="compass" class="w-4 h-4 text-[#FF7D55]"></i>
+          Danh mục Routes (15 Trang)
         </span>
         <button onclick="toggleProtoMenu()" class="text-slate-400 hover:text-slate-700">
           <i data-lucide="x" class="w-4 h-4"></i>
@@ -811,89 +833,85 @@
 
       <div class="space-y-3">
         <div>
-          <div class="font-bold text-[10px] text-slate-400 uppercase tracking-wider mb-1">Dành Cho Khách & Tìm Việc</div>
+          <div class="font-bold text-[10px] text-slate-400 uppercase tracking-wider mb-1">Khách & Việc Làm</div>
           <div class="space-y-1">
-            <a href="../page_home/index.html" class="flex items-center justify-between p-1.5 rounded-lg bg-blue-50 text-[#0B2B68] font-bold">
-              <span>01. Trang Chủ (Home)</span>
+            <a href="../page_home/index.html" class="flex items-center justify-between p-1.5 rounded-lg bg-blue-50 text-[#003699] font-bold">
+              <span>01. Trang Chủ</span>
               <span class="text-[10px] text-emerald-600">Đang xem</span>
             </a>
             <a href="../page_jobs/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700">
-              <span>02. Tìm Kiếm & Bộ Lọc</span>
+              <span>02. Danh Sách Việc Làm</span>
               <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
             </a>
             <a href="../page_job_detail/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700">
-              <span>03. Chi Tiết Việc Làm + Nộp CV</span>
+              <span>03. Chi Tiết Việc Làm</span>
               <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
             </a>
             <a href="../page_ai_cv_report/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700">
-              <span>04. Báo Cáo AI Match Score</span>
-              <span class="px-1 bg-emerald-100 text-emerald-700 rounded text-[9px] font-bold">AI</span>
+              <span>04. Báo Cáo Phù Hợp CV</span>
+              <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
             </a>
             <a href="../page_company_detail/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700">
-              <span>08. Hồ Sơ Công Ty (FPT)</span>
+              <span>08. Hồ Sơ Doanh Nghiệp</span>
               <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
             </a>
           </div>
         </div>
 
         <div>
-          <div class="font-bold text-[10px] text-slate-400 uppercase tracking-wider mb-1">Dành Cho Ứng Viên</div>
+          <div class="font-bold text-[10px] text-slate-400 uppercase tracking-wider mb-1">Cổng Ứng Viên</div>
           <div class="space-y-1">
             <a href="../page_candidate_dashboard/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700">
-              <span>05. Dashboard Ứng Viên (Hồ sơ & 6 TT)</span>
+              <span>05. Dashboard Ứng Viên</span>
               <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
             </a>
             <a href="../page_chat/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700">
-              <span>10. Tin Nhắn Realtime 1-1</span>
-              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span>10. Nhắn Tin Trực Tuyến</span>
+              <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
             </a>
             <a href="../page_notifications/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700">
-              <span>15. Trung Tâm Thông Báo</span>
+              <span>15. Thông Báo</span>
               <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
             </a>
           </div>
         </div>
 
         <div>
-          <div class="font-bold text-[10px] text-slate-400 uppercase tracking-wider mb-1">Dành Cho Nhà Tuyển Dụng</div>
+          <div class="font-bold text-[10px] text-slate-400 uppercase tracking-wider mb-1">Cổng Doanh Nghiệp</div>
           <div class="space-y-1">
             <a href="../page_employer_dashboard/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700">
-              <span>06. Dashboard Nhà Tuyển Dụng</span>
+              <span>06. Dashboard Tuyển Dụng</span>
               <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
             </a>
             <a href="../page_post_job/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700">
-              <span>07. Đăng Tin Mới (3 chế độ lương)</span>
+              <span>07. Đăng Tin Tuyển Dụng</span>
               <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
             </a>
             <a href="../page_employer_candidates/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700">
-              <span>09. Xếp Hạng Ứng Viên Bằng AI</span>
+              <span>09. Quản Lý Ứng Viên</span>
               <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
             </a>
           </div>
         </div>
 
         <div>
-          <div class="font-bold text-[10px] text-slate-400 uppercase tracking-wider mb-1">Quản Trị & Xác Thực</div>
+          <div class="font-bold text-[10px] text-slate-400 uppercase tracking-wider mb-1">Xác Thực & Quản Trị</div>
           <div class="space-y-1">
             <a href="../page_admin_portal/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700">
-              <span>11. Cổng Quản Trị Admin Portal</span>
+              <span>11. Quản Trị Admin</span>
               <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
             </a>
             <a href="../page_login/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700">
-              <span>12. Đăng Nhập (Role Redirect)</span>
+              <span>12. Đăng Nhập</span>
               <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
             </a>
             <a href="../page_register/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700">
-              <span>13. Đăng Ký Tài Khoản</span>
+              <span>13. Đăng Ký</span>
               <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
             </a>
             <a href="../page_forgot_password/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700">
-              <span>14. Quên Mật Khẩu (Token 15p)</span>
+              <span>14. Quên Mật Khẩu</span>
               <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
-            </a>
-            <a href="../index.html" class="flex items-center justify-between p-1.5 rounded-lg bg-slate-900 text-white font-bold mt-2">
-              <span>Hub Tổng Quan (15 Màn Hình)</span>
-              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
             </a>
           </div>
         </div>
@@ -902,22 +920,18 @@
   </div>
 
   <script>
-    // Initialize Lucide icons
     lucide.createIcons();
 
-    // User dropdown toggle
     function toggleUserDropdown() {
       const menu = document.getElementById('user-dropdown-menu');
       if (menu) menu.classList.toggle('hidden');
     }
 
-    // Prototype menu toggle
     function toggleProtoMenu() {
       const menu = document.getElementById('proto-menu');
       if (menu) menu.classList.toggle('hidden');
     }
 
-    // Close dropdowns when clicking outside
     document.addEventListener('click', function(e) {
       const userBtn = document.getElementById('user-menu-btn');
       const userMenu = document.getElementById('user-dropdown-menu');

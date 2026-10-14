@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Khôi Phục Mật Khẩu (FR-02.7) | VieclamOnline</title>
+  <title>Khôi Phục Mật Khẩu | VieclamOnline</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
@@ -14,16 +14,22 @@
       theme: {
         extend: {
           colors: {
-            brand: {
-              blue: '#0B2B68',
-              blueHover: '#08204F',
-              blueLight: '#EBF3FE',
-              navy: '#071A3D',
-              orange: '#FF5A00',
-              orangeHover: '#E65100',
-              orangeLight: '#FFF2EB',
+            vnw: {
+              navy: '#003699',
+              navyDark: '#002466',
+              navyDeep: '#001744',
+              navyLight: '#EBF2FF',
+              blue: '#005AFF',
+              blueHover: '#004BD6',
+              coral: '#FF7D55',
+              coralHover: '#FD6B3E',
+              coralLight: '#FFF0EC',
               emerald: '#00A862',
               emeraldLight: '#E8F7F0',
+              grayBg: '#F4F6F9',
+              slateText: '#1E293B',
+              slateMuted: '#64748B',
+              border: '#E2E8F0',
             }
           },
           fontFamily: {
@@ -38,18 +44,45 @@
     body { font-family: 'Be Vietnam Pro', Inter, sans-serif; }
   </style>
 </head>
-<body class="bg-[#F8FAFC] text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-vnw-grayBg text-vnw-slateText antialiased min-h-screen flex flex-col justify-between selection:bg-vnw-coral selection:text-white">
 
   <!-- TOP BAR -->
-  <div class="bg-[#071A3D] text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
-    <div class="max-w-[1360px] mx-auto flex justify-between items-center">
-      <a href="../page_login/index.html" class="inline-flex items-center gap-1.5 text-blue-400 hover:text-white font-mono font-semibold transition">
-        <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-        Quay lại Đăng nhập
-      </a>
-      <span class="text-emerald-400 font-semibold text-xs">14. Quên Mật Khẩu (FR-02.7 & FR-02.8)</span>
+  <div class="bg-vnw-navyDark text-white/80 text-xs py-2 px-4 border-b border-white/10">
+    <div class="max-w-[1360px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+      <div class="flex items-center gap-3">
+        <a href="../page_login/index.html" class="inline-flex items-center gap-1.5 text-slate-200 hover:text-white font-medium transition">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          Quay lại Đăng nhập
+        </a>
+        <span class="text-white/30 hidden sm:inline">|</span>
+        <span class="text-slate-200 hidden sm:inline">Khôi phục mật khẩu tài khoản</span>
+      </div>
+      <div class="flex items-center gap-4 text-[12px]">
+        <span class="text-slate-300">Hotline hỗ trợ: <strong class="text-white">1900 6868</strong></span>
+      </div>
     </div>
   </div>
+
+  <!-- VIETNAMWORKS NAVY NAVBAR -->
+  <header class="bg-vnw-navy border-b border-white/10 sticky top-0 z-40 shadow-md">
+    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-6">
+        <a href="../page_home/index.html" class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-white text-vnw-navy flex items-center justify-center font-black text-xl shadow-md">
+            V
+          </div>
+          <span class="text-xl sm:text-2xl font-black tracking-tight text-white">
+            Vieclam<span class="text-vnw-coral">Online</span>
+          </span>
+        </a>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="../page_login/index.html" class="px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition border border-white/20">
+          Đăng nhập ngay
+        </a>
+      </div>
+    </div>
+  </header>
 
   <!-- MAIN CARD -->
   <main class="flex-1 flex items-center justify-center p-4 py-12">
@@ -58,23 +91,26 @@
       <!-- Step 1: Request Reset Link (FR-02.7) -->
       <div id="step-1" class="space-y-6">
         <div class="text-center space-y-2">
-          <div class="w-12 h-12 rounded-2xl bg-blue-50 text-[#0B2B68] flex items-center justify-center mx-auto">
-            <i data-lucide="key-round" class="w-6 h-6"></i>
+          <div class="w-14 h-14 rounded-2xl bg-vnw-navyLight text-vnw-navy flex items-center justify-center mx-auto shadow-xs border border-vnw-navy/15">
+            <i data-lucide="key-round" class="w-7 h-7 text-vnw-navy"></i>
           </div>
-          <h1 class="text-xl font-black text-slate-900 tracking-tight">Quên Mật Khẩu?</h1>
+          <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Quên Mật Khẩu?</h1>
           <p class="text-xs text-slate-500 leading-relaxed">
-            Nhập email tài khoản của bạn. Hệ thống sẽ tạo mã token an toàn có hiệu lực trong <strong>15 phút</strong> (FR-02.7) và gửi đường dẫn khôi phục mật khẩu.
+            Nhập email đã đăng ký tài khoản. Hệ thống sẽ gửi đường dẫn an toàn để thiết lập lại mật khẩu của bạn.
           </p>
         </div>
 
         <form onsubmit="handleSendResetEmail(event)" class="space-y-4 text-xs text-slate-700">
           <div class="space-y-1">
             <label class="block font-bold text-slate-900">Email đã đăng ký <span class="text-rose-500">*</span></label>
-            <input type="email" id="reset-email" required value="nguyen.vana@example.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-[#0B2B68] text-xs font-mono focus:outline-none">
+            <div class="relative">
+              <input type="email" id="reset-email" required value="nguyen.vana@example.com" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-vnw-navy focus:ring-2 focus:ring-vnw-navy/20 text-xs font-mono focus:outline-none pr-10 transition">
+              <i data-lucide="mail" class="w-4 h-4 text-slate-400 absolute right-3.5 top-3.5"></i>
+            </div>
           </div>
 
-          <button type="submit" class="w-full py-3 bg-[#0B2B68] hover:bg-[#071A3D] text-white font-bold text-sm rounded-xl shadow-md transition active:scale-95 flex items-center justify-center gap-2">
-            <span>Gửi Liên Kết Xác Thực</span>
+          <button type="submit" class="w-full py-3.5 bg-vnw-coral hover:bg-vnw-coralHover text-white font-bold text-sm rounded-full shadow-md transition active:scale-95 flex items-center justify-center gap-2">
+            <span>Gửi Đường Dẫn Xác Thực (15 Phút)</span>
             <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </button>
         </form>
@@ -83,26 +119,27 @@
       <!-- Step 2: Reset New Password (FR-02.8) -->
       <div id="step-2" class="hidden space-y-6">
         <div class="text-center space-y-2">
-          <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto">
-            <i data-lucide="shield-check" class="w-6 h-6"></i>
+          <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto shadow-xs border border-emerald-200">
+            <i data-lucide="shield-check" class="w-7 h-7"></i>
           </div>
-          <h2 class="text-xl font-black text-slate-900 tracking-tight">Đặt Mật Khẩu Mới</h2>
+          <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Thiết Lập Mật Khẩu Mới</h2>
           <p class="text-xs text-slate-500 leading-relaxed">
-            Mã Token xác thực hợp lệ (còn hạn trong 15 phút). Vui lòng thiết lập mật khẩu mới (FR-02.8).
+            Mã xác thực hợp lệ (hiệu lực trong 15 phút). Vui lòng thiết lập mật khẩu mới an toàn cho tài khoản.
           </p>
         </div>
 
         <form onsubmit="handleResetPasswordSubmit(event)" class="space-y-4 text-xs text-slate-700">
           <div class="space-y-1">
-            <label class="block font-bold text-slate-900">Mật khẩu mới (FR-01.4) <span class="text-rose-500">*</span></label>
-            <input type="password" required minlength="8" maxlength="32" value="NewPass@2026" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-[#0B2B68] text-xs font-mono focus:outline-none">
+            <label class="block font-bold text-slate-900">Mật khẩu mới <span class="text-rose-500">*</span></label>
+            <input type="password" required minlength="8" maxlength="32" value="NewPass@2026" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-vnw-navy focus:ring-2 focus:ring-vnw-navy/20 text-xs font-mono focus:outline-none transition">
+            <span class="text-[10px] text-slate-400">8-32 ký tự, gồm chữ hoa, thường, số, ký tự đặc biệt</span>
           </div>
           <div class="space-y-1">
             <label class="block font-bold text-slate-900">Xác nhận mật khẩu mới <span class="text-rose-500">*</span></label>
-            <input type="password" required minlength="8" maxlength="32" value="NewPass@2026" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-[#0B2B68] text-xs font-mono focus:outline-none">
+            <input type="password" required minlength="8" maxlength="32" value="NewPass@2026" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-vnw-navy focus:ring-2 focus:ring-vnw-navy/20 text-xs font-mono focus:outline-none transition">
           </div>
 
-          <button type="submit" class="w-full py-3 bg-[#FF5A00] hover:bg-[#E65100] text-white font-bold text-sm rounded-xl shadow-md transition active:scale-95 flex items-center justify-center gap-2">
+          <button type="submit" class="w-full py-3.5 bg-vnw-coral hover:bg-vnw-coralHover text-white font-bold text-sm rounded-full shadow-md transition active:scale-95 flex items-center justify-center gap-2">
             <span>Cập Nhật Mật Khẩu & Đăng Nhập</span>
             <i data-lucide="check" class="w-4 h-4"></i>
           </button>
@@ -110,8 +147,8 @@
       </div>
 
       <!-- Back to login link -->
-      <div class="text-center text-xs text-slate-500 pt-2 border-t border-slate-100">
-        <a href="../page_login/index.html" class="font-bold text-slate-700 hover:text-[#0B2B68] inline-flex items-center gap-1">
+      <div class="text-center text-xs text-slate-500 pt-3 border-t border-slate-100">
+        <a href="../page_login/index.html" class="font-bold text-slate-700 hover:text-vnw-navy inline-flex items-center gap-1.5 transition">
           <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
           Quay lại Đăng nhập
         </a>
@@ -121,26 +158,47 @@
   </main>
 
   <!-- FOOTER -->
-  <footer class="text-center text-xs text-slate-400 py-4 border-t border-slate-200 bg-white">
-    © 2026 VieclamOnline.vn - Quy chuẩn quên mật khẩu FR-02.7 & FR-02.8
+  <footer class="bg-vnw-navyDeep text-white border-t border-white/10 py-6 text-xs">
+    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-slate-400">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-white">Vieclam<span class="text-vnw-coral">Online</span>.vn</span>
+        <span>- Nền tảng việc làm và tuyển dụng hàng đầu Việt Nam.</span>
+      </div>
+      <div class="flex items-center gap-4 text-[11px] font-mono">
+        <a href="../page_home/index.html" class="hover:text-white transition">Trang chủ</a>
+        <a href="../page_jobs/index.html" class="hover:text-white transition">Việc làm</a>
+      </div>
+    </div>
   </footer>
 
-  <!-- FLOATING PROTOTYPE SWITCHER -->
+  <!-- FLOATING PROTOTYPE SWITCHER (RENAMED TO Routes) -->
   <div class="fixed bottom-5 right-5 z-50">
-    <button id="proto-switcher-btn" onclick="toggleProtoMenu()" class="flex items-center gap-2 bg-[#0B2B68] hover:bg-[#071A3D] text-white px-4 py-2.5 rounded-full shadow-2xl border-2 border-white/20 transition active:scale-95 text-xs font-bold font-mono">
-      <span class="w-2.5 h-2.5 rounded-full bg-[#FF5A00] animate-pulse"></span>
-      <i data-lucide="layout-grid" class="w-4 h-4"></i>
-      <span>FIGMA PROTOTYPE (15 TRANG)</span>
+    <button id="proto-switcher-btn" onclick="toggleProtoMenu()" class="flex items-center gap-2 bg-[#003699] hover:bg-[#002466] text-white px-4 py-2 rounded-full shadow-2xl border-2 border-white/20 transition active:scale-95 text-xs font-bold font-mono">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+      <span>Routes</span>
     </button>
-    <div id="proto-menu" class="hidden absolute bottom-12 right-0 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200 p-4 text-xs z-50 max-h-[80vh] overflow-y-auto">
+    <div id="proto-menu" class="hidden absolute bottom-12 right-0 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200 p-4 text-xs z-50 max-h-[80vh] overflow-y-auto text-slate-800">
       <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
-        <span class="font-bold text-slate-900 font-mono">Chuyển Màn Hình Demo</span>
+        <span class="font-bold text-slate-900 font-mono">Danh mục Routes (15 Trang)</span>
         <button onclick="toggleProtoMenu()" class="text-slate-400 hover:text-slate-700"><i data-lucide="x" class="w-4 h-4"></i></button>
       </div>
       <div class="space-y-1">
+        <a href="../page_home/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>01. Trang Chủ</span></a>
+        <a href="../page_jobs/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>02. Danh Sách Việc Làm</span></a>
+        <a href="../page_job_detail/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>03. Chi Tiết Việc Làm</span></a>
+        <a href="../page_ai_cv_report/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>04. Báo Cáo Phù Hợp CV</span></a>
+        <a href="../page_candidate_dashboard/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>05. Dashboard Ứng Viên</span></a>
+        <a href="../page_employer_dashboard/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>06. Dashboard NTD</span></a>
+        <a href="../page_post_job/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>07. Đăng Tin Tuyển Dụng</span></a>
+        <a href="../page_company_detail/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>08. Hồ Sơ Doanh Nghiệp</span></a>
+        <a href="../page_employer_candidates/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>09. Quản Lý Ứng Viên</span></a>
+        <a href="../page_chat/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>10. Nhắn Tin Trực Tuyến</span></a>
+        <a href="../page_admin_portal/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>11. Quản Trị Admin</span></a>
         <a href="../page_login/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>12. Đăng Nhập</span></a>
-        <a href="../page_forgot_password/index.html" class="flex items-center justify-between p-1.5 rounded-lg bg-blue-50 text-[#0B2B68] font-bold"><span>14. Quên Mật Khẩu</span><span class="text-[10px] text-emerald-600">Đang xem</span></a>
-        <a href="../index.html" class="flex items-center justify-between p-1.5 rounded-lg bg-slate-900 text-white font-bold mt-2"><span>Hub Tổng Quan</span></a>
+        <a href="../page_register/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>13. Đăng Ký</span></a>
+        <a href="../page_forgot_password/index.html" class="flex items-center justify-between p-1.5 rounded-lg bg-blue-50 text-[#003699] font-bold"><span>14. Quên Mật Khẩu</span><span class="text-[10px] text-emerald-600">Đang xem</span></a>
+        <a href="../page_notifications/index.html" class="flex items-center justify-between p-1.5 rounded-lg hover:bg-slate-50 text-slate-700"><span>15. Thông Báo</span></a>
       </div>
     </div>
   </div>
@@ -150,7 +208,7 @@
 
     function handleSendResetEmail(e) {
       e.preventDefault();
-      alert("Hệ thống đã tạo mã Token an toàn có hiệu lực 15 phút (FR-02.7). Mô phỏng chuyển tiếp sang màn hình Đặt lại Mật Khẩu Mới (FR-02.8).");
+      alert("Hệ thống đã gửi liên kết khôi phục mật khẩu vào hòm thư email của bạn. Vui lòng kiểm tra hộp thư đến.");
       document.getElementById('step-1').classList.add('hidden');
       document.getElementById('step-2').classList.remove('hidden');
       lucide.createIcons();
@@ -158,7 +216,7 @@
 
     function handleResetPasswordSubmit(e) {
       e.preventDefault();
-      alert("Đặt lại mật khẩu thành công (FR-02.8)! Chuyển hướng tới trang Đăng nhập.");
+      alert("Đặt lại mật khẩu thành công! Bạn có thể sử dụng mật khẩu mới để đăng nhập.");
       window.location.href = '../page_login/index.html';
     }
 
