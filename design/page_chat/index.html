@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tin Nhắn Tuyển Dụng Trực Tuyến | VieclamOnline</title>
+  <title>Tin Nhắn Tuyển Dụng Trực Tuyến - Nguyễn Văn A | TimViecOnline</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
@@ -15,16 +15,13 @@
         extend: {
           colors: {
             vnw: {
-              navy: '#003699',
-              navyDark: '#002466',
-              navyDeep: '#001744',
-              blue: '#005AFF',
-              blueHover: '#004BD6',
-              blueLight: '#EBF3FE',
-              orange: '#FF7D55',
-              orangeHover: '#FD6B3E',
+              navy: '#002B7F',
+              navyDark: '#001E5B',
+              coral: '#FF6A39',
+              coralHover: '#F4511E',
               emerald: '#00A862',
-              bg: '#F4F6F9',
+              grayBg: '#F4F6F9',
+              border: '#E2E8F0',
             }
           },
           fontFamily: {
@@ -36,78 +33,82 @@
     }
   </script>
   <style>
+    html { font-size: 90%; }
     body { font-family: 'Be Vietnam Pro', Inter, sans-serif; background-color: #F4F6F9; }
   </style>
 </head>
 <body class="bg-[#F4F6F9] text-slate-800 antialiased min-h-screen flex flex-col">
 
-  <!-- TOP BAR -->
-  <div class="bg-[#002466] text-white/90 text-xs py-2 px-4 border-b border-white/10">
-    <div class="max-w-[1360px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-      <div class="flex items-center gap-3">
-        <a href="../page_home/index.html" class="inline-flex items-center gap-1.5 text-slate-200 hover:text-white font-medium transition">
-          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-          Quay lại Trang chủ
-        </a>
-        <span class="text-white/30">|</span>
-        <span class="text-slate-200">Hộp thư trao đổi trực tiếp giữa Ứng viên & Nhà tuyển dụng</span>
-      </div>
-      <div class="flex items-center gap-4 text-[12px]">
-        <span class="flex items-center gap-1.5 text-emerald-400">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          Laravel Reverb WebSocket: Kết nối trực tuyến
-        </span>
-      </div>
-    </div>
-  </div>
-
-  <!-- CANDIDATE HEADER (VIETNAMWORKS ROYAL NAVY #002B7F) -->
-  <header class="sticky top-0 z-40 bg-[#002B7F] text-white shadow-md border-b border-[#002366]">
-    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 h-[72px] flex items-center justify-between gap-4">
+  <!-- UNIFIED CANDIDATE NAVBAR (TIMVIEONLINE STANDARDIZED) -->
+  <header class="sticky top-0 z-40 bg-[#002B7F] text-white shadow-md border-b border-[#002060]">
+    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 h-[68px] flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo & Main Links -->
       <div class="flex items-center gap-8">
-        <!-- OFFICIAL LOGO -->
         <a href="../page_home/index.html" class="flex items-center gap-2.5 group">
-          <svg class="h-8 w-auto shrink-0" viewBox="0 0 52 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="17" cy="16" rx="12" ry="9" stroke="#00C2F3" stroke-width="4.5" fill="none" transform="rotate(-18 17 16)"/>
-            <ellipse cx="32" cy="16" rx="12" ry="9" stroke="#005AFF" stroke-width="4.5" fill="none" transform="rotate(18 32 16)"/>
-          </svg>
+          <div class="relative w-8 h-8 flex items-center justify-center shrink-0">
+            <svg class="w-8 h-8" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="36" height="36" rx="10" fill="#005AFF"/>
+              <path d="M10 18L16 24L26 12" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="26" cy="12" r="3" fill="#FF6A39"/>
+            </svg>
+          </div>
           <div class="flex flex-col -space-y-0.5">
-            <span class="text-[21px] font-black tracking-tight text-white leading-none font-sans lowercase">
-              vietnam<span class="text-white">works</span>
+            <span class="text-[19px] font-black tracking-tight text-white leading-none font-sans">
+              TimViec<span class="text-[#38BDF8]">Online</span>
             </span>
-            <span class="text-[8.5px] font-semibold tracking-wider text-[#7dd3fc] uppercase leading-none pl-0.5">
-              empower growth
+            <span class="text-[8px] font-bold tracking-widest text-[#93c5fd] uppercase leading-none pl-0.5">
+              Cổng Việc Làm & Tuyển Dụng
             </span>
           </div>
         </a>
 
-        <!-- NAV LINKS FOR CANDIDATE -->
-        <nav class="hidden lg:flex items-center gap-1 text-[14px]">
-          <a href="../page_jobs/index.html" class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition">Tìm việc làm</a>
-          <a href="../page_saved_jobs/index.html" class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition">Việc làm đã lưu</a>
-          <a href="../page_candidate_dashboard/index.html" class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition">Hồ sơ CV & Đơn ứng tuyển</a>
-          <a href="../page_companies/index.html" class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition">Top Công ty</a>
-          <a href="../page_chat/index.html" class="px-3.5 py-1.5 rounded-full bg-white/15 text-white font-bold flex items-center gap-1.5 shadow-inner">
-            <i data-lucide="message-square" class="w-4 h-4"></i>
-            Tin nhắn
+        <!-- Main Links -->
+        <nav class="hidden lg:flex items-center gap-1 text-[13.5px]">
+          <a href="../page_home/index.html" class="px-3 py-1.5 rounded-lg text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
+            Trang Chủ
+          </a>
+          <a href="../page_jobs/index.html" class="px-3 py-1.5 rounded-lg text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
+            Tìm Việc Làm
+          </a>
+          <a href="../page_companies/index.html" class="px-3 py-1.5 rounded-lg text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
+            Top Công Ty
+          </a>
+          <a href="../page_saved_jobs/index.html" class="px-3 py-1.5 rounded-lg text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
+            Việc Làm Đã Lưu
+          </a>
+          <a href="../page_candidate_dashboard/index.html" class="px-3 py-1.5 rounded-lg text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
+            Hồ Sơ & Ứng Tuyển
           </a>
         </nav>
       </div>
 
-      <!-- CANDIDATE PROFILE BAR -->
-      <div class="flex items-center gap-3">
-        <a href="../page_notifications/index.html" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white relative transition">
-          <i data-lucide="bell" class="w-4 h-4"></i>
-          <span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#FF6A39]"></span>
+      <!-- Right Candidate Controls -->
+      <div class="flex items-center gap-2.5">
+        <a href="../page_chat/index.html" class="w-9 h-9 rounded-full bg-white/20 text-white flex items-center justify-center relative transition shadow-inner" title="Tin nhắn (Đang mở)">
+          <i data-lucide="message-square" class="w-4 h-4"></i>
+          <span class="absolute -top-1 -right-1 bg-[#FF6A39] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow">1</span>
         </a>
-        <div class="flex items-center gap-2 pl-2 border-l border-white/20">
-          <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-cyan-400 to-blue-500 text-white font-bold text-xs flex items-center justify-center ring-2 ring-white/30 shadow-sm">
+
+        <a href="../page_notifications/index.html" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center relative transition" title="Thông báo">
+          <i data-lucide="bell" class="w-4 h-4"></i>
+          <span class="absolute -top-1 -right-1 bg-[#FF6A39] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow">2</span>
+        </a>
+
+        <div class="flex items-center gap-2.5 pl-3 border-l border-white/20">
+          <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-400 to-blue-600 text-white font-bold text-xs flex items-center justify-center shadow-sm">
             NA
           </div>
           <div class="hidden sm:flex flex-col text-left">
             <span class="text-xs font-bold text-white leading-tight">Nguyễn Văn A</span>
             <span class="text-[10px] text-cyan-200">Ứng viên</span>
           </div>
+          <a href="../page_settings/index.html" class="p-1.5 hover:bg-white/10 rounded-full text-white/80 hover:text-white ml-0.5 transition" title="Cài đặt tài khoản">
+            <i data-lucide="settings" class="w-4 h-4"></i>
+          </a>
+          <a href="../page_login/index.html" class="p-1.5 hover:bg-white/10 rounded-full text-white/80 hover:text-red-300 transition" title="Đăng xuất">
+            <i data-lucide="log-out" class="w-4 h-4"></i>
+          </a>
         </div>
       </div>
     </div>

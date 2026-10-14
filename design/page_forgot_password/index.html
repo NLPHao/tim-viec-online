@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Khôi Phục Mật Khẩu | VieclamOnline</title>
+  <title>Khôi Phục Mật Khẩu | TimViecOnline</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
@@ -41,12 +41,13 @@
     }
   </script>
   <style>
+    html { font-size: 90%; }
     body { font-family: 'Be Vietnam Pro', Inter, sans-serif; }
   </style>
 </head>
 <body class="bg-vnw-grayBg text-vnw-slateText antialiased min-h-screen flex flex-col justify-between selection:bg-vnw-coral selection:text-white">
 
-  <!-- TOP BAR (VIETNAMWORKS ROYAL NAVY #002B7F) -->
+  <!-- TOP BAR (ROYAL NAVY #002B7F) -->
   <div class="bg-[#002466] text-white/90 text-xs py-2 px-4 border-b border-white/10">
     <div class="max-w-[1360px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
       <div class="flex items-center gap-3">
@@ -63,22 +64,25 @@
     </div>
   </div>
 
-  <!-- AUTH HEADER (VIETNAMWORKS ROYAL NAVY #002B7F) -->
+  <!-- AUTH HEADER (ROYAL NAVY #002B7F) -->
   <header class="sticky top-0 z-40 bg-[#002B7F] text-white shadow-md border-b border-[#002366]">
-    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 h-[72px] flex items-center justify-between gap-4">
+    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 h-[68px] flex items-center justify-between gap-4">
       <div class="flex items-center gap-6">
-        <!-- OFFICIAL LOGO -->
+        <!-- OFFICIAL TIMVIECONLINE LOGO -->
         <a href="../page_home/index.html" class="flex items-center gap-2.5 group">
-          <svg class="h-8 w-auto shrink-0" viewBox="0 0 52 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="17" cy="16" rx="12" ry="9" stroke="#00C2F3" stroke-width="4.5" fill="none" transform="rotate(-18 17 16)"/>
-            <ellipse cx="32" cy="16" rx="12" ry="9" stroke="#005AFF" stroke-width="4.5" fill="none" transform="rotate(18 32 16)"/>
-          </svg>
+          <div class="relative w-8 h-8 flex items-center justify-center shrink-0">
+            <svg class="w-8 h-8" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="36" height="36" rx="10" fill="#005AFF"/>
+              <path d="M10 18L16 24L26 12" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="26" cy="12" r="3" fill="#FF6A39"/>
+            </svg>
+          </div>
           <div class="flex flex-col -space-y-0.5">
-            <span class="text-[21px] font-black tracking-tight text-white leading-none font-sans lowercase">
-              vietnam<span class="text-white">works</span>
+            <span class="text-[19px] font-black tracking-tight text-white leading-none font-sans">
+              TimViec<span class="text-[#38BDF8]">Online</span>
             </span>
-            <span class="text-[8.5px] font-semibold tracking-wider text-[#7dd3fc] uppercase leading-none pl-0.5">
-              empower growth
+            <span class="text-[8px] font-bold tracking-widest text-[#93c5fd] uppercase leading-none pl-0.5">
+              Cổng Việc Làm & Tuyển Dụng
             </span>
           </div>
         </a>
@@ -164,16 +168,19 @@
     </div>
   </main>
 
-  <!-- VIETNAMWORKS DEEP NAVY FOOTER -->
+  <!-- FOOTER -->
   <footer class="bg-[#001744] text-slate-300 pt-10 pb-8 text-xs border-t border-[#002B7F] mt-auto">
     <div class="max-w-[1360px] mx-auto px-4 lg:px-6">
       <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-white/10">
         <div class="flex items-center gap-2">
-          <svg class="h-6 w-auto shrink-0" viewBox="0 0 52 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="17" cy="16" rx="12" ry="9" stroke="#00C2F3" stroke-width="4.5" fill="none" transform="rotate(-18 17 16)"/>
-            <ellipse cx="32" cy="16" rx="12" ry="9" stroke="#005AFF" stroke-width="4.5" fill="none" transform="rotate(18 32 16)"/>
-          </svg>
-          <span class="text-base font-black text-white lowercase">vietnam<span class="text-[#00C2F3]">works</span></span>
+          <div class="relative w-7 h-7 flex items-center justify-center shrink-0">
+            <svg class="w-7 h-7" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="36" height="36" rx="9" fill="#005AFF"/>
+              <path d="M10 18L16 24L26 12" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="26" cy="12" r="3" fill="#FF6A39"/>
+            </svg>
+          </div>
+          <span class="text-base font-black text-white">TimViec<span class="text-[#38BDF8]">Online</span></span>
         </div>
         <div class="flex items-center gap-4 text-slate-400">
           <a href="../page_home/index.html" class="hover:text-white transition">Trang chủ</a>
@@ -184,7 +191,7 @@
         </div>
       </div>
       <div class="pt-6 text-center text-slate-400 text-[11px]">
-        © 2026 VietnamWorks Clone. Bản quyền thuộc về Navigos Group Vietnam. Tuân thủ nghiêm ngặt chuẩn Production.
+        © 2026 TimViecOnline. Nền tảng tuyển dụng thông minh hàng đầu Việt Nam. Tuân thủ nghiêm ngặt chuẩn Production.
       </div>
     </div>
   </footer>

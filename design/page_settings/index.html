@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cài Đặt Tài Khoản & Bảo Mật | VietnamWorks</title>
+  <title>Cài Đặt Tài Khoản & Bảo Mật | TimViecOnline</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -32,63 +32,80 @@
     }
   </script>
   <style>
+    html { font-size: 90%; }
     body { font-family: 'Be Vietnam Pro', Inter, sans-serif; background-color: #F4F6F9; }
   </style>
 </head>
 <body class="bg-[#F4F6F9] text-slate-800 antialiased min-h-screen flex flex-col selection:bg-[#FF6A39] selection:text-white">
 
-  <!-- MAIN CANDIDATE/USER NAVBAR -->
+  <!-- UNIFIED CANDIDATE NAVBAR (TIMVIEONLINE STANDARDIZED) -->
   <header class="sticky top-0 z-40 bg-[#002B7F] text-white shadow-md border-b border-[#002060]">
-    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 h-[72px] flex items-center justify-between gap-4">
+    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 h-[68px] flex items-center justify-between gap-4">
       
-      <!-- Brand Logo & Nav -->
+      <!-- Brand Logo & Main Links -->
       <div class="flex items-center gap-8">
         <a href="../page_home/index.html" class="flex items-center gap-2.5 group">
-          <svg class="h-8 w-auto shrink-0" viewBox="0 0 52 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="17" cy="16" rx="12" ry="9" stroke="#00C2F3" stroke-width="4.5" fill="none" transform="rotate(-18 17 16)"/>
-            <ellipse cx="32" cy="16" rx="12" ry="9" stroke="#005AFF" stroke-width="4.5" fill="none" transform="rotate(18 32 16)"/>
-          </svg>
+          <div class="relative w-8 h-8 flex items-center justify-center shrink-0">
+            <svg class="w-8 h-8" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="36" height="36" rx="10" fill="#005AFF"/>
+              <path d="M10 18L16 24L26 12" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="26" cy="12" r="3" fill="#FF6A39"/>
+            </svg>
+          </div>
           <div class="flex flex-col -space-y-0.5">
-            <span class="text-[21px] font-black tracking-tight text-white leading-none font-sans lowercase">
-              vietnam<span class="text-white">works</span>
+            <span class="text-[19px] font-black tracking-tight text-white leading-none font-sans">
+              TimViec<span class="text-[#38BDF8]">Online</span>
             </span>
-            <span class="text-[8.5px] font-semibold tracking-wider text-[#7dd3fc] uppercase leading-none pl-0.5">
-              empower growth
+            <span class="text-[8px] font-bold tracking-widest text-[#93c5fd] uppercase leading-none pl-0.5">
+              Cổng Việc Làm & Tuyển Dụng
             </span>
           </div>
         </a>
 
         <!-- Main Links -->
-        <nav class="hidden lg:flex items-center gap-1 text-[14px]">
-          <a href="../page_jobs/index.html" class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
+        <nav class="hidden lg:flex items-center gap-1 text-[13.5px]">
+          <a href="../page_home/index.html" class="px-3 py-1.5 rounded-lg text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
+            Trang Chủ
+          </a>
+          <a href="../page_jobs/index.html" class="px-3 py-1.5 rounded-lg text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
             Tìm Việc Làm
           </a>
-          <a href="../page_saved_jobs/index.html" class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
+          <a href="../page_companies/index.html" class="px-3 py-1.5 rounded-lg text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
+            Top Công Ty
+          </a>
+          <a href="../page_saved_jobs/index.html" class="px-3 py-1.5 rounded-lg text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
             Việc Làm Đã Lưu
           </a>
-          <a href="../page_candidate_dashboard/index.html" class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
-            Hồ Sơ & CV
-          </a>
-          <a href="../page_settings/index.html" class="px-3.5 py-1.5 rounded-full bg-[#001E5B] text-white font-bold transition">
-            Cài Đặt
+          <a href="../page_candidate_dashboard/index.html" class="px-3 py-1.5 rounded-lg text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
+            Hồ Sơ & Ứng Tuyển
           </a>
         </nav>
       </div>
 
-      <!-- Right User Controls -->
-      <div class="flex items-center gap-3">
+      <!-- Right Candidate Controls -->
+      <div class="flex items-center gap-2.5">
         <a href="../page_chat/index.html" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center relative transition" title="Tin nhắn">
           <i data-lucide="message-square" class="w-4 h-4"></i>
+          <span class="absolute -top-1 -right-1 bg-[#FF6A39] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow">1</span>
         </a>
+
         <a href="../page_notifications/index.html" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center relative transition" title="Thông báo">
           <i data-lucide="bell" class="w-4 h-4"></i>
+          <span class="absolute -top-1 -right-1 bg-[#FF6A39] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow">2</span>
         </a>
-        <div class="flex items-center gap-2 pl-2 border-l border-white/20">
+
+        <div class="flex items-center gap-2.5 pl-3 border-l border-white/20">
           <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-400 to-blue-600 text-white font-bold text-xs flex items-center justify-center shadow-sm">
             NA
           </div>
-          <span class="text-xs font-semibold hidden md:inline text-white">Nguyễn Văn A</span>
-          <a href="../page_login/index.html" class="p-1 hover:bg-white/10 rounded-full text-white/80 hover:text-red-300 ml-1" title="Đăng xuất">
+          <div class="hidden sm:flex flex-col text-left">
+            <span class="text-xs font-bold text-white leading-tight">Nguyễn Văn A</span>
+            <span class="text-[10px] text-cyan-200">Ứng viên</span>
+          </div>
+          <a href="../page_settings/index.html" class="p-1.5 bg-white/20 rounded-full text-white ml-0.5 transition" title="Cài đặt tài khoản (Đang chọn)">
+            <i data-lucide="settings" class="w-4 h-4"></i>
+          </a>
+          <a href="../page_login/index.html" class="p-1.5 hover:bg-white/10 rounded-full text-white/80 hover:text-red-300 transition" title="Đăng xuất">
             <i data-lucide="log-out" class="w-4 h-4"></i>
           </a>
         </div>
@@ -254,17 +271,16 @@
   </main>
 
   <!-- FOOTER -->
-  <footer class="bg-[#001744] text-white/80 text-xs py-10 mt-16 border-t border-white/10">
+  <footer class="bg-[#001744] text-white/80 text-xs py-8 mt-12 border-t border-white/10">
     <div class="max-w-[1360px] mx-auto px-4 lg:px-6 flex flex-col md:flex-row items-center justify-between gap-6">
       <div class="flex items-center gap-2.5">
-        <svg class="h-6 w-auto shrink-0" viewBox="0 0 52 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="17" cy="16" rx="12" ry="9" stroke="#00C2F3" stroke-width="4.5" fill="none" transform="rotate(-18 17 16)"/>
-          <ellipse cx="32" cy="16" rx="12" ry="9" stroke="#005AFF" stroke-width="4.5" fill="none" transform="rotate(18 32 16)"/>
-        </svg>
-        <span class="text-sm font-extrabold text-white">vietnamworks</span>
+        <div class="w-6 h-6 rounded-lg bg-[#005AFF] flex items-center justify-center text-white text-xs font-bold">
+          TV
+        </div>
+        <span class="text-sm font-extrabold text-white">TimViecOnline</span>
       </div>
       <p class="text-slate-400 text-center md:text-left">
-        © 2026 VietnamWorks - Navigos Group Vietnam. Mọi quyền được bảo lưu.
+        © 2026 TimViecOnline. Nền tảng kết nối việc làm và tuyển dụng hàng đầu.
       </p>
       <div class="flex items-center gap-4 text-slate-300">
         <a href="../page_home/index.html" class="hover:text-white">Trang chủ</a>
