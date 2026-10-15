@@ -85,9 +85,9 @@
   <header class="sticky top-0 z-40 bg-[#002B7F] text-white shadow-md border-b border-[#002060]">
     <div class="max-w-[1360px] mx-auto px-4 lg:px-6 h-[68px] flex items-center justify-between gap-4">
       
-      <!-- Brand Logo & Main Navigation -->
-      <div class="flex items-center gap-8">
-        <a href="../page_home/index.html" class="flex items-center gap-2.5 group">
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-6">
+        <a href="../page_home/index.html" class="flex items-center gap-2.5 group shrink-0">
           <div class="relative w-8 h-8 flex items-center justify-center shrink-0">
             <svg class="w-8 h-8" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="36" height="36" rx="10" fill="#005AFF"/>
@@ -104,39 +104,324 @@
             </span>
           </div>
         </a>
-
-        <!-- Main Navigation Links -->
-        <nav class="hidden lg:flex items-center gap-1 text-[14px]">
-          <a href="../page_home/index.html" class="px-3.5 py-1.5 rounded-full bg-[#001E5B] text-white font-bold transition">
-            Trang chủ
-          </a>
-          <a href="../page_jobs/index.html" class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
-            Việc làm
-          </a>
-          <a href="../page_companies/index.html" class="px-3.5 py-1.5 rounded-full text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
-            Top Công ty
-          </a>
-        </nav>
       </div>
 
-      <!-- Right Action Controls -->
+      <!-- Right Action Controls (Matching User Screenshot 1) -->
       <div class="flex items-center gap-3">
-        <a href="../page_employer_dashboard/index.html" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-white/20 hover:bg-white/10 text-white text-xs font-semibold transition">
-          <i data-lucide="building-2" class="w-3.5 h-3.5 text-cyan-300"></i>
+        
+        <!-- 1. inTECH Link Badge -->
+        <a href="../page_jobs/index.html?category=it" class="hidden xl:flex flex-col items-end text-white/90 hover:text-white transition group pr-2">
+          <span class="text-[10px] text-slate-300 font-semibold leading-tight">TimViecOnline</span>
+          <span class="text-xs font-black tracking-tight text-white flex items-center gap-1 group-hover:text-cyan-300 transition">
+            inTECH
+            <i data-lucide="tag" class="w-3.5 h-3.5 text-[#38BDF8] rotate-90"></i>
+          </span>
+        </a>
+
+        <!-- 2. Tất cả danh mục Pill Button with Dropdown (Matching User Screenshot 2) -->
+        <div class="relative">
+          <button id="btnAllCategories" class="flex items-center gap-2 px-4 py-2 rounded-full border border-white/30 hover:border-white hover:bg-white/10 text-white text-xs font-bold transition active:scale-95 shadow-sm">
+            <i data-lucide="menu" class="w-4 h-4 text-white"></i>
+            <span>Tất cả danh mục</span>
+            <i data-lucide="chevron-down" id="iconCatArrow" class="w-3.5 h-3.5 text-white/70 transition-transform duration-200"></i>
+          </button>
+
+          <!-- DROPDOWN: TẤT CẢ DANH MỤC (SCREENSHOT 2 100% MATCH) -->
+          <div id="allCategoriesDropdown" class="hidden absolute right-0 sm:right-auto sm:left-0 top-full mt-3 w-[720px] sm:w-[780px] max-w-[95vw] bg-white rounded-2xl shadow-2xl border border-slate-200 p-6 z-50 text-slate-800 transition-all duration-200">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+              
+              <!-- Column 1: Việc làm -->
+              <div class="space-y-3">
+                <h4 class="font-bold text-[#002B7F] text-sm tracking-tight border-b border-slate-100 pb-2">
+                  Việc làm
+                </h4>
+                <ul class="space-y-2.5 text-xs">
+                  <li>
+                    <a href="../page_jobs/index.html" class="text-slate-600 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-medium">
+                      Việc làm mới nhất
+                    </a>
+                  </li>
+                  <li>
+                    <a href="../page_jobs/index.html" class="text-slate-600 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-medium">
+                      Tìm việc làm
+                    </a>
+                  </li>
+                  <li>
+                    <a href="../page_jobs/index.html?level=manager" class="text-slate-600 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-medium">
+                      Việc làm quản lý
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Column 2: Việc của tôi -->
+              <div class="space-y-3">
+                <h4 class="font-bold text-[#002B7F] text-sm tracking-tight border-b border-slate-100 pb-2">
+                  Việc của tôi
+                </h4>
+                <ul class="space-y-2.5 text-xs">
+                  <li>
+                    <a href="../page_saved_jobs/index.html" class="text-slate-600 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-medium">
+                      Việc đã lưu
+                    </a>
+                  </li>
+                  <li>
+                    <a href="../page_candidate_dashboard/index.html" class="text-slate-600 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-medium">
+                      Việc đã ứng tuyển
+                    </a>
+                  </li>
+                  <li>
+                    <a href="../page_notifications/index.html" class="text-slate-600 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-medium">
+                      Thông báo việc làm
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Column 3: Công ty -->
+              <div class="space-y-3">
+                <h4 class="font-bold text-[#002B7F] text-sm tracking-tight border-b border-slate-100 pb-2">
+                  Công ty
+                </h4>
+                <ul class="space-y-2.5 text-xs">
+                  <li>
+                    <a href="../page_companies/index.html" class="text-slate-600 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-medium">
+                      Tất cả công ty
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Column 4: TimViecOnline inTECH (Framed Boxed Column) -->
+              <div class="rounded-xl border border-blue-200 bg-blue-50/40 p-4 space-y-3">
+                <h4 class="font-black text-[#002B7F] text-sm tracking-tight flex items-center gap-1.5 border-b border-blue-100 pb-2">
+                  <span>TimViecOnline inTECH</span>
+                </h4>
+                <ul class="space-y-2.5 text-xs">
+                  <li>
+                    <a href="../page_jobs/index.html?category=it" class="text-slate-700 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-bold">
+                      IT Jobs
+                    </a>
+                  </li>
+                  <li>
+                    <a href="../page_jobs/index.html" class="text-slate-700 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-bold">
+                      IT Hub
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Dành cho Nhà tuyển dụng Button -->
+        <a href="../page_employer_dashboard/index.html" class="hidden md:inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-white/30 hover:border-white hover:bg-white/10 text-white text-xs font-bold transition">
           <span>Dành cho Nhà tuyển dụng</span>
         </a>
-        <a href="../page_login/index.html" class="text-white hover:text-cyan-200 text-xs font-semibold px-2 py-1 transition">
-          Đăng Nhập
-        </a>
-        <a href="../page_register/index.html" class="px-5 py-2 rounded-full bg-[#FF6A39] hover:bg-[#F4511E] text-white text-xs font-bold shadow-md transition active:scale-95">
-          Đăng Ký
-        </a>
+
+        <!-- 4. Language Badge (Vi) -->
+        <button class="w-8 h-8 rounded-full bg-[#005AFF] hover:bg-blue-600 text-white text-xs font-bold flex items-center justify-center transition shadow-sm" title="Ngôn ngữ hiện tại: Tiếng Việt">
+          Vi
+        </button>
+
+        <!-- 5. Notification Bell Button (Triggers Drawer) -->
+        <button id="btnOpenNotifications" class="w-8 h-8 rounded-full bg-[#005AFF] hover:bg-blue-600 text-white flex items-center justify-center transition shadow-sm relative active:scale-95" title="Trung tâm thông báo">
+          <i data-lucide="bell" class="w-4 h-4"></i>
+          <span class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#FF6A39] text-white text-[9px] font-black flex items-center justify-center ring-2 ring-[#002B7F]">2</span>
+        </button>
+
+        <!-- 6. Account Avatar Button with Dropdown (Matching User Screenshot 3) -->
+        <div class="relative">
+          <button id="btnAccountMenu" class="w-8 h-8 rounded-full bg-[#005AFF] hover:bg-blue-600 text-white flex items-center justify-center transition shadow-sm active:scale-95" title="Tài khoản cá nhân">
+            <i data-lucide="user" class="w-4 h-4"></i>
+          </button>
+
+          <!-- DROPDOWN: ACCOUNT MENU (SCREENSHOT 3 100% MATCH) -->
+          <div id="accountMenuDropdown" class="hidden absolute right-0 top-full mt-3 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200 z-50 py-3 text-slate-800 transition-all duration-200">
+            
+            <!-- User Info Header -->
+            <div class="px-5 py-3 flex items-start justify-between gap-3 border-b border-slate-100">
+              <div class="min-w-0 flex-1">
+                <div class="font-bold text-slate-900 text-sm truncate">N Bìnhh</div>
+                <div class="text-[11px] text-slate-500 font-mono truncate mt-0.5">dtshenlong1901@gmail.com</div>
+              </div>
+              <a href="../page_candidate_dashboard/index.html" class="px-3 py-1 rounded-lg border border-[#FF6A39] hover:bg-[#FF6A39] hover:text-white text-[#FF6A39] text-[11px] font-bold transition shrink-0">
+                Cập nhật hồ sơ
+              </a>
+            </div>
+
+            <!-- Menu Navigation Items -->
+            <div class="py-2 text-xs space-y-0.5">
+              
+              <!-- 1. Tổng Quan -->
+              <a href="../page_candidate_dashboard/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
+                <i data-lucide="gauge" class="w-4 h-4 text-slate-400"></i>
+                <span>Tổng Quan</span>
+              </a>
+
+              <!-- 2. Hồ Sơ Của Tôi -->
+              <a href="../page_candidate_dashboard/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
+                <i data-lucide="file-text" class="w-4 h-4 text-slate-400"></i>
+                <span>Hồ Sơ Của Tôi</span>
+              </a>
+
+              <!-- 3. Công Ty Của Tôi -->
+              <a href="../page_companies/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
+                <i data-lucide="building-2" class="w-4 h-4 text-slate-400"></i>
+                <span>Công Ty Của Tôi</span>
+              </a>
+
+              <!-- 4. Việc Làm Của Tôi -->
+              <a href="../page_saved_jobs/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
+                <i data-lucide="briefcase" class="w-4 h-4 text-slate-400"></i>
+                <span>Việc Làm Của Tôi</span>
+              </a>
+
+              <!-- 5. Thông Báo Việc Làm -->
+              <a href="../page_notifications/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
+                <i data-lucide="bell" class="w-4 h-4 text-slate-400"></i>
+                <span>Thông Báo Việc Làm</span>
+              </a>
+
+              <!-- 6. Quản Lý Đơn Hàng -->
+              <a href="#" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
+                <i data-lucide="shopping-cart" class="w-4 h-4 text-slate-400"></i>
+                <span>Quản Lý Đơn Hàng</span>
+              </a>
+
+              <!-- 7. Quản Lý Tài Khoản -->
+              <a href="../page_settings/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
+                <i data-lucide="settings" class="w-4 h-4 text-slate-400"></i>
+                <span>Quản Lý Tài Khoản</span>
+              </a>
+
+              <!-- 8. Thoát -->
+              <a href="../page_login/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-rose-50 text-rose-600 font-bold transition">
+                <i data-lucide="log-out" class="w-4 h-4 text-rose-500"></i>
+                <span>Thoát</span>
+              </a>
+
+            </div>
+
+            <!-- Footer FAQ Link -->
+            <div class="pt-2 border-t border-slate-100">
+              <a href="#" class="flex items-center justify-between px-5 py-2 text-xs font-semibold text-[#005AFF] hover:underline">
+                <span>Tham khảo những câu hỏi thường gặp</span>
+                <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-[#005AFF]"></i>
+              </a>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </div>
   </header>
 
-  <!-- HERO SECTION WITH EXACT COMPOUND SEARCH BAR (SCREENSHOT 3 MATCH) -->
-  <section class="bg-gradient-to-r from-[#001744] via-[#002B7F] to-[#005AFF] text-white pt-12 pb-20 relative overflow-hidden">
+  <!-- NOTIFICATION DRAWER (SCREENSHOT 4 100% MATCH) -->
+  <div id="notificationDrawerBackdrop" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 hidden transition-opacity duration-300"></div>
+  <aside id="notificationDrawer" class="fixed top-0 right-0 h-full w-[380px] max-w-[90vw] bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col text-slate-800">
+    
+    <!-- Drawer Header -->
+    <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-[#005AFF]">
+          <i data-lucide="bell" class="w-5 h-5 text-[#005AFF]"></i>
+        </div>
+        <div>
+          <h3 class="font-bold text-slate-900 text-sm leading-tight">Thông Báo</h3>
+          <p class="text-[11px] text-slate-500 leading-tight">Nhận thông báo công việc</p>
+        </div>
+      </div>
+      <button id="closeNotificationDrawer" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <!-- Filter Pills Tabs -->
+    <div class="px-5 pt-3.5 pb-2 flex items-center gap-2">
+      <button class="px-4 py-1.5 rounded-lg bg-blue-50 text-[#005AFF] font-bold text-xs transition">
+        Tất cả
+      </button>
+      <button class="px-4 py-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium text-xs transition">
+        Chưa đọc
+      </button>
+      <button class="px-4 py-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium text-xs transition">
+        Đã đọc
+      </button>
+    </div>
+
+    <!-- Drawer Body with Mailbox Illustration (Screenshot 4 Match) -->
+    <div class="p-6 flex-1 flex flex-col justify-center items-center text-center space-y-4 overflow-y-auto">
+      
+      <!-- Mailbox Illustration SVG (High Craft Vector Art) -->
+      <div class="w-full flex justify-center py-2">
+        <svg class="w-48 h-28" viewBox="0 0 240 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- House background silhouette -->
+          <path d="M70 110V70L110 40L150 70V110H70Z" fill="#F1F5F9"/>
+          <rect x="85" y="75" width="20" height="20" rx="3" fill="#E2E8F0"/>
+          <rect x="115" y="75" width="20" height="20" rx="3" fill="#E2E8F0"/>
+          <path d="M140 110V55L175 30L210 55V110H140Z" fill="#E2E8F0" opacity="0.6"/>
+          <!-- Ground soft curve -->
+          <ellipse cx="120" cy="115" rx="90" ry="12" fill="#E2E8F0" opacity="0.7"/>
+          <!-- Mailbox Post -->
+          <rect x="142" y="75" width="8" height="40" rx="2" fill="#94A3B8"/>
+          <!-- Mailbox Body (Blue) -->
+          <rect x="135" y="48" width="22" height="30" rx="7" fill="#005AFF"/>
+          <path d="M135 55C135 51.134 138.134 48 142 48H150C153.866 48 157 51.134 157 55V68H135V55Z" fill="#004BD6"/>
+          <!-- Letter sticking out -->
+          <rect x="138" y="42" width="16" height="12" rx="2" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+          <path d="M138 43L146 48L154 43" stroke="#94A3B8" stroke-width="1.2"/>
+          <!-- Little blue envelope on ground -->
+          <rect x="95" y="110" width="14" height="9" rx="1.5" fill="#38BDF8" transform="rotate(-12 95 110)"/>
+        </svg>
+      </div>
+
+      <div class="space-y-1.5 max-w-xs">
+        <h4 class="font-bold text-slate-900 text-sm leading-snug">
+          Hồ sơ của bạn rất ít tương tác trong 7 ngày qua
+        </h4>
+        <p class="text-xs text-slate-500 leading-relaxed">
+          Cập nhật hồ sơ để nâng cao cơ hội tìm việc
+        </p>
+      </div>
+
+      <a href="../page_candidate_dashboard/index.html" class="px-6 py-2.5 rounded-lg bg-[#FF6A39] hover:bg-[#F4511E] text-white font-bold text-xs shadow-md transition active:scale-95 inline-block">
+        Cập nhật hồ sơ
+      </a>
+
+      <!-- Quick Notifications List -->
+      <div class="w-full text-left pt-6 border-t border-slate-100 space-y-2.5">
+        <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Thông báo gần đây</div>
+        
+        <a href="../page_chat/index.html" class="block p-3 rounded-xl bg-slate-50 hover:bg-blue-50 border border-slate-100 transition group">
+          <div class="flex items-center justify-between text-[11px] text-slate-500">
+            <span class="font-bold text-[#002B7F] group-hover:text-[#005AFF]">FPT Software</span>
+            <span class="text-[10px]">15 phút trước</span>
+          </div>
+          <p class="text-xs font-semibold text-slate-800 line-clamp-1 mt-1">Đã gửi tin nhắn mời phỏng vấn kỹ thuật</p>
+        </a>
+
+        <a href="../page_candidate_dashboard/index.html" class="block p-3 rounded-xl bg-slate-50 hover:bg-blue-50 border border-slate-100 transition group">
+          <div class="flex items-center justify-between text-[11px] text-slate-500">
+            <span class="font-bold text-emerald-600">Shopee Vietnam</span>
+            <span class="text-[10px]">2 giờ trước</span>
+          </div>
+          <p class="text-xs font-semibold text-slate-800 line-clamp-1 mt-1">Hồ sơ ứng tuyển Frontend Developer đã được duyệt</p>
+        </a>
+
+        <a href="../page_notifications/index.html" class="block text-center text-xs font-bold text-[#005AFF] hover:underline pt-1">
+          Xem tất cả trong Trung Tâm Thông Báo →
+        </a>
+      </div>
+
+    </div>
+
+  </aside>
+
+  <!-- HERO SECTION WITH EXACT COMPOUND SEARCH BAR (SCREENSHOT 1 MATCH) -->
+  <section class="bg-gradient-to-r from-[#001744] via-[#002B7F] to-[#005AFF] text-white pt-10 pb-16 relative overflow-hidden">
     <div class="max-w-[1360px] mx-auto px-4 lg:px-6 relative z-10">
       
       <!-- Top Subtitle Pill -->
@@ -157,69 +442,48 @@
         </p>
       </div>
 
-      <!-- SIGNATURE TIMVIECONLINE SEARCH CAPSULE -->
-      <div class="max-w-[1040px] mx-auto bg-white rounded-[2.2rem] p-3 shadow-2xl border border-slate-100 text-slate-800">
-        <form action="../page_jobs/index.html" method="GET" class="flex flex-col lg:flex-row items-center gap-2">
+      <!-- SIGNATURE TIMVIECONLINE SEARCH CAPSULE (SCREENSHOT 1 MATCH) -->
+      <div class="max-w-[960px] mx-auto bg-white rounded-full p-2.5 shadow-2xl border border-slate-100 text-slate-800">
+        <form action="../page_jobs/index.html" method="GET" class="flex flex-col sm:flex-row items-center gap-2">
           
           <!-- Keyword Input -->
-          <div class="w-full lg:flex-1 flex items-center gap-3 px-4 py-2">
+          <div class="w-full sm:flex-1 flex items-center gap-3 px-4 py-1.5">
             <i data-lucide="search" class="w-5 h-5 text-slate-400 shrink-0"></i>
-            <input type="text" name="keyword" value="Senior Fullstack Developer" placeholder="Vị trí tuyển dụng, kỹ năng, công ty..." class="w-full bg-transparent text-sm font-semibold text-slate-900 placeholder:text-slate-400 focus:outline-none">
+            <input type="text" name="keyword" value="Senior Fullstack Developer" placeholder="Tìm kiếm việc làm, công ty, kỹ năng" class="w-full bg-transparent text-sm font-semibold text-slate-900 placeholder:text-slate-400 focus:outline-none">
           </div>
 
           <!-- Divider -->
-          <div class="hidden lg:block w-px h-8 bg-slate-200"></div>
+          <div class="hidden sm:block w-px h-7 bg-slate-200"></div>
 
           <!-- Location Dropdown Pill -->
-          <div class="w-full lg:w-56 flex items-center gap-2 px-3.5 py-2.5 bg-[#F4F6F9] rounded-full relative cursor-pointer hover:bg-slate-200/70 transition">
-            <i data-lucide="map-pin" class="w-4 h-4 text-[#002B7F] shrink-0"></i>
+          <div class="w-full sm:w-52 flex items-center gap-2 px-3 py-1.5 relative cursor-pointer">
+            <i data-lucide="map-pin" class="w-4 h-4 text-slate-400 shrink-0"></i>
             <select name="city" class="w-full bg-transparent text-xs font-semibold text-slate-800 focus:outline-none appearance-none cursor-pointer pr-4">
-              <option value="hcm" selected>TP. Hồ Chí Minh</option>
+              <option value="all" selected>Tất cả địa điểm</option>
+              <option value="hcm">TP. Hồ Chí Minh</option>
               <option value="hn">Hà Nội</option>
               <option value="dn">Đà Nẵng</option>
               <option value="bd">Bình Dương</option>
-              <option value="all">Tất cả địa điểm</option>
             </select>
-            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-500 absolute right-3 pointer-events-none"></i>
-          </div>
-
-          <!-- Category Dropdown Pill -->
-          <div class="w-full lg:w-56 flex items-center gap-2 px-3.5 py-2.5 bg-[#F4F6F9] rounded-full relative cursor-pointer hover:bg-slate-200/70 transition">
-            <i data-lucide="layers" class="w-4 h-4 text-[#002B7F] shrink-0"></i>
-            <select name="category" class="w-full bg-transparent text-xs font-semibold text-slate-800 focus:outline-none appearance-none cursor-pointer pr-4">
-              <option value="it" selected>Công nghệ thông tin</option>
-              <option value="sales">Kinh doanh / Bán hàng</option>
-              <option value="marketing">Marketing / Truyền thông</option>
-              <option value="finance">Tài chính / Kế toán</option>
-              <option value="hr">Nhân sự / Hành chính</option>
-              <option value="all">Tất cả ngành nghề</option>
-            </select>
-            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-500 absolute right-3 pointer-events-none"></i>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 absolute right-3 pointer-events-none"></i>
           </div>
 
           <!-- Search CTA Button -->
-          <button type="submit" class="w-full lg:w-auto px-8 py-3 bg-[#FF6A39] hover:bg-[#F4511E] text-white font-bold text-sm rounded-full shadow-md flex items-center justify-center gap-2 transition active:scale-95 shrink-0">
-            <i data-lucide="search" class="w-4 h-4"></i>
-            <span>Tìm Kiếm</span>
+          <button type="submit" class="w-full sm:w-auto px-8 py-2.5 bg-[#FF6A39] hover:bg-[#F4511E] text-white font-bold text-xs rounded-full shadow-md flex items-center justify-center gap-2 transition active:scale-95 shrink-0">
+            <span>Tìm kiếm</span>
           </button>
         </form>
+      </div>
 
-        <!-- Trend row inside capsule below -->
-        <div class="pt-3 pb-1 px-4 border-t border-slate-100 flex flex-wrap items-center gap-2 text-xs">
-          <div class="flex items-center gap-1.5 text-slate-700 font-semibold shrink-0">
-            <i data-lucide="trending-up" class="w-4 h-4 text-[#FF6A39]"></i>
-            <span>Xu hướng tìm kiếm:</span>
-          </div>
-          <div class="flex flex-wrap items-center gap-1.5">
-            <a href="../page_jobs/index.html?keyword=ReactJS" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-blue-50 hover:text-[#002B7F] text-slate-700 font-medium transition text-[11px]">ReactJS</a>
-            <a href="../page_jobs/index.html?keyword=Laravel" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-blue-50 hover:text-[#002B7F] text-slate-700 font-medium transition text-[11px]">Laravel</a>
-            <a href="../page_jobs/index.html?keyword=Java" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-blue-50 hover:text-[#002B7F] text-slate-700 font-medium transition text-[11px]">Java</a>
-            <a href="../page_jobs/index.html?keyword=Digital+Marketing" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-blue-50 hover:text-[#002B7F] text-slate-700 font-medium transition text-[11px]">Digital Marketing</a>
-            <a href="../page_jobs/index.html?keyword=Kế+toán" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-blue-50 hover:text-[#002B7F] text-slate-700 font-medium transition text-[11px]">Kế toán</a>
-            <a href="../page_jobs/index.html?keyword=Tester" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-blue-50 hover:text-[#002B7F] text-slate-700 font-medium transition text-[11px]">Tester / QA</a>
-            <a href="../page_jobs/index.html?keyword=Node.js" class="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-blue-50 hover:text-[#002B7F] text-slate-700 font-medium transition text-[11px]">Node.js</a>
-          </div>
-        </div>
+      <!-- Trend row inside capsule below -->
+      <div class="max-w-[960px] mx-auto pt-3 px-4 flex flex-wrap items-center justify-center gap-2 text-xs">
+        <span class="text-blue-100 font-semibold text-[11px]">Xu hướng:</span>
+        <a href="../page_jobs/index.html?keyword=ReactJS" class="px-2.5 py-0.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-medium transition text-[11px]">ReactJS</a>
+        <a href="../page_jobs/index.html?keyword=Laravel" class="px-2.5 py-0.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-medium transition text-[11px]">Laravel</a>
+        <a href="../page_jobs/index.html?keyword=Java" class="px-2.5 py-0.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-medium transition text-[11px]">Java</a>
+        <a href="../page_jobs/index.html?keyword=Marketing" class="px-2.5 py-0.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-medium transition text-[11px]">Marketing</a>
+        <a href="../page_jobs/index.html?keyword=Kế+toán" class="px-2.5 py-0.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-medium transition text-[11px]">Kế toán</a>
+        <a href="../page_jobs/index.html?keyword=Tester" class="px-2.5 py-0.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-medium transition text-[11px]">Tester</a>
       </div>
 
     </div>
@@ -716,6 +980,8 @@
 
   <script>
     lucide.createIcons();
+
+    // 1. FLOATING ROUTES (18) DRAWER
     const btn = document.getElementById('toggleRoutesDrawer');
     const closeBtn = document.getElementById('closeRoutesDrawer');
     const drawer = document.getElementById('routesDrawer');
@@ -732,6 +998,93 @@
     btn?.addEventListener('click', () => toggleDrawer(true));
     closeBtn?.addEventListener('click', () => toggleDrawer(false));
     backdrop?.addEventListener('click', () => toggleDrawer(false));
+
+    // 2. TẤT CẢ DANH MỤC DROPDOWN (SCREENSHOT 2 MATCH)
+    const btnAllCategories = document.getElementById('btnAllCategories');
+    const allCategoriesDropdown = document.getElementById('allCategoriesDropdown');
+    const iconCatArrow = document.getElementById('iconCatArrow');
+
+    function toggleCategories(open) {
+      const isCurrentlyOpen = !allCategoriesDropdown.classList.contains('hidden');
+      const shouldOpen = open !== undefined ? open : !isCurrentlyOpen;
+      if (shouldOpen) {
+        allCategoriesDropdown.classList.remove('hidden');
+        iconCatArrow?.classList.add('rotate-180');
+        // close account dropdown if open
+        toggleAccountMenu(false);
+      } else {
+        allCategoriesDropdown.classList.add('hidden');
+        iconCatArrow?.classList.remove('rotate-180');
+      }
+    }
+    btnAllCategories?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleCategories();
+    });
+
+    // 3. ACCOUNT MENU DROPDOWN (SCREENSHOT 3 MATCH)
+    const btnAccountMenu = document.getElementById('btnAccountMenu');
+    const accountMenuDropdown = document.getElementById('accountMenuDropdown');
+
+    function toggleAccountMenu(open) {
+      const isCurrentlyOpen = !accountMenuDropdown.classList.contains('hidden');
+      const shouldOpen = open !== undefined ? open : !isCurrentlyOpen;
+      if (shouldOpen) {
+        accountMenuDropdown.classList.remove('hidden');
+        // close categories dropdown if open
+        toggleCategories(false);
+      } else {
+        accountMenuDropdown.classList.add('hidden');
+      }
+    }
+    btnAccountMenu?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleAccountMenu();
+    });
+
+    // 4. NOTIFICATION DRAWER (SCREENSHOT 4 MATCH)
+    const btnOpenNotifications = document.getElementById('btnOpenNotifications');
+    const closeNotificationDrawer = document.getElementById('closeNotificationDrawer');
+    const notificationDrawer = document.getElementById('notificationDrawer');
+    const notificationDrawerBackdrop = document.getElementById('notificationDrawerBackdrop');
+
+    function toggleNotificationDrawer(open) {
+      if (open) {
+        notificationDrawer.classList.remove('translate-x-full');
+        notificationDrawerBackdrop.classList.remove('hidden');
+        toggleCategories(false);
+        toggleAccountMenu(false);
+      } else {
+        notificationDrawer.classList.add('translate-x-full');
+        notificationDrawerBackdrop.classList.add('hidden');
+      }
+    }
+    btnOpenNotifications?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleNotificationDrawer(true);
+    });
+    closeNotificationDrawer?.addEventListener('click', () => toggleNotificationDrawer(false));
+    notificationDrawerBackdrop?.addEventListener('click', () => toggleNotificationDrawer(false));
+
+    // CLOSE ALL DROPDOWNS ON OUTSIDE CLICK
+    document.addEventListener('click', (e) => {
+      if (allCategoriesDropdown && !allCategoriesDropdown.contains(e.target) && !btnAllCategories?.contains(e.target)) {
+        toggleCategories(false);
+      }
+      if (accountMenuDropdown && !accountMenuDropdown.contains(e.target) && !btnAccountMenu?.contains(e.target)) {
+        toggleAccountMenu(false);
+      }
+    });
+
+    // CLOSE ON ESCAPE KEY
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        toggleCategories(false);
+        toggleAccountMenu(false);
+        toggleNotificationDrawer(false);
+        toggleDrawer(false);
+      }
+    });
   </script>
 </body>
 </html>
