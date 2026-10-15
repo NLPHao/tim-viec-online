@@ -36,6 +36,7 @@
     html { font-size: 90%; }
     body { font-family: 'Be Vietnam Pro', Inter, sans-serif; background-color: #F4F6F9; }
   </style>
+  <link rel="stylesheet" href="../shared/site-footer.css">
 </head>
 <body class="bg-[#F4F6F9] text-slate-800 antialiased min-h-screen flex flex-col selection:bg-[#FF6A39] selection:text-white">
 
@@ -124,7 +125,7 @@
 
           <!-- DROPDOWN: ACCOUNT MENU (SCREENSHOT 3 100% MATCH) -->
           <div id="accountMenuDropdown" class="hidden absolute right-0 top-full mt-3 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200 z-50 py-3 text-slate-800 transition-all duration-200">
-            
+
             <!-- User Info Header -->
             <div class="px-5 py-3 flex items-start justify-between gap-3 border-b border-slate-100">
               <div class="min-w-0 flex-1">
@@ -138,12 +139,9 @@
 
             <!-- Menu Navigation Items -->
             <div class="py-2 text-xs space-y-0.5">
-              
+
               <!-- 1. Tổng Quan -->
-              <a href="../page_candidate_dashboard/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
-                <i data-lucide="gauge" class="w-4 h-4 text-slate-400"></i>
-                <span>Tổng Quan</span>
-              </a>
+
 
               <!-- 2. Hồ Sơ Của Tôi -->
               <a href="../page_candidate_dashboard/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
@@ -152,28 +150,22 @@
               </a>
 
               <!-- 3. Công Ty Của Tôi -->
-              <a href="../page_companies/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
-                <i data-lucide="building-2" class="w-4 h-4 text-slate-400"></i>
-                <span>Công Ty Của Tôi</span>
-              </a>
+
 
               <!-- 4. Việc Làm Của Tôi -->
-              <a href="../page_saved_jobs/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
+              <a href="../page_candidate_jobs/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
                 <i data-lucide="briefcase" class="w-4 h-4 text-slate-400"></i>
                 <span>Việc Làm Của Tôi</span>
               </a>
 
               <!-- 5. Thông Báo Việc Làm -->
-              <a href="../page_notifications/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
+              <a href="../page_candidate_alerts/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
                 <i data-lucide="bell" class="w-4 h-4 text-slate-400"></i>
                 <span>Thông Báo Việc Làm</span>
               </a>
 
               <!-- 6. Quản Lý Đơn Hàng -->
-              <a href="#" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
-                <i data-lucide="shopping-cart" class="w-4 h-4 text-slate-400"></i>
-                <span>Quản Lý Đơn Hàng</span>
-              </a>
+
 
               <!-- 7. Quản Lý Tài Khoản -->
               <a href="../page_settings/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
@@ -712,7 +704,59 @@
 
   </main>
 
-  <!-- MODAL: NỘP HỒ SƠ ỨNG TUYỂN (SRS FR-06) -->
+  <footer class="site-footer" aria-label="Thông tin TimViecOnline">
+    <div class="sf-container sf-grid">
+      <div class="sf-about">
+        <a href="../page_home/index.html" class="sf-brand">
+          <svg class="sf-brand-mark" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="36" height="36" rx="10" fill="#005AFF" />
+            <path d="M10 18L16 24L26 12" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="26" cy="12" r="3" fill="#FF6A39" />
+          </svg>
+          <span class="sf-brand-copy"><span class="sf-brand-name">TimViec<span>Online</span></span><span class="sf-brand-tagline">Cổng Việc Làm & Tuyển Dụng</span></span>
+        </a>
+        <p>Cổng thông tin việc làm và tuyển dụng thông minh tại Việt Nam. Kết nối ứng viên và doanh nghiệp hàng đầu.</p>
+        <div class="sf-contact">
+          <div>Trụ sở: Tòa nhà E.Town Central, 11 Đoàn Văn Bơ, Quận 4, TP.HCM</div>
+          <div>Tổng đài hỗ trợ: <strong>1900 6868</strong></div>
+          <div>Email: <strong>support@timvieconline.vn</strong></div>
+        </div>
+      </div>
+      <nav aria-label="Dành cho ứng viên">
+        <h2 class="sf-heading">Dành Cho Ứng Viên</h2>
+        <ul class="sf-links">
+          <li><a href="../page_jobs/index.html">Tìm việc làm mới nhất</a></li>
+          <li><a href="../page_saved_jobs/index.html">Việc làm đã lưu</a></li>
+          <li><a href="../page_candidate_dashboard/index.html">Quản lý hồ sơ & CV</a></li>
+          <li><a href="../page_companies/index.html">Danh bạ công ty</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Dành cho doanh nghiệp">
+        <h2 class="sf-heading">Dành Cho Doanh Nghiệp</h2>
+        <ul class="sf-links">
+          <li><a href="../page_post_job/index.html">Đăng tin tuyển dụng</a></li>
+          <li><a href="../page_employer_dashboard/index.html">Quản lý tin tuyển dụng</a></li>
+          <li><a href="../page_employer_candidates/index.html">Sàng lọc ứng viên AI</a></li>
+          <li><a href="../page_company_detail/index.html">Trang hồ sơ công ty</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Về TimViecOnline">
+        <h2 class="sf-heading">Về TimViecOnline</h2>
+        <ul class="sf-links">
+          <li><a href="../page_home/index.html">Giới thiệu</a></li>
+          <li><a href="../page_login/index.html">Đăng nhập tài khoản</a></li>
+          <li><a href="../page_register/index.html">Đăng ký thành viên</a></li>
+          <li><a href="../page_admin_portal/index.html">Cổng quản trị</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="sf-container sf-bottom">
+      <div>© 2026 TimViecOnline. Nền tảng kết nối việc làm và tuyển dụng hàng đầu.</div>
+      <div class="sf-legal"><a href="#">Điều khoản sử dụng</a><span aria-hidden="true">•</span><a href="#">Chính sách bảo mật</a></div>
+    </div>
+  </footer>
+
+<!-- MODAL: NỘP HỒ SƠ ỨNG TUYỂN (SRS FR-06) -->
   <div id="apply-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100">
       
@@ -806,26 +850,7 @@
   </div>
 
   <!-- FOOTER -->
-  <footer class="bg-[#001744] text-white/80 text-xs py-10 mt-16 border-t border-white/10">
-    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-      <div class="flex items-center gap-2.5">
-        <div class="w-6 h-6 rounded-lg bg-[#005AFF] flex items-center justify-center text-white text-xs font-bold">
-          TV
-        </div>
-        <span class="text-sm font-extrabold text-white">TimViecOnline</span>
-      </div>
-      <p class="text-slate-400 text-center md:text-left">
-        © 2026 TimViecOnline. Nền tảng kết nối việc làm và tuyển dụng hàng đầu.
-      </p>
-      <div class="flex items-center gap-4 text-slate-300">
-        <a href="../page_home/index.html" class="hover:text-white">Trang chủ</a>
-        <a href="../page_jobs/index.html" class="hover:text-white">Việc làm</a>
-        <a href="../page_companies/index.html" class="hover:text-white">Công ty</a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- FLOATING PROTOTYPE ROUTES DRAWER (18 PAGES) -->
+<!-- FLOATING PROTOTYPE ROUTES DRAWER (18 PAGES) -->
   <div class="fixed bottom-6 right-6 z-50">
     <button id="toggleRoutesDrawer" class="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#002B7F] hover:bg-[#001E5B] text-white shadow-2xl border border-white/20 text-xs font-bold transition transform hover:scale-105 active:scale-95">
       <i data-lucide="map" class="w-4 h-4 text-cyan-300"></i>

@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cài Đặt Tài Khoản & Bảo Mật | TimViecOnline</title>
+  <title>Quản lý tài khoản | TimViecOnline</title>
+  <meta name="description" content="Quản lý hồ sơ cá nhân, tải lên file CV PDF và theo dõi trạng thái các đơn ứng tuyển việc làm trực tuyến tại TimViecOnline.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <script>
@@ -26,6 +27,7 @@
           },
           fontFamily: {
             sans: ['"Be Vietnam Pro"', 'Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
           }
         }
       }
@@ -35,8 +37,10 @@
     html { font-size: 90%; }
     body { font-family: 'Be Vietnam Pro', Inter, sans-serif; background-color: #F4F6F9; }
   </style>
+  <link rel="stylesheet" href="../shared/site-footer.css">
+  <link rel="stylesheet" href="../shared/candidate.css">
 </head>
-<body class="bg-[#F4F6F9] text-slate-800 antialiased min-h-screen flex flex-col selection:bg-[#FF6A39] selection:text-white">
+<body data-candidate-page="settings" class="candidate-page bg-[#F4F6F9] text-slate-800 antialiased min-h-screen flex flex-col selection:bg-[#FF6A39] selection:text-white">
 
   <!-- MAIN NAVBAR (TIMVIEONLINE ROYAL NAVY #002B7F) -->
   <header class="sticky top-0 z-40 bg-[#002B7F] text-white shadow-md border-b border-[#002060] relative">
@@ -123,12 +127,12 @@
 
           <!-- DROPDOWN: ACCOUNT MENU (SCREENSHOT 3 100% MATCH) -->
           <div id="accountMenuDropdown" class="hidden absolute right-0 top-full mt-3 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200 z-50 py-3 text-slate-800 transition-all duration-200">
-            
+
             <!-- User Info Header -->
             <div class="px-5 py-3 flex items-start justify-between gap-3 border-b border-slate-100">
               <div class="min-w-0 flex-1">
-                <div class="font-bold text-slate-900 text-sm truncate">N Bìnhh</div>
-                <div class="text-[11px] text-slate-500 font-mono truncate mt-0.5">dtshenlong1901@gmail.com</div>
+                <div class="font-bold text-slate-900 text-sm truncate">Bình N</div>
+                <div class="text-[11px] text-slate-500 font-mono truncate mt-0.5">binh.nguyen@example.com</div>
               </div>
               <a href="../page_candidate_dashboard/index.html" class="px-3 py-1 rounded-lg border border-[#FF6A39] hover:bg-[#FF6A39] hover:text-white text-[#FF6A39] text-[11px] font-bold transition shrink-0">
                 Cập nhật hồ sơ
@@ -137,32 +141,23 @@
 
             <!-- Menu Navigation Items -->
             <div class="py-2 text-xs space-y-0.5">
-              <a href="../page_candidate_dashboard/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
-                <i data-lucide="gauge" class="w-4 h-4 text-slate-400"></i>
-                <span>Tổng Quan</span>
-              </a>
+
               <a href="../page_candidate_dashboard/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
                 <i data-lucide="file-text" class="w-4 h-4 text-slate-400"></i>
                 <span>Hồ Sơ Của Tôi</span>
               </a>
-              <a href="../page_companies/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
-                <i data-lucide="building-2" class="w-4 h-4 text-slate-400"></i>
-                <span>Công Ty Của Tôi</span>
-              </a>
-              <a href="../page_saved_jobs/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
+
+              <a href="../page_candidate_jobs/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
                 <i data-lucide="briefcase" class="w-4 h-4 text-slate-400"></i>
                 <span>Việc Làm Của Tôi</span>
               </a>
-              <a href="../page_notifications/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
+              <a href="../page_candidate_alerts/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
                 <i data-lucide="bell" class="w-4 h-4 text-slate-400"></i>
                 <span>Thông Báo Việc Làm</span>
               </a>
-              <a href="#" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
-                <i data-lucide="shopping-cart" class="w-4 h-4 text-slate-400"></i>
-                <span>Quản Lý Đơn Hàng</span>
-              </a>
-              <a href="../page_settings/index.html" class="flex items-center gap-3 px-5 py-2 bg-blue-50/60 text-[#005AFF] font-bold transition">
-                <i data-lucide="settings" class="w-4 h-4 text-[#005AFF]"></i>
+
+              <a href="../page_settings/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
+                <i data-lucide="settings" class="w-4 h-4 text-slate-400"></i>
                 <span>Quản Lý Tài Khoản</span>
               </a>
               <a href="../page_login/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-rose-50 text-rose-600 font-bold transition">
@@ -212,7 +207,7 @@
             </h4>
             <ul class="space-y-2.5 text-xs">
               <li><a href="../page_saved_jobs/index.html" class="text-slate-600 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-medium">Việc đã lưu</a></li>
-              <li><a href="../page_candidate_dashboard/index.html" class="text-slate-600 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-medium">Việc đã ứng tuyển</a></li>
+              <li><a href="../page_candidate_dashboard/index.html" class="text-[#005AFF] font-bold hover:translate-x-1 inline-block transition">Việc đã ứng tuyển</a></li>
               <li><a href="../page_notifications/index.html" class="text-slate-600 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-medium">Thông báo việc làm</a></li>
 
             </ul>
@@ -345,7 +340,7 @@
               <div class="mt-2.5">
                 <a href="../page_candidate_dashboard/index.html" class="text-[11px] font-bold text-[#FF6A39] hover:underline inline-flex items-center gap-1">
                   <span>Xem chi tiết hồ sơ ứng tuyển</span>
-                  <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                 </a>
               </div>
             </div>
@@ -448,193 +443,81 @@
 
   </aside>
 
-  <!-- MAIN SETTINGS CONTAINER -->
-  <main class="max-w-[1000px] mx-auto px-4 lg:px-6 py-8 flex-1 w-full space-y-6">
-    
-    <!-- HEADER CARD -->
-    <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
-      <div class="flex items-center gap-2 text-xs text-slate-500 font-semibold mb-1">
-        <a href="../page_home/index.html" class="hover:text-[#002B7F]">Trang chủ</a>
-        <span>/</span>
-        <span class="text-slate-900">Cài đặt tài khoản</span>
+  <!-- MAIN DASHBOARD CONTENT -->
+  <main class="candidate-area" id="candidate-main"><aside data-candidate-sidebar></aside><div class="cu-content">
+<div class="cu-card cu-title"><h1>Quản Lý Tài Khoản</h1></div>
+<section class="cu-card"><h2>Email đăng nhập & mật khẩu</h2><p class="cu-muted">Email truy cập hiện tại: <strong>binh.nguyen@example.com</strong></p><div class="cu-actions cu-actions-end"><a class="cu-link" href="#account-info">Thiết lập tài khoản</a><span class="cu-muted">|</span><a class="cu-link" href="#password">Thay đổi mật khẩu</a></div></section>
+<section class="cu-card"><h2>Cài đặt thông báo qua Email</h2><p class="cu-muted">Theo dõi trạng thái ứng tuyển và các trao đổi mới từ nhà tuyển dụng.</p><details class="cu-native-details"><summary class="cu-link"><i data-lucide="settings-2" class="cu-icon" aria-hidden="true"></i>Thiết lập</summary><form data-design-only><div class="cu-actions"><label><input type="checkbox" checked name="application_updates"> Trạng thái ứng tuyển</label><label><input type="checkbox" checked name="new_messages"> Tin nhắn mới</label></div><p class="cu-muted" style="margin-top:14px">Các lựa chọn hiện chỉ minh họa giao diện.</p></form></details></section>
+<section class="cu-card" id="account-info"><h2>Thông tin tài khoản</h2><form data-design-only><div class="cu-form-grid"><label class="cu-field">Họ và tên<input type="text" name="name" value="Bình N" minlength="2" maxlength="100" autocomplete="name"></label><label class="cu-field">Email đăng nhập<input type="email" name="email" value="binh.nguyen@example.com" maxlength="100" autocomplete="email"></label><label class="cu-field">Số điện thoại<input type="tel" name="phone" value="0912345678" maxlength="10" autocomplete="tel"></label><label class="cu-field">Ngày sinh<input type="date" name="dob" value="1998-06-15" autocomplete="bday"></label></div><hr class="cu-divider"><div class="cu-actions cu-actions-end"><span class="cu-muted">Giao diện mẫu; thay đổi chưa được lưu.</span><button type="button" class="cu-button cu-button-primary" disabled>Lưu thay đổi</button></div></form></section>
+<section class="cu-card" id="password"><h2>Thay đổi mật khẩu</h2><p class="cu-muted">Mật khẩu mới từ 8–32 ký tự, có chữ hoa, chữ thường, số và ký tự đặc biệt.</p><form data-design-only><div class="cu-form-grid"><label class="cu-field">Mật khẩu hiện tại<input type="password" name="current_password" value="" autocomplete="current-password"></label><label class="cu-field">Mật khẩu mới<input type="password" name="new_password" value="" minlength="8" maxlength="32" autocomplete="new-password"></label><label class="cu-field">Xác nhận mật khẩu mới<input type="password" name="new_password_confirmation" value="" minlength="8" maxlength="32" autocomplete="new-password"></label></div><hr class="cu-divider"><div class="cu-actions cu-actions-end"><button type="button" class="cu-button cu-button-primary" disabled>Thay đổi mật khẩu</button></div></form></section>
+
+</div></main>
+
+  <footer class="site-footer" aria-label="Thông tin TimViecOnline">
+    <div class="sf-container sf-grid">
+      <div class="sf-about">
+        <a href="../page_home/index.html" class="sf-brand">
+          <svg class="sf-brand-mark" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="36" height="36" rx="10" fill="#005AFF" />
+            <path d="M10 18L16 24L26 12" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="26" cy="12" r="3" fill="#FF6A39" />
+          </svg>
+          <span class="sf-brand-copy"><span class="sf-brand-name">TimViec<span>Online</span></span><span class="sf-brand-tagline">Cổng Việc Làm & Tuyển Dụng</span></span>
+        </a>
+        <p>Cổng thông tin việc làm và tuyển dụng thông minh tại Việt Nam. Kết nối ứng viên và doanh nghiệp hàng đầu.</p>
+        <div class="sf-contact">
+          <div>Trụ sở: Tòa nhà E.Town Central, 11 Đoàn Văn Bơ, Quận 4, TP.HCM</div>
+          <div>Tổng đài hỗ trợ: <strong>1900 6868</strong></div>
+          <div>Email: <strong>support@timvieconline.vn</strong></div>
+        </div>
       </div>
-      <h1 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2.5">
-        <i data-lucide="user-cog" class="w-6 h-6 text-[#002B7F]"></i>
-        Cài Đặt Tài Khoản & Bảo Mật
-      </h1>
-      <p class="text-xs text-slate-500 mt-1">
-        Quản lý thông tin đăng nhập, mật khẩu và tùy chọn bảo mật tài khoản theo chuẩn SRS FR-02.9.
-      </p>
+      <nav aria-label="Dành cho ứng viên">
+        <h2 class="sf-heading">Dành Cho Ứng Viên</h2>
+        <ul class="sf-links">
+          <li><a href="../page_jobs/index.html">Tìm việc làm mới nhất</a></li>
+          <li><a href="../page_saved_jobs/index.html">Việc làm đã lưu</a></li>
+          <li><a href="../page_candidate_dashboard/index.html">Quản lý hồ sơ & CV</a></li>
+          <li><a href="../page_companies/index.html">Danh bạ công ty</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Dành cho doanh nghiệp">
+        <h2 class="sf-heading">Dành Cho Doanh Nghiệp</h2>
+        <ul class="sf-links">
+          <li><a href="../page_post_job/index.html">Đăng tin tuyển dụng</a></li>
+          <li><a href="../page_employer_dashboard/index.html">Quản lý tin tuyển dụng</a></li>
+          <li><a href="../page_employer_candidates/index.html">Sàng lọc ứng viên AI</a></li>
+          <li><a href="../page_company_detail/index.html">Trang hồ sơ công ty</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Về TimViecOnline">
+        <h2 class="sf-heading">Về TimViecOnline</h2>
+        <ul class="sf-links">
+          <li><a href="../page_home/index.html">Giới thiệu</a></li>
+          <li><a href="../page_login/index.html">Đăng nhập tài khoản</a></li>
+          <li><a href="../page_register/index.html">Đăng ký thành viên</a></li>
+          <li><a href="../page_admin_portal/index.html">Cổng quản trị</a></li>
+        </ul>
+      </nav>
     </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-      
-      <!-- LEFT SETTINGS NAV -->
-      <div class="md:col-span-4 space-y-2">
-        <div class="bg-white rounded-2xl border border-slate-200 p-3 shadow-sm">
-          <nav class="space-y-1">
-            <a href="#security" class="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-blue-50 text-[#002B7F] font-bold text-xs">
-              <i data-lucide="lock" class="w-4 h-4 text-[#002B7F]"></i>
-              <span>Đổi Mật Khẩu & Bảo Mật</span>
-            </a>
-            <a href="#profile" class="flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-slate-700 hover:bg-slate-50 font-medium text-xs transition">
-              <i data-lucide="user" class="w-4 h-4 text-slate-400"></i>
-              <span>Thông Tin Cá Nhân</span>
-            </a>
-            <a href="#notifications" class="flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-slate-700 hover:bg-slate-50 font-medium text-xs transition">
-              <i data-lucide="bell" class="w-4 h-4 text-slate-400"></i>
-              <span>Cài Đặt Thông Báo</span>
-            </a>
-          </nav>
-        </div>
-
-        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm text-xs space-y-3">
-          <div class="font-bold text-slate-800 flex items-center gap-1.5">
-            <i data-lucide="shield-check" class="w-4 h-4 text-[#00A862]"></i>
-            Bảo Mật Tài Khoản
-          </div>
-          <p class="text-slate-500 leading-relaxed text-[11px]">
-            Hệ thống bảo vệ tài khoản với chính sách tạm khóa sau 5 lần đăng nhập sai liên tiếp nhằm đảm bảo an toàn tuyệt đối.
-          </p>
-          <div class="text-[11px] text-slate-600 font-mono">
-            Trạng thái: <strong class="text-[#00A862]">Đang hoạt động (Active)</strong>
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT SETTINGS CONTENT -->
-      <div class="md:col-span-8 space-y-6">
-        
-        <!-- SECTION 1: CHANGE PASSWORD FORM (FR-02.9) -->
-        <div id="security" class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
-          <h2 class="text-base font-bold text-slate-900 flex items-center gap-2 pb-4 border-b border-slate-100">
-            <i data-lucide="key" class="w-4 h-4 text-[#FF6A39]"></i>
-            Đổi Mật Khẩu
-          </h2>
-
-          <form class="space-y-4 pt-4">
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1.5">
-                Mật khẩu hiện tại <span class="text-red-500">*</span>
-              </label>
-              <div class="relative">
-                <input type="password" placeholder="Nhập mật khẩu đang sử dụng..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-[#002B7F] focus:ring-1 focus:ring-[#002B7F]">
-                <button type="button" class="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600">
-                  <i data-lucide="eye" class="w-4 h-4"></i>
-                </button>
-              </div>
-            </div>
-
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1.5">
-                Mật khẩu mới <span class="text-red-500">*</span>
-              </label>
-              <div class="relative">
-                <input type="password" placeholder="Từ 8 đến 32 ký tự, gồm hoa, thường, số, ký tự đặc biệt" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-[#002B7F] focus:ring-1 focus:ring-[#002B7F]">
-                <button type="button" class="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600">
-                  <i data-lucide="eye" class="w-4 h-4"></i>
-                </button>
-              </div>
-              <p class="text-[11px] text-slate-400 mt-1">
-                Yêu cầu: 8 - 32 ký tự, chứa ít nhất 1 chữ thường, 1 chữ in hoa, 1 số và 1 ký tự đặc biệt.
-              </p>
-            </div>
-
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1.5">
-                Xác nhận mật khẩu mới <span class="text-red-500">*</span>
-              </label>
-              <div class="relative">
-                <input type="password" placeholder="Nhập lại chính xác mật khẩu mới..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-[#002B7F] focus:ring-1 focus:ring-[#002B7F]">
-                <button type="button" class="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600">
-                  <i data-lucide="eye" class="w-4 h-4"></i>
-                </button>
-              </div>
-            </div>
-
-            <div class="pt-4 flex items-center justify-end gap-3">
-              <button type="reset" class="px-4 py-2 rounded-full border border-slate-200 text-slate-700 text-xs font-bold hover:bg-slate-50 transition">
-                Hủy bỏ
-              </button>
-              <button type="submit" class="px-6 py-2 rounded-full bg-[#FF6A39] hover:bg-[#F4511E] text-white text-xs font-bold shadow-md transition active:scale-95">
-                Lưu Thay Đổi Mật Khẩu
-              </button>
-            </div>
-          </form>
-        </div>
-
-        <!-- SECTION 2: BASIC ACCOUNT INFO -->
-        <div id="profile" class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
-          <h2 class="text-base font-bold text-slate-900 flex items-center gap-2 pb-4 border-b border-slate-100">
-            <i data-lucide="user-check" class="w-4 h-4 text-[#002B7F]"></i>
-            Thông Tin Tài Khoản Đăng Nhập
-          </h2>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 text-xs">
-            <div>
-              <label class="block text-slate-500 font-semibold mb-1">Họ và tên</label>
-              <input type="text" value="Nguyễn Văn A" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-slate-900 font-medium focus:outline-none focus:border-[#002B7F]">
-            </div>
-
-            <div>
-              <label class="block text-slate-500 font-semibold mb-1">Email đăng nhập</label>
-              <input type="email" value="nguyen.vana@example.com" disabled class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-500 font-medium cursor-not-allowed">
-            </div>
-
-            <div>
-              <label class="block text-slate-500 font-semibold mb-1">Số điện thoại</label>
-              <input type="text" value="0987654321" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-slate-900 font-medium focus:outline-none focus:border-[#002B7F]">
-            </div>
-
-            <div>
-              <label class="block text-slate-500 font-semibold mb-1">Vai trò tài khoản</label>
-              <input type="text" value="Ứng viên (Candidate)" disabled class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-500 font-medium cursor-not-allowed">
-            </div>
-          </div>
-
-          <div class="pt-6 flex justify-end">
-            <button class="px-6 py-2 rounded-full bg-[#002B7F] hover:bg-[#001E5B] text-white text-xs font-bold shadow-md transition active:scale-95">
-              Cập Nhật Thông Tin
-            </button>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="bg-[#001744] text-white/80 text-xs py-8 mt-12 border-t border-white/10">
-    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-      <div class="flex items-center gap-2.5">
-        <div class="w-6 h-6 rounded-lg bg-[#005AFF] flex items-center justify-center text-white text-xs font-bold">
-          TV
-        </div>
-        <span class="text-sm font-extrabold text-white">TimViecOnline</span>
-      </div>
-      <p class="text-slate-400 text-center md:text-left">
-        © 2026 TimViecOnline. Nền tảng kết nối việc làm và tuyển dụng hàng đầu.
-      </p>
-      <div class="flex items-center gap-4 text-slate-300">
-        <a href="../page_home/index.html" class="hover:text-white">Trang chủ</a>
-        <a href="../page_jobs/index.html" class="hover:text-white">Việc làm</a>
-        <a href="../page_companies/index.html" class="hover:text-white">Công ty</a>
-      </div>
+    <div class="sf-container sf-bottom">
+      <div>© 2026 TimViecOnline. Nền tảng kết nối việc làm và tuyển dụng hàng đầu.</div>
+      <div class="sf-legal"><a href="#">Điều khoản sử dụng</a><span aria-hidden="true">•</span><a href="#">Chính sách bảo mật</a></div>
     </div>
   </footer>
 
-  <!-- FLOATING PROTOTYPE ROUTES DRAWER (18 PAGES) -->
+<!-- FLOATING PROTOTYPE ROUTES DRAWER (18 PAGES) -->
   <div class="fixed bottom-6 right-6 z-50">
-    <button id="toggleRoutesDrawer" class="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#002B7F] hover:bg-[#001E5B] text-white shadow-2xl border border-white/20 text-xs font-bold transition transform hover:scale-105 active:scale-95">
+    <button id="toggleRoutesDrawer"
+      class="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#002B7F] hover:bg-[#001E5B] text-white shadow-2xl border border-white/20 text-xs font-bold transition transform hover:scale-105 active:scale-95">
       <i data-lucide="map" class="w-4 h-4 text-cyan-300"></i>
       <span>Routes (18)</span>
     </button>
   </div>
 
-  <div id="routesDrawerBackdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden transition-opacity"></div>
-  <div id="routesDrawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+  <div id="routesDrawerBackdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden transition-opacity">
+  </div>
+  <div id="routesDrawer"
+    class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
     <div class="p-5 bg-[#002B7F] text-white flex items-center justify-between">
       <div class="flex items-center gap-2">
         <i data-lucide="compass" class="w-5 h-5 text-cyan-300"></i>
@@ -646,220 +529,79 @@
     </div>
     <div class="p-4 flex-1 overflow-y-auto space-y-4 text-xs">
       <div>
-        <div class="font-bold text-slate-400 uppercase text-[10px] tracking-wider mb-2">1. Dành Cho Khách & Ứng Viên</div>
+        <div class="font-bold text-slate-400 uppercase text-[10px] tracking-wider mb-2">1. Dành Cho Khách & Ứng Viên
+        </div>
         <div class="space-y-1">
-          <a href="../page_home/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>1. Trang Chủ</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
-          <a href="../page_jobs/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>2. Tìm Kiếm Việc Làm</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
-          <a href="../page_job_detail/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>3. Chi Tiết Việc Làm</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
-          <a href="../page_companies/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>4. Top Doanh Nghiệp Hàng Đầu</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
-          <a href="../page_company_detail/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>5. Hồ Sơ Doanh Nghiệp</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
-          <a href="../page_saved_jobs/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>6. Việc Làm Đã Lưu</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
-          <a href="../page_candidate_dashboard/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>7. Hồ Sơ CV & Lịch Sử Nộp Đơn</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
-          <a href="../page_settings/index.html" class="flex items-center justify-between p-2 rounded-lg bg-blue-50 text-[#002B7F] font-bold"><span>8. Cài Đặt Tài Khoản & Mật Khẩu</span><i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></a>
+          <a href="../page_home/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>1. Trang
+              Chủ</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_jobs/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>2. Tìm Kiếm
+              Việc Làm</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_job_detail/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>3. Chi Tiết
+              Việc Làm</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_companies/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>4. Top
+              Doanh Nghiệp Hàng Đầu</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_company_detail/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>5. Hồ Sơ
+              Doanh Nghiệp</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_saved_jobs/index.html"
+            class="flex items-center justify-between p-2 rounded-lg bg-blue-50 text-[#002B7F] font-bold"><span>6. Việc
+              Làm Đã Lưu</span><i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></a>
+          <a href="../page_candidate_dashboard/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>7. Hồ Sơ CV
+              & Lịch Sử Nộp Đơn</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_settings/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>8. Cài Đặt
+              Tài Khoản & Mật Khẩu</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
         </div>
       </div>
       <div>
         <div class="font-bold text-slate-400 uppercase text-[10px] tracking-wider mb-2">2. Dành Cho Nhà Tuyển Dụng</div>
         <div class="space-y-1">
-          <a href="../page_employer_dashboard/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>9. Dashboard Tuyển Dụng</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
-          <a href="../page_post_job/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>10. Đăng Tin Tuyển Dụng</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
-          <a href="../page_employer_candidates/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>11. Quản Lý & Lọc Ứng Viên Bằng AI</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
-          <a href="../page_ai_cv_report/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>12. Báo Cáo Phân Tích AI Ứng Viên</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_employer_dashboard/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>9.
+              Dashboard Tuyển Dụng</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_post_job/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>10. Đăng
+              Tin Tuyển Dụng</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_employer_candidates/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>11. Quản Lý
+              & Lọc Ứng Viên Bằng AI</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_ai_cv_report/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>12. Báo Cáo
+              Phân Tích AI Ứng Viên</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
         </div>
       </div>
       <div>
         <div class="font-bold text-slate-400 uppercase text-[10px] tracking-wider mb-2">3. Realtime & Quản Trị</div>
         <div class="space-y-1">
-          <a href="../page_chat/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>13. Nhắn Tin Realtime 1-1</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
-          <a href="../page_notifications/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>14. Trung Tâm Thông Báo</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
-          <a href="../page_admin_portal/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>15. Cổng Quản Trị Hệ Thống (Admin)</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
-          <a href="../page_login/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>16. Đăng Nhập</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
-          <a href="../page_register/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>17. Đăng Ký Tài Khoản</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
-          <a href="../page_forgot_password/index.html" class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>18. Quên Mật Khẩu</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_chat/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>13. Nhắn
+              Tin Realtime 1-1</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_notifications/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>14. Trung
+              Tâm Thông Báo</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_admin_portal/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>15. Cổng
+              Quản Trị Hệ Thống (Admin)</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_login/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>16. Đăng
+              Nhập</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_register/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>17. Đăng Ký
+              Tài Khoản</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
+          <a href="../page_forgot_password/index.html"
+            class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>18. Quên
+              Mật Khẩu</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
         </div>
       </div>
     </div>
   </div>
 
-  <script>
-    lucide.createIcons();
-    const btn = document.getElementById('toggleRoutesDrawer');
-    const closeBtn = document.getElementById('closeRoutesDrawer');
-    const drawer = document.getElementById('routesDrawer');
-    const backdrop = document.getElementById('routesDrawerBackdrop');
-    function toggleDrawer(open) {
-      if (open) {
-        drawer.classList.remove('translate-x-full');
-        backdrop.classList.remove('hidden');
-      } else {
-        drawer.classList.add('translate-x-full');
-        backdrop.classList.add('hidden');
-      }
-    }
-    btn?.addEventListener('click', () => toggleDrawer(true));
-    closeBtn?.addEventListener('click', () => toggleDrawer(false));
-    backdrop?.addEventListener('click', () => toggleDrawer(false));
-
-    // NAVBAR & DROPDOWNS SCRIPT
-    const btnAllCategories = document.getElementById('btnAllCategories');
-    const allCategoriesDropdown = document.getElementById('allCategoriesDropdown');
-    const iconCatArrow = document.getElementById('iconCatArrow');
-
-    function toggleCategories(open) {
-      if (!allCategoriesDropdown) return;
-      const isCurrentlyOpen = !allCategoriesDropdown.classList.contains('hidden');
-      const shouldOpen = open !== undefined ? open : !isCurrentlyOpen;
-      if (shouldOpen) {
-        allCategoriesDropdown.classList.remove('hidden');
-        iconCatArrow?.classList.add('rotate-180');
-        toggleAccountMenu(false);
-      } else {
-        allCategoriesDropdown.classList.add('hidden');
-        iconCatArrow?.classList.remove('rotate-180');
-      }
-    }
-    btnAllCategories?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleCategories();
-    });
-
-    const btnAccountMenu = document.getElementById('btnAccountMenu');
-    const accountMenuDropdown = document.getElementById('accountMenuDropdown');
-
-    function toggleAccountMenu(open) {
-      if (!accountMenuDropdown) return;
-      const isCurrentlyOpen = !accountMenuDropdown.classList.contains('hidden');
-      const shouldOpen = open !== undefined ? open : !isCurrentlyOpen;
-      if (shouldOpen) {
-        accountMenuDropdown.classList.remove('hidden');
-        toggleCategories(false);
-      } else {
-        accountMenuDropdown.classList.add('hidden');
-      }
-    }
-    btnAccountMenu?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleAccountMenu();
-    });
-
-    const btnOpenNotifications = document.getElementById('btnOpenNotifications');
-    const closeNotificationDrawer = document.getElementById('closeNotificationDrawer');
-    const notificationDrawer = document.getElementById('notificationDrawer');
-    const notificationDrawerBackdrop = document.getElementById('notificationDrawerBackdrop');
-    const bellBadge = document.getElementById('bellBadge');
-    const notifBadgeCount = document.getElementById('notifBadgeCount');
-    const notifListContainer = document.getElementById('notifListContainer');
-    const notifEmptyContainer = document.getElementById('notifEmptyContainer');
-
-    const tabNotifAll = document.getElementById('tabNotifAll');
-    const tabNotifUnread = document.getElementById('tabNotifUnread');
-    const tabNotifRead = document.getElementById('tabNotifRead');
-    const btnClearAllNotif = document.getElementById('btnClearAllNotif');
-    const btnRestoreNotif = document.getElementById('btnRestoreNotif');
-
-    let currentNotifFilter = 'all';
-
-    function setDrawerNotifState(hasItems) {
-      if (!hasItems) {
-        notifListContainer?.classList.add('hidden');
-        notifEmptyContainer?.classList.remove('hidden');
-        if (notifBadgeCount) notifBadgeCount.textContent = '0';
-        if (bellBadge) bellBadge.style.display = 'none';
-      } else {
-        notifListContainer?.classList.remove('hidden');
-        notifEmptyContainer?.classList.add('hidden');
-        if (notifBadgeCount) notifBadgeCount.textContent = '2 mới';
-        if (bellBadge) bellBadge.style.display = 'flex';
-      }
-    }
-
-    function filterNotifItems(filter) {
-      currentNotifFilter = filter;
-      const tabs = [
-        { el: tabNotifAll, name: 'all' },
-        { el: tabNotifUnread, name: 'unread' },
-        { el: tabNotifRead, name: 'read' }
-      ];
-      tabs.forEach(t => {
-        if (!t.el) return;
-        if (t.name === filter) {
-          t.el.className = 'px-3 py-1 rounded-lg bg-blue-50 text-[#005AFF] font-bold text-xs transition';
-        } else {
-          t.el.className = 'px-3 py-1 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium text-xs transition';
-        }
-      });
-
-      const items = notifListContainer?.querySelectorAll('.notif-item');
-      let visibleCount = 0;
-      items?.forEach(item => {
-        if (filter === 'all') {
-          item.style.display = 'block';
-          visibleCount++;
-        } else if (filter === 'unread') {
-          const isUnread = item.classList.contains('unread');
-          item.style.display = isUnread ? 'block' : 'none';
-          if (isUnread) visibleCount++;
-        } else if (filter === 'read') {
-          const isRead = item.classList.contains('read');
-          item.style.display = isRead ? 'block' : 'none';
-          if (isRead) visibleCount++;
-        }
-      });
-
-      if (visibleCount === 0) {
-        setDrawerNotifState(false);
-      } else {
-        setDrawerNotifState(true);
-      }
-    }
-
-    tabNotifAll?.addEventListener('click', () => filterNotifItems('all'));
-    tabNotifUnread?.addEventListener('click', () => filterNotifItems('unread'));
-    tabNotifRead?.addEventListener('click', () => filterNotifItems('read'));
-
-    btnClearAllNotif?.addEventListener('click', () => setDrawerNotifState(false));
-    btnRestoreNotif?.addEventListener('click', () => {
-      filterNotifItems('all');
-      setDrawerNotifState(true);
-    });
-
-    function toggleNotificationDrawer(open) {
-      if (!notificationDrawer) return;
-      if (open) {
-        notificationDrawer.classList.remove('translate-x-full');
-        notificationDrawerBackdrop?.classList.remove('hidden');
-        toggleCategories(false);
-        toggleAccountMenu(false);
-      } else {
-        notificationDrawer.classList.add('translate-x-full');
-        notificationDrawerBackdrop?.classList.add('hidden');
-      }
-    }
-    btnOpenNotifications?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleNotificationDrawer(true);
-    });
-    closeNotificationDrawer?.addEventListener('click', () => toggleNotificationDrawer(false));
-    notificationDrawerBackdrop?.addEventListener('click', () => toggleNotificationDrawer(false));
-
-    // Outside click & Escape
-    document.addEventListener('click', (e) => {
-      if (allCategoriesDropdown && !allCategoriesDropdown.contains(e.target) && !btnAllCategories?.contains(e.target)) {
-        toggleCategories(false);
-      }
-      if (accountMenuDropdown && !accountMenuDropdown.contains(e.target) && !btnAccountMenu?.contains(e.target)) {
-        toggleAccountMenu(false);
-      }
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        toggleCategories(false);
-        toggleAccountMenu(false);
-        toggleNotificationDrawer(false);
-        toggleDrawer(false);
-      }
-    });
-  </script>
+  <script src="../shared/candidate-navbar.js"></script>
+  <script src="../shared/candidate-shell.js"></script>
 </body>
 </html>

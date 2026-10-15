@@ -47,111 +47,19 @@
       background-color: #F4F6F9;
     }
   </style>
+  <link rel="stylesheet" href="../page_employer_dashboard/dashboard.css">
+  <link rel="stylesheet" href="../shared/employer.css">
+  <script src="../shared/employer-shell.js" defer></script>
+  <link rel="stylesheet" href="../shared/site-footer.css">
 </head>
 
-<body
-  class="bg-[#F4F6F9] text-slate-800 antialiased min-h-screen flex flex-col selection:bg-[#FF6A39] selection:text-white">
+<body class="employer-page" data-employer-page="candidates">
 
   <!-- STANDARDIZED EMPLOYER NAVBAR (TIMVIEONLINE RECRUITER) -->
-  <header class="sticky top-0 z-40 bg-[#001E5B] text-white shadow-md border-b border-[#001540]">
-    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 h-[68px] flex items-center justify-between gap-4">
-
-      <!-- Brand Logo & Employer Badge -->
-      <div class="flex items-center gap-6">
-        <a href="../page_home/index.html" class="flex items-center gap-2.5 group">
-          <div class="relative w-8 h-8 flex items-center justify-center shrink-0">
-            <svg class="w-8 h-8" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="36" height="36" rx="10" fill="#005AFF" />
-              <path d="M10 18L16 24L26 12" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round"
-                stroke-linejoin="round" />
-              <circle cx="26" cy="12" r="3" fill="#FF6A39" />
-            </svg>
-          </div>
-          <div class="flex flex-col -space-y-0.5">
-            <span class="text-[19px] font-black tracking-tight text-white leading-none font-sans">
-              TimViec<span class="text-[#38BDF8]">Online</span>
-            </span>
-            <span class="text-[8px] font-bold tracking-widest text-[#93c5fd] uppercase leading-none pl-0.5">
-              Cổng Việc Làm & Tuyển Dụng
-            </span>
-          </div>
-        </a>
-
-        <span
-          class="hidden sm:inline-flex px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-bold text-[10.5px] uppercase tracking-wider border border-cyan-400/30">
-          Nhà Tuyển Dụng
-        </span>
-
-        <!-- Employer Main Links -->
-        <nav class="hidden xl:flex items-center gap-1 text-[13.5px]">
-          <a href="../page_employer_dashboard/index.html"
-            class="px-3.5 py-1.5 rounded-lg text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
-            Bảng Điều Khiển
-          </a>
-          <a href="../page_employer_dashboard/index.html#jobs"
-            class="px-3.5 py-1.5 rounded-lg text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
-            Tin Tuyển Dụng
-          </a>
-          <a href="../page_employer_candidates/index.html"
-            class="px-3.5 py-1.5 rounded-lg text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
-            Sàng Lọc Ứng Viên & AI
-          </a>
-          <a href="../page_ai_cv_report/index.html"
-            class="px-3.5 py-1.5 rounded-lg bg-[#002B7F] text-white font-bold transition">
-            Báo Cáo Đánh Giá AI
-          </a>
-          <a href="../page_company_detail/index.html"
-            class="px-3.5 py-1.5 rounded-lg text-white/85 hover:text-white hover:bg-white/10 transition font-medium">
-            Hồ Sơ Doanh Nghiệp
-          </a>
-        </nav>
-      </div>
-
-      <!-- Right Employer Controls -->
-      <div class="flex items-center gap-3">
-        <a href="../page_chat/index.html"
-          class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center relative transition"
-          title="Tin nhắn ứng viên">
-          <i data-lucide="message-square" class="w-4 h-4"></i>
-          <span
-            class="absolute -top-1 -right-1 bg-[#FF6A39] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow">3</span>
-        </a>
-
-        <a href="../page_notifications/index.html"
-          class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center relative transition"
-          title="Thông báo tuyển dụng">
-          <i data-lucide="bell" class="w-4 h-4"></i>
-          <span
-            class="absolute -top-1 -right-1 bg-[#FF6A39] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow">2</span>
-        </a>
-
-        <a href="../page_post_job/index.html"
-          class="px-4 py-2 rounded-xl bg-[#FF6A39] hover:bg-[#F4511E] text-white text-xs font-bold shadow-md transition active:scale-95 flex items-center gap-1.5">
-          <i data-lucide="plus" class="w-4 h-4"></i>
-          <span class="hidden sm:inline">Đăng Tin Mới</span>
-        </a>
-
-        <div class="flex items-center gap-2 pl-2 border-l border-white/20">
-          <div
-            class="w-8 h-8 rounded-xl bg-[#005AFF] text-white font-bold text-xs flex items-center justify-center shadow-sm">
-            FPT
-          </div>
-          <div class="hidden sm:flex flex-col text-left">
-            <span class="text-xs font-bold text-white leading-tight">FPT Software</span>
-            <span class="text-[10px] text-cyan-200">Gói Tuyển Dụng Pro</span>
-          </div>
-          <a href="../page_login/index.html"
-            class="p-1.5 hover:bg-white/10 rounded-full text-white/80 hover:text-red-300 ml-1 transition"
-            title="Đăng xuất">
-            <i data-lucide="log-out" class="w-4 h-4"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- MAIN REPORT CONTAINER -->
-  <main class="max-w-[1100px] mx-auto px-4 lg:px-6 py-8 flex-1 w-full space-y-6">
+  <header data-employer-header></header>
+  <div class="ep-layout">
+    <aside data-employer-sidebar></aside>
+    <main class="ep-main space-y-6" id="main">
 
     <!-- HEADER BREADCRUMB & CONTEXT -->
     <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
@@ -354,7 +262,7 @@
           class="px-5 py-2.5 rounded-full border border-red-200 text-red-600 hover:bg-red-50 text-xs font-bold transition">
           Từ Chối Hồ Sơ
         </button>
-        <a href="../page_chat/index.html"
+        <a href="../page_employer_chat/index.html"
           class="px-5 py-2.5 rounded-full border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold transition flex items-center gap-1.5">
           <i data-lucide="message-square" class="w-4 h-4"></i>
           <span>Nhắn Tin Ứng Viên</span>
@@ -367,27 +275,63 @@
       </div>
     </div>
 
-  </main>
+    </main>
+  </div>
 
-  <!-- FOOTER -->
-  <footer class="bg-[#001744] text-white/80 text-xs py-8 mt-12 border-t border-white/10">
-    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-      <div class="flex items-center gap-2.5">
-        <div class="w-6 h-6 rounded-lg bg-[#005AFF] flex items-center justify-center text-white text-xs font-bold">
-          TV
+  <footer class="site-footer" aria-label="Thông tin TimViecOnline">
+    <div class="sf-container sf-grid">
+      <div class="sf-about">
+        <a href="../page_home/index.html" class="sf-brand">
+          <svg class="sf-brand-mark" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="36" height="36" rx="10" fill="#005AFF" />
+            <path d="M10 18L16 24L26 12" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="26" cy="12" r="3" fill="#FF6A39" />
+          </svg>
+          <span class="sf-brand-copy"><span class="sf-brand-name">TimViec<span>Online</span></span><span class="sf-brand-tagline">Cổng Việc Làm & Tuyển Dụng</span></span>
+        </a>
+        <p>Cổng thông tin việc làm và tuyển dụng thông minh tại Việt Nam. Kết nối ứng viên và doanh nghiệp hàng đầu.</p>
+        <div class="sf-contact">
+          <div>Trụ sở: Tòa nhà E.Town Central, 11 Đoàn Văn Bơ, Quận 4, TP.HCM</div>
+          <div>Tổng đài hỗ trợ: <strong>1900 6868</strong></div>
+          <div>Email: <strong>support@timvieconline.vn</strong></div>
         </div>
-        <span class="text-sm font-extrabold text-white">TimViecOnline</span>
       </div>
-      <p class="text-slate-400 text-center md:text-left">
-        © 2026 TimViecOnline. Nền tảng kết nối việc làm và tuyển dụng hàng đầu.
-      </p>
-      <div class="flex items-center gap-4 text-slate-300">
-        <a href="../page_home/index.html" class="hover:text-white">Trang chủ</a>
-        <a href="../page_jobs/index.html" class="hover:text-white">Việc làm</a>
-        <a href="../page_companies/index.html" class="hover:text-white">Công ty</a>
-      </div>
+      <nav aria-label="Dành cho ứng viên">
+        <h2 class="sf-heading">Dành Cho Ứng Viên</h2>
+        <ul class="sf-links">
+          <li><a href="../page_jobs/index.html">Tìm việc làm mới nhất</a></li>
+          <li><a href="../page_saved_jobs/index.html">Việc làm đã lưu</a></li>
+          <li><a href="../page_candidate_dashboard/index.html">Quản lý hồ sơ & CV</a></li>
+          <li><a href="../page_companies/index.html">Danh bạ công ty</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Dành cho doanh nghiệp">
+        <h2 class="sf-heading">Dành Cho Doanh Nghiệp</h2>
+        <ul class="sf-links">
+          <li><a href="../page_post_job/index.html">Đăng tin tuyển dụng</a></li>
+          <li><a href="../page_employer_dashboard/index.html">Quản lý tin tuyển dụng</a></li>
+          <li><a href="../page_employer_candidates/index.html">Sàng lọc ứng viên AI</a></li>
+          <li><a href="../page_company_detail/index.html">Trang hồ sơ công ty</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Về TimViecOnline">
+        <h2 class="sf-heading">Về TimViecOnline</h2>
+        <ul class="sf-links">
+          <li><a href="../page_home/index.html">Giới thiệu</a></li>
+          <li><a href="../page_login/index.html">Đăng nhập tài khoản</a></li>
+          <li><a href="../page_register/index.html">Đăng ký thành viên</a></li>
+          <li><a href="../page_admin_portal/index.html">Cổng quản trị</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="sf-container sf-bottom">
+      <div>© 2026 TimViecOnline. Nền tảng kết nối việc làm và tuyển dụng hàng đầu.</div>
+      <div class="sf-legal"><a href="#">Điều khoản sử dụng</a><span aria-hidden="true">•</span><a href="#">Chính sách bảo mật</a></div>
     </div>
   </footer>
+
+<!-- FOOTER -->
+
 
   <!-- FLOATING PROTOTYPE ROUTES DRAWER (18 PAGES) -->
   <div class="fixed bottom-6 right-6 z-50">
@@ -407,7 +351,7 @@
         <i data-lucide="compass" class="w-5 h-5 text-cyan-300"></i>
         <h3 class="font-bold text-base">Hệ Thống 18 Màn Hình</h3>
       </div>
-      <button id="closeRoutesDrawer" class="p-1.5 rounded-full hover:bg-white/10 text-white transition">
+      <button id="closeRoutesDrawer" aria-label="Đóng danh sách trang" class="p-1.5 rounded-full hover:bg-white/10 text-white transition">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
     </div>
@@ -462,10 +406,10 @@
       <div>
         <div class="font-bold text-slate-400 uppercase text-[10px] tracking-wider mb-2">3. Realtime & Quản Trị</div>
         <div class="space-y-1">
-          <a href="../page_chat/index.html"
+          <a href="../page_employer_chat/index.html"
             class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>13. Nhắn
               Tin Realtime 1-1</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
-          <a href="../page_notifications/index.html"
+          <a href="../page_employer_notifications/index.html"
             class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-100 text-slate-700"><span>14. Trung
               Tâm Thông Báo</span><i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i></a>
           <a href="../page_admin_portal/index.html"
@@ -491,7 +435,9 @@
     const closeBtn = document.getElementById('closeRoutesDrawer');
     const drawer = document.getElementById('routesDrawer');
     const backdrop = document.getElementById('routesDrawerBackdrop');
+    drawer.hidden = true;
     function toggleDrawer(open) {
+      drawer.hidden = !open;
       if (open) {
         drawer.classList.remove('translate-x-full');
         backdrop.classList.remove('hidden');

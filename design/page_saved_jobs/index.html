@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Việc Làm Đã Lưu - Quản Lý Cơ Hội Nghề Nghiệp | TimViecOnline</title>
+  <title>Việc làm đã lưu | TimViecOnline</title>
+  <meta name="description" content="Quản lý hồ sơ cá nhân, tải lên file CV PDF và theo dõi trạng thái các đơn ứng tuyển việc làm trực tuyến tại TimViecOnline.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <script>
@@ -27,6 +27,7 @@
           },
           fontFamily: {
             sans: ['"Be Vietnam Pro"', 'Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
           }
         }
       }
@@ -34,24 +35,12 @@
   </script>
   <style>
     html { font-size: 90%; }
-    body {
-      font-family: 'Be Vietnam Pro', Inter, sans-serif;
-      background-color: #F4F6F9;
-    }
-
-    .job-card {
-      transition: all 0.2s ease-in-out;
-    }
-
-    .job-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px -5px rgba(0, 43, 127, 0.1);
-      border-color: #005AFF;
-    }
+    body { font-family: 'Be Vietnam Pro', Inter, sans-serif; background-color: #F4F6F9; }
   </style>
+  <link rel="stylesheet" href="../shared/site-footer.css">
+  <link rel="stylesheet" href="../shared/candidate.css">
 </head>
-
-<body class="bg-[#F4F6F9] text-slate-800 antialiased min-h-screen flex flex-col selection:bg-[#FF6A39] selection:text-white">
+<body data-candidate-page="jobs" class="candidate-page bg-[#F4F6F9] text-slate-800 antialiased min-h-screen flex flex-col selection:bg-[#FF6A39] selection:text-white">
 
   <!-- MAIN NAVBAR (TIMVIEONLINE ROYAL NAVY #002B7F) -->
   <header class="sticky top-0 z-40 bg-[#002B7F] text-white shadow-md border-b border-[#002060] relative">
@@ -138,12 +127,12 @@
 
           <!-- DROPDOWN: ACCOUNT MENU (SCREENSHOT 3 100% MATCH) -->
           <div id="accountMenuDropdown" class="hidden absolute right-0 top-full mt-3 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200 z-50 py-3 text-slate-800 transition-all duration-200">
-            
+
             <!-- User Info Header -->
             <div class="px-5 py-3 flex items-start justify-between gap-3 border-b border-slate-100">
               <div class="min-w-0 flex-1">
-                <div class="font-bold text-slate-900 text-sm truncate">N Bìnhh</div>
-                <div class="text-[11px] text-slate-500 font-mono truncate mt-0.5">dtshenlong1901@gmail.com</div>
+                <div class="font-bold text-slate-900 text-sm truncate">Bình N</div>
+                <div class="text-[11px] text-slate-500 font-mono truncate mt-0.5">binh.nguyen@example.com</div>
               </div>
               <a href="../page_candidate_dashboard/index.html" class="px-3 py-1 rounded-lg border border-[#FF6A39] hover:bg-[#FF6A39] hover:text-white text-[#FF6A39] text-[11px] font-bold transition shrink-0">
                 Cập nhật hồ sơ
@@ -152,30 +141,21 @@
 
             <!-- Menu Navigation Items -->
             <div class="py-2 text-xs space-y-0.5">
-              <a href="../page_candidate_dashboard/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
-                <i data-lucide="gauge" class="w-4 h-4 text-slate-400"></i>
-                <span>Tổng Quan</span>
-              </a>
+
               <a href="../page_candidate_dashboard/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
                 <i data-lucide="file-text" class="w-4 h-4 text-slate-400"></i>
                 <span>Hồ Sơ Của Tôi</span>
               </a>
-              <a href="../page_companies/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
-                <i data-lucide="building-2" class="w-4 h-4 text-slate-400"></i>
-                <span>Công Ty Của Tôi</span>
-              </a>
-              <a href="../page_saved_jobs/index.html" class="flex items-center gap-3 px-5 py-2 bg-blue-50/60 text-[#005AFF] font-bold transition">
-                <i data-lucide="briefcase" class="w-4 h-4 text-[#005AFF]"></i>
+
+              <a href="../page_candidate_jobs/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
+                <i data-lucide="briefcase" class="w-4 h-4 text-slate-400"></i>
                 <span>Việc Làm Của Tôi</span>
               </a>
-              <a href="../page_notifications/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
+              <a href="../page_candidate_alerts/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
                 <i data-lucide="bell" class="w-4 h-4 text-slate-400"></i>
                 <span>Thông Báo Việc Làm</span>
               </a>
-              <a href="#" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
-                <i data-lucide="shopping-cart" class="w-4 h-4 text-slate-400"></i>
-                <span>Quản Lý Đơn Hàng</span>
-              </a>
+
               <a href="../page_settings/index.html" class="flex items-center gap-3 px-5 py-2 hover:bg-slate-50 text-slate-700 hover:text-[#005AFF] font-medium transition">
                 <i data-lucide="settings" class="w-4 h-4 text-slate-400"></i>
                 <span>Quản Lý Tài Khoản</span>
@@ -226,8 +206,8 @@
               Việc của tôi
             </h4>
             <ul class="space-y-2.5 text-xs">
-              <li><a href="../page_saved_jobs/index.html" class="text-[#005AFF] font-bold hover:translate-x-1 inline-block transition">Việc đã lưu</a></li>
-              <li><a href="../page_candidate_dashboard/index.html" class="text-slate-600 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-medium">Việc đã ứng tuyển</a></li>
+              <li><a href="../page_saved_jobs/index.html" class="text-slate-600 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-medium">Việc đã lưu</a></li>
+              <li><a href="../page_candidate_dashboard/index.html" class="text-[#005AFF] font-bold hover:translate-x-1 inline-block transition">Việc đã ứng tuyển</a></li>
               <li><a href="../page_notifications/index.html" class="text-slate-600 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-medium">Thông báo việc làm</a></li>
 
             </ul>
@@ -463,196 +443,70 @@
 
   </aside>
 
+  <!-- MAIN DASHBOARD CONTENT -->
+  <main class="candidate-area" id="candidate-main"><aside data-candidate-sidebar></aside><div class="cu-content">
+<div class="cu-card cu-title"><h1>Việc Làm Của Tôi</h1></div>
+<section class="cu-card" aria-label="Việc làm đã lưu"><div class="cu-tabs"><a class="cu-tab" href="../page_candidate_jobs/index.html">Việc đã ứng tuyển</a><a class="cu-tab" href="../page_saved_jobs/index.html" aria-current="page">Việc đã lưu</a></div>
+  <article class="cu-job"><span class="cu-job-logo">FPT</span><div><h2><a href="../page_job_detail/index.html">Senior Fullstack Developer (Laravel & React/Next.js)</a></h2><p>FPT Software · TP. Hồ Chí Minh</p><strong>30 – 45 triệu VNĐ</strong><p>Hạn nộp: 30/11/2026</p></div></article>
+  <article class="cu-job"><span class="cu-job-logo">VNG</span><div><h2><a href="../page_job_detail/index.html">Backend Developer (Golang)</a></h2><p>VNG Corporation · TP. Hồ Chí Minh</p><strong>Thỏa thuận</strong><p>Hạn nộp: 15/11/2026</p></div></article>
+  <a class="cu-link" href="../page_jobs/index.html">Khám phá thêm việc làm <i data-lucide="arrow-right" class="cu-icon" aria-hidden="true"></i></a>
+</section>
 
-  <!-- MAIN SAVED JOBS CONTENT -->
-  <main class="max-w-[1100px] mx-auto px-4 lg:px-6 py-8 flex-1 w-full space-y-6">
+</div></main>
 
-    <!-- HEADER CARD -->
-    <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div class="flex items-center gap-2 text-xs text-slate-500 font-semibold mb-1">
-            <a href="../page_home/index.html" class="hover:text-[#002B7F]">Trang chủ</a>
-            <span>/</span>
-            <span class="text-slate-900">Việc làm đã lưu</span>
-          </div>
-          <h1 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2.5">
-            <i data-lucide="bookmark" class="w-6 h-6 text-[#FF6A39] fill-[#FF6A39]"></i>
-            Danh Sách Việc Làm Đã Lưu
-          </h1>
-          <p class="text-xs text-slate-500 mt-1">
-            Bạn đang lưu trữ <strong>4 cơ hội việc làm</strong> phù hợp với chuyên môn của mình.
-          </p>
-        </div>
-
-        <a href="../page_jobs/index.html"
-          class="px-5 py-2.5 rounded-full bg-[#002B7F] hover:bg-[#001E5B] text-white text-xs font-bold transition flex items-center gap-2 shadow-sm self-start sm:self-auto">
-          <i data-lucide="search" class="w-4 h-4"></i>
-          <span>Tìm Thêm Việc Làm</span>
+  <footer class="site-footer" aria-label="Thông tin TimViecOnline">
+    <div class="sf-container sf-grid">
+      <div class="sf-about">
+        <a href="../page_home/index.html" class="sf-brand">
+          <svg class="sf-brand-mark" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="36" height="36" rx="10" fill="#005AFF" />
+            <path d="M10 18L16 24L26 12" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="26" cy="12" r="3" fill="#FF6A39" />
+          </svg>
+          <span class="sf-brand-copy"><span class="sf-brand-name">TimViec<span>Online</span></span><span class="sf-brand-tagline">Cổng Việc Làm & Tuyển Dụng</span></span>
         </a>
+        <p>Cổng thông tin việc làm và tuyển dụng thông minh tại Việt Nam. Kết nối ứng viên và doanh nghiệp hàng đầu.</p>
+        <div class="sf-contact">
+          <div>Trụ sở: Tòa nhà E.Town Central, 11 Đoàn Văn Bơ, Quận 4, TP.HCM</div>
+          <div>Tổng đài hỗ trợ: <strong>1900 6868</strong></div>
+          <div>Email: <strong>support@timvieconline.vn</strong></div>
+        </div>
       </div>
+      <nav aria-label="Dành cho ứng viên">
+        <h2 class="sf-heading">Dành Cho Ứng Viên</h2>
+        <ul class="sf-links">
+          <li><a href="../page_jobs/index.html">Tìm việc làm mới nhất</a></li>
+          <li><a href="../page_saved_jobs/index.html">Việc làm đã lưu</a></li>
+          <li><a href="../page_candidate_dashboard/index.html">Quản lý hồ sơ & CV</a></li>
+          <li><a href="../page_companies/index.html">Danh bạ công ty</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Dành cho doanh nghiệp">
+        <h2 class="sf-heading">Dành Cho Doanh Nghiệp</h2>
+        <ul class="sf-links">
+          <li><a href="../page_post_job/index.html">Đăng tin tuyển dụng</a></li>
+          <li><a href="../page_employer_dashboard/index.html">Quản lý tin tuyển dụng</a></li>
+          <li><a href="../page_employer_candidates/index.html">Sàng lọc ứng viên AI</a></li>
+          <li><a href="../page_company_detail/index.html">Trang hồ sơ công ty</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Về TimViecOnline">
+        <h2 class="sf-heading">Về TimViecOnline</h2>
+        <ul class="sf-links">
+          <li><a href="../page_home/index.html">Giới thiệu</a></li>
+          <li><a href="../page_login/index.html">Đăng nhập tài khoản</a></li>
+          <li><a href="../page_register/index.html">Đăng ký thành viên</a></li>
+          <li><a href="../page_admin_portal/index.html">Cổng quản trị</a></li>
+        </ul>
+      </nav>
     </div>
-
-    <!-- SAVED JOBS LIST -->
-    <div class="space-y-4">
-
-      <!-- Job 1 -->
-      <div
-        class="job-card bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div class="flex items-start gap-4">
-          <div
-            class="w-14 h-14 rounded-xl border border-slate-100 p-2 flex items-center justify-center shrink-0 bg-white shadow-sm">
-            <span class="text-[#005AFF] font-black text-lg">FPT</span>
-          </div>
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="px-2 py-0.5 rounded-full bg-red-50 text-red-600 font-bold text-[10px] uppercase">Tuyển
-                Gấp</span>
-              <span class="text-xs text-slate-400">Đã lưu 2 ngày trước</span>
-            </div>
-            <h2 class="text-base font-bold text-slate-900 hover:text-[#005AFF] transition">
-              <a href="../page_job_detail/index.html">Senior Fullstack Developer (Laravel & React/Next.js)</a>
-            </h2>
-            <div class="text-xs text-slate-600 font-medium mt-0.5">FPT Software</div>
-            <div class="flex flex-wrap items-center gap-3 text-xs mt-2">
-              <span class="font-bold text-[#FF6A39]">30 - 45 triệu VNĐ</span>
-              <span class="text-slate-300">•</span>
-              <span class="text-slate-600 flex items-center gap-1">
-                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i>
-                TP. Hồ Chí Minh
-              </span>
-              <span class="text-slate-300">•</span>
-              <span class="text-slate-500">Hạn nộp: 30/11/2026</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-3 shrink-0 self-end md:self-center">
-          <button
-            class="p-2 rounded-full border border-slate-200 text-slate-400 hover:text-red-600 hover:bg-red-50 transition"
-            title="Bỏ lưu việc làm">
-            <i data-lucide="trash-2" class="w-4 h-4"></i>
-          </button>
-          <a href="../page_job_detail/index.html"
-            class="px-5 py-2.5 rounded-full bg-[#FF6A39] hover:bg-[#F4511E] text-white text-xs font-bold shadow-md transition active:scale-95">
-            Ứng Tuyển Ngay
-          </a>
-        </div>
-      </div>
-
-      <!-- Job 2 -->
-      <div
-        class="job-card bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div class="flex items-start gap-4">
-          <div
-            class="w-14 h-14 rounded-xl border border-slate-100 p-2 flex items-center justify-center shrink-0 bg-white shadow-sm">
-            <span class="text-red-600 font-black text-sm">VIX</span>
-          </div>
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="px-2 py-0.5 rounded-full bg-blue-50 text-[#002B7F] font-bold text-[10px] uppercase">Mới
-                Đăng</span>
-              <span class="text-xs text-slate-400">Đã lưu 3 ngày trước</span>
-            </div>
-            <h2 class="text-base font-bold text-slate-900 hover:text-[#005AFF] transition">
-              <a href="../page_job_detail/index.html">Frontend Engineer (React, Tailwind CSS, TypeScript)</a>
-            </h2>
-            <div class="text-xs text-slate-600 font-medium mt-0.5">VIX Securities</div>
-            <div class="flex flex-wrap items-center gap-3 text-xs mt-2">
-              <span class="font-bold text-[#FF6A39]">22 - 35 triệu VNĐ</span>
-              <span class="text-slate-300">•</span>
-              <span class="text-slate-600 flex items-center gap-1">
-                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i>
-                Hà Nội
-              </span>
-              <span class="text-slate-300">•</span>
-              <span class="text-slate-500">Hạn nộp: 15/12/2026</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-3 shrink-0 self-end md:self-center">
-          <button
-            class="p-2 rounded-full border border-slate-200 text-slate-400 hover:text-red-600 hover:bg-red-50 transition"
-            title="Bỏ lưu việc làm">
-            <i data-lucide="trash-2" class="w-4 h-4"></i>
-          </button>
-          <a href="../page_job_detail/index.html"
-            class="px-5 py-2.5 rounded-full bg-[#FF6A39] hover:bg-[#F4511E] text-white text-xs font-bold shadow-md transition active:scale-95">
-            Ứng Tuyển Ngay
-          </a>
-        </div>
-      </div>
-
-      <!-- Job 3 -->
-      <div
-        class="job-card bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div class="flex items-start gap-4">
-          <div
-            class="w-14 h-14 rounded-xl border border-slate-100 p-2 flex items-center justify-center shrink-0 bg-white shadow-sm">
-            <span class="text-red-700 font-black text-xs">TECHCOM</span>
-          </div>
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-[#00A862] font-bold text-[10px] uppercase">Lương
-                Cao</span>
-              <span class="text-xs text-slate-400">Đã lưu 1 tuần trước</span>
-            </div>
-            <h2 class="text-base font-bold text-slate-900 hover:text-[#005AFF] transition">
-              <a href="../page_job_detail/index.html">Backend Tech Lead (PHP Laravel & Cloud Services)</a>
-            </h2>
-            <div class="text-xs text-slate-600 font-medium mt-0.5">Techcombank</div>
-            <div class="flex flex-wrap items-center gap-3 text-xs mt-2">
-              <span class="font-bold text-[#FF6A39]">Từ 50 triệu VNĐ</span>
-              <span class="text-slate-300">•</span>
-              <span class="text-slate-600 flex items-center gap-1">
-                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i>
-                Hà Nội
-              </span>
-              <span class="text-slate-300">•</span>
-              <span class="text-slate-500">Hạn nộp: 20/12/2026</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-3 shrink-0 self-end md:self-center">
-          <button
-            class="p-2 rounded-full border border-slate-200 text-slate-400 hover:text-red-600 hover:bg-red-50 transition"
-            title="Bỏ lưu việc làm">
-            <i data-lucide="trash-2" class="w-4 h-4"></i>
-          </button>
-          <a href="../page_job_detail/index.html"
-            class="px-5 py-2.5 rounded-full bg-[#FF6A39] hover:bg-[#F4511E] text-white text-xs font-bold shadow-md transition active:scale-95">
-            Ứng Tuyển Ngay
-          </a>
-        </div>
-      </div>
-
-    </div>
-
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="bg-[#001744] text-white/80 text-xs py-8 mt-12 border-t border-white/10">
-    <div class="max-w-[1360px] mx-auto px-4 lg:px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-      <div class="flex items-center gap-2.5">
-        <div class="w-6 h-6 rounded-lg bg-[#005AFF] flex items-center justify-center text-white text-xs font-bold">
-          TV
-        </div>
-        <span class="text-sm font-extrabold text-white">TimViecOnline</span>
-      </div>
-      <p class="text-slate-400 text-center md:text-left">
-        © 2026 TimViecOnline. Nền tảng kết nối việc làm và tuyển dụng hàng đầu.
-      </p>
-      <div class="flex items-center gap-4 text-slate-300">
-        <a href="../page_home/index.html" class="hover:text-white">Trang chủ</a>
-        <a href="../page_jobs/index.html" class="hover:text-white">Việc làm</a>
-        <a href="../page_companies/index.html" class="hover:text-white">Công ty</a>
-      </div>
+    <div class="sf-container sf-bottom">
+      <div>© 2026 TimViecOnline. Nền tảng kết nối việc làm và tuyển dụng hàng đầu.</div>
+      <div class="sf-legal"><a href="#">Điều khoản sử dụng</a><span aria-hidden="true">•</span><a href="#">Chính sách bảo mật</a></div>
     </div>
   </footer>
 
-  <!-- FLOATING PROTOTYPE ROUTES DRAWER (18 PAGES) -->
+<!-- FLOATING PROTOTYPE ROUTES DRAWER (18 PAGES) -->
   <div class="fixed bottom-6 right-6 z-50">
     <button id="toggleRoutesDrawer"
       class="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#002B7F] hover:bg-[#001E5B] text-white shadow-2xl border border-white/20 text-xs font-bold transition transform hover:scale-105 active:scale-95">
@@ -748,186 +602,7 @@
     </div>
   </div>
 
-  <script>
-    lucide.createIcons();
-    const btn = document.getElementById('toggleRoutesDrawer');
-    const closeBtn = document.getElementById('closeRoutesDrawer');
-    const drawer = document.getElementById('routesDrawer');
-    const backdrop = document.getElementById('routesDrawerBackdrop');
-    function toggleDrawer(open) {
-      if (open) {
-        drawer.classList.remove('translate-x-full');
-        backdrop.classList.remove('hidden');
-      } else {
-        drawer.classList.add('translate-x-full');
-        backdrop.classList.add('hidden');
-      }
-    }
-    btn?.addEventListener('click', () => toggleDrawer(true));
-    closeBtn?.addEventListener('click', () => toggleDrawer(false));
-    backdrop?.addEventListener('click', () => toggleDrawer(false));
-
-    // NAVBAR & DROPDOWNS SCRIPT
-    const btnAllCategories = document.getElementById('btnAllCategories');
-    const allCategoriesDropdown = document.getElementById('allCategoriesDropdown');
-    const iconCatArrow = document.getElementById('iconCatArrow');
-
-    function toggleCategories(open) {
-      if (!allCategoriesDropdown) return;
-      const isCurrentlyOpen = !allCategoriesDropdown.classList.contains('hidden');
-      const shouldOpen = open !== undefined ? open : !isCurrentlyOpen;
-      if (shouldOpen) {
-        allCategoriesDropdown.classList.remove('hidden');
-        iconCatArrow?.classList.add('rotate-180');
-        toggleAccountMenu(false);
-      } else {
-        allCategoriesDropdown.classList.add('hidden');
-        iconCatArrow?.classList.remove('rotate-180');
-      }
-    }
-    btnAllCategories?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleCategories();
-    });
-
-    const btnAccountMenu = document.getElementById('btnAccountMenu');
-    const accountMenuDropdown = document.getElementById('accountMenuDropdown');
-
-    function toggleAccountMenu(open) {
-      if (!accountMenuDropdown) return;
-      const isCurrentlyOpen = !accountMenuDropdown.classList.contains('hidden');
-      const shouldOpen = open !== undefined ? open : !isCurrentlyOpen;
-      if (shouldOpen) {
-        accountMenuDropdown.classList.remove('hidden');
-        toggleCategories(false);
-      } else {
-        accountMenuDropdown.classList.add('hidden');
-      }
-    }
-    btnAccountMenu?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleAccountMenu();
-    });
-
-    const btnOpenNotifications = document.getElementById('btnOpenNotifications');
-    const closeNotificationDrawer = document.getElementById('closeNotificationDrawer');
-    const notificationDrawer = document.getElementById('notificationDrawer');
-    const notificationDrawerBackdrop = document.getElementById('notificationDrawerBackdrop');
-    const bellBadge = document.getElementById('bellBadge');
-    const notifBadgeCount = document.getElementById('notifBadgeCount');
-    const notifListContainer = document.getElementById('notifListContainer');
-    const notifEmptyContainer = document.getElementById('notifEmptyContainer');
-
-    const tabNotifAll = document.getElementById('tabNotifAll');
-    const tabNotifUnread = document.getElementById('tabNotifUnread');
-    const tabNotifRead = document.getElementById('tabNotifRead');
-    const btnClearAllNotif = document.getElementById('btnClearAllNotif');
-    const btnRestoreNotif = document.getElementById('btnRestoreNotif');
-
-    let currentNotifFilter = 'all';
-
-    function setDrawerNotifState(hasItems) {
-      if (!hasItems) {
-        notifListContainer?.classList.add('hidden');
-        notifEmptyContainer?.classList.remove('hidden');
-        if (notifBadgeCount) notifBadgeCount.textContent = '0';
-        if (bellBadge) bellBadge.style.display = 'none';
-      } else {
-        notifListContainer?.classList.remove('hidden');
-        notifEmptyContainer?.classList.add('hidden');
-        if (notifBadgeCount) notifBadgeCount.textContent = '2 mới';
-        if (bellBadge) bellBadge.style.display = 'flex';
-      }
-    }
-
-    function filterNotifItems(filter) {
-      currentNotifFilter = filter;
-      const tabs = [
-        { el: tabNotifAll, name: 'all' },
-        { el: tabNotifUnread, name: 'unread' },
-        { el: tabNotifRead, name: 'read' }
-      ];
-      tabs.forEach(t => {
-        if (!t.el) return;
-        if (t.name === filter) {
-          t.el.className = 'px-3 py-1 rounded-lg bg-blue-50 text-[#005AFF] font-bold text-xs transition';
-        } else {
-          t.el.className = 'px-3 py-1 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 font-medium text-xs transition';
-        }
-      });
-
-      const items = notifListContainer?.querySelectorAll('.notif-item');
-      let visibleCount = 0;
-      items?.forEach(item => {
-        if (filter === 'all') {
-          item.style.display = 'block';
-          visibleCount++;
-        } else if (filter === 'unread') {
-          const isUnread = item.classList.contains('unread');
-          item.style.display = isUnread ? 'block' : 'none';
-          if (isUnread) visibleCount++;
-        } else if (filter === 'read') {
-          const isRead = item.classList.contains('read');
-          item.style.display = isRead ? 'block' : 'none';
-          if (isRead) visibleCount++;
-        }
-      });
-
-      if (visibleCount === 0) {
-        setDrawerNotifState(false);
-      } else {
-        setDrawerNotifState(true);
-      }
-    }
-
-    tabNotifAll?.addEventListener('click', () => filterNotifItems('all'));
-    tabNotifUnread?.addEventListener('click', () => filterNotifItems('unread'));
-    tabNotifRead?.addEventListener('click', () => filterNotifItems('read'));
-
-    btnClearAllNotif?.addEventListener('click', () => setDrawerNotifState(false));
-    btnRestoreNotif?.addEventListener('click', () => {
-      filterNotifItems('all');
-      setDrawerNotifState(true);
-    });
-
-    function toggleNotificationDrawer(open) {
-      if (!notificationDrawer) return;
-      if (open) {
-        notificationDrawer.classList.remove('translate-x-full');
-        notificationDrawerBackdrop?.classList.remove('hidden');
-        toggleCategories(false);
-        toggleAccountMenu(false);
-      } else {
-        notificationDrawer.classList.add('translate-x-full');
-        notificationDrawerBackdrop?.classList.add('hidden');
-      }
-    }
-    btnOpenNotifications?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleNotificationDrawer(true);
-    });
-    closeNotificationDrawer?.addEventListener('click', () => toggleNotificationDrawer(false));
-    notificationDrawerBackdrop?.addEventListener('click', () => toggleNotificationDrawer(false));
-
-    // Outside click & Escape
-    document.addEventListener('click', (e) => {
-      if (allCategoriesDropdown && !allCategoriesDropdown.contains(e.target) && !btnAllCategories?.contains(e.target)) {
-        toggleCategories(false);
-      }
-      if (accountMenuDropdown && !accountMenuDropdown.contains(e.target) && !btnAccountMenu?.contains(e.target)) {
-        toggleAccountMenu(false);
-      }
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        toggleCategories(false);
-        toggleAccountMenu(false);
-        toggleNotificationDrawer(false);
-        toggleDrawer(false);
-      }
-    });
-  </script>
+  <script src="../shared/candidate-navbar.js"></script>
+  <script src="../shared/candidate-shell.js"></script>
 </body>
-
 </html>
