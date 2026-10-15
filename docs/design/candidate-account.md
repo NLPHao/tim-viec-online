@@ -2,7 +2,7 @@
 
 ## Thiết kế đã triển khai
 
-Dùng bố cục ảnh người dùng cung cấp: thẻ cá nhân màu xanh, bốn mục điều hướng bên trái, các khối nội dung trắng trên nền slate bên phải. Giữ navbar xanh TimViecOnline, tìm kiếm, danh mục, ngăn thông báo và dropdown tài khoản đã có. Giữ footer chung theo homepage.
+Dùng bố cục ảnh người dùng cung cấp: thẻ cá nhân màu xanh, menu điều hướng bên trái, các khối nội dung trắng trên nền slate bên phải. Giữ navbar xanh TimViecOnline, tìm kiếm, danh mục, ngăn thông báo và dropdown tài khoản đã có. Giữ footer chung theo homepage. Sidebar có năm mục, gồm Tin nhắn; đã bỏ nút cam Tạo Thông Báo Việc Làm theo yêu cầu tiếp theo.
 
 Định hướng: trang tài khoản chức năng, rõ ràng, ít trang trí. Font Be Vietnam Pro, xanh `#005aff`, thẻ cá nhân `#447bf5`, cam `#e85327`, khoảng cách 16–24px. Mobile chuyển menu sang hàng cuộn ngang và các khối nội dung thành một cột.
 
@@ -16,6 +16,7 @@ Dùng bố cục ảnh người dùng cung cấp: thẻ cá nhân màu xanh, b�
 - `page_candidate_alerts`: Trạng thái rỗng thông báo việc làm và form tạo thông báo mẫu theo ảnh.
 - `page_notifications`: Thông báo ứng tuyển/tin nhắn, liên kết sang thông báo việc làm.
 - `page_settings`: Email đăng nhập, thông tin tài khoản, khu vực mật khẩu và tùy chọn email mẫu.
+- `page_chat`: Hội thoại mẫu giữa ứng viên và nhà tuyển dụng đã nhận hồ sơ, cùng sidebar tài khoản; minh họa tiếp tục trao đổi khi tin đã đóng theo FR-08.6. Chưa gửi tin hoặc nối WebSocket.
 
 ## Phù hợp dữ liệu
 
@@ -27,9 +28,9 @@ Tất cả dữ liệu hiện là mẫu, không có xác thực, upload thực, 
 
 ## Kiểm chứng
 
-- Chromium: 6 trang ở 360 / 390 / 768 / 1024 / 1440px không tràn ngang đáng kể (sai số 1px).
+- Chromium: các trang tài khoản ở 360 / 390 / 768 / 1024 / 1440px không tràn ngang đáng kể (sai số 1px).
 - Header danh mục, dropdown tài khoản và ngăn thông báo mở/đóng; Escape đóng các mục đang mở.
-- Mỗi trang có một h1, một footer chung, bốn mục sidebar và mục đang chọn đúng; không có lỗi JavaScript.
+- Mỗi trang có một h1, một footer chung, năm mục sidebar và mục đang chọn đúng; không có lỗi JavaScript. Không còn nút cam tạo thông báo ở sidebar.
 - Mọi input/select/textarea trong nội dung có nhãn; đường dẫn file nội bộ tồn tại.
 - Xem ảnh desktop trang hồ sơ/việc của tôi và ảnh mobile; chọn Tạo thông báo mở native details của form.
 - Kiểm tra cú pháp JS và `git diff --check`. Chưa kiểm thử trình đọc màn hình, Firefox/Safari hoặc backend.
