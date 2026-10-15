@@ -64,8 +64,34 @@
         </a>
       </div>
 
+      <!-- NAV SEARCH BAR (VIETNAMWORKS STYLE) -->
+      <form action="../page_jobs/index.html" method="GET" class="hidden md:flex items-center flex-1 max-w-[480px] lg:max-w-[540px] xl:max-w-[580px] mx-2 h-10 bg-white rounded-full p-1 pl-4 shadow-sm border border-white/20 transition-all focus-within:ring-2 focus-within:ring-[#38BDF8]">
+        <div class="flex-1 flex items-center min-w-0">
+          <input 
+            type="text" 
+            name="keyword" 
+            placeholder="Tìm kiếm việc làm, công ty, kỹ năng..." 
+            class="w-full text-xs text-slate-800 placeholder-slate-400 bg-transparent focus:outline-none font-medium truncate"
+          >
+        </div>
+        <div class="h-4 w-px bg-slate-200 mx-1.5 shrink-0"></div>
+        <div class="flex items-center gap-1 px-1.5 text-slate-600 hover:text-slate-900 cursor-pointer shrink-0 text-xs font-medium">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i>
+          <select name="location" class="bg-transparent text-xs text-slate-700 font-medium focus:outline-none cursor-pointer pr-1">
+            <option value="">Tất cả địa điểm</option>
+            <option value="hcm">TP. Hồ Chí Minh</option>
+            <option value="hn">Hà Nội</option>
+            <option value="dn">Đà Nẵng</option>
+            <option value="other">Toàn quốc</option>
+          </select>
+        </div>
+        <button type="submit" class="w-8 h-8 rounded-full bg-[#FF6A39] hover:bg-[#F4511E] text-white flex items-center justify-center shrink-0 transition active:scale-95 shadow-sm" title="Tìm kiếm việc làm">
+          <i data-lucide="search" class="w-4 h-4"></i>
+        </button>
+      </form>
+
       <!-- Right Action Controls (Clean, without inTECH as requested) -->
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-3 shrink-0">
         
         <!-- Tất cả danh mục Pill Button -->
         <button id="btnAllCategories" class="flex items-center gap-2 px-4 py-2 rounded-full border border-white/30 hover:border-white hover:bg-white/10 text-white text-xs font-bold transition active:scale-95 shadow-sm">
@@ -180,8 +206,8 @@
     <!-- MEGA DROPDOWN: TẤT CẢ DANH MỤC (HORIZONTALLY CENTERED, MATCHING VIETNAMWORKS SCREENSHOT 3) -->
     <div id="allCategoriesDropdown" class="hidden absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[1160px] max-w-[96vw] bg-white rounded-2xl shadow-2xl border border-slate-200 p-7 z-50 text-slate-800 transition-all duration-200">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        
-        <!-- Column 1: Việc làm & Khám phá -->
+
+        <!-- Column 1: Việc làm -->
         <div class="space-y-6">
           <div class="space-y-3">
             <h4 class="font-bold text-[#002B7F] text-sm tracking-tight border-b border-slate-100 pb-2">
@@ -205,31 +231,10 @@
               </li>
             </ul>
           </div>
-          <div class="space-y-3 pt-1">
-            <h4 class="font-bold text-[#002B7F] text-sm tracking-tight border-b border-slate-100 pb-2">
-              Khám phá
-            </h4>
-            <ul class="space-y-2.5 text-xs">
-              <li>
-                <a href="../page_candidate_dashboard/index.html" class="text-slate-600 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-medium">
-                  WowCV - Thư viện CV mẫu
-                </a>
-              </li>
-              <li>
-                <a href="../page_jobs/index.html" class="text-slate-600 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-medium">
-                  HR Insider
-                </a>
-              </li>
-              <li>
-                <a href="../page_jobs/index.html" class="text-slate-600 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-medium">
-                  Lộ trình sự nghiệp
-                </a>
-              </li>
-            </ul>
-          </div>
+
         </div>
 
-        <!-- Column 2: Việc của tôi & Công cụ -->
+        <!-- Column 2: Việc của tôi -->
         <div class="space-y-6">
           <div class="space-y-3">
             <h4 class="font-bold text-[#002B7F] text-sm tracking-tight border-b border-slate-100 pb-2">
@@ -251,35 +256,13 @@
                   Thông báo việc làm
                 </a>
               </li>
-              <li>
-                <a href="../page_jobs/index.html" class="text-slate-600 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-medium">
-                  Việc dành cho bạn
-                </a>
-              </li>
+
             </ul>
           </div>
-          <div class="space-y-3 pt-1">
-            <ul class="space-y-2.5 text-xs">
-              <li>
-                <a href="../page_jobs/index.html" class="text-slate-600 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-medium">
-                  Báo cáo lương
-                </a>
-              </li>
-              <li>
-                <a href="../page_jobs/index.html" class="text-slate-600 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-medium">
-                  Công cụ tính lương
-                </a>
-              </li>
-              <li>
-                <a href="../page_jobs/index.html" class="text-slate-600 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-medium">
-                  Trạm sạc
-                </a>
-              </li>
-            </ul>
-          </div>
+
         </div>
 
-        <!-- Column 3: Công ty & Tư vấn -->
+        <!-- Column 3: Công ty -->
         <div class="space-y-6">
           <div class="space-y-3">
             <h4 class="font-bold text-[#002B7F] text-sm tracking-tight border-b border-slate-100 pb-2">
@@ -293,25 +276,7 @@
               </li>
             </ul>
           </div>
-          <div class="space-y-3 pt-1">
-            <ul class="space-y-2.5 text-xs">
-              <li>
-                <a href="../page_jobs/index.html" class="text-slate-600 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-medium">
-                  Câu hỏi phỏng vấn
-                </a>
-              </li>
-              <li>
-                <a href="../page_jobs/index.html" class="text-slate-600 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-medium">
-                  Nhân số học
-                </a>
-              </li>
-              <li>
-                <a href="../page_jobs/index.html" class="text-slate-600 hover:text-[#005AFF] hover:translate-x-1 inline-block transition font-medium">
-                  Career newbies
-                </a>
-              </li>
-            </ul>
-          </div>
+
         </div>
 
         <!-- Column 4: TimViecOnline inTECH with Banner Card (Screenshot 3 Match) -->
@@ -333,28 +298,7 @@
               </li>
             </ul>
           </div>
-
-          <!-- Featured Banner Card -->
-          <div class="rounded-xl bg-gradient-to-br from-[#0B1536] via-[#10204E] to-[#1E3A8A] p-4 text-white shadow-md relative overflow-hidden group">
-            <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-cyan-500/20 rounded-full blur-xl group-hover:scale-125 transition duration-500"></div>
-            <div class="relative z-10 space-y-2.5">
-              <div class="flex items-center gap-1.5">
-                <span class="text-xs font-black tracking-tight text-white">TimViecOnline</span>
-                <span class="text-xs font-black text-[#38BDF8]">inTECH</span>
-              </div>
-              <p class="text-[11px] text-slate-300 leading-snug">
-                Thương hiệu việc làm & cộng đồng tuyển dụng IT hàng đầu Việt Nam
-              </p>
-              <div class="flex flex-wrap gap-1.5 pt-1">
-                <span class="px-2 py-0.5 rounded bg-white/10 text-[10px] text-cyan-200">IT Blog</span>
-                <span class="px-2 py-0.5 rounded bg-white/10 text-[10px] text-cyan-200">Lương IT</span>
-              </div>
-              <a href="../page_jobs/index.html?category=it" class="inline-flex items-center justify-center px-4 py-1.5 rounded-lg bg-[#FF6A39] hover:bg-[#F4511E] text-white font-bold text-[11px] shadow transition active:scale-95">
-                XEM THÊM
-              </a>
-            </div>
-          </div>
-        </div>
+</div>
 
       </div>
     </div>
