@@ -27,7 +27,7 @@ class ContentBoundary(HTMLParser):
             return
         data = dict(attrs)
         direct_body = self.stack and self.stack[-1] == 'body'
-        if direct_body and (tag == 'main' or 'ep-layout' in data.get('class', '').split()):
+        if direct_body and (tag == 'main' or {'ep-layout', 'ap-layout'}.intersection(data.get('class', '').split())):
             self.capture = len(self.stack)
         self.stack.append(tag)
 
