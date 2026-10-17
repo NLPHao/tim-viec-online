@@ -1,0 +1,202 @@
+import { test, expect } from "@playwright/test";
+import AxeBuilder from "@axe-core/playwright";
+
+test("public list, real pagination, detail and guest auth handoff", async ({
+  page,
+}) => {
+  const errors: string[] = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  await page.goto("/jobs");
+  await expect(
+    page.getByRole("heading", { name: "18 việc làm phù hợp" }),
+  ).toBeVisible();
+  await expect(page.getByTestId("job-card")).toHaveCount(6);
+  await page.getByRole("link", { name: "Trang 2", exact: true }).click();
+  await expect(page).toHaveURL(/page=2/);
+  await expect(
+    page.getByRole("link", { name: "Trang 2", exact: true }),
+  ).toHaveAttribute("aria-current", "page");
+  await page
+    .getByTestId("job-card")
+    .first()
+    .getByRole("heading")
+    .getByRole("link")
+    .click();
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Mô tả công việc" }),
+  ).toBeVisible();
+  await page.getByRole("link", { name: "Ứng tuyển ngay" }).click();
+  await expect(page).toHaveURL(/\/login\?returnTo=/);
+  await expect(
+    page.getByText("Chức năng đăng nhập đang được chuẩn bị", { exact: false }),
+  ).toBeVisible();
+  await page.getByRole("link", { name: "Quay lại xem việc làm" }).click();
+  await expect(page).toHaveURL(/\/jobs\/\d+$/);
+  expect(errors).toEqual([]);
+});
+
+test("accent-insensitive search and browser back preserve URL and form", async ({
+  page,
+}) => {
+  await page.goto("/jobs");
+  await page.getByLabel("Công việc bạn đang tìm").fill("dong hanh");
+  await page.getByRole("button", { name: "Tìm việc làm", exact: true }).click();
+  await expect(page).toHaveURL(/keyword=dong\+hanh/);
+  await expect(page.getByTestId("job-card").first()).toContainText(
+    "Đồng Hành Media",
+  );
+  await page.getByLabel("Công việc bạn đang tìm").fill("khongtimthayxyz");
+  await page.getByRole("button", { name: "Tìm việc làm", exact: true }).click();
+  await expect(
+    page.getByRole("heading", {
+      name: "Không tìm thấy việc làm phù hợp với tiêu chí tìm kiếm",
+    }),
+  ).toBeVisible();
+  await page.goBack();
+  await expect(page.getByLabel("Công việc bạn đang tìm")).toHaveValue(
+    "dong hanh",
+  );
+  await expect(page.getByTestId("job-card").first()).toContainText(
+    "Đồng Hành Media",
+  );
+  await page.reload();
+  await expect(page.getByLabel("Công việc bạn đang tìm")).toHaveValue(
+    "dong hanh",
+  );
+});
+
+test("multiple categories, type and salary combine; clear removes query", async ({
+  page,
+}) => {
+  await page.goto("/jobs?page=3");
+  await page.locator("summary").click();
+  await page
+    .getByRole("checkbox", { name: "Công nghệ thông tin / Phần mềm" })
+    .check();
+  await page.getByRole("checkbox", { name: "Thiết kế đồ họa & UI/UX" }).check();
+  await page.locator("summary").click();
+  await page
+    .getByLabel("Hình thức làm việc", { exact: true })
+    .selectOption("remote");
+  await page.getByLabel("Mức lương", { exact: true }).selectOption("10to20");
+  await page.getByRole("button", { name: "Tìm việc làm", exact: true }).click();
+  await expect(page).toHaveURL(/category_ids=1&category_ids=4/);
+  expect(new URL(page.url()).searchParams.has("page")).toBe(false);
+  await expect(page.getByTestId("job-card").first()).toContainText(
+    "20 - 25 triệu VNĐ",
+  );
+  await page
+    .getByRole("link", { name: "Xóa bộ lọc", exact: true })
+    .first()
+    .click();
+  await expect(page).toHaveURL(/\/jobs$/);
+  await expect(page.getByTestId("job-card")).toHaveCount(6);
+});
+
+test("save requests login; dialog supports Escape and restores focus", async ({
+  page,
+}) => {
+  await page.goto("/jobs");
+  const save = page
+    .getByRole("button", { name: "Lưu việc làm", exact: true })
+    .first();
+  await save.click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await expect(save).toBeFocused();
+  await page.keyboard.press("Enter");
+  await page.getByRole("link", { name: "Đến trang đăng nhập" }).click();
+  await expect(page).toHaveURL(/\/login\?returnTo=/);
+});
+
+test("closed, expired and invalid jobs have honest states", async ({
+  page,
+}) => {
+  for (const id of [19, 20]) {
+    await page.goto(`/jobs/${id}`);
+    await expect(
+      page.getByRole("button", { name: "Đã ngừng nhận hồ sơ" }),
+    ).toBeDisabled();
+    await expect(
+      page.getByText("Tin tuyển dụng này đã đóng hoặc hết hạn nộp hồ sơ."),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: "Ứng tuyển ngay" }),
+    ).toHaveCount(0);
+  }
+  await page.goto("/jobs/does-not-exist");
+  await expect(
+    page.getByRole("heading", { name: "Không tìm thấy việc làm" }),
+  ).toBeVisible();
+  await expect(page.locator("main#main")).toHaveCount(1);
+});
+
+test("search, details and guest dialog pass automated accessibility checks", async ({
+  page,
+}) => {
+  for (const path of ["/jobs", "/jobs/1", "/jobs/invalid", "/login"]) {
+    await page.goto(path);
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    const result = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+      .analyze();
+    expect(result.violations).toEqual([]);
+  }
+  await page.goto("/jobs");
+  await page.locator("summary").click();
+  await page.getByLabel("Tìm ngành nghề", { exact: true }).fill("cong nghe");
+  await expect(
+    page.getByRole("checkbox", { name: "Công nghệ thông tin / Phần mềm" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("checkbox", { name: "Thiết kế đồ họa & UI/UX" }),
+  ).toBeHidden();
+  await page.keyboard.press("Escape");
+  await expect(page.locator("summary")).toBeFocused();
+  await page
+    .getByRole("button", { name: "Lưu việc làm", exact: true })
+    .first()
+    .click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  const dialog = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+    .analyze();
+  expect(dialog.violations).toEqual([]);
+});
+
+for (const width of [360, 390, 768, 1024, 1440]) {
+  test(`list and detail do not overflow at ${width}px`, async ({
+    page,
+  }, testInfo) => {
+    await page.setViewportSize({ width, height: 900 });
+    for (const path of ["/jobs", "/jobs/1"]) {
+      await page.goto(path);
+      await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+      await expect(
+        page.getByText("Dữ liệu việc làm minh họa", { exact: false }),
+      ).toBeVisible();
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - window.innerWidth,
+      );
+      expect(overflow).toBeLessThanOrEqual(1);
+      if (width === 360 || width === 1440) {
+        await page.evaluate(() => document.fonts.ready);
+        await page.screenshot({
+          path: testInfo.outputPath(
+            path === "/jobs" ? "jobs.png" : "detail.png",
+          ),
+          fullPage: true,
+        });
+      }
+    }
+    if (width < 900) {
+      const menu = page.getByRole("button", { name: "Mở menu" });
+      await menu.click();
+      await expect(page.getByRole("dialog")).toBeVisible();
+      await page.keyboard.press("Escape");
+      await expect(menu).toBeFocused();
+    }
+  });
+}
