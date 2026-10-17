@@ -160,16 +160,6 @@
   line-height: 1.9;
   margin-top: 10px;
 }
-.auth-preview {
-  background: var(--background);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px 14px;
-  font-size: 11px;
-  line-height: 1.9;
-  color: var(--muted-foreground);
-  margin-bottom: 22px;
-}
 .auth-form {
   display: grid;
   gap: 20px;
@@ -421,9 +411,9 @@
   .auth-header .brand-tagline {
     font-size: 7px;
   }
-  .auth-header .brand > svg {
-    width: 30px;
-    height: 30px;
+  .auth-header .brand-mark {
+    width: 40px;
+    height: 40px;
   }
   .auth-main {
     padding: 24px 16px 32px;

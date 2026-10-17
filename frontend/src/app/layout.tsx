@@ -19,6 +19,10 @@ export const metadata: Metadata = {
   },
   description:
     "Khám phá việc làm theo ngành nghề, địa điểm và mức lương phù hợp.",
+  icons: {
+    icon: { url: "/brand/logo.png", type: "image/png" },
+    apple: "/brand/logo.png",
+  },
 };
 
 export default function RootLayout({

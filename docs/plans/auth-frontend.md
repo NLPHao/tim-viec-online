@@ -8,7 +8,7 @@ Giữ thiết kế hai cột navy–xanh, Be Vietnam Pro, form trắng, minh h�
 
 ## Quyết định
 
-- Chọn form có validation thật + adapter API tách biệt thay cho chỉ HTML tĩnh hoặc backend giả tích hợp trong ứng dụng. `AUTH_MODE=preview` mặc định không tạo tài khoản, phiên hay gửi email, không lưu mật khẩu; thông báo rõ trạng thái bản trải nghiệm.
+- Chọn form có validation thật + adapter API tách biệt thay cho chỉ HTML tĩnh hoặc backend giả tích hợp trong ứng dụng. `AUTH_MODE=preview` mặc định không tạo tài khoản, phiên hay gửi email, không lưu mật khẩu; chỉ báo chưa thể xử lý khi người dùng gửi form.
 - `AUTH_MODE=api` là hợp đồng đề xuất dựa README token API, chưa phải backend hiện có: Next Server Actions gọi Laravel từ server, giữ Bearer token trong cookie HttpOnly, xác minh lại qua GET /user trước khi cấp phiên và trên trang được bảo vệ. Không gửi token vào client state/localStorage hoặc cache dùng chung. Sanctum SPA session/cookie là phương án chính thức cho first-party SPA; có thể thay adapter nếu nhóm backend chọn cơ chế đó.
 - Cookie Secure trong production, SameSite=Lax, path=/, thời hạn thường tối đa 1 giờ, ghi nhớ tối đa 7 ngày, luôn bị chặn bởi expires_at backend nếu có. Backend cần thực thi expiry/revocation; frontend vẫn xác minh user mỗi request bằng no-store.
 - Mutation API mode kiểm tra Origin theo AUTH_APP_URL cấu hình tin cậy, giữ kiểm tra Server Actions mặc định; API base server cố định, timeout 10 giây, chặn redirect, giới hạn body phản hồi. Production dùng HTTPS; HTTP chỉ cho loopback nội bộ. Backend chịu trách nhiệm rate limit phân tán, token reset dùng một lần/15 phút, khóa tài khoản và unique email.
@@ -46,3 +46,11 @@ Các mã lỗi đã xử lý: 401 sai thông tin/phiên hết hạn; 403 `accoun
 - `npm audit --omit=dev`: 0 lỗ hổng. Không ghi nhận password/token trong state trả về action, browser storage hoặc log ứng dụng.
 
 Kết quả API chỉ xác nhận adapter với fixture, chưa xác nhận Laravel thật, email thật hoặc chính sách bảo mật phía backend. Chat/Reverb, AI và portal nghiệp vụ chưa thuộc phần hoàn thành này.
+
+## Điều chỉnh nhận diện và nội dung — 17/10/2026
+
+Theo yêu cầu chỉ sửa các điểm chưa phù hợp, giữ nguyên bố cục, font, màu và nghiệp vụ. Tham khảo auth/footer trong `design/`; không sao chép các tính năng AI chưa triển khai hoặc thông tin liên hệ giả. Dùng logo người dùng cung cấp tại `frontend/public/brand/logo.png`, chung cho header, footer và biểu tượng tab; giữ nguyên ảnh nguồn, dùng `next/image` ở kích thước 48px (header auth mobile 40px), nền trắng để nhận diện rõ trên navy.
+
+Bỏ banner mô tả bản trải nghiệm trên form và ghi chú phát triển ở footer. Thay các câu khẩu hiệu chung chung bằng nội dung mô tả tìm việc/tài khoản; đổi phản hồi “triển khai trong mốc tiếp theo” thành thông báo chức năng chưa khả dụng sau tương tác. Thông tin dữ liệu minh họa chỉ còn ở danh sách/chi tiết việc làm, nơi liên quan trực tiếp đến nội dung đang xem. Backend, bảo mật phiên và validation giữ nguyên; không thêm thư viện/font hoặc mở rộng trang nghiệp vụ.
+
+Kiểm tra sau chỉnh sửa: lint/TypeScript đạt; 19/19 browser test preview/public và 1 browser test API cho phản hồi ứng tuyển/lưu việc làm đạt. Logo tải thành công và không tràn ngang ở 360/390/768/1024/1440px; đã xem ảnh login desktop/mobile và danh sách việc làm mobile, axe trong suite không báo lỗi. Gỡ favicon Next.js mặc định để biểu tượng tab dùng logo thật.

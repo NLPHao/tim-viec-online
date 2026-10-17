@@ -26,6 +26,14 @@
   line-height: 1.25;
   letter-spacing: -0.8px;
 }
+.brand-mark {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  object-fit: contain;
+  background: var(--card);
+  border-radius: 8px;
+}
 .brand-name > span {
   color: var(--brand-sky);
 }
@@ -723,12 +731,6 @@ select {
   font-size: 12px;
   line-height: 2;
   margin-top: 20px;
-}
-.demo-note {
-  font-size: 10px;
-  display: block;
-  margin-top: 20px;
-  color: var(--brand-sky);
 }
 .site-footer nav {
   display: flex;

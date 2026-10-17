@@ -10,6 +10,7 @@ test("preview validates registration, preserves fields and sends no credentials"
     if (request.method() === "POST") submissions.push(request.url());
   });
   await page.goto("/register?role=employer");
+  await expect(page.locator(".auth-preview")).toHaveCount(0);
   await expect(
     page.getByRole("radio", { name: /Nhà tuyển dụng/ }),
   ).toBeChecked();
@@ -41,7 +42,9 @@ test("preview validates registration, preserves fields and sends no credentials"
     .getByRole("button", { name: "Tạo tài khoản", exact: true })
     .click();
   await expect(
-    page.getByText("Chức năng này đang được chuẩn bị.", { exact: false }),
+    page.getByText("Hiện chưa thể thực hiện yêu cầu. Vui lòng thử lại sau.", {
+      exact: true,
+    }),
   ).toBeVisible();
   await expect(page.getByLabel("Email", { exact: true })).toHaveValue(
     "preview@example.test",
@@ -77,7 +80,9 @@ test("preview login supports password visibility and does not create a session",
   await expect(password).toHaveAttribute("type", "password");
   await page.getByRole("button", { name: "Đăng nhập", exact: true }).click();
   await expect(
-    page.getByText("Chức năng này đang được chuẩn bị.", { exact: false }),
+    page.getByText("Hiện chưa thể thực hiện yêu cầu. Vui lòng thử lại sau.", {
+      exact: true,
+    }),
   ).toBeVisible();
   expect(
     (await context.cookies()).some(

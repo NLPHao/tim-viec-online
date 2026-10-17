@@ -35,9 +35,7 @@ export function GuestActions({
             className="apply-button h-11 flex-1"
             disabled={viewerRole !== "candidate"}
             onClick={() =>
-              toast.info(
-                "Chức năng nộp hồ sơ sẽ được triển khai trong mốc tiếp theo.",
-              )
+              toast.info("Hiện chưa thể nộp hồ sơ. Vui lòng thử lại sau.")
             }
           >
             {viewerRole === "candidate"
@@ -71,7 +69,7 @@ export function GuestActions({
             <DialogTitle>Lưu cơ hội bạn quan tâm</DialogTitle>
             <DialogDescription>
               {viewerRole === "candidate"
-                ? "Chức năng lưu việc làm sẽ được triển khai trong mốc tiếp theo. Bạn có thể chia sẻ liên kết để xem lại công việc."
+                ? "Hiện chưa thể lưu việc làm. Bạn có thể lưu liên kết để xem lại công việc."
                 : viewerRole
                   ? "Lưu việc làm dành cho tài khoản ứng viên."
                   : "Vui lòng đăng nhập tài khoản ứng viên để lưu việc làm và xem lại trong hồ sơ của bạn."}

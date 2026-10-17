@@ -33,7 +33,9 @@ Khi backend sẵn sàng, thay implementation repository bằng API adapter sau k
 
 ## Xác thực
 
-Mặc định `AUTH_MODE=preview`: các form kiểm tra dữ liệu và báo rõ bản trải nghiệm; với JavaScript hoạt động, submit hợp lệ không gửi mật khẩu qua mạng. Không tạo phiên, tài khoản hoặc giả gửi email. Các action server cũng kiểm tra dữ liệu và từ chối tạo phiên khi đang preview.
+Mặc định `AUTH_MODE=preview`: các form kiểm tra dữ liệu; với JavaScript hoạt động, submit hợp lệ không gửi mật khẩu qua mạng và báo chưa thể thực hiện yêu cầu. Không tạo phiên, tài khoản hoặc giả gửi email. Các action server cũng kiểm tra dữ liệu và từ chối tạo phiên khi đang preview. Không đưa ghi chú về tiến độ phát triển lên form.
+
+Logo do người dùng cung cấp nằm tại `public/brand/logo.png`, dùng chung qua component `Brand` ở header/footer và cấu hình biểu tượng tab trong root metadata. `next/image` giữ tỷ lệ và tối ưu kích thước ảnh khi hiển thị.
 
 Chỉ bật API sau khi nhóm backend thống nhất hợp đồng:
 

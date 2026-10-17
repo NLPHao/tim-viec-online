@@ -66,14 +66,29 @@ test("unsafe external return URL is rejected", async ({ page }) => {
   await expect(page).toHaveURL(/\/jobs$/);
 });
 
-test("authenticated candidates get honest pending job actions instead of a login loop", async ({ page }) => {
+test("authenticated candidates get honest pending job actions instead of a login loop", async ({
+  page,
+}) => {
   await login(page, "candidate@example.test", "/jobs/1");
   await expect(page).toHaveURL(/\/jobs\/1$/);
-  await page.getByRole("button", { name: "Ứng tuyển ngay", exact: true }).click();
-  await expect(page.getByText("Chức năng nộp hồ sơ sẽ được triển khai trong mốc tiếp theo.", { exact: true })).toBeVisible();
-  await page.getByRole("button", { name: "Lưu việc làm", exact: true }).first().click();
-  await expect(page.getByRole("dialog")).toContainText("Chức năng lưu việc làm sẽ được triển khai");
-  await expect(page.getByRole("link", { name: "Đến trang đăng nhập", exact: true })).toHaveCount(0);
+  await page
+    .getByRole("button", { name: "Ứng tuyển ngay", exact: true })
+    .click();
+  await expect(
+    page.getByText("Hiện chưa thể nộp hồ sơ. Vui lòng thử lại sau.", {
+      exact: true,
+    }),
+  ).toBeVisible();
+  await page
+    .getByRole("button", { name: "Lưu việc làm", exact: true })
+    .first()
+    .click();
+  await expect(page.getByRole("dialog")).toContainText(
+    "Hiện chưa thể lưu việc làm.",
+  );
+  await expect(
+    page.getByRole("link", { name: "Đến trang đăng nhập", exact: true }),
+  ).toHaveCount(0);
 });
 
 test("cross-origin login submissions cannot establish a session", async ({

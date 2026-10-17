@@ -20,13 +20,11 @@ import { AuthShell } from "./auth-shell";
 const content = {
   login: {
     title: "Đăng nhập",
-    description:
-      "Chào mừng bạn trở lại. Tiếp tục hành trình nghề nghiệp của bạn.",
+    description: "Đăng nhập để ứng tuyển và quản lý hồ sơ.",
   },
   register: {
     title: "Tạo tài khoản",
-    description:
-      "Bắt đầu tìm việc hoặc tìm đồng nghiệp phù hợp cùng TimViecOnline.",
+    description: "Đăng ký tài khoản ứng viên hoặc nhà tuyển dụng.",
   },
   forgot: {
     title: "Quên mật khẩu?",
@@ -84,14 +82,6 @@ export async function AuthScreen({
           : "";
   return (
     <AuthShell {...content[kind]}>
-      {!authApiEnabled() && (
-        <p className="auth-preview">
-          {kind === "login"
-            ? "Chức năng đăng nhập đang được chuẩn bị. "
-            : "Bản trải nghiệm giao diện. "}
-          Bạn có thể kiểm tra form; tài khoản và email chưa được xử lý.
-        </p>
-      )}
       {notice && kind === "login" && authApiEnabled() && (
         <p className="auth-status auth-status-success" role="status">
           {notice}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export function Brand() {
   return (
@@ -7,23 +8,15 @@ export function Brand() {
       className="brand"
       aria-label="TimViecOnline — Tìm việc làm"
     >
-      <svg
-        width="36"
-        height="36"
-        viewBox="0 0 36 36"
-        fill="none"
-        aria-hidden="true"
-      >
-        <rect width="36" height="36" rx="10" fill="var(--brand-blue)" />
-        <path
-          d="M10 18L16 24L26 12"
-          stroke="var(--primary-foreground)"
-          strokeWidth="3.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <circle cx="26" cy="12" r="3" fill="var(--brand-orange-light)" />
-      </svg>
+      <Image
+        src="/brand/logo.png"
+        alt=""
+        width={48}
+        height={48}
+        sizes="48px"
+        loading="eager"
+        className="brand-mark"
+      />
       <span>
         <span className="brand-name">
           TimViec<span>Online</span>

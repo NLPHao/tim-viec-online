@@ -125,7 +125,7 @@ export function AuthForm({
     } else if (preview) {
       event.preventDefault();
       setPreviewMessage(
-        "Chức năng này đang được chuẩn bị. Bản trải nghiệm chưa tạo tài khoản, đăng nhập hoặc gửi email.",
+        "Hiện chưa thể thực hiện yêu cầu. Vui lòng thử lại sau.",
       );
     }
   }

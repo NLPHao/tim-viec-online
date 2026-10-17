@@ -11,10 +11,9 @@ export async function ProtectedLanding({ role }: { role: AuthRole }) {
       </p>
       <h1>Chào {user.name}</h1>
       <p>
-        Tài khoản đã được xác thực.{" "}
         {role === "employer"
-          ? "Hồ sơ công ty và quản lý tuyển dụng sẽ được triển khai trong mốc tiếp theo."
-          : "Giao diện quản trị thuộc phần triển khai của nhóm quản trị."}
+          ? "Chức năng quản lý tuyển dụng hiện chưa khả dụng."
+          : "Chức năng quản trị hiện chưa khả dụng."}
       </p>
       <div className="flex gap-3 flex-wrap">
         <Button asChild variant="outline" className="h-11">

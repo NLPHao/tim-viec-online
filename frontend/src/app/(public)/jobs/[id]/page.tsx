@@ -105,10 +105,7 @@ async function JobDetail({ params }: DetailProps) {
           </p>
         )}
         <GuestActions jobId={job.id} open={open} viewerRole={user?.role} />
-        <p className="detail-demo">
-          Việc làm minh họa. Chức năng nộp hồ sơ chưa khả dụng trong bản trải
-          nghiệm.
-        </p>
+        <p className="detail-demo">Dữ liệu việc làm minh họa.</p>
       </section>
       <div className="results-layout detail-layout">
         <div>

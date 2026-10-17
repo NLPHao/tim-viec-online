@@ -29,7 +29,7 @@ test("public list, real pagination, detail and guest auth handoff", async ({
   await page.getByRole("link", { name: "Ứng tuyển ngay" }).click();
   await expect(page).toHaveURL(/\/login\?returnTo=/);
   await expect(
-    page.getByText("Chức năng đăng nhập đang được chuẩn bị", { exact: false }),
+    page.getByRole("heading", { name: "Đăng nhập", exact: true }),
   ).toBeVisible();
   await page.getByRole("link", { name: "Quay lại xem việc làm" }).click();
   await expect(page).toHaveURL(/\/jobs\/\d+$/);
@@ -174,9 +174,13 @@ for (const width of [360, 390, 768, 1024, 1440]) {
     for (const path of ["/jobs", "/jobs/1"]) {
       await page.goto(path);
       await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-      await expect(
-        page.getByText("Dữ liệu việc làm minh họa", { exact: false }),
-      ).toBeVisible();
+      const logo = page.locator(".brand-mark").first();
+      await expect(logo).toBeVisible();
+      await expect
+        .poll(() =>
+          logo.evaluate((image) => (image as HTMLImageElement).naturalWidth),
+        )
+        .toBeGreaterThan(0);
       const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth - window.innerWidth,
       );

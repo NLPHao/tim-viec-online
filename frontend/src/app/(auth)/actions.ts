@@ -56,8 +56,7 @@ async function validate(kind: AuthKind, form: FormData) {
       values,
       error: {
         status: "preview",
-        message:
-          "Chức năng này đang được chuẩn bị. Bản trải nghiệm chưa tạo tài khoản, đăng nhập hoặc gửi email.",
+        message: "Hiện chưa thể thực hiện yêu cầu. Vui lòng thử lại sau.",
       } as AuthActionState,
     };
   await assertAuthOrigin();

@@ -14,14 +14,11 @@ export function AuthShell({
       <aside className="auth-story" aria-label="Bắt đầu cùng TimViecOnline">
         <p className="eyebrow">TIMVIECONLINE</p>
         <h2>
-          Mở cánh cửa
+          Tìm việc làm.
           <br />
-          cho bước tiến tiếp theo.
+          Kết nối nhà tuyển dụng.
         </h2>
-        <p>
-          Một nơi để tìm công việc phù hợp và kết nối với những người cùng chí
-          hướng.
-        </p>
+        <p>Tìm kiếm theo ngành nghề, địa điểm và mức lương.</p>
         <div className="auth-illustration" aria-hidden="true">
           <div className="auth-illustration-search">
             <Search size={17} />
