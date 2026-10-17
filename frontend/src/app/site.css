@@ -64,8 +64,8 @@
   outline: none;
 }
 .header-search:focus-within {
-  outline: 3px solid var(--brand-sky);
-  outline-offset: 3px;
+  outline: 2px solid var(--brand-sky);
+  outline-offset: 2px;
 }
 .header-search button {
   background: var(--brand-orange);
@@ -121,6 +121,27 @@
 :where(a, button, summary, input, select):focus-visible {
   outline: 3px solid var(--ring);
   outline-offset: 4px;
+}
+:where(
+  input:not([type="checkbox"], [type="radio"], [type="hidden"], [type="file"]),
+  textarea
+):focus-visible {
+  outline: none;
+  border-color: var(--field-focus-border);
+  box-shadow: 0 0 0 2px var(--field-focus-halo);
+}
+:where(input, textarea)[aria-invalid="true"]:focus-visible {
+  border-color: var(--destructive);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--destructive) 12%, transparent);
+}
+.header-search input:focus-visible {
+  box-shadow: none;
+}
+@media (forced-colors: active) {
+  :where(input, textarea):focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
 }
 .site-header :where(a, button):focus-visible,
 .site-footer a:focus-visible {

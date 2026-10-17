@@ -54,3 +54,15 @@ Theo yêu cầu chỉ sửa các điểm chưa phù hợp, giữ nguyên bố c�
 Bỏ banner mô tả bản trải nghiệm trên form và ghi chú phát triển ở footer. Thay các câu khẩu hiệu chung chung bằng nội dung mô tả tìm việc/tài khoản; đổi phản hồi “triển khai trong mốc tiếp theo” thành thông báo chức năng chưa khả dụng sau tương tác. Thông tin dữ liệu minh họa chỉ còn ở danh sách/chi tiết việc làm, nơi liên quan trực tiếp đến nội dung đang xem. Backend, bảo mật phiên và validation giữ nguyên; không thêm thư viện/font hoặc mở rộng trang nghiệp vụ.
 
 Kiểm tra sau chỉnh sửa: lint/TypeScript đạt; 19/19 browser test preview/public và 1 browser test API cho phản hồi ứng tuyển/lưu việc làm đạt. Logo tải thành công và không tràn ngang ở 360/390/768/1024/1440px; đã xem ảnh login desktop/mobile và danh sách việc làm mobile, axe trong suite không báo lỗi. Gỡ favicon Next.js mặc định để biểu tượng tab dùng logo thật.
+
+## Focus và panel bên hông — 17/10/2026
+
+Giữ Be Vietnam Pro và hệ navy/xanh/cam của thiết kế, đổi panel bên hông thành khối navy với danh sách ngành nghề trên nền trắng. Đây là phần điều hướng có ích: ba ngành dẫn đến URL lọc việc làm thật, có liên kết tất cả việc làm và đăng ký nhà tuyển dụng. Không dùng số liệu thành công, điểm AI hoặc hồ sơ giả làm minh họa. Panel là Server Component, không thêm ảnh/font/thư viện hay hiệu ứng chuyển động; ẩn dưới 850px để ưu tiên form. Giữ nhịp khoảng cách 12/16/20/32px và nội dung mô tả thao tác cụ thể.
+
+Nguồn viền focus quá đậm là ring 3px của Input cộng outline 3px của CSS chung. Bỏ ring khỏi Input, áp dụng chung cho input văn bản/date/password/search và textarea: border 1px xanh tiết chế + halo 2px ở độ đậm 12%, không chồng outline. Lỗi giữ màu đỏ; ô tìm nhanh ở header dùng focus trên phần bao ngoài. Dấu hiệu focus của link/nút được giữ; forced-colors dùng outline hệ thống 2px.
+
+Thêm key theo loại form/vai trò để liên kết đăng ký nhà tuyển dụng trên cùng trang cập nhật đúng lựa chọn, tránh giữ state của role trước đó. Kiểm tra bằng cách điều hướng trong trình duyệt, không chỉ tải lại URL.
+
+Build, lint và TypeScript đạt; 19/19 browser test preview/public đạt. Đã kiểm tra ảnh login/register desktop, login mobile, 360/390/768/1024/1440px không tràn ngang. Axe trên form desktop đã render đầy đủ và suite mobile không báo lỗi. Kiểm tra riêng bằng trình duyệt xác nhận focus 1px/halo 2px, thứ tự Tab email → password, forced-colors và input tìm việc/tìm ngành nghề/tìm nhanh; liên kết ngành nghề cập nhật bộ lọc đúng. Chưa xác nhận Safari/Firefox hoặc trình đọc màn hình thực tế.
+
+Đối chiếu backend bằng code và `php artisan route:list --path=api`: Laravel 11.57.0 chỉ có GET /api/user. Xem [báo cáo ghép frontend–Laravel](laravel-frontend-integration.md) để biết hợp đồng cần khớp và phần backend còn thiếu; chưa thay đổi backend/database.

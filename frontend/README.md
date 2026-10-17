@@ -37,6 +37,8 @@ Mặc định `AUTH_MODE=preview`: các form kiểm tra dữ liệu; với JavaS
 
 Logo do người dùng cung cấp nằm tại `public/brand/logo.png`, dùng chung qua component `Brand` ở header/footer và cấu hình biểu tượng tab trong root metadata. `next/image` giữ tỷ lệ và tối ưu kích thước ảnh khi hiển thị.
 
+Panel cạnh form có liên kết ngành nghề và đăng ký nhà tuyển dụng; ẩn trên mobile để ưu tiên nhập liệu. Focus ô nhập dùng border mảnh và halo nhẹ, giữ trạng thái lỗi và hỗ trợ forced-colors. [Đối chiếu code và API Laravel hiện tại](../docs/plans/laravel-frontend-integration.md).
+
 Chỉ bật API sau khi nhóm backend thống nhất hợp đồng:
 
 ```dotenv

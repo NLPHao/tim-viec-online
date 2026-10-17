@@ -9,7 +9,10 @@ test("preview validates registration, preserves fields and sends no credentials"
   page.on("request", (request) => {
     if (request.method() === "POST") submissions.push(request.url());
   });
-  await page.goto("/register?role=employer");
+  await page.goto("/register");
+  await page
+    .getByRole("link", { name: "Đăng ký nhà tuyển dụng", exact: true })
+    .click();
   await expect(page.locator(".auth-preview")).toHaveCount(0);
   await expect(
     page.getByRole("radio", { name: /Nhà tuyển dụng/ }),

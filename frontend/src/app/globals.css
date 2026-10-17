@@ -76,6 +76,12 @@
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: var(--brand-blue);
+  --field-focus-border: color-mix(
+    in srgb,
+    var(--ring) 75%,
+    var(--muted-foreground)
+  );
+  --field-focus-halo: color-mix(in srgb, var(--ring) 12%, transparent);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);

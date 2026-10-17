@@ -94,6 +94,7 @@ export async function AuthScreen({
         </div>
       ) : (
         <AuthForm
+          key={`${kind}-${role}`}
           kind={kind}
           preview={!authApiEnabled()}
           today={vietnamToday()}
