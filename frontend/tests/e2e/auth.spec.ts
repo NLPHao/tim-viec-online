@@ -165,7 +165,10 @@ test("employer login lands on employer area and logout revokes the session", asy
   const token = (await context.cookies()).find(
     (item) => item.name === "timviec_session",
   )?.value;
-  await page.getByRole("button", { name: "Đăng xuất", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Tài khoản cá nhân", exact: true })
+    .click();
+  await page.getByRole("menuitem", { name: "Đăng xuất", exact: true }).click();
   await expect(page).toHaveURL(/\/login/);
   expect(
     (await context.cookies()).some((item) => item.name === "timviec_session"),

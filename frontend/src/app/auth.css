@@ -391,20 +391,6 @@
   line-height: 1.9;
   color: var(--muted-foreground);
 }
-.header-user {
-  max-width: 150px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.header-session-error {
-  font-size: 11px;
-  margin-left: auto;
-}
-.header-session-error > a {
-  display: inline-block;
-  padding: 12px;
-  text-decoration: underline;
-}
 @media (max-width: 1050px) {
   .auth-container {
     gap: 32px;
@@ -476,9 +462,5 @@
   .auth-security,
   .protected-welcome {
     padding: 24px 20px;
-  }
-  .header-session-error {
-    font-size: 10px;
-    max-width: 150px;
   }
 }

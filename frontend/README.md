@@ -39,6 +39,8 @@ Logo do người dùng cung cấp nằm tại `public/brand/logo.png`, dùng chu
 
 Panel cạnh form có liên kết ngành nghề và đăng ký nhà tuyển dụng; ẩn trên mobile để ưu tiên nhập liệu. Focus ô nhập dùng border mảnh và halo nhẹ, giữ trạng thái lỗi và hỗ trợ forced-colors. [Đối chiếu code và API Laravel hiện tại](../docs/plans/laravel-frontend-integration.md).
 
+Navbar công khai theo `design/page_jobs`: tìm nhanh từ khóa/địa điểm, mega menu, menu tài khoản và panel thông báo. Xem [phạm vi và kiểm chứng navbar](../docs/plans/navbar-frontend.md). Form tìm kiếm/bộ lọc chính và header trắng auth giữ nguyên.
+
 Chỉ bật API sau khi nhóm backend thống nhất hợp đồng:
 
 ```dotenv

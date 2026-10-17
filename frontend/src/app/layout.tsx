@@ -4,11 +4,12 @@ import { Toaster } from "sonner";
 import "./globals.css";
 import "./site.css";
 import "./auth.css";
+import "./header.css";
 
 const brandFont = Be_Vietnam_Pro({
   variable: "--font-brand",
   subsets: ["latin", "vietnamese"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 

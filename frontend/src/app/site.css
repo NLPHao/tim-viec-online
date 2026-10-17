@@ -2,17 +2,6 @@
   width: min(100% - 48px, 1312px);
   margin-inline: auto;
 }
-.site-header {
-  background: var(--brand-navy);
-  color: var(--primary-foreground);
-  border-bottom: 1px solid var(--brand-blue);
-}
-.header-inner {
-  display: flex;
-  align-items: center;
-  min-height: 80px;
-  gap: 32px;
-}
 .brand {
   display: inline-flex;
   align-items: center;
@@ -45,64 +34,6 @@
   letter-spacing: 1px;
   font-size: 8px;
   font-weight: 600;
-}
-.header-search {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  border-radius: 30px;
-  padding: 5px 6px 5px 18px;
-  background: var(--card);
-  color: var(--foreground);
-  max-width: 380px;
-  margin-left: auto;
-}
-.header-search input {
-  width: 100%;
-  min-width: 0;
-  font-size: 12px;
-  outline: none;
-}
-.header-search:focus-within {
-  outline: 2px solid var(--brand-sky);
-  outline-offset: 2px;
-}
-.header-search button {
-  background: var(--brand-orange);
-  color: var(--primary-foreground);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  flex-shrink: 0;
-}
-.desktop-navigation {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-.desktop-navigation > a:hover {
-  text-decoration: underline;
-  text-underline-offset: 5px;
-}
-.header-login {
-  color: var(--primary-foreground);
-  background: transparent;
-  border-color: var(--brand-sky);
-  min-height: 44px;
-  padding-inline: 16px;
-}
-.header-login:hover {
-  color: var(--brand-navy);
-  background: var(--card);
-}
-.mobile-navigation {
-  display: none;
-  margin-left: auto;
 }
 .skip-link {
   position: fixed;
@@ -787,18 +718,6 @@ select {
   border-top: 1px solid color-mix(in srgb, var(--footer-text) 20%, transparent);
 }
 @media (max-width: 1100px) {
-  .header-inner {
-    gap: 20px;
-  }
-  .header-search {
-    max-width: 280px;
-  }
-  .desktop-navigation {
-    gap: 14px;
-  }
-  .desktop-navigation > a:first-child {
-    display: none;
-  }
   .results-layout {
     grid-template-columns: minmax(0, 1fr) 280px;
     gap: 20px;
@@ -811,16 +730,6 @@ select {
   }
 }
 @media (max-width: 900px) {
-  .header-search,
-  .desktop-navigation {
-    display: none;
-  }
-  .mobile-navigation {
-    display: block;
-  }
-  .header-inner {
-    min-height: 72px;
-  }
   .results-layout {
     grid-template-columns: minmax(0, 1fr);
   }

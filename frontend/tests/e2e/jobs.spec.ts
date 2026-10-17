@@ -196,9 +196,14 @@ for (const width of [360, 390, 768, 1024, 1440]) {
       }
     }
     if (width < 900) {
-      const menu = page.getByRole("button", { name: "Mở menu" });
+      const menu = page.getByRole("button", { name: "Tất cả danh mục" });
       await menu.click();
       await expect(page.getByRole("dialog")).toBeVisible();
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth - innerWidth,
+        ),
+      ).toBeLessThanOrEqual(1);
       await page.keyboard.press("Escape");
       await expect(menu).toBeFocused();
     }
