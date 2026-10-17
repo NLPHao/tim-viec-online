@@ -1,6 +1,6 @@
 ﻿# TimViecOnline frontend
 
-Next.js 16.4 App Router, React 19, TypeScript, Tailwind 4, shadcn/Radix, Lucide và Sonner. Mốc hiện tại: tìm kiếm và chi tiết việc làm cho khách; dữ liệu minh họa, chưa kết nối Laravel.
+Next.js 16.4 App Router, React 19, TypeScript, Tailwind 4, shadcn/Radix, Lucide và Sonner. Hiện có tìm kiếm/chi tiết việc làm và frontend xác thực. Việc làm dùng dữ liệu minh họa; Laravel hiện chưa có API xác thực đầy đủ.
 
 ## Chạy cục bộ
 
@@ -20,7 +20,7 @@ Mở `http://localhost:3000/jobs`. `/` chuyển đến `/jobs` trong mốc này.
 - Lọc nhiều ngành, tỉnh/thành, hình thức, cấp bậc và mức lương; các nhóm kết hợp AND. URL giữ bộ lọc khi refresh, chia sẻ và back/forward.
 - 18 tin đang tuyển, phân trang thật 6 tin/trang. Sắp xếp cập nhật mới nhất, ID giảm dần khi trùng thời gian.
 - Chi tiết theo ID, thông tin công ty, kỹ năng và việc tương tự. `/jobs/19` minh họa tin đóng; `/jobs/20` minh họa tin hết hạn; cả hai khóa ứng tuyển.
-- Khách lưu/ứng tuyển được yêu cầu đăng nhập. `/login` hiện chỉ là điểm tiếp nối có thông báo chưa kết nối API và liên kết quay lại an toàn; chưa xác thực hay lưu hồ sơ.
+- Khách lưu/ứng tuyển được yêu cầu đăng nhập. Có `/login`, `/register`, `/forgot-password`, `/reset-password` với validation SRS, hiện/ẩn mật khẩu, lỗi cạnh trường và giữ thông tin khi trùng email.
 - Skeleton, không có kết quả/xóa lọc, error boundary/thử lại và not-found.
 
 ## Dữ liệu và tích hợp
@@ -31,6 +31,22 @@ Các khóa URL: `keyword`, `category_ids` (lặp lại được), `city`, `job_t
 
 Khi backend sẵn sàng, thay implementation repository bằng API adapter sau khi thống nhất DTO/envelope, multi-category, phân trang, ngày hạn và sort. Các biến API/Reverb trong `.env.example` chuẩn bị cho mốc sau; hiện repository chưa sử dụng chúng. Frontend không truy cập database, không chứa secret, không thay authorization backend.
 
+## Xác thực
+
+Mặc định `AUTH_MODE=preview`: các form kiểm tra dữ liệu và báo rõ bản trải nghiệm; với JavaScript hoạt động, submit hợp lệ không gửi mật khẩu qua mạng. Không tạo phiên, tài khoản hoặc giả gửi email. Các action server cũng kiểm tra dữ liệu và từ chối tạo phiên khi đang preview.
+
+Chỉ bật API sau khi nhóm backend thống nhất hợp đồng:
+
+```dotenv
+AUTH_MODE=api
+AUTH_API_URL=http://localhost:8000/api
+AUTH_APP_URL=http://localhost:3000
+```
+
+Đây là adapter BFF token đề xuất theo README: Server Actions gọi API Laravel, xác minh token qua `/user`, lưu token trong cookie HttpOnly/Secure/SameSite và không serialize vào client. Production phải dùng HTTPS ngoài loopback. `/employer`, `/admin` là điểm đến được kiểm tra role; `/account/security` dùng đổi mật khẩu. Những trang này chưa có nghiệp vụ portal đầy đủ. Backend vẫn cần authorization và enforcement token expiry/revocation, rate limit, unique email, khóa tài khoản và reset token dùng một lần trong 15 phút. Cookie maxAge không thay thế hạn token phía backend. Sanctum SPA cookie/session là phương án first-party chính thức và có thể thay adapter khi nhóm chọn cơ chế đó.
+
+Adapter yêu cầu response `{success:true,data:...}` theo AGENTS; `/login` trả `data.token` hoặc `data.access_token`, nên kèm `data.expires_at`; `/user` trả `data` gồm id/name/email/role/status. Các route POST register/login/logout/forgot-password/reset-password và PUT user/change-password theo README. Backend hiện chỉ có `/user` scaffold trả raw model, nên chưa đáp ứng hợp đồng này. [Quyết định và giới hạn auth](../docs/plans/auth-frontend.md).
+
 ## Kiểm tra
 
 ```powershell
@@ -40,13 +56,14 @@ npm test
 npm run build
 npx playwright install chromium
 npm run test:e2e
+npm run test:auth
 npm audit --omit=dev
 ```
 
-Playwright tự chạy production server cổng 3117; cần build trước. Kiểm tra luồng chính, URL/history, dialog/keyboard, responsive 360–1440px và axe WCAG A/AA. Ảnh/traces ở `test-results/` được gitignore. Chưa chứng minh SLA tải hệ thống 50 người, uptime hoặc tính năng backend; chưa kiểm tra Safari/Firefox hay trình đọc màn hình thực tế.
+Playwright preview tự chạy production server cổng 3117; cần build trước. `test:auth` chạy riêng frontend 3119 với HTTP fixture 4119 chỉ dùng cho kiểm thử, không phải backend của ứng dụng. Hai suite chạy lần lượt. Kiểm tra URL/history, role/cookie/origin, lỗi form, responsive 360–1440px và axe WCAG A/AA. Ảnh/traces ở `test-results/` được gitignore. Chưa chứng minh SLA 50 người, uptime hoặc tích hợp Laravel thật; chưa kiểm tra Safari/Firefox hay trình đọc màn hình thực tế.
 
 `npm audit --omit=dev` hiện không báo lỗ hổng. Audit toàn bộ báo chuỗi dependency phát triển của ESLint/shadcn liên quan [braces GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm); chưa có bản vá khi kiểm tra. Không dùng `npm audit fix --force` để hạ Next/shadcn không tương thích. CLI shadcn nằm trong devDependencies và Base UI đã được gỡ.
 
 ## Quy tắc làm việc
 
-Tạo `feature/*` từ `develop`, kiểm tra rồi tạo PR theo README gốc. Không commit `.env.local`, `.next`, `node_modules` hoặc kết quả kiểm thử. Quyết định và phạm vi: [kế hoạch frontend](../docs/plans/job-discovery-frontend.md). AI, chat, đăng nhập thật, hồ sơ và employer portal thuộc các mốc tiếp theo.
+Tạo `feature/*` từ `develop`, kiểm tra rồi tạo PR theo README gốc. Làm trực tiếp trong thư mục dự án trên branch theo yêu cầu người dùng. Không commit `.env.local`, `.next`, `node_modules` hoặc kết quả kiểm thử. [Kế hoạch tìm việc](../docs/plans/job-discovery-frontend.md). AI, chat, hồ sơ, employer portal và tích hợp backend thật thuộc các mốc tiếp theo.

@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import { Button } from "@/modules/cores/shadcn/components/ui/button";
+import type { AuthUser } from "@/features/auth/types";
+import { logoutAction } from "@/app/(auth)/actions";
 import {
   Dialog,
   DialogClose,
@@ -13,7 +15,7 @@ import {
   DialogTrigger,
 } from "@/modules/cores/shadcn/components/ui/dialog";
 
-export function MobileNavigation() {
+export function MobileNavigation({ user }: { user?: AuthUser }) {
   return (
     <div className="mobile-navigation">
       <Dialog>
@@ -34,14 +36,28 @@ export function MobileNavigation() {
             </DialogDescription>
           </DialogHeader>
           <nav className="grid gap-2" aria-label="Điều hướng trên điện thoại">
-            {[
-              { href: "/jobs", label: "Tìm việc làm" },
-              { href: "/login", label: "Đăng nhập ứng viên" },
-              {
-                href: "/login?role=employer",
-                label: "Dành cho nhà tuyển dụng",
-              },
-            ].map((item) => (
+            {(user
+              ? [
+                  {
+                    href:
+                      user.role === "employer"
+                        ? "/employer"
+                        : user.role === "admin"
+                          ? "/admin"
+                          : "/jobs",
+                    label: "Khu vực của tôi",
+                  },
+                  { href: "/account/security", label: "Đổi mật khẩu" },
+                ]
+              : [
+                  { href: "/jobs", label: "Tìm việc làm" },
+                  { href: "/login", label: "Đăng nhập ứng viên" },
+                  {
+                    href: "/login?role=employer",
+                    label: "Dành cho nhà tuyển dụng",
+                  },
+                ]
+            ).map((item) => (
               <DialogClose asChild key={item.href}>
                 <Link
                   className="rounded-lg p-3 hover:bg-muted"
@@ -51,6 +67,13 @@ export function MobileNavigation() {
                 </Link>
               </DialogClose>
             ))}
+            {user && (
+              <form action={logoutAction}>
+                <Button className="h-11 w-full" type="submit">
+                  Đăng xuất
+                </Button>
+              </form>
+            )}
           </nav>
         </DialogContent>
       </Dialog>

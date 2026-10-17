@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BriefcaseBusiness, Clock3, MapPin } from "lucide-react";
 import type { Job } from "@/features/jobs/types";
+import type { AuthRole } from "@/features/auth/types";
 import { JOB_TYPE_LABELS } from "@/features/jobs/types";
 import { formatDate, formatSalary } from "@/features/jobs/formatters";
 import { Badge } from "@/modules/cores/shadcn/components/ui/badge";
@@ -19,7 +20,13 @@ export function CompanyMark({ name }: { name: string }) {
   );
 }
 
-export function JobCard({ job }: { job: Job }) {
+export function JobCard({
+  job,
+  viewerRole,
+}: {
+  job: Job;
+  viewerRole?: AuthRole;
+}) {
   return (
     <article className="job-card" data-testid="job-card">
       <CompanyMark name={job.company.name} />
@@ -31,7 +38,7 @@ export function JobCard({ job }: { job: Job }) {
             </h2>
             <p className="company-name">{job.company.name}</p>
           </div>
-          <GuestActions jobId={job.id} compact />
+          <GuestActions jobId={job.id} compact viewerRole={viewerRole} />
         </div>
         <p className="salary">{formatSalary(job)}</p>
         <div className="job-facts">

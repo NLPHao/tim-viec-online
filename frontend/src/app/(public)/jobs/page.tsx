@@ -12,6 +12,7 @@ import { JobCard } from "@/components/jobs/job-card";
 import { JobsSkeleton } from "@/components/jobs/jobs-skeleton";
 import { parseJobQuery, jobQueryString } from "@/features/jobs/query";
 import { getJobCatalog, listJobs } from "@/services/jobs";
+import { getCurrentUser } from "@/services/auth-session";
 import { Button } from "@/modules/cores/shadcn/components/ui/button";
 
 export const metadata: Metadata = {
@@ -42,9 +43,10 @@ export default function JobsPage(props: SearchProps) {
 
 async function JobsResults({ searchParams }: SearchProps) {
   const query = parseJobQuery(await searchParams);
-  const [result, catalog] = await Promise.all([
+  const [result, catalog, user] = await Promise.all([
     listJobs(query),
     getJobCatalog(),
+    getCurrentUser().catch(() => null),
   ]);
   const currentQuery = { ...query, page: result.meta.page };
   const pages = [
@@ -79,7 +81,7 @@ async function JobsResults({ searchParams }: SearchProps) {
             <>
               <div className="job-list">
                 {result.data.map((job) => (
-                  <JobCard job={job} key={job.id} />
+                  <JobCard job={job} key={job.id} viewerRole={user?.role} />
                 ))}
               </div>
               {result.meta.last_page > 1 && (

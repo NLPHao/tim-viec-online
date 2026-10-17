@@ -1,8 +1,10 @@
-import Link from "next/link";
+import { Suspense } from "react";
 import { Search } from "lucide-react";
 import { Brand } from "./brand";
-import { MobileNavigation } from "./mobile-navigation";
-import { Button } from "@/modules/cores/shadcn/components/ui/button";
+import {
+  GuestNavigation,
+  SessionNavigation,
+} from "@/components/auth/session-navigation";
 
 export function SiteHeader() {
   return (
@@ -29,14 +31,9 @@ export function SiteHeader() {
             <Search aria-hidden="true" size={18} />
           </button>
         </form>
-        <nav className="desktop-navigation" aria-label="Điều hướng chính">
-          <Link href="/jobs">Tìm việc làm</Link>
-          <Link href="/login?role=employer">Nhà tuyển dụng</Link>
-          <Button asChild variant="outline" className="header-login">
-            <Link href="/login">Đăng nhập</Link>
-          </Button>
-        </nav>
-        <MobileNavigation />
+        <Suspense fallback={<GuestNavigation />}>
+          <SessionNavigation />
+        </Suspense>
       </div>
     </header>
   );

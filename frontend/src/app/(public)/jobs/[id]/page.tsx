@@ -10,6 +10,7 @@ import {
   Users,
 } from "lucide-react";
 import { getJob, findRelatedJobs } from "@/services/jobs";
+import { getCurrentUser } from "@/services/auth-session";
 import {
   formatDate,
   formatSalary,
@@ -54,6 +55,7 @@ async function JobDetail({ params }: DetailProps) {
   if (!job) notFound();
   const open = isJobOpen(job, vietnamToday());
   const related = await findRelatedJobs(job, 3);
+  const user = await getCurrentUser().catch(() => null);
   return (
     <div className="site-container page-content">
       <nav className="breadcrumbs" aria-label="Đường dẫn">
@@ -102,7 +104,7 @@ async function JobDetail({ params }: DetailProps) {
             Tin tuyển dụng này đã đóng hoặc hết hạn nộp hồ sơ.
           </p>
         )}
-        <GuestActions jobId={job.id} open={open} />
+        <GuestActions jobId={job.id} open={open} viewerRole={user?.role} />
         <p className="detail-demo">
           Việc làm minh họa. Chức năng nộp hồ sơ chưa khả dụng trong bản trải
           nghiệm.
@@ -138,7 +140,7 @@ async function JobDetail({ params }: DetailProps) {
               <h2>Những cơ hội tương tự</h2>
               <div className="job-list">
                 {related.map((item) => (
-                  <JobCard key={item.id} job={item} />
+                  <JobCard key={item.id} job={item} viewerRole={user?.role} />
                 ))}
               </div>
             </section>

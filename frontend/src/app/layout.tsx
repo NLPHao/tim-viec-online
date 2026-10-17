@@ -3,6 +3,7 @@ import { Be_Vietnam_Pro } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
 import "./site.css";
+import "./auth.css";
 
 const brandFont = Be_Vietnam_Pro({
   variable: "--font-brand",

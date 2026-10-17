@@ -3,10 +3,12 @@
 import Link from "next/link";
 import { Bookmark, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
+import type { AuthRole } from "@/features/auth/types";
 import { Button } from "@/modules/cores/shadcn/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogClose,
   DialogDescription,
   DialogHeader,
   DialogTitle,
@@ -17,16 +19,32 @@ export function GuestActions({
   jobId,
   open = true,
   compact = false,
+  viewerRole,
 }: {
   jobId: number;
   open?: boolean;
   compact?: boolean;
+  viewerRole?: AuthRole;
 }) {
   const loginUrl = `/login?returnTo=${encodeURIComponent(`/jobs/${jobId}`)}`;
   return (
     <div className={compact ? "job-save" : "guest-actions"}>
       {!compact &&
-        (open ? (
+        (open && viewerRole ? (
+          <Button
+            className="apply-button h-11 flex-1"
+            disabled={viewerRole !== "candidate"}
+            onClick={() =>
+              toast.info(
+                "Chức năng nộp hồ sơ sẽ được triển khai trong mốc tiếp theo.",
+              )
+            }
+          >
+            {viewerRole === "candidate"
+              ? "Ứng tuyển ngay"
+              : "Chỉ dành cho ứng viên"}
+          </Button>
+        ) : open ? (
           <Button asChild className="apply-button h-11 flex-1">
             <Link href={loginUrl}>
               Ứng tuyển ngay <ArrowRight aria-hidden="true" />
@@ -52,13 +70,22 @@ export function GuestActions({
           <DialogHeader>
             <DialogTitle>Lưu cơ hội bạn quan tâm</DialogTitle>
             <DialogDescription>
-              Vui lòng đăng nhập tài khoản ứng viên để lưu việc làm và xem lại
-              trong hồ sơ của bạn.
+              {viewerRole === "candidate"
+                ? "Chức năng lưu việc làm sẽ được triển khai trong mốc tiếp theo. Bạn có thể chia sẻ liên kết để xem lại công việc."
+                : viewerRole
+                  ? "Lưu việc làm dành cho tài khoản ứng viên."
+                  : "Vui lòng đăng nhập tài khoản ứng viên để lưu việc làm và xem lại trong hồ sơ của bạn."}
             </DialogDescription>
           </DialogHeader>
-          <Button asChild className="h-11">
-            <Link href={loginUrl}>Đến trang đăng nhập</Link>
-          </Button>
+          {viewerRole ? (
+            <DialogClose asChild>
+              <Button className="h-11">Đã hiểu</Button>
+            </DialogClose>
+          ) : (
+            <Button asChild className="h-11">
+              <Link href={loginUrl}>Đến trang đăng nhập</Link>
+            </Button>
+          )}
         </DialogContent>
       </Dialog>
       {!compact && (
