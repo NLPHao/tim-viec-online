@@ -20,7 +20,7 @@ import { AuthShell } from "./auth-shell";
 const content = {
   login: {
     title: "Đăng nhập",
-    description: "Đăng nhập để ứng tuyển và quản lý hồ sơ.",
+    description: "Đăng nhập để tiếp tục sử dụng TimViecOnline.",
   },
   register: {
     title: "Tạo tài khoản",
@@ -81,7 +81,7 @@ export async function AuthScreen({
           ? "Bạn đã đăng xuất."
           : "";
   return (
-    <AuthShell {...content[kind]}>
+    <AuthShell kind={kind} {...content[kind]}>
       {notice && kind === "login" && authApiEnabled() && (
         <p className="auth-status auth-status-success" role="status">
           {notice}

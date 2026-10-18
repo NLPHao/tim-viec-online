@@ -1,5 +1,123 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { latestRegistrationDob } from "../../src/features/auth/validation";
+
+test("custom birthday calendar selects month/year and submits an ISO date", async ({
+  page,
+}) => {
+  await page.goto("/register?role=employer");
+  await expect(page.locator(".auth-story")).toHaveCount(0);
+  await expect(page.locator('input[type="date"]')).toHaveCount(0);
+  const trigger = page.getByRole("button", {
+    name: "Chọn ngày sinh",
+    exact: true,
+  });
+  await trigger.click();
+  await page.getByRole("combobox", { name: "Chọn năm sinh" }).click();
+  await page.getByRole("option", { name: "2000", exact: true }).click();
+  await page.getByRole("combobox", { name: "Chọn tháng sinh" }).click();
+  await page.getByRole("option", { name: "Tháng 5", exact: true }).click();
+  await page.locator('.birth-calendar button[data-day="20/5/2000"]').click();
+  await expect(page.getByLabel("Ngày sinh", { exact: true })).toHaveValue(
+    "20/05/2000",
+  );
+  await expect(page.locator('input[name="dob"]')).toHaveValue("2000-05-20");
+  await expect(trigger).toBeFocused();
+  await trigger.click();
+  await expect(
+    page.getByRole("combobox", { name: "Chọn năm sinh" }),
+  ).toContainText("2000");
+  await page.keyboard.press("Escape");
+  await expect(trigger).toBeFocused();
+  await expect(page.locator(".birth-calendar")).not.toBeVisible();
+});
+
+test("invalid birthday edits replace the previous date and receive validation focus", async ({
+  page,
+}) => {
+  await page.goto("/register");
+  await page.getByLabel("Họ và tên", { exact: true }).fill("Nguyễn Minh Anh");
+  await page.getByLabel("Email", { exact: true }).fill("preview@example.test");
+  await page.getByLabel("Mật khẩu", { exact: true }).fill("PreviewPass1!");
+  await page
+    .getByLabel("Xác nhận mật khẩu", { exact: true })
+    .fill("PreviewPass1!");
+  const birthday = page.getByLabel("Ngày sinh", { exact: true });
+  await birthday.fill("20052000");
+  await expect(birthday).toHaveValue("20/05/2000");
+  await birthday.fill("29/02/2000");
+  await expect(page.locator('input[name="dob"]')).toHaveValue("2000-02-29");
+  await birthday.fill("31/04/2000");
+  await expect(page.locator('input[name="dob"]')).toHaveValue("31/04/2000");
+  // Model browsers that blur without focusing the button (null relatedTarget).
+  await page.locator('.auth-form button[type="submit"]').evaluate((button) => {
+    button.addEventListener(
+      "pointerdown",
+      () => {
+        (document.activeElement as HTMLElement)?.blur();
+      },
+      { once: true },
+    );
+  });
+  await page
+    .getByRole("button", { name: "Tạo tài khoản", exact: true })
+    .click();
+  await expect(birthday).toBeFocused();
+  await expect(birthday).toHaveAttribute("aria-invalid", "true");
+});
+
+test("birthday calendar enforces age cutoff and stays accessible on mobile", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 360, height: 800 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/register");
+  const today = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Ho_Chi_Minh",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
+  const cutoff = latestRegistrationDob(today);
+  const [year, month, day] = cutoff.split("-").map(Number);
+  await page
+    .getByRole("button", { name: "Chọn ngày sinh", exact: true })
+    .click();
+  const calendar = page.locator(".birth-calendar");
+  const box = await calendar.boundingBox();
+  expect(box?.x).toBeGreaterThanOrEqual(0);
+  expect((box?.x ?? 0) + (box?.width ?? 0)).toBeLessThanOrEqual(360);
+  const lastAllowed = calendar.locator(
+    `button[data-day="${day}/${month}/${year}"]`,
+  );
+  await expect(lastAllowed).toBeEnabled();
+  if (day < new Date(year, month, 0).getDate()) {
+    await expect(
+      calendar.locator(`button[data-day="${day + 1}/${month}/${year}"]`),
+    ).toBeDisabled();
+  }
+  await expect(
+    page.getByRole("button", { name: "Tháng sau", exact: true }),
+  ).toBeDisabled();
+  expect(
+    (
+      await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+        .analyze()
+    ).violations,
+  ).toEqual([]);
+  await page.getByRole("combobox", { name: "Chọn năm sinh" }).click();
+  expect(
+    (
+      await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+        .analyze()
+    ).violations,
+  ).toEqual([]);
+  await page.keyboard.press("Escape");
+  await lastAllowed.click();
+  await expect(page.locator('input[name="dob"]')).toHaveValue(cutoff);
+});
 
 test("preview validates registration, preserves fields and sends no credentials", async ({
   page,
@@ -10,9 +128,7 @@ test("preview validates registration, preserves fields and sends no credentials"
     if (request.method() === "POST") submissions.push(request.url());
   });
   await page.goto("/register");
-  await page
-    .getByRole("link", { name: "Đăng ký nhà tuyển dụng", exact: true })
-    .click();
+  await page.getByRole("radio", { name: /Nhà tuyển dụng/ }).check();
   await expect(page.locator(".auth-preview")).toHaveCount(0);
   await expect(
     page.getByRole("radio", { name: /Nhà tuyển dụng/ }),
@@ -27,7 +143,7 @@ test("preview validates registration, preserves fields and sends no credentials"
     .getByLabel("Họ và tên người liên hệ", { exact: true })
     .fill("Nguyễn Minh Anh");
   await page.getByLabel("Email", { exact: true }).fill("preview@example.test");
-  await page.getByLabel(/^Ngày sinh/).fill("2000-05-20");
+  await page.getByLabel(/^Ngày sinh/).fill("20/05/2000");
   await page.getByLabel("Mật khẩu", { exact: true }).fill("PreviewPass1!");
   await page
     .getByLabel("Xác nhận mật khẩu", { exact: true })

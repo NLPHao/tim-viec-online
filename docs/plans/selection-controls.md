@@ -3,7 +3,7 @@
 Yêu cầu: áp dụng mẫu người dùng cung cấp cho toàn bộ dropdown đang dùng trong frontend. Bộ lọc có giá trị chuyển viền xanh, nhãn xanh nhạt và có nút xóa riêng; menu chọn tùy chỉnh, không mở bộ chọn mặc định của hệ điều hành.
 
 - Giữ Be Vietnam Pro, màu thương hiệu và bố cục trang hiện tại. Phong cách gọn, rõ trạng thái; không thay đổi navbar, card hoặc luồng xác thực ngoài các ô chọn.
-- Phạm vi được rà: địa điểm navbar; ngành nghề, hình thức, lương, cấp bậc trang việc làm. Menu tài khoản/danh mục đã dùng Radix. Hiện chưa có ô chọn ngày trong frontend; khi bổ sung phải dùng calendar tùy chỉnh thay cho `input[type=date]`.
+- Phạm vi được rà: địa điểm navbar; ngành nghề, hình thức, lương, cấp bậc trang việc làm. Menu tài khoản/danh mục đã dùng Radix. Lần rà ban đầu bỏ sót ngày sinh được render qua hàm form dùng chung; ô này đã được thay bằng calendar tùy chỉnh trong [đợt cập nhật xác thực](auth-ui-refresh.md).
 - Dùng shadcn Select (Radix) cho chọn một; Popover + Checkbox hiện có cho nhiều ngành và tìm ngành không dấu. Đây là phương án dùng primitive đang có, giảm mã điều khiển bàn phím so với tự viết listbox; không cần thêm Command/Calendar khi chưa dùng.
 - Đưa kiểu menu, viền, màu đã chọn, focus và nút xóa vào component dùng chung. Nút xóa nằm cạnh trigger, không lồng button trong button. Nhãn dài được rút gọn; tên đầy đủ vẫn trong menu và accessible name.
 - Giữ mã giá trị và tên field để tích hợp Laravel, tìm kiếm GET, URL/back/reload, chọn nhiều và reset trang. Trạng thái optimistic áp dụng ngay cho bộ lọc; địa điểm navbar giữ thao tác tìm kiếm bằng nút/Enter như hiện tại.

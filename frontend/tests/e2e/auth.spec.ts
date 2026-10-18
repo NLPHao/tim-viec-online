@@ -20,7 +20,7 @@ async function registration(page: Page, email: string) {
   await page.goto("/register");
   await page.getByLabel(/^Họ và tên/).fill("Nguyễn Minh Anh");
   await page.getByLabel(/^Email/).fill(email);
-  await page.getByLabel(/^Ngày sinh/).fill("2000-05-20");
+  await page.getByLabel(/^Ngày sinh/).fill("20/05/2000");
   await page.getByLabel(/^Mật khẩu$/, { exact: true }).fill(password);
   await page.getByLabel(/^Xác nhận mật khẩu/).fill(password);
   for (const checkbox of await page.getByRole("checkbox").all())

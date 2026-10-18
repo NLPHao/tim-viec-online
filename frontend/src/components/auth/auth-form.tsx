@@ -7,6 +7,7 @@ import {
   useRef,
   useState,
   type FormEvent,
+  type FocusEvent,
 } from "react";
 import Link from "next/link";
 import { ArrowRight, Eye, EyeOff, LoaderCircle } from "lucide-react";
@@ -17,10 +18,8 @@ import type {
   FieldErrors,
 } from "@/features/auth/types";
 import { INITIAL_AUTH_STATE } from "@/features/auth/types";
-import {
-  latestRegistrationDob,
-  validateAuthValues,
-} from "@/features/auth/validation";
+import { validateAuthValues } from "@/features/auth/validation";
+import { BirthDateField } from "./birth-date-field";
 import {
   Field,
   FieldDescription,
@@ -54,10 +53,13 @@ const submitLabels = {
 
 function focusFirstError(form: HTMLFormElement | null, errors: FieldErrors) {
   const fields = form?.querySelectorAll<HTMLInputElement>(
-    'input[name]:not([type="hidden"])',
+    'input[name]:not([type="hidden"]), input[data-auth-field]',
   );
   Array.from(fields ?? [])
-    .find((field) => errors[field.name] && !field.disabled)
+    .find(
+      (field) =>
+        errors[field.dataset.authField ?? field.name] && !field.disabled,
+    )
     ?.focus();
 }
 
@@ -73,6 +75,7 @@ export function AuthForm({
 }: Props) {
   const id = useId();
   const formRef = useRef<HTMLFormElement>(null);
+  const submitPointer = useRef(false);
   const [state, formAction, pending] = useActionState(
     action,
     INITIAL_AUTH_STATE,
@@ -108,11 +111,38 @@ export function AuthForm({
   useEffect(() => {
     focusFirstError(formRef.current, state.errors ?? {});
   }, [state]);
+  useEffect(() => {
+    const release = () => {
+      submitPointer.current = false;
+    };
+    window.addEventListener("pointerup", release);
+    window.addEventListener("pointercancel", release);
+    window.addEventListener("blur", release);
+    return () => {
+      window.removeEventListener("pointerup", release);
+      window.removeEventListener("pointercancel", release);
+      window.removeEventListener("blur", release);
+    };
+  }, []);
   function change(name: string, value: string) {
     setValues((previous) => ({ ...previous, [name]: value }));
     setClientErrors((previous) => ({ ...previous, [name]: "" }));
     setEdited(true);
     setPreviewMessage("");
+  }
+  function blur(name: string, event: FocusEvent<HTMLInputElement>) {
+    // Submit validates the whole form. Avoid moving the submit button between
+    // pointer-down and click by inserting a blur error immediately before it.
+    if (
+      submitPointer.current ||
+      (event.relatedTarget instanceof HTMLButtonElement &&
+        event.relatedTarget.type === "submit")
+    )
+      return;
+    setClientErrors((previous) => ({
+      ...previous,
+      [name]: validateAuthValues(kind, values, today)[name] ?? "",
+    }));
   }
   function submit(event: FormEvent<HTMLFormElement>) {
     const next = validateAuthValues(kind, values, today);
@@ -167,13 +197,7 @@ export function AuthForm({
             autoComplete={options.autocomplete}
             value={values[name] ?? ""}
             onChange={(event) => change(name, event.target.value)}
-            onBlur={() => {
-              const fieldError = validateAuthValues(kind, values, today)[name];
-              setClientErrors((previous) => ({
-                ...previous,
-                [name]: fieldError ?? "",
-              }));
-            }}
+            onBlur={(event) => blur(name, event)}
             readOnly={options.readOnly}
             disabled={pending}
             required={!options.optional}
@@ -183,7 +207,6 @@ export function AuthForm({
                 .filter(Boolean)
                 .join(" ") || undefined
             }
-            max={name === "dob" ? latestRegistrationDob(today) : undefined}
             maxLength={
               password
                 ? kind === "login" || name === "current_password"
@@ -234,6 +257,13 @@ export function AuthForm({
       ref={formRef}
       action={formAction}
       onSubmit={submit}
+      onPointerDownCapture={(event) => {
+        // Safari may blur the input with a null relatedTarget when a button is
+        // tapped. Capture the submit intent before that blur can move the form.
+        submitPointer.current =
+          event.target instanceof Element &&
+          !!event.target.closest('button[type="submit"]');
+      }}
       noValidate
       aria-busy={pending}
       className="auth-form"
@@ -251,7 +281,7 @@ export function AuthForm({
               {
                 value: "employer",
                 label: "Nhà tuyển dụng",
-                text: "Tìm đồng nghiệp phù hợp",
+                text: "Đăng tin và tìm ứng viên",
               },
             ].map((item) => (
               <label
@@ -296,11 +326,15 @@ export function AuthForm({
             autocomplete: "tel",
             optional: true,
           })}
-          {input("dob", "Ngày sinh", {
-            type: "date",
-            autocomplete: "bday",
-            description: "Bạn cần từ 15 tuổi trở lên.",
-          })}
+          <BirthDateField
+            id={`${id}-dob`}
+            value={values.dob ?? ""}
+            today={today}
+            disabled={pending}
+            error={errors.dob}
+            onChange={(value) => change("dob", value)}
+            onBlur={(event) => blur("dob", event)}
+          />
         </div>
       )}
       {kind === "change" &&
