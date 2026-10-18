@@ -8,7 +8,7 @@ export function JobsSkeleton() {
       aria-label="Đang tải việc làm"
     >
       <span className="sr-only">Đang tải việc làm…</span>
-      <Skeleton className="h-32 w-full rounded-xl mb-6" />
+      <Skeleton className="h-56 min-[601px]:h-20 w-full rounded-xl mb-6" />
       <div className="results-layout">
         <div className="grid gap-4">
           {[1, 2, 3].map((id) => (

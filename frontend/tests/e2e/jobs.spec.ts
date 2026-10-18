@@ -40,28 +40,34 @@ test("accent-insensitive search and browser back preserve URL and form", async (
   page,
 }) => {
   await page.goto("/jobs");
-  await page.getByLabel("Công việc bạn đang tìm").fill("dong hanh");
-  await page.getByRole("button", { name: "Tìm việc làm", exact: true }).click();
+  await page.getByLabel("Việc làm, công ty hoặc kỹ năng").fill("dong hanh");
+  await page
+    .getByRole("button", { name: "Tìm việc nhanh", exact: true })
+    .click();
   await expect(page).toHaveURL(/keyword=dong\+hanh/);
   await expect(page.getByTestId("job-card").first()).toContainText(
     "Đồng Hành Media",
   );
-  await page.getByLabel("Công việc bạn đang tìm").fill("khongtimthayxyz");
-  await page.getByRole("button", { name: "Tìm việc làm", exact: true }).click();
+  await page
+    .getByLabel("Việc làm, công ty hoặc kỹ năng")
+    .fill("khongtimthayxyz");
+  await page
+    .getByRole("button", { name: "Tìm việc nhanh", exact: true })
+    .click();
   await expect(
     page.getByRole("heading", {
       name: "Không tìm thấy việc làm phù hợp với tiêu chí tìm kiếm",
     }),
   ).toBeVisible();
   await page.goBack();
-  await expect(page.getByLabel("Công việc bạn đang tìm")).toHaveValue(
+  await expect(page.getByLabel("Việc làm, công ty hoặc kỹ năng")).toHaveValue(
     "dong hanh",
   );
   await expect(page.getByTestId("job-card").first()).toContainText(
     "Đồng Hành Media",
   );
   await page.reload();
-  await expect(page.getByLabel("Công việc bạn đang tìm")).toHaveValue(
+  await expect(page.getByLabel("Việc làm, công ty hoặc kỹ năng")).toHaveValue(
     "dong hanh",
   );
 });
@@ -79,13 +85,26 @@ test("multiple categories, type and salary combine; clear removes query", async 
   await page
     .getByLabel("Hình thức làm việc", { exact: true })
     .selectOption("remote");
+  await expect(page).toHaveURL(/job_type=remote/);
   await page.getByLabel("Mức lương", { exact: true }).selectOption("10to20");
-  await page.getByRole("button", { name: "Tìm việc làm", exact: true }).click();
   await expect(page).toHaveURL(/category_ids=1&category_ids=4/);
+  await expect(page).toHaveURL(/salary=10to20/);
   expect(new URL(page.url()).searchParams.has("page")).toBe(false);
   await expect(page.getByTestId("job-card").first()).toContainText(
     "20 - 25 triệu VNĐ",
   );
+  await page.goBack();
+  await expect(page.getByLabel("Mức lương", { exact: true })).toHaveValue("");
+  await expect(
+    page.getByLabel("Hình thức làm việc", { exact: true }),
+  ).toHaveValue("remote");
+  await page.reload();
+  await page.locator("summary").click();
+  await expect(
+    page.getByRole("checkbox", { name: "Thiết kế đồ họa & UI/UX" }),
+  ).toBeChecked();
+  await page.keyboard.press("Escape");
+  await expect(page.locator("summary")).toBeFocused();
   await page
     .getByRole("link", { name: "Xóa bộ lọc", exact: true })
     .first()
@@ -176,6 +195,9 @@ for (const width of [360, 390, 768, 1024, 1440]) {
       await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
       const logo = page.locator(".brand-mark").first();
       await expect(logo).toBeVisible();
+      await expect(
+        page.getByRole("search", { name: "Tìm việc nhanh" }),
+      ).toBeVisible();
       await expect
         .poll(() =>
           logo.evaluate((image) => (image as HTMLImageElement).naturalWidth),
@@ -199,6 +221,9 @@ for (const width of [360, 390, 768, 1024, 1440]) {
       const menu = page.getByRole("button", { name: "Tất cả danh mục" });
       await menu.click();
       await expect(page.getByRole("dialog")).toBeVisible();
+      const header = await page.locator(".site-header").boundingBox();
+      const menuBounds = await page.getByRole("dialog").boundingBox();
+      expect(menuBounds!.y).toBeGreaterThanOrEqual(header!.y + header!.height);
       expect(
         await page.evaluate(
           () => document.documentElement.scrollWidth - innerWidth,
@@ -206,6 +231,15 @@ for (const width of [360, 390, 768, 1024, 1440]) {
       ).toBeLessThanOrEqual(1);
       await page.keyboard.press("Escape");
       await expect(menu).toBeFocused();
+    }
+    if (width === 360) {
+      await page.getByLabel("Việc làm, công ty hoặc kỹ năng").fill("React");
+      await page.getByLabel("Địa điểm tìm nhanh").selectOption("Hà Nội");
+      await page
+        .getByRole("button", { name: "Tìm việc nhanh", exact: true })
+        .click();
+      await expect(page).toHaveURL(/keyword=React/);
+      await expect(page.getByTestId("job-card").first()).toContainText("React");
     }
   });
 }

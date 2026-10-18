@@ -3,6 +3,7 @@
 import {
   useEffect,
   useId,
+  useOptimistic,
   useRef,
   useState,
   useTransition,
@@ -10,27 +11,25 @@ import {
 } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ChevronDown, Search, SlidersHorizontal, X } from "lucide-react";
+import { ChevronDown, SlidersHorizontal, X } from "lucide-react";
 import type { Category, JobQuery } from "@/features/jobs/types";
 import { JOB_TYPE_LABELS } from "@/features/jobs/types";
 import { jobQueryString, parseJobQuery } from "@/features/jobs/query";
-import { Button } from "@/modules/cores/shadcn/components/ui/button";
 import { Input } from "@/modules/cores/shadcn/components/ui/input";
 
 export function JobFilters({
   query,
   categories,
-  cities,
   levels,
 }: {
   query: JobQuery;
   categories: Category[];
-  cities: string[];
   levels: string[];
 }) {
   const id = useId();
   const router = useRouter();
   const [pending, startTransition] = useTransition();
+  const [filters, setOptimisticFilters] = useOptimistic(query);
   const [categorySearch, setCategorySearch] = useState("");
   const categoryDetails = useRef<HTMLDetailsElement>(null);
   useEffect(() => {
@@ -57,16 +56,21 @@ export function JobFilters({
       document.removeEventListener("pointerdown", closeOutside);
     };
   }, []);
-  function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+  function apply(form: HTMLFormElement) {
+    const data = new FormData(form);
     const raw: Record<string, string | string[]> = {};
     for (const key of new Set(data.keys()))
       raw[key] = data.getAll(key).map(String);
-    const next = jobQueryString(parseJobQuery(raw), { page: 1 });
-    startTransition(() =>
-      router.push(next ? `/jobs?${next}` : "/jobs", { scroll: false }),
-    );
+    const nextQuery = { ...parseJobQuery(raw), page: 1 };
+    const next = jobQueryString(nextQuery);
+    startTransition(() => {
+      setOptimisticFilters(nextQuery);
+      router.push(next ? `/jobs?${next}` : "/jobs", { scroll: false });
+    });
+  }
+  function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    apply(event.currentTarget);
   }
   const normalize = (value: string) =>
     value
@@ -75,47 +79,10 @@ export function JobFilters({
       .replace(/đ/gi, "d")
       .toLowerCase();
   return (
-    <section className="search-panel surface" aria-label="Tìm kiếm và bộ lọc">
-      <form
-        key={jobQueryString(query)}
-        action="/jobs"
-        method="get"
-        onSubmit={submit}
-        aria-busy={pending}
-      >
-        <div className="search-row">
-          <div className="search-field">
-            <label htmlFor={`${id}-keyword`}>Công việc bạn đang tìm</label>
-            <div className="input-with-icon">
-              <Search aria-hidden="true" />
-              <Input
-                id={`${id}-keyword`}
-                name="keyword"
-                defaultValue={query.keyword}
-                placeholder="Chức danh, công ty hoặc kỹ năng"
-                maxLength={200}
-                className="h-12 pl-10"
-              />
-            </div>
-          </div>
-          <div className="city-field">
-            <label htmlFor={`${id}-city`}>Địa điểm</label>
-            <select id={`${id}-city`} name="city" defaultValue={query.city}>
-              <option value="">Tất cả tỉnh / thành phố</option>
-              {cities.map((city) => (
-                <option key={city}>{city}</option>
-              ))}
-            </select>
-          </div>
-          <Button
-            className="search-submit h-12"
-            type="submit"
-            disabled={pending}
-          >
-            <Search aria-hidden="true" />
-            {pending ? "Đang tìm…" : "Tìm việc làm"}
-          </Button>
-        </div>
+    <section className="search-panel surface" aria-label="Bộ lọc việc làm">
+      <form action="/jobs" method="get" onSubmit={submit} aria-busy={pending}>
+        <input type="hidden" name="keyword" value={filters.keyword} />
+        <input type="hidden" name="city" value={filters.city} />
         <div className="filter-row">
           <span className="filter-caption">
             <SlidersHorizontal aria-hidden="true" size={16} />
@@ -124,8 +91,8 @@ export function JobFilters({
           <details ref={categoryDetails} className="category-filter">
             <summary>
               Ngành nghề{" "}
-              {query.category_ids.length > 0 &&
-                `(${query.category_ids.length})`}
+              {filters.category_ids.length > 0 &&
+                `(${filters.category_ids.length})`}
               <ChevronDown size={15} aria-hidden="true" />
             </summary>
             <div className="category-options">
@@ -153,7 +120,8 @@ export function JobFilters({
                       type="checkbox"
                       name="category_ids"
                       value={category.id}
-                      defaultChecked={query.category_ids.includes(category.id)}
+                      checked={filters.category_ids.includes(category.id)}
+                      onChange={(event) => apply(event.currentTarget.form!)}
                     />
                     {category.name}
                   </label>
@@ -168,7 +136,8 @@ export function JobFilters({
             <select
               id={`${id}-type`}
               name="job_type"
-              defaultValue={query.job_type}
+              value={filters.job_type}
+              onChange={(event) => apply(event.currentTarget.form!)}
             >
               <option value="">Hình thức làm việc</option>
               {Object.entries(JOB_TYPE_LABELS).map(([value, label]) => (
@@ -185,7 +154,8 @@ export function JobFilters({
             <select
               id={`${id}-salary`}
               name="salary"
-              defaultValue={query.salary}
+              value={filters.salary}
+              onChange={(event) => apply(event.currentTarget.form!)}
             >
               <option value="">Tất cả mức lương</option>
               <option value="under10">Dưới 10 triệu</option>
@@ -198,7 +168,12 @@ export function JobFilters({
             <label className="sr-only" htmlFor={`${id}-level`}>
               Cấp bậc
             </label>
-            <select id={`${id}-level`} name="level" defaultValue={query.level}>
+            <select
+              id={`${id}-level`}
+              name="level"
+              value={filters.level}
+              onChange={(event) => apply(event.currentTarget.form!)}
+            >
               <option value="">Tất cả cấp bậc</option>
               {levels.map((level) => (
                 <option key={level}>{level}</option>
@@ -210,10 +185,9 @@ export function JobFilters({
             Xóa bộ lọc
           </Link>
         </div>
-        <p className="filter-help">
-          Chọn tiêu chí rồi nhấn “Tìm việc làm” để áp dụng. Có thể chọn nhiều
-          ngành nghề.
-        </p>
+        <span className="sr-only" role="status">
+          {pending ? "Đang cập nhật kết quả…" : ""}
+        </span>
       </form>
     </section>
   );

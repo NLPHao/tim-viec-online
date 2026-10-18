@@ -17,11 +17,20 @@ test("navbar keyword and location submit the existing job query contract", async
   expect(url.searchParams.get("city")).toBe("Hà Nội");
   expect(url.searchParams.has("page")).toBe(false);
   await expect(
-    page.getByLabel("Công việc bạn đang tìm", { exact: true }),
+    search.getByLabel("Việc làm, công ty hoặc kỹ năng", { exact: true }),
   ).toHaveValue("React");
-  await expect(page.getByLabel("Địa điểm", { exact: true })).toHaveValue(
-    "Hà Nội",
-  );
+  await expect(search.getByLabel("Địa điểm tìm nhanh")).toHaveValue("Hà Nội");
+  const filters = page.getByRole("region", { name: "Bộ lọc việc làm" });
+  await expect(filters.locator('input[name="keyword"]')).toBeHidden();
+  await expect(filters.locator('select[name="city"]')).toHaveCount(0);
+  await filters.getByLabel("Hình thức làm việc").selectOption("remote");
+  await expect(page).toHaveURL(/job_type=remote/);
+  expect(new URL(page.url()).searchParams.get("keyword")).toBe("React");
+  expect(new URL(page.url()).searchParams.get("city")).toBe("Hà Nội");
+  await search.getByLabel("Việc làm, công ty hoặc kỹ năng").fill("PHP");
+  await search.getByRole("button", { name: "Tìm việc nhanh" }).click();
+  await expect(page).toHaveURL(/keyword=PHP/);
+  expect(new URL(page.url()).searchParams.get("job_type")).toBe("remote");
 });
 
 test("navbar menus dismiss, restore focus and navigate without fake account data", async ({

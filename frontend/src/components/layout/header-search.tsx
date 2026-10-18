@@ -1,10 +1,18 @@
-import { ChevronDown, MapPin, Search } from "lucide-react";
+"use client";
 
-export function HeaderSearch() {
+import { ChevronDown, MapPin, Search } from "lucide-react";
+import { usePathname, useSearchParams } from "next/navigation";
+import Form from "next/form";
+
+export function HeaderSearch({ cities }: { cities: string[] }) {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const keyword = searchParams.get("keyword") ?? "";
+  const city = searchParams.get("city") ?? "";
+  const locations = city && !cities.includes(city) ? [city, ...cities] : cities;
   return (
-    <form
+    <Form
       action="/jobs"
-      method="get"
       className="header-search"
       role="search"
       aria-label="Tìm việc nhanh"
@@ -16,6 +24,8 @@ export function HeaderSearch() {
         id="header-keyword"
         type="text"
         name="keyword"
+        key={keyword}
+        defaultValue={keyword}
         maxLength={200}
         placeholder="Tìm kiếm việc làm, công ty, kỹ năng..."
       />
@@ -25,17 +35,30 @@ export function HeaderSearch() {
         <label className="sr-only" htmlFor="header-city">
           Địa điểm tìm nhanh
         </label>
-        <select id="header-city" name="city" defaultValue="">
+        <select id="header-city" name="city" key={city} defaultValue={city}>
           <option value="">Tất cả địa điểm</option>
-          <option>TP. Hồ Chí Minh</option>
-          <option>Hà Nội</option>
-          <option>Đà Nẵng</option>
+          {locations.map((location) => (
+            <option key={location}>{location}</option>
+          ))}
         </select>
         <ChevronDown size={11} aria-hidden="true" />
       </div>
+      {pathname === "/jobs" &&
+        ["category_ids", "job_type", "salary", "level"].flatMap((name) =>
+          searchParams
+            .getAll(name)
+            .map((value, index) => (
+              <input
+                type="hidden"
+                name={name}
+                value={value}
+                key={`${name}-${index}`}
+              />
+            )),
+        )}
       <button type="submit" aria-label="Tìm việc nhanh">
         <Search size={15} aria-hidden="true" />
       </button>
-    </form>
+    </Form>
   );
 }

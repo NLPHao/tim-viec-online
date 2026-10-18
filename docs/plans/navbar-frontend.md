@@ -23,3 +23,15 @@ Build production, lint, TypeScript và git diff --check. Kiểm tra browser gồ
 Suite preview/public có 21 tình huống: lần đầu 20 đạt, phát hiện neo menu sai; đã sửa và chạy lại nhóm navbar/responsive. Suite API fixture có 15 tình huống: 14 đạt ban đầu, kịch bản logout được chạy lại sau khi sửa trạng thái chờ phiên và đạt, bao gồm thu hồi token. Các lần chạy lại tập trung vào phần thay đổi; chưa kiểm thử với Laravel thật, Safari/Firefox hoặc trình đọc màn hình thực tế.
 
 Ảnh đối chiếu HTML và frontend tại `frontend/playwright-report/navbar/` (gitignored). Đã đo header 69px, search 580 × 36px, menu desktop x140/y76/rộng1160 tại viewport1440. Logo thật và nội dung theo phiên là khác biệt có chủ ý so với dữ liệu giả trong mẫu. Không tuyên bố toàn bộ trang giống thiết kế hoặc backend đã tích hợp.
+
+## Cập nhật theo yêu cầu ngày 18/10/2026
+
+Người dùng yêu cầu bỏ hàng tìm kiếm lặp ở nội dung `/jobs`, giữ tìm từ khóa/địa điểm trên navbar và chỉ để bộ lọc bên dưới. Quyết định này thay thế phần giữ form tìm kiếm chính và ẩn tìm kiếm navbar trên mobile ở phạm vi ban đầu.
+
+- Giữ phong cách và màu hiện tại của `design/page_jobs`: navbar navy, ô tìm kiếm trắng, bộ lọc viền mảnh. Bỏ hàng từ khóa/địa điểm/nút tìm kiếm thứ hai, đường chia và hướng dẫn nhấn nút. Khung dưới chỉ còn ngành nghề nhiều lựa chọn, hình thức làm việc, lương, cấp bậc và xóa bộ lọc.
+- Bộ lọc áp dụng ngay, giữ từ khóa/địa điểm, đưa phân trang về trang đầu. React optimistic state giữ dropdown ngành nghề mở khi chọn liên tiếp; quay lại/tải lại khôi phục tiêu chí từ URL. Ô tìm ngành nghề chỉ thu hẹp danh mục lựa chọn.
+- Navbar đọc từ khóa/địa điểm từ URL và lấy danh sách địa điểm qua cùng `getJobCatalog` đang phục vụ trang việc làm. `next/form` điều hướng phía client, giữ bộ lọc khi tìm tiếp trên `/jobs`, đồng thời hỗ trợ GET khi JavaScript chưa sẵn sàng.
+- Dưới 1100px, cùng form navbar chuyển xuống hàng hai để tiếp tục tìm được trên mobile. Menu danh mục neo theo toàn bộ chiều cao navbar; giữ lối Escape và trả focus. Skeleton bộ lọc đổi theo chiều cao mới.
+- Giả định: giữ nguồn dữ liệu và giới hạn hiệu năng hiện tại; thay đổi không thêm dependency, API, thông tin cá nhân hay yêu cầu backend. So với giữ nút áp dụng riêng, áp dụng ngay phù hợp tương tác trong mẫu và tránh thêm nút tìm kiếm thứ hai.
+
+Kiểm chứng: build production, ESLint, TypeScript; browser Chromium kiểm tra tìm kiếm không dấu, quay lại/tải lại, phối hợp nhiều ngành/hình thức/lương, giữ keyword/city, xóa tiêu chí, tìm trên mobile, menu/focus, axe và chống tràn ngang ở 360/390/768/1024/1440px. Chưa kiểm tra Safari/Firefox hoặc API Laravel thật.
