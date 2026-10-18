@@ -203,9 +203,6 @@ main {
   border-radius: 14px;
   padding: 24px;
   background: var(--card);
-  transition:
-    border-color 0.15s,
-    box-shadow 0.15s;
 }
 .job-card:hover {
   border-color: var(--brand-blue);
@@ -756,14 +753,5 @@ main {
   .footer-bottom {
     flex-direction: column;
     gap: 6px;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
   }
 }
