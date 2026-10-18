@@ -1,18 +1,68 @@
 import "server-only";
 import { connection } from "next/server";
 import { cache } from "react";
-import { isJobOpen, vietnamToday } from "../features/jobs/formatters";
+import {
+  formatSalary,
+  isJobOpen,
+  vietnamToday,
+} from "../features/jobs/formatters";
 import { filterJobs, paginateJobs } from "../features/jobs/query";
 import { JOB_LEVELS, type Job, type JobQuery } from "../features/jobs/types";
 import { createJobFixtures, JOB_CATEGORIES } from "../mocks/jobs";
+import {
+  createHomeJobFixtures,
+  HOME_CATEGORIES,
+  HOME_COMPANIES,
+  HOME_FEATURED,
+} from "../mocks/home";
+import type { HomeJobCard } from "../features/home/types";
 
 // Components depend on this read interface. Replace its fixture implementation
 // with the agreed Laravel API adapter when endpoints are available.
 const repository = cache(async () => {
   await connection();
   const now = new Date();
-  return { jobs: createJobFixtures(now), today: vietnamToday(now) };
+  return {
+    jobs: [...createJobFixtures(now), ...createHomeJobFixtures(now)],
+    today: vietnamToday(now),
+  };
 });
+
+export async function getHomeContent() {
+  const { jobs, today } = await repository();
+  const active = jobs.filter((job) => isJobOpen(job, today));
+  const featuredIds = new Set(HOME_FEATURED.map((job) => job.id));
+  const ordered = [
+    ...HOME_FEATURED.flatMap((spec) =>
+      active.filter((job) => job.id === spec.id),
+    ),
+    ...active.filter((job) => !featuredIds.has(job.id)),
+  ];
+  const cards: HomeJobCard[] = ordered.map((job) => {
+    const presentation = HOME_FEATURED.find((spec) => spec.id === job.id);
+    return {
+      id: job.id,
+      title: job.title,
+      company: job.company.name,
+      salary: formatSalary(job),
+      city: job.city,
+      mark:
+        presentation?.mark ??
+        job.company.name
+          .split(" ")
+          .map((word) => word[0])
+          .slice(0, 3)
+          .join(""),
+      brand: presentation?.brand ?? "generic",
+      featured: !!presentation,
+    };
+  });
+  return {
+    jobs: cards,
+    categories: HOME_CATEGORIES,
+    companies: HOME_COMPANIES,
+  };
+}
 
 export async function listJobs(query: JobQuery) {
   const { jobs, today } = await repository();

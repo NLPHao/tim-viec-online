@@ -12,16 +12,24 @@ async function SearchNavigation() {
   return <HeaderSearch cities={cities} />;
 }
 
-export function SiteHeader() {
+export function SiteHeader({
+  variant = "default",
+}: {
+  variant?: "default" | "home";
+}) {
   return (
-    <header className="site-header">
+    <header
+      className={`site-header${variant === "home" ? " site-header--home" : ""}`}
+    >
       <div className="header-inner">
         <Brand />
-        <Suspense
-          fallback={<div className="header-search" aria-hidden="true" />}
-        >
-          <SearchNavigation />
-        </Suspense>
+        {variant !== "home" && (
+          <Suspense
+            fallback={<div className="header-search" aria-hidden="true" />}
+          >
+            <SearchNavigation />
+          </Suspense>
+        )}
         <Suspense fallback={<GuestNavigation />}>
           <SessionNavigation />
         </Suspense>

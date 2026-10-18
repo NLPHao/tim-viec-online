@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Bookmark, ArrowRight } from "lucide-react";
+import { Bookmark, ArrowRight, Heart } from "lucide-react";
 import { toast } from "sonner";
 import type { AuthRole } from "@/features/auth/types";
 import { Button } from "@/modules/cores/shadcn/components/ui/button";
@@ -20,15 +20,25 @@ export function GuestActions({
   open = true,
   compact = false,
   viewerRole,
+  appearance = "default",
 }: {
   jobId: number;
   open?: boolean;
   compact?: boolean;
   viewerRole?: AuthRole;
+  appearance?: "default" | "home";
 }) {
   const loginUrl = `/login?returnTo=${encodeURIComponent(`/jobs/${jobId}`)}`;
   return (
-    <div className={compact ? "job-save" : "guest-actions"}>
+    <div
+      className={
+        appearance === "home"
+          ? "home-save"
+          : compact
+            ? "job-save"
+            : "guest-actions"
+      }
+    >
       {!compact &&
         (open && viewerRole ? (
           <Button
@@ -60,7 +70,11 @@ export function GuestActions({
             className={compact ? "size-11 rounded-full" : "h-11"}
             aria-label={compact ? "Lưu việc làm" : undefined}
           >
-            <Bookmark aria-hidden="true" />
+            {appearance === "home" ? (
+              <Heart aria-hidden="true" />
+            ) : (
+              <Bookmark aria-hidden="true" />
+            )}
             {!compact && "Lưu việc làm"}
           </Button>
         </DialogTrigger>

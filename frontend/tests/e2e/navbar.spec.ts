@@ -64,7 +64,7 @@ test("navbar menus dismiss, restore focus and navigate without fake account data
   await expect(categories).toBeFocused();
   await categories.click();
   await page
-    .getByRole("heading", { name: "18 việc làm phù hợp", exact: true })
+    .getByRole("heading", { name: "24 việc làm phù hợp", exact: true })
     .click();
   await expect(mega).toBeHidden();
   await categories.click();

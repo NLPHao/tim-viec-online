@@ -3,11 +3,7 @@ import Image from "next/image";
 
 export function Brand() {
   return (
-    <Link
-      href="/jobs"
-      className="brand"
-      aria-label="TimViecOnline — Tìm việc làm"
-    >
+    <Link href="/" className="brand" aria-label="TimViecOnline — Tìm việc làm">
       <Image
         src="/brand/logo.png"
         alt=""

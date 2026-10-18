@@ -8,7 +8,7 @@ test("public list, real pagination, detail and guest auth handoff", async ({
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/jobs");
   await expect(
-    page.getByRole("heading", { name: "18 việc làm phù hợp" }),
+    page.getByRole("heading", { name: "24 việc làm phù hợp" }),
   ).toBeVisible();
   await expect(page.getByTestId("job-card")).toHaveCount(6);
   await page.getByRole("link", { name: "Trang 2", exact: true }).click();
