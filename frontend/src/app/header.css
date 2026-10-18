@@ -93,26 +93,7 @@
   color: var(--muted-foreground);
   flex-shrink: 0;
 }
-.header-location select {
-  height: auto;
-  min-height: 0;
-  width: 89px;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  appearance: none;
-  font-size: 10.8px;
-  line-height: 14.4px;
-  font-weight: 500;
-  color: var(--foreground);
-  cursor: pointer;
-}
-.header-location select:focus-visible {
-  outline: 1px solid var(--ring);
-  outline-offset: 3px;
-}
-.header-search button {
+.header-search > button[type="submit"] {
   width: 28.8px;
   height: 28.8px;
   display: grid;
@@ -123,7 +104,7 @@
   color: var(--primary-foreground);
   cursor: pointer;
 }
-.header-search button:hover {
+.header-search > button[type="submit"]:hover {
   background: var(--header-coral-hover);
 }
 .header-actions {
@@ -395,7 +376,7 @@
     font-size: 16px;
     line-height: 20px;
   }
-  .header-search button {
+  .header-search > button[type="submit"] {
     width: 36px;
     height: 36px;
   }

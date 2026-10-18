@@ -5,6 +5,7 @@ import "./globals.css";
 import "./site.css";
 import "./auth.css";
 import "./header.css";
+import "./selection.css";
 
 const brandFont = Be_Vietnam_Pro({
   variable: "--font-brand",

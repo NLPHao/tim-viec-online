@@ -1,8 +1,34 @@
 "use client";
 
-import { ChevronDown, MapPin, Search } from "lucide-react";
+import { MapPin, Search } from "lucide-react";
+import { useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Form from "next/form";
+import { SelectionField } from "@/components/forms/selection-field";
+
+function HeaderLocation({
+  city,
+  locations,
+}: {
+  city: string;
+  locations: string[];
+}) {
+  const [value, setValue] = useState(city);
+  return (
+    <SelectionField
+      className="header-city-selection"
+      label="Địa điểm tìm nhanh"
+      placeholder="Tất cả địa điểm"
+      name="city"
+      options={locations.map((location) => ({
+        value: location,
+        label: location,
+      }))}
+      value={value}
+      onValueChange={setValue}
+    />
+  );
+}
 
 export function HeaderSearch({ cities }: { cities: string[] }) {
   const searchParams = useSearchParams();
@@ -32,16 +58,7 @@ export function HeaderSearch({ cities }: { cities: string[] }) {
       <span className="header-search-divider" aria-hidden="true" />
       <div className="header-location">
         <MapPin size={13} aria-hidden="true" />
-        <label className="sr-only" htmlFor="header-city">
-          Địa điểm tìm nhanh
-        </label>
-        <select id="header-city" name="city" key={city} defaultValue={city}>
-          <option value="">Tất cả địa điểm</option>
-          {locations.map((location) => (
-            <option key={location}>{location}</option>
-          ))}
-        </select>
-        <ChevronDown size={11} aria-hidden="true" />
+        <HeaderLocation key={city} city={city} locations={locations} />
       </div>
       {pathname === "/jobs" &&
         ["category_ids", "job_type", "salary", "level"].flatMap((name) =>

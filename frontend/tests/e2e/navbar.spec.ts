@@ -10,7 +10,8 @@ test("navbar keyword and location submit the existing job query contract", async
   await search
     .getByLabel("Việc làm, công ty hoặc kỹ năng", { exact: true })
     .fill("React");
-  await search.getByLabel("Địa điểm tìm nhanh").selectOption("Hà Nội");
+  await search.getByRole("combobox", { name: "Địa điểm tìm nhanh" }).click();
+  await page.getByRole("option", { name: "Hà Nội", exact: true }).click();
   await search.getByRole("button", { name: "Tìm việc nhanh" }).click();
   await expect(page).toHaveURL(/keyword=React/);
   const url = new URL(page.url());
@@ -19,11 +20,14 @@ test("navbar keyword and location submit the existing job query contract", async
   await expect(
     search.getByLabel("Việc làm, công ty hoặc kỹ năng", { exact: true }),
   ).toHaveValue("React");
-  await expect(search.getByLabel("Địa điểm tìm nhanh")).toHaveValue("Hà Nội");
+  await expect(
+    search.getByRole("combobox", { name: "Địa điểm tìm nhanh" }),
+  ).toHaveText("Hà Nội");
   const filters = page.getByRole("region", { name: "Bộ lọc việc làm" });
   await expect(filters.locator('input[name="keyword"]')).toBeHidden();
   await expect(filters.locator('select[name="city"]')).toHaveCount(0);
-  await filters.getByLabel("Hình thức làm việc").selectOption("remote");
+  await filters.getByRole("combobox", { name: "Hình thức làm việc" }).click();
+  await page.getByRole("option", { name: "Từ xa", exact: true }).click();
   await expect(page).toHaveURL(/job_type=remote/);
   expect(new URL(page.url()).searchParams.get("keyword")).toBe("React");
   expect(new URL(page.url()).searchParams.get("city")).toBe("Hà Nội");

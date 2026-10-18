@@ -87,6 +87,10 @@
     var(--muted-foreground)
   );
   --field-focus-halo: color-mix(in srgb, var(--ring) 12%, transparent);
+  --selection-background: color-mix(in srgb, var(--brand-blue) 7%, var(--card));
+  --selection-hover: color-mix(in srgb, var(--brand-blue) 11%, var(--card));
+  --selection-shadow: 0 10px 30px
+    color-mix(in srgb, var(--brand-navy) 12%, transparent);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);

@@ -76,17 +76,21 @@ test("multiple categories, type and salary combine; clear removes query", async 
   page,
 }) => {
   await page.goto("/jobs?page=3");
-  await page.locator("summary").click();
+  await page.getByRole("button", { name: "Ngành nghề", exact: true }).click();
   await page
     .getByRole("checkbox", { name: "Công nghệ thông tin / Phần mềm" })
     .check();
   await page.getByRole("checkbox", { name: "Thiết kế đồ họa & UI/UX" }).check();
-  await page.locator("summary").click();
+  await page.keyboard.press("Escape");
   await page
-    .getByLabel("Hình thức làm việc", { exact: true })
-    .selectOption("remote");
+    .getByRole("combobox", { name: "Hình thức làm việc", exact: true })
+    .click();
+  await page.getByRole("option", { name: "Từ xa", exact: true }).click();
   await expect(page).toHaveURL(/job_type=remote/);
-  await page.getByLabel("Mức lương", { exact: true }).selectOption("10to20");
+  await page.getByRole("combobox", { name: "Mức lương", exact: true }).click();
+  await page
+    .getByRole("option", { name: "Từ 10 – 20 triệu", exact: true })
+    .click();
   await expect(page).toHaveURL(/category_ids=1&category_ids=4/);
   await expect(page).toHaveURL(/salary=10to20/);
   expect(new URL(page.url()).searchParams.has("page")).toBe(false);
@@ -94,17 +98,21 @@ test("multiple categories, type and salary combine; clear removes query", async 
     "20 - 25 triệu VNĐ",
   );
   await page.goBack();
-  await expect(page.getByLabel("Mức lương", { exact: true })).toHaveValue("");
+  await expect(
+    page.getByRole("combobox", { name: "Mức lương", exact: true }),
+  ).toHaveText("Tất cả mức lương");
   await expect(
     page.getByLabel("Hình thức làm việc", { exact: true }),
-  ).toHaveValue("remote");
+  ).toHaveText("Từ xa");
   await page.reload();
-  await page.locator("summary").click();
+  await page.getByRole("button", { name: "Ngành nghề", exact: true }).click();
   await expect(
     page.getByRole("checkbox", { name: "Thiết kế đồ họa & UI/UX" }),
   ).toBeChecked();
   await page.keyboard.press("Escape");
-  await expect(page.locator("summary")).toBeFocused();
+  await expect(
+    page.getByRole("button", { name: "Ngành nghề", exact: true }),
+  ).toBeFocused();
   await page
     .getByRole("link", { name: "Xóa bộ lọc", exact: true })
     .first()
@@ -164,7 +172,7 @@ test("search, details and guest dialog pass automated accessibility checks", asy
     expect(result.violations).toEqual([]);
   }
   await page.goto("/jobs");
-  await page.locator("summary").click();
+  await page.getByRole("button", { name: "Ngành nghề", exact: true }).click();
   await page.getByLabel("Tìm ngành nghề", { exact: true }).fill("cong nghe");
   await expect(
     page.getByRole("checkbox", { name: "Công nghệ thông tin / Phần mềm" }),
@@ -173,7 +181,9 @@ test("search, details and guest dialog pass automated accessibility checks", asy
     page.getByRole("checkbox", { name: "Thiết kế đồ họa & UI/UX" }),
   ).toBeHidden();
   await page.keyboard.press("Escape");
-  await expect(page.locator("summary")).toBeFocused();
+  await expect(
+    page.getByRole("button", { name: "Ngành nghề", exact: true }),
+  ).toBeFocused();
   await page
     .getByRole("button", { name: "Lưu việc làm", exact: true })
     .first()
@@ -234,7 +244,8 @@ for (const width of [360, 390, 768, 1024, 1440]) {
     }
     if (width === 360) {
       await page.getByLabel("Việc làm, công ty hoặc kỹ năng").fill("React");
-      await page.getByLabel("Địa điểm tìm nhanh").selectOption("Hà Nội");
+      await page.getByRole("combobox", { name: "Địa điểm tìm nhanh" }).click();
+      await page.getByRole("option", { name: "Hà Nội", exact: true }).click();
       await page
         .getByRole("button", { name: "Tìm việc nhanh", exact: true })
         .click();
