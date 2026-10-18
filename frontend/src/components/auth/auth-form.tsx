@@ -2,6 +2,7 @@
 
 import {
   useActionState,
+  useCallback,
   useEffect,
   useId,
   useRef,
@@ -130,20 +131,23 @@ export function AuthForm({
     setEdited(true);
     setPreviewMessage("");
   }
-  function blur(name: string, event: FocusEvent<HTMLInputElement>) {
-    // Submit validates the whole form. Avoid moving the submit button between
-    // pointer-down and click by inserting a blur error immediately before it.
-    if (
-      submitPointer.current ||
-      (event.relatedTarget instanceof HTMLButtonElement &&
-        event.relatedTarget.type === "submit")
-    )
-      return;
-    setClientErrors((previous) => ({
-      ...previous,
-      [name]: validateAuthValues(kind, values, today)[name] ?? "",
-    }));
-  }
+  const handleFieldBlur = useCallback(
+    (name: string, event: FocusEvent<HTMLInputElement>) => {
+      // Submit validates the whole form. Avoid moving the submit button between
+      // pointer-down and click by inserting a blur error immediately before it.
+      if (
+        submitPointer.current ||
+        (event.relatedTarget instanceof HTMLButtonElement &&
+          event.relatedTarget.type === "submit")
+      )
+        return;
+      setClientErrors((previous) => ({
+        ...previous,
+        [name]: validateAuthValues(kind, values, today)[name] ?? "",
+      }));
+    },
+    [kind, today, values],
+  );
   function submit(event: FormEvent<HTMLFormElement>) {
     const next = validateAuthValues(kind, values, today);
     setClientErrors(next);
@@ -197,7 +201,7 @@ export function AuthForm({
             autoComplete={options.autocomplete}
             value={values[name] ?? ""}
             onChange={(event) => change(name, event.target.value)}
-            onBlur={(event) => blur(name, event)}
+            onBlur={(event) => handleFieldBlur(name, event)}
             readOnly={options.readOnly}
             disabled={pending}
             required={!options.optional}
@@ -333,7 +337,7 @@ export function AuthForm({
             disabled={pending}
             error={errors.dob}
             onChange={(value) => change("dob", value)}
-            onBlur={(event) => blur("dob", event)}
+            onBlur={(event) => handleFieldBlur("dob", event)}
           />
         </div>
       )}
