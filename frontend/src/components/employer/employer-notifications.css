@@ -30,6 +30,22 @@
   white-space: nowrap;
   font-size: 11px;
 }
+.em-not-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+@media (max-width: 600px) {
+  .em-not-heading {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .em-not-actions {
+    justify-content: flex-start;
+  }
+}
 .em-not-tabs {
   display: flex;
   gap: 24px;

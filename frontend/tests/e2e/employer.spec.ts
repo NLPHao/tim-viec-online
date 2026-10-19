@@ -433,6 +433,11 @@ test("notification read filters, action destinations and mark-all persist across
 }) => {
   await loginMock(page, "employer", "/employer/notifications?read=unread");
   await expect(page.locator(".em-not-item")).toHaveCount(3);
+  await expect(
+    page
+      .locator(".em-not-heading")
+      .getByRole("button", { name: "Đánh dấu tất cả đã đọc", exact: true }),
+  ).toBeVisible();
   const first = page
     .locator(".em-not-item")
     .filter({ hasText: "Nguyễn Văn An vừa ứng tuyển" });
@@ -492,6 +497,67 @@ test("mobile chat opens one thread at a time and restores list focus without mar
   await expect(
     page.getByText("Không tìm thấy hội thoại", { exact: true }),
   ).toBeVisible();
+});
+
+test("required dropdowns have unique choices, retain selection and support keyboard navigation", async ({
+  page,
+}) => {
+  await loginMock(page, "employer", "/employer/candidates?application=2");
+  const sort = page.getByRole("combobox", {
+    name: "Sắp xếp hồ sơ",
+    exact: true,
+  });
+  await sort.click();
+  await expect(page.getByRole("option")).toHaveCount(3);
+  await expect(
+    page.getByRole("option", { name: "Điểm AI cao nhất", exact: true }),
+  ).toHaveCount(1);
+  await page.keyboard.press("Escape");
+  await expect(sort).toBeFocused();
+  const review = page.getByRole("combobox", {
+    name: "Trạng thái xét duyệt",
+    exact: true,
+  });
+  await expect(review).toHaveText("Đang xem xét");
+  await review.click();
+  await expect(page.getByRole("option")).toHaveCount(3);
+  await expect(
+    page.getByRole("option", { name: "Đang xem xét", exact: true }),
+  ).toHaveCount(1);
+  await page.keyboard.press("End");
+  await page.keyboard.press("Enter");
+  await expect(page.getByRole("listbox")).toBeHidden();
+  await expect(review).toHaveText("Từ chối");
+  await expect(
+    page.locator(".ec-review .selection-clear,.ec-sort .selection-clear"),
+  ).toHaveCount(0);
+});
+
+test("quantity and salary suffixes reserve space while number keyboard controls work", async ({
+  page,
+}) => {
+  await loginMock(page, "employer", "/employer/jobs/new");
+  const quantity = page.getByRole("spinbutton", {
+    name: "Số lượng tuyển",
+    exact: true,
+  });
+  await quantity.fill("1");
+  await quantity.press("ArrowUp");
+  await expect(quantity).toHaveValue("2");
+  for (const suffix of await page.locator(".ep-input-suffix").all()) {
+    const bounds = await suffix.evaluate((node) => ({
+      input: node.querySelector("input")!.getBoundingClientRect().right,
+      unit: node.querySelector("span")!.getBoundingClientRect().left,
+    }));
+    expect(bounds.input).toBeLessThanOrEqual(bounds.unit + 1);
+  }
+  await page
+    .getByRole("combobox", { name: "Hình thức hiển thị lương", exact: true })
+    .click();
+  await expect(page.getByRole("option")).toHaveCount(3);
+  await expect(
+    page.getByRole("option", { name: "Khoảng lương cụ thể", exact: true }),
+  ).toHaveCount(1);
 });
 
 for (const width of [360, 768, 1440]) {

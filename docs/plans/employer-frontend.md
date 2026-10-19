@@ -34,3 +34,5 @@ Nguồn nghiệp vụ: `docs/SRS.md` (FR-04, FR-06, FR-07, FR-08), cấu trúc `
 Build/type check, lint; unit tests ràng buộc công ty/lương/ngày/trạng thái/return path. Playwright kiểm tra guards, deep link, tính bền layout, tạo/sửa/đóng/mở tin, PDF/review, chat, thông báo và responsive/accessibility ở 360/768/1440px. Chụp và xem giao diện thực so với các trang design trước khi hoàn tất.
 
 Kết quả kiểm chứng: build và lint đạt; 54 unit test, 8 server mock-auth test, 25 E2E cho employer/navbar/account layout và 17 E2E xác thực qua API fixture đạt. Đã kiểm tra thêm 7 luồng xác thực mock trên trình duyệt. PDF demo được giữ dạng binary trong Git để tránh đổi CRLF làm sai byte offset.
+
+Tinh chỉnh UX: `SelectionField clearable={false}` dùng cho lựa chọn bắt buộc và sắp xếp, không tạo lựa chọn placeholder trùng với giá trị thật hoặc nút xóa. Bộ lọc vẫn giữ khả năng xóa độc lập. Trạng thái xét duyệt hiển thị giá trị thực, chỉ lưu khi xác nhận. Nút đọc tất cả nằm ngay đầu khung thông báo, cập nhật số chưa đọc và phản hồi kết quả; các ô số lượng/lương giữ phần đơn vị riêng trong layout. Build, lint và 23 E2E employer/selection/sorting đã qua sau thay đổi.

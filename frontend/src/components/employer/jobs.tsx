@@ -185,9 +185,11 @@ export function EmployerJobs({ compact = false }: { compact?: boolean }) {
             name="job_sort"
             label="Sắp xếp tin tuyển dụng"
             placeholder="Cập nhật mới nhất"
-            value={sort === "updated" ? "" : sort}
+            value={sort}
+            clearable={false}
             onValueChange={(value) => setQuery("sort", value || "updated")}
             options={[
+              { value: "updated", label: "Cập nhật mới nhất" },
               { value: "applications", label: "Nhiều hồ sơ nhất" },
               { value: "deadline", label: "Hạn nộp gần nhất" },
             ]}

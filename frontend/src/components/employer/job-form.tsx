@@ -314,6 +314,7 @@ function JobEditor({ existing }: { existing?: EmployerJob }) {
               required
             >
               <SelectionField
+                clearable={false}
                 name="category_id"
                 label="Ngành nghề"
                 placeholder="Chọn ngành nghề"
@@ -332,6 +333,7 @@ function JobEditor({ existing }: { existing?: EmployerJob }) {
               required
             >
               <SelectionField
+                clearable={false}
                 name="job_level"
                 label="Cấp bậc"
                 placeholder="Chọn cấp bậc"
@@ -368,6 +370,7 @@ function JobEditor({ existing }: { existing?: EmployerJob }) {
               required
             >
               <SelectionField
+                clearable={false}
                 name="job_type"
                 label="Hình thức làm việc"
                 placeholder="Chọn hình thức làm việc"
@@ -459,6 +462,7 @@ function JobEditor({ existing }: { existing?: EmployerJob }) {
               required
             >
               <SelectionField
+                clearable={false}
                 name="salary_mode"
                 label="Hình thức hiển thị lương"
                 placeholder="Chọn cách hiển thị lương"

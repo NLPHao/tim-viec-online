@@ -321,6 +321,7 @@ export function EmployerCandidates() {
                 name="sort"
                 label="Sắp xếp hồ sơ"
                 placeholder="Điểm AI cao nhất"
+                clearable={false}
                 options={sortOptions}
                 value={sort}
                 onValueChange={(value) => filter("sort", value || "score")}
@@ -530,7 +531,7 @@ function CandidateProfile({
   onPreview: () => void;
 }) {
   const { setApplicationStatus, jobs } = useEmployer();
-  const [nextStatus, setNextStatus] = useState("");
+  const [nextStatus, setNextStatus] = useState<string | null>(null);
   const withdrawn = application.status === "withdrawn";
   const job = jobs.find((item) => item.id === application.job_id);
   const analysis = application.analysis;
@@ -545,6 +546,11 @@ function CandidateProfile({
       option.value === "rejected" ||
       (option.value === "waiting" && !!application.reviewed_at),
   );
+  if (!options.some((option) => option.value === application.status))
+    options.unshift({
+      value: application.status,
+      label: APPLICATION_LABELS[application.status],
+    });
   function updateStatus() {
     if (!nextStatus || withdrawn) return;
     const error = setApplicationStatus(
@@ -554,7 +560,7 @@ function CandidateProfile({
     if (error) toast.error(error);
     else {
       toast.success("Đã cập nhật trạng thái hồ sơ.");
-      setNextStatus("");
+      setNextStatus(null);
     }
   }
   return (
@@ -653,8 +659,12 @@ function CandidateProfile({
                 name="application_status"
                 label="Trạng thái xét duyệt"
                 placeholder={APPLICATION_LABELS[application.status]}
-                value={nextStatus}
-                options={options}
+                value={nextStatus ?? application.status}
+                clearable={false}
+                options={options.map((option) => ({
+                  ...option,
+                  disabled: option.value === "applied",
+                }))}
                 onValueChange={setNextStatus}
               />
               <button

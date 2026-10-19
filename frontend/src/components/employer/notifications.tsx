@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment } from "react";
+import { toast } from "sonner";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
@@ -58,14 +59,6 @@ export function EmployerNotifications() {
           <h1>Không bỏ lỡ một cơ hội kết nối.</h1>
           <p>Cập nhật hồ sơ mới và những trao đổi quan trọng với ứng viên.</p>
         </div>
-        <Button
-          variant="outline"
-          disabled={!unread}
-          onClick={() => state.markRead()}
-        >
-          <CheckCheck aria-hidden="true" />
-          Đánh dấu tất cả đã đọc
-        </Button>
       </div>
       <div className="em-not-layout">
         <section
@@ -81,9 +74,25 @@ export function EmployerNotifications() {
                   : "Bạn đã đọc tất cả thông báo"}
               </p>
             </div>
-            <span className="ep-pill">
-              {state.notifications.length} thông báo
-            </span>
+            <div className="em-not-actions">
+              <span className="ep-pill">
+                {state.notifications.length} thông báo
+              </span>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                aria-label="Đánh dấu tất cả đã đọc"
+                disabled={!unread}
+                onClick={() => {
+                  state.markRead();
+                  toast.success(`Đã đánh dấu ${unread} thông báo là đã đọc.`);
+                }}
+              >
+                <CheckCheck aria-hidden="true" />
+                {unread ? "Đọc tất cả" : "Đã đọc tất cả"}
+              </Button>
+            </div>
           </div>
           <nav className="em-not-tabs" aria-label="Lọc trạng thái đọc">
             {[
@@ -155,7 +164,11 @@ export function EmployerNotifications() {
                       {item.read_at ? (
                         <span className="em-not-read">Đã đọc</span>
                       ) : (
-                          <span className="em-not-dot" role="img" aria-label="Chưa đọc" />
+                        <span
+                          className="em-not-dot"
+                          role="img"
+                          aria-label="Chưa đọc"
+                        />
                       )}
                     </div>
                     <p>{item.content}</p>

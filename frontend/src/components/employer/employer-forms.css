@@ -362,18 +362,41 @@
   gap: 21px 20px;
 }
 .employer-page .ep-input-suffix {
-  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  border: 1px solid var(--ep-border);
+  border-radius: 6px;
+  background: var(--ep-white);
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
 }
-.employer-page .ep-input-suffix input {
-  padding-right: 98px;
+.employer-page .ep-field .ep-input-suffix input:not([type="hidden"]) {
+  flex: 1;
+  width: 0;
+  min-width: 0;
+  border: 0;
+  padding-right: 10px;
+  background: transparent;
+}
+.employer-page .ep-field .ep-input-suffix input:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+.employer-page .ep-input-suffix:focus-within {
+  border-color: var(--ep-blue);
+  box-shadow: 0 0 0 2px var(--ep-blue-soft);
+}
+.employer-page .ep-input-suffix:has(input[aria-invalid="true"]) {
+  border-color: var(--destructive);
 }
 .employer-page .ep-input-suffix > span {
-  position: absolute;
-  right: 13px;
-  top: 50%;
-  transform: translateY(-50%);
+  flex-shrink: 0;
+  padding-right: 13px;
   color: var(--ep-muted);
   font-size: 10px;
+  white-space: nowrap;
   pointer-events: none;
 }
 .employer-page .ep-job-skills {

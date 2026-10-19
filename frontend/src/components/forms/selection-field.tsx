@@ -19,7 +19,11 @@ import {
   PopoverTrigger,
 } from "@/modules/cores/shadcn/components/ui/popover";
 
-export type SelectionOption = { value: string; label: string };
+export type SelectionOption = {
+  value: string;
+  label: string;
+  disabled?: boolean;
+};
 
 type CommonProps = {
   label: string;
@@ -58,13 +62,22 @@ export function SelectionField({
   value,
   onValueChange,
   className,
-}: CommonProps & { value: string; onValueChange: (value: string) => void }) {
+  clearable = true,
+}: CommonProps & {
+  value: string;
+  onValueChange: (value: string) => void;
+  clearable?: boolean;
+}) {
   const trigger = useRef<HTMLButtonElement>(null);
   return (
-    <div className={cn("selection-field", className)} data-active={!!value}>
+    <div
+      className={cn("selection-field", className)}
+      data-active={!!value}
+      data-clearable={clearable}
+    >
       <input type="hidden" name={name} value={value} />
       <Select
-        value={value || ALL_VALUES}
+        value={value || (clearable ? ALL_VALUES : "")}
         onValueChange={(next) => onValueChange(next === ALL_VALUES ? "" : next)}
       >
         <SelectTrigger
@@ -72,7 +85,7 @@ export function SelectionField({
           className="selection-trigger"
           aria-label={label}
         >
-          <SelectValue />
+          <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent
           ref={isolateSelectionMenu}
@@ -82,21 +95,24 @@ export function SelectionField({
           sideOffset={6}
           collisionPadding={12}
         >
-          <SelectItem className="selection-option" value={ALL_VALUES}>
-            {placeholder}
-          </SelectItem>
+          {clearable && (
+            <SelectItem className="selection-option" value={ALL_VALUES}>
+              {placeholder}
+            </SelectItem>
+          )}
           {options.map((option) => (
             <SelectItem
               className="selection-option"
               value={option.value}
               key={option.value}
+              disabled={option.disabled}
             >
               {option.label}
             </SelectItem>
           ))}
         </SelectContent>
       </Select>
-      {value && (
+      {value && clearable && (
         <button
           className="selection-clear"
           type="button"

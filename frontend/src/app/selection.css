@@ -69,6 +69,11 @@
 .selection-field .selection-trigger[data-state="open"] {
   border-color: var(--brand-blue);
 }
+.selection-field[data-clearable="false"][data-active="true"]
+  .selection-trigger
+  > [data-slot="select-value"] {
+  max-width: calc(100% - 24px);
+}
 .selection-field .selection-trigger:focus-visible {
   border-color: var(--field-focus-border);
   box-shadow: 0 0 0 2px var(--field-focus-halo);
