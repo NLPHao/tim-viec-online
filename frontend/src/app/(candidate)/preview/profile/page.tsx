@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { connection } from "next/server";
 import { notFound } from "next/navigation";
-import { SiteHeader } from "@/components/layout/site-header";
-import { SiteFooter } from "@/components/layout/site-footer";
 import { ProfileEditor } from "@/components/candidate/profile-editor";
 import { ProfileSkeleton } from "@/components/candidate/profile-skeleton";
 import { authApiEnabled } from "@/services/auth-api";
@@ -20,11 +18,9 @@ export default function PreviewProfilePage() {
   if (authApiEnabled()) notFound();
   return (
     <>
-      <SiteHeader />
       <Suspense fallback={<ProfileSkeleton />}>
         <PreviewProfile />
       </Suspense>
-      <SiteFooter />
     </>
   );
 }

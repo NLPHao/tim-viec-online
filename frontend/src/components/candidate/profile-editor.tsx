@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import {
   useEffect,
   useLayoutEffect,
@@ -10,23 +9,21 @@ import {
   type ChangeEvent,
 } from "react";
 import {
-  Bell,
-  BriefcaseBusiness,
   Download,
   Eye,
   FileText,
-  FileUser,
   Mail,
   MapPin,
-  MessageSquare,
   Pencil,
-  Settings,
   Trash2,
   Upload,
   UserRound,
   X,
 } from "lucide-react";
 import { toast } from "sonner";
+import { CandidateSidebar } from "./candidate-sidebar";
+import { useWorkspace } from "./workspace-provider";
+import { useFileUrl } from "./use-file-url";
 import { BirthDateField } from "@/components/auth/birth-date-field";
 import { SearchableSelectionField } from "@/components/forms/selection-field";
 import {
@@ -60,27 +57,6 @@ import {
   DialogClose,
 } from "@/modules/cores/shadcn/components/ui/dialog";
 
-function useFileUrl(file: File | null) {
-  const [current, setCurrent] = useState<{ file: File; url: string } | null>(
-    null,
-  );
-  useEffect(() => {
-    if (!file) return;
-    let disposed = false;
-    const url = URL.createObjectURL(
-      file.type ? file : new Blob([file], { type: "application/pdf" }),
-    );
-    Promise.resolve().then(() => {
-      if (!disposed) setCurrent({ file, url });
-    });
-    return () => {
-      disposed = true;
-      URL.revokeObjectURL(url);
-    };
-  }, [file]);
-  return file && current?.file === file ? current.url : "";
-}
-
 export function ProfileEditor({
   initial,
   cities,
@@ -90,11 +66,11 @@ export function ProfileEditor({
   cities: string[];
   today: string;
 }) {
-  const [profile, setProfile] = useState(initial);
-  const [saved, setSaved] = useState(initial);
+  const workspace = useWorkspace();
+  const [profile, setProfile] = useState(workspace.profile ?? initial);
+  const [saved, setSaved] = useState(workspace.profile ?? initial);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [cv, setCv] = useState<File | null>(null);
-  const [avatar, setAvatar] = useState<File | null>(null);
+  const { cv, setCv, avatar, setAvatar } = workspace;
   const [fileErrors, setFileErrors] = useState<Record<string, string>>({});
   const [reading, setReading] = useState<Record<string, boolean>>({});
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -204,44 +180,12 @@ export function ProfileEditor({
 
   return (
     <main id="main" className="candidate-area">
-      <aside className="cu-sidebar" aria-label="Điều hướng tài khoản ứng viên">
-        <div className="cu-user-card">
-          <div className="cu-user-heading">
-            <span className="cu-avatar">{avatarDisplay}</span>
-            <strong>{saved.name}</strong>
-          </div>
-          <div className="cu-user-note">
-            <strong>Hồ sơ của bạn</strong>
-            <p>Thông tin và CV để ứng tuyển.</p>
-            <a href="#profile-info">Thiết lập hồ sơ</a>
-          </div>
-        </div>
-        <nav className="cu-nav" aria-label="Tài khoản ứng viên">
-          <Link href="/preview/profile" aria-current="page">
-            <FileUser aria-hidden="true" />
-            Hồ sơ của tôi
-          </Link>
-          <button disabled>
-            <BriefcaseBusiness aria-hidden="true" />
-            Việc làm của tôi<span>Sắp có</span>
-          </button>
-          <button disabled>
-            <MessageSquare aria-hidden="true" />
-            Tin nhắn<span>Sắp có</span>
-          </button>
-          <button disabled>
-            <Bell aria-hidden="true" />
-            Thông báo việc làm<span>Sắp có</span>
-          </button>
-          <Link href="/account/security">
-            <Settings aria-hidden="true" />
-            Quản lý tài khoản
-          </Link>
-        </nav>
-        <p className="cu-preview-note">
-          Hồ sơ mẫu · thay đổi chỉ giữ trong phiên xem trước.
-        </p>
-      </aside>
+      <CandidateSidebar
+        active="profile"
+        preview
+        name={saved.name}
+        avatar={avatarDisplay}
+      />
       <form
         ref={form}
         className="cu-content"
@@ -258,7 +202,9 @@ export function ProfileEditor({
             );
             return;
           }
-          setSaved({ ...profile, name: profile.name.trim() });
+          const next = { ...profile, name: profile.name.trim() };
+          setSaved(next);
+          workspace.setProfile(next);
           toast.info(
             "Đã áp dụng cho bản xem trước. Thông tin chưa được lưu vào tài khoản.",
           );

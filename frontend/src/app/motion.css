@@ -107,6 +107,7 @@
 }
 
 [data-slot="dialog-overlay"],
+[data-slot="alert-dialog-overlay"],
 [data-slot="sheet-overlay"] {
   transition: none;
   animation-duration: var(--motion-menu);
@@ -115,28 +116,36 @@
 }
 :is(
   [data-slot="dialog-overlay"],
+  [data-slot="alert-dialog-overlay"],
   [data-slot="sheet-overlay"]
 )[data-state="open"] {
   animation-name: overlay-arrive;
 }
 :is(
   [data-slot="dialog-overlay"],
+  [data-slot="alert-dialog-overlay"],
   [data-slot="sheet-overlay"]
 )[data-state="closed"] {
   animation-name: overlay-leave;
   animation-duration: var(--motion-exit);
   pointer-events: none;
 }
-[data-slot="dialog-content"] {
+:is([data-slot="dialog-content"], [data-slot="alert-dialog-content"]) {
   transition: none;
   animation-duration: var(--motion-content);
   animation-timing-function: var(--motion-ease-out);
   animation-fill-mode: both;
 }
-[data-slot="dialog-content"][data-state="open"] {
+:is(
+  [data-slot="dialog-content"],
+  [data-slot="alert-dialog-content"]
+)[data-state="open"] {
   animation-name: dialog-arrive;
 }
-[data-slot="dialog-content"][data-state="closed"] {
+:is(
+  [data-slot="dialog-content"],
+  [data-slot="alert-dialog-content"]
+)[data-state="closed"] {
   animation-name: menu-leave;
   animation-duration: var(--motion-exit);
   animation-timing-function: var(--motion-ease-in);

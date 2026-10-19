@@ -11,6 +11,7 @@ import {
   LogIn,
   LogOut,
   Menu,
+  MessageSquare,
   Settings,
   UserRound,
   X,
@@ -61,7 +62,20 @@ export function HeaderControls({
     toast.info("Chức năng này hiện chưa khả dụng. Vui lòng thử lại sau.");
   };
   const personalItem = (label: string) =>
-    user ? (
+    user?.role === "candidate" ? (
+      <Link
+        href={
+          label === "Việc đã lưu"
+            ? "/account/jobs?tab=saved"
+            : label === "Việc đã ứng tuyển"
+              ? "/account/jobs"
+              : "/account/alerts"
+        }
+        onClick={() => setCategoriesOpen(false)}
+      >
+        {label}
+      </Link>
+    ) : user ? (
       <button type="button" onClick={unavailable}>
         {label}
       </button>
@@ -212,6 +226,16 @@ export function HeaderControls({
                 </Link>
               </SheetClose>
             )}
+            {user?.role === "candidate" && (
+              <SheetClose asChild>
+                <Link
+                  className="notification-login"
+                  href="/account/notifications"
+                >
+                  Xem thông báo của tôi
+                </Link>
+              </SheetClose>
+            )}
           </div>
         </SheetContent>
       </Sheet>
@@ -262,18 +286,34 @@ export function HeaderControls({
                       Hồ Sơ Của Tôi
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem onSelect={unavailable}>
-                    <BriefcaseBusiness />
-                    Việc Làm Của Tôi
+                  <DropdownMenuItem asChild>
+                    <Link href="/account/jobs">
+                      <BriefcaseBusiness />
+                      Việc Làm Của Tôi
+                    </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem onSelect={unavailable}>
-                    <Bell />
-                    Thông Báo Việc Làm
+                  <DropdownMenuItem asChild>
+                    <Link href="/account/messages">
+                      <MessageSquare />
+                      Tin Nhắn
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/account/alerts">
+                      <Bell />
+                      Thông Báo Việc Làm
+                    </Link>
                   </DropdownMenuItem>
                 </>
               )}
               <DropdownMenuItem asChild>
-                <Link href="/account/security">
+                <Link
+                  href={
+                    user.role === "candidate"
+                      ? "/account/settings"
+                      : "/account/security"
+                  }
+                >
                   <Settings />
                   Quản Lý Tài Khoản
                 </Link>

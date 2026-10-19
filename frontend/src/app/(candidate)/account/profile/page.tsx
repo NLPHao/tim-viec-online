@@ -6,8 +6,10 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { getCandidateProfileAccount } from "@/services/candidate-profile";
 import { ProfileSkeleton } from "@/components/candidate/profile-skeleton";
+import { WorkspaceFrame } from "@/components/candidate/workspace-frame";
 import { Button } from "@/modules/cores/shadcn/components/ui/button";
 import "../../profile.css";
+import "../../workspace.css";
 
 export const metadata: Metadata = {
   title: "Hồ sơ của tôi",
@@ -27,8 +29,8 @@ export default function AccountProfilePage() {
 async function AccountProfile() {
   const { user } = await getCandidateProfileAccount();
   return (
-    <main id="main" className="site-container page-content">
-      <section className="surface empty-state">
+    <WorkspaceFrame section="profile" preview={false} name={user.name}>
+      <section className="cu-card cu-empty">
         <FileUser aria-hidden="true" size={40} />
         <h1>Hồ sơ của {user.name}</h1>
         <p>Hồ sơ hiện chưa khả dụng. Vui lòng quay lại sau.</p>
@@ -36,6 +38,6 @@ async function AccountProfile() {
           <Link href="/jobs">Khám phá việc làm</Link>
         </Button>
       </section>
-    </main>
+    </WorkspaceFrame>
   );
 }

@@ -3,6 +3,66 @@ import AxeBuilder from "@axe-core/playwright";
 
 const password = "SafeFixture1!";
 
+test("candidate workspace previews are blocked in API mode and real routes enforce roles", async ({
+  page,
+  context,
+}) => {
+  for (const section of [
+    "jobs",
+    "messages",
+    "alerts",
+    "notifications",
+    "settings",
+  ]) {
+    await page.goto(`/preview/${section}`);
+    await expect(page.locator(".cu-title:visible")).toHaveCount(0);
+    await page.goto(`/account/${section}`);
+    await expect(page).toHaveURL(/\/login$/);
+  }
+  await login(page);
+  await expect(page).toHaveURL(/\/jobs$/);
+  for (const section of [
+    "jobs",
+    "messages",
+    "alerts",
+    "notifications",
+    "settings",
+  ]) {
+    await page.goto(`/account/${section}`);
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    await expect(
+      page.getByRole("navigation", { name: "Tài khoản ứng viên", exact: true }),
+    ).toBeVisible();
+    if (section === "settings") {
+      await expect(
+        page.getByLabel("Email đăng nhập", { exact: true }),
+      ).toHaveValue("candidate@example.test");
+      await expect(
+        page.getByRole("link", { name: "Đổi mật khẩu", exact: true }),
+      ).toHaveAttribute("href", "/account/security");
+    } else
+      await expect(
+        page.getByRole("main").getByRole("heading", { level: 2 }),
+      ).toContainText("hiện chưa khả dụng");
+    await expect(page.getByText("Nguyễn Minh An", { exact: true })).toHaveCount(
+      0,
+    );
+  }
+  await context.clearCookies();
+  await login(page, "employer@example.test");
+  await expect(page).toHaveURL(/\/employer$/);
+  for (const section of [
+    "jobs",
+    "messages",
+    "alerts",
+    "notifications",
+    "settings",
+  ]) {
+    await page.goto(`/account/${section}`);
+    await expect(page).toHaveURL(/\/employer$/);
+  }
+});
+
 test("profile preview is unavailable in API mode and candidate profile enforces the authenticated role", async ({
   page,
   context,
