@@ -237,7 +237,7 @@ export function HeaderControls({
           </div>
         </SheetContent>
       </Sheet>
-      <DropdownMenu>
+      <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <button
             type="button"

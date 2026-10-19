@@ -37,6 +37,7 @@ for (const width of [390, 768, 1024, 1440]) {
           connected: boolean;
           width: number;
           opacity: string;
+          footerTop: number;
         }[] = [];
         const start = performance.now();
         (node as HTMLElement).click();
@@ -46,6 +47,9 @@ for (const width of [390, 768, 1024, 1440]) {
               connected: sidebar.isConnected,
               width: sidebar.getBoundingClientRect().width,
               opacity: getComputedStyle(sidebar).opacity,
+              footerTop: document
+                .querySelector(".site-footer")!
+                .getBoundingClientRect().top,
             });
             if (performance.now() - start < 500) requestAnimationFrame(sample);
             else resolve();
@@ -79,6 +83,7 @@ for (const width of [390, 768, 1024, 1440]) {
             sample.opacity === "1",
         ),
       ).toBe(true);
+      expect(samples.every((sample) => sample.footerTop >= 999)).toBe(true);
       expect(
         await page.evaluate(
           () => document.documentElement.scrollWidth - innerWidth,
@@ -94,5 +99,40 @@ for (const width of [390, 768, 1024, 1440]) {
           animations: "disabled",
         });
     }
+  });
+}
+
+for (const width of [390, 1024, 1440]) {
+  test(`account menu preserves page geometry at ${width}px`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 1000 });
+    await loginMock(page, "candidate", "/account/settings");
+    await expect(page.locator(".cu-sidebar")).toBeVisible();
+    await page.evaluate(() => document.fonts.ready);
+    const geometry = () =>
+      page.evaluate(() => ({
+        header: document.querySelector(".site-header")!.getBoundingClientRect()
+          .width,
+        mainLeft: document.querySelector("main")!.getBoundingClientRect().left,
+        mainWidth: document.querySelector("main")!.getBoundingClientRect()
+          .width,
+        viewport: document.documentElement.clientWidth,
+        padding: getComputedStyle(document.body).paddingRight,
+        margin: getComputedStyle(document.body).marginRight,
+        scroll: scrollY,
+      }));
+    const before = await geometry();
+    await page
+      .getByRole("button", { name: "Tài khoản cá nhân", exact: true })
+      .click();
+    await expect(page.getByRole("menu")).toBeVisible();
+    expect(await geometry()).toEqual(before);
+    await expect(page.locator("body")).not.toHaveAttribute(
+      "data-scroll-locked",
+    );
+    await page.keyboard.press("Escape");
+    await expect(page.getByRole("menu")).toBeHidden();
+    expect(await geometry()).toEqual(before);
   });
 }
