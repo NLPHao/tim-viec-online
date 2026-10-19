@@ -506,7 +506,8 @@ body:has(.header-notifications) [data-slot="sheet-overlay"] {
   backdrop-filter: blur(4px);
   animation-duration: 320ms;
 }
-body:has(.header-notifications[data-state="closed"]) [data-slot="sheet-overlay"] {
+body:has(.header-notifications[data-state="closed"])
+  [data-slot="sheet-overlay"] {
   animation-duration: 260ms;
 }
 @media (min-width: 901px) {
@@ -517,12 +518,20 @@ body:has(.header-notifications[data-state="closed"]) [data-slot="sheet-overlay"]
   }
 }
 @keyframes notifications-enter {
-  from { transform: translate3d(100%, 0, 0); }
-  to { transform: translate3d(0, 0, 0); }
+  from {
+    transform: translate3d(100%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
 }
 @keyframes notifications-exit {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(100%, 0, 0); }
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(100%, 0, 0);
+  }
 }
 .header-notification-heading {
   display: flex;
@@ -670,5 +679,21 @@ body:has(.header-notifications[data-state="closed"]) [data-slot="sheet-overlay"]
     padding: 25.2px;
     max-height: calc(100dvh - 145px);
     overflow-y: auto;
+  }
+}
+
+@media (max-width: 400px) {
+  .site-header .brand {
+    gap: 6px;
+  }
+  .site-header .brand-mark {
+    width: 24px;
+    height: 24px;
+  }
+  .site-header .brand-name {
+    font-size: 14px;
+  }
+  .site-header .brand-tagline {
+    display: none;
   }
 }

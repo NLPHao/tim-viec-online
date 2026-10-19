@@ -15,6 +15,7 @@ import { formatSalary, isJobOpen } from "@/features/jobs/formatters";
 import { SelectionField } from "@/components/forms/selection-field";
 import { Pagination } from "@/components/layout/pagination";
 import { useWorkspace } from "./workspace-provider";
+import { ApplicationSummary } from "./application-summary";
 import { WorkspaceFrame } from "./workspace-frame";
 import {
   ConfirmRemoval,
@@ -139,6 +140,9 @@ export function MyJobs() {
                 <p className="cu-muted">
                   Tin đã đóng / hết hạn · Hồ sơ cũ vẫn được bảo lưu.
                 </p>
+              )}
+              {application?.cv_name && (
+                <ApplicationSummary application={application} />
               )}
               {application &&
                 state.conversations.some((item) => item.job_id === job.id) && (

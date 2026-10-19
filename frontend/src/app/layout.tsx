@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import { CandidateWorkspaceSession } from "@/components/candidate/workspace-session";
 import { Be_Vietnam_Pro } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
@@ -8,6 +10,7 @@ import "./header.css";
 import "./selection.css";
 import "./motion.css";
 import "./home.css";
+import "./application.css";
 
 const brandFont = Be_Vietnam_Pro({
   variable: "--font-brand",
@@ -37,7 +40,15 @@ export default function RootLayout({
   return (
     <html lang="vi" className={`${brandFont.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        {children}
+        <Suspense
+          fallback={
+            <main className="site-container py-16" role="status">
+              Đang tải phiên làm việc…
+            </main>
+          }
+        >
+          <CandidateWorkspaceSession>{children}</CandidateWorkspaceSession>
+        </Suspense>
         <Toaster position="bottom-right" richColors closeButton />
       </body>
     </html>

@@ -14,6 +14,8 @@ export type Application = {
   job_id: number;
   status: ApplicationStatus;
   created_at: string;
+  cv_name?: string;
+  cover_letter?: string;
 };
 export type PreviewMessage = {
   id: string;
