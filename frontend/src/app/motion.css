@@ -344,6 +344,12 @@
     max-width 280ms var(--motion-ease-out),
     box-shadow var(--motion-fast) ease-out;
 }
+/* Radix keeps the closing panel mounted for --motion-exit. Collapse the
+   search and restore neighbouring controls only after that panel retracts. */
+.header-search[data-mode="idle"],
+.site-header:has(.header-search[data-mode="idle"]) .header-actions {
+  transition-delay: var(--motion-exit);
+}
 .header-search .header-location {
   transition:
     width 220ms var(--motion-ease-out),

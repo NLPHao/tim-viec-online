@@ -83,7 +83,7 @@ for (const width of [360, 1440]) {
         triggerBounds.y + triggerBounds.height,
       );
       if (width > 1100)
-        expect(triggerBounds.x).toBeLessThan(originalLocationX - 50);
+        expect(triggerBounds.x).toBeGreaterThan(originalLocationX + 50);
       expect(
         await page.evaluate(
           () => document.documentElement.scrollWidth - innerWidth,
@@ -97,6 +97,10 @@ for (const width of [360, 1440]) {
       await expect(location).toHaveText("Hà Nội");
       await expect(location).toBeFocused();
       await expect(form).toHaveAttribute("data-mode", "idle");
+      const collapseDelay = await form.evaluate((element) =>
+        parseFloat(getComputedStyle(element).transitionDelay),
+      );
+      expect(collapseDelay).toBe(reducedMotion === "reduce" ? 0 : 0.1);
       await input.fill("React");
       await form
         .getByRole("button", { name: "Tìm việc nhanh", exact: true })
