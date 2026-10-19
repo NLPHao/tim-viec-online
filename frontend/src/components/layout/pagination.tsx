@@ -13,37 +13,21 @@ export function Pagination({
   label?: string;
 }) {
   if (lastPage <= 1) return null;
-  const compactPages = paginationPages(page, lastPage, 3);
-  const control = (
-    target: number,
-    text: string,
-    name: string,
-    disabled: boolean,
-  ) =>
-    disabled ? (
-      <span
-        className="pagination-control"
-        role="link"
-        aria-disabled="true"
-        aria-label={name}
-      >
-        {text}
-      </span>
-    ) : (
-      <Link href={pageUrl(target)} aria-label={name}>
-        {text}
-      </Link>
-    );
   return (
     <nav className="pagination" aria-label={label}>
-      {control(1, "<<", "Trang đầu", page <= 1)}
-      {control(page - 1, "<", "Trang trước", page <= 1)}
+      {page > 1 && (
+        <>
+          <Link href={pageUrl(1)} aria-label="Trang đầu">
+            &lt;&lt;
+          </Link>
+          <Link href={pageUrl(page - 1)} aria-label="Trang trước">
+            &lt;
+          </Link>
+        </>
+      )}
       {paginationPages(page, lastPage).map((number) => (
         <Link
           key={number}
-          className={
-            compactPages.includes(number) ? undefined : "pagination-wide-page"
-          }
           href={pageUrl(number)}
           aria-label={`Trang ${number}`}
           aria-current={number === page ? "page" : undefined}
@@ -51,7 +35,11 @@ export function Pagination({
           {number}
         </Link>
       ))}
-      {control(page + 1, ">", "Trang sau", page >= lastPage)}
+      {page < lastPage && (
+        <Link href={pageUrl(page + 1)} aria-label="Trang sau">
+          &gt;
+        </Link>
+      )}
     </nav>
   );
 }

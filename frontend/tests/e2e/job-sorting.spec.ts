@@ -23,7 +23,7 @@ test("sorting resets pagination and survives pagination, reload and browser hist
     page
       .getByRole("navigation", { name: "Phân trang việc làm" })
       .getByLabel("Trang đầu", { exact: true }),
-  ).toHaveAttribute("aria-disabled", "true");
+  ).toHaveCount(0);
   await page.getByRole("link", { name: "Trang 2", exact: true }).click();
   await expect(page).toHaveURL(/page=2&sort=salary_desc$/);
   await expect(sort).toHaveText("Lương (cao - thấp)");
@@ -121,6 +121,23 @@ for (const width of [360, 1440]) {
     await expect(
       page.getByRole("navigation", { name: "Phân trang việc làm" }),
     ).toBeVisible();
+    const pagination = page.getByRole("navigation", {
+      name: "Phân trang việc làm",
+    });
+    await expect(
+      pagination.getByRole("link", { name: /^Trang \d+$/ }),
+    ).toHaveCount(4);
+    await pagination
+      .getByRole("link", { name: "Trang 2", exact: true })
+      .click();
+    await expect(page).toHaveURL(/page=2&sort=newest$/);
+    await expect(pagination.getByRole("link")).toHaveCount(7);
+    const rows = await pagination
+      .getByRole("link")
+      .evaluateAll((links) =>
+        links.map((link) => link.getBoundingClientRect().top),
+      );
+    expect(new Set(rows).size).toBe(1);
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth - innerWidth,
@@ -137,5 +154,19 @@ for (const width of [360, 1440]) {
       path: testInfo.outputPath("jobs-pagination.png"),
       fullPage: true,
     });
+    await pagination
+      .getByRole("link", { name: "Trang 4", exact: true })
+      .click();
+    await expect(page).toHaveURL(/page=4&sort=newest$/);
+    await expect(
+      pagination.getByRole("link", { name: "Trang sau", exact: true }),
+    ).toHaveCount(0);
+    await pagination
+      .getByRole("link", { name: "Trang đầu", exact: true })
+      .click();
+    await expect(page).toHaveURL(/\/jobs\?sort=newest$/);
+    await expect(
+      pagination.getByRole("link", { name: "Trang trước", exact: true }),
+    ).toHaveCount(0);
   });
 }

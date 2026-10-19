@@ -350,19 +350,16 @@ main {
   margin-top: 28px;
   align-items: center;
 }
-.pagination :is(a, .pagination-control) {
+.pagination a {
   display: grid;
   place-items: center;
-  min-width: 44px;
-  min-height: 44px;
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
   background: var(--card);
-  border: 1px solid var(--border);
+  border: 1px solid color-mix(in srgb, var(--muted-foreground) 30%, var(--card));
   border-radius: 8px;
-  font-size: 13px;
-}
-.pagination [aria-disabled="true"] {
-  color: var(--muted-foreground);
-  background: var(--background);
+  font-size: 14px;
 }
 .pagination a:hover:not([aria-current]) {
   border-color: var(--brand-blue);
@@ -403,8 +400,9 @@ main {
   .pagination {
     gap: 6px;
   }
-  .pagination .pagination-wide-page {
-    display: none;
+  .pagination a {
+    width: 40px;
+    height: 44px;
   }
   .job-sort {
     margin-left: auto;

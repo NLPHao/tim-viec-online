@@ -186,13 +186,13 @@ test("sort distinguishes bumped updates, creation date and salary before paginat
   );
 });
 
-test("shared pagination centers seven numbers and clamps both edges with a compact mobile window", () => {
-  assert.deepEqual(paginationPages(6, 20), [3, 4, 5, 6, 7, 8, 9]);
-  assert.deepEqual(paginationPages(1, 20), [1, 2, 3, 4, 5, 6, 7]);
-  assert.deepEqual(paginationPages(100, 20), [14, 15, 16, 17, 18, 19, 20]);
+test("shared pagination shows at most four numbers and clamps both edges", () => {
+  assert.deepEqual(paginationPages(7, 20), [5, 6, 7, 8]);
+  assert.deepEqual(paginationPages(1, 20), [1, 2, 3, 4]);
+  assert.deepEqual(paginationPages(100, 20), [17, 18, 19, 20]);
   assert.deepEqual(paginationPages(2, 4), [1, 2, 3, 4]);
   assert.deepEqual(paginationPages(NaN, 0), [1]);
-  assert.deepEqual(paginationPages(6, 20, 3), [5, 6, 7]);
+  assert.deepEqual(paginationPages(2, 3), [1, 2, 3]);
 });
 
 test("salary filters implement SRS exact boundaries and exclude negotiable jobs", () => {
