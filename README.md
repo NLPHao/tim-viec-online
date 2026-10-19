@@ -283,7 +283,18 @@ DELETE /api/admin/skills/{id}           # [Admin] Xóa kỹ năng
 
 ---
 
-## 7. Quy tắc làm việc nhóm
+## 7. Đăng nhập thử frontend
+
+Frontend đã có hai tài khoản mẫu và kiểm tra đăng nhập/vai trò trên server. Cấu hình `AUTH_MODE=mock`, `AUTH_APP_URL=http://localhost:3000` trong `frontend/.env.local`, rồi khởi động lại `npm run dev`.
+
+| Vai trò | Email | Mật khẩu demo |
+| --- | --- | --- |
+| Ứng viên | `candidate@example.test` | `Candidate@123` |
+| Nhà tuyển dụng | `employer@example.test` | `Employer@123` |
+
+Truy cập `/login`. Các trang `/account/*`, `/employer`, `/admin` và alias `/preview/*` đều yêu cầu phiên hợp lệ và đúng vai trò. Mock mất phiên khi khởi động lại server; không sử dụng cho tài khoản thật. Cách chuyển sang Laravel bằng `AUTH_MODE=api` và hợp đồng endpoint nằm trong [hướng dẫn tích hợp xác thực](docs/plans/mock-auth.md).
+
+## 8. Quy tắc làm việc nhóm
 
 1. **Về Git:** Không bao giờ push code trực tiếp vào branch `main`. Mỗi tính năng tạo branch từ `develop` (ví dụ `feature/auth-fe`, `feature/job-be`, `feature/chat`), test chạy được trên máy mình rồi mới tạo Pull Request.
 2. **Về Database & phpMyAdmin:** Không tự ý sửa bảng trực tiếp trên phpMyAdmin mà không báo nhóm. Mọi thay đổi DB phải viết qua file Laravel Migration. Trước khi nộp bài cho thầy, xuất file `.sql` từ phpMyAdmin.

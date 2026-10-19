@@ -50,7 +50,7 @@ export function CandidateNotifications() {
             ["read", "Đã đọc"],
           ].map(([value, label]) => (
             <Link
-              href={`/preview/notifications?read=${value}`}
+              href={`/account/notifications?read=${value}`}
               key={value}
               aria-current={filter === value ? "page" : undefined}
             >
@@ -61,7 +61,7 @@ export function CandidateNotifications() {
         {!items.length && (
           <WorkspaceEmpty
             title="Không có thông báo trong mục này"
-            href="/preview/notifications"
+            href="/account/notifications"
             link="Xem tất cả thông báo"
           />
         )}
@@ -82,15 +82,15 @@ export function CandidateNotifications() {
               <Link
                 href={
                   item.type === "new_message"
-                    ? `/preview/messages?conversation=${item.conversation_id}`
+                    ? `/account/messages?conversation=${item.conversation_id}`
                     : (() => {
                         const application = state.applications.find(
                           (application) =>
                             application.id === item.application_id,
                         );
                         return application
-                          ? `/preview/jobs?status=${application.status}#application-${application.id}`
-                          : "/preview/jobs";
+                          ? `/account/jobs?status=${application.status}#application-${application.id}`
+                          : "/account/jobs";
                       })()
                 }
                 className="cu-link"
@@ -123,7 +123,7 @@ export function CandidateNotifications() {
           page={result.page}
           lastPage={result.lastPage}
           pageUrl={(page) =>
-            `/preview/notifications?read=${filter}&page=${page}`
+            `/account/notifications?read=${filter}&page=${page}`
           }
           label="Phân trang thông báo"
         />

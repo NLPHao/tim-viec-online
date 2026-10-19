@@ -1,11 +1,16 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { loginMock } from "./helpers/mock-auth";
+
+test.beforeEach(async ({ page }) => {
+  await loginMock(page);
+});
 
 test("legacy alerts redirect to application and message notifications without a creation form", async ({
   page,
 }) => {
-  await page.goto("/preview/alerts");
-  await expect(page).toHaveURL(/\/preview\/notifications$/);
+  await page.goto("/account/alerts");
+  await expect(page).toHaveURL(/\/account\/notifications$/);
   await expect(
     page.getByRole("heading", { name: "Ứng tuyển & tin nhắn", exact: true }),
   ).toBeVisible();
@@ -21,7 +26,7 @@ test("legacy alerts redirect to application and message notifications without a 
 test("chat composer grows, respects IME and keeps the thread bounded while reading history", async ({
   page,
 }) => {
-  await page.goto("/preview/messages?conversation=1");
+  await page.goto("/account/messages?conversation=1");
   const composer = page.getByRole("textbox", {
     name: "Tin nhắn của bạn",
     exact: true,
@@ -89,7 +94,7 @@ test("chat composer grows, respects IME and keeps the thread bounded while readi
 test("profile identity is shared with candidate pages and application notifications open their record", async ({
   page,
 }) => {
-  await page.goto("/preview/profile");
+  await page.goto("/account/profile");
   await page.getByLabel("Họ và tên", { exact: true }).fill("Nguyễn Thanh An");
   await page
     .getByRole("button", { name: "Áp dụng bản xem trước", exact: true })
@@ -98,7 +103,7 @@ test("profile identity is shared with candidate pages and application notificati
     .getByRole("navigation", { name: "Tài khoản ứng viên", exact: true })
     .getByRole("link", { name: "Quản lý tài khoản", exact: true })
     .click();
-  await expect(page).toHaveURL(/\/preview\/settings$/);
+  await expect(page).toHaveURL(/\/account\/settings$/);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Quản lý tài khoản",
   );
@@ -129,7 +134,7 @@ test("profile identity is shared with candidate pages and application notificati
 test("my jobs supports shared pagination, SRS statuses, saved removal and browser history", async ({
   page,
 }) => {
-  await page.goto("/preview/jobs");
+  await page.goto("/account/jobs");
   await expect(
     page.getByRole("heading", { name: "9 hồ sơ ứng tuyển", exact: true }),
   ).toBeVisible();
@@ -170,7 +175,7 @@ test("my jobs supports shared pagination, SRS statuses, saved removal and browse
     .getByRole("navigation", { name: "Tài khoản ứng viên", exact: true })
     .getByRole("link", { name: "Quản lý tài khoản", exact: true })
     .click();
-  await expect(page).toHaveURL(/\/preview\/settings$/);
+  await expect(page).toHaveURL(/\/account\/settings$/);
   await page.goBack();
   await expect(
     page.getByRole("heading", { name: "8 việc làm đã lưu", exact: true }),
@@ -188,7 +193,7 @@ test("chat preserves per-thread drafts, validates, renders text safely and does 
   page.on("request", (request) => {
     if (request.method() === "POST") writes.push(request.url());
   });
-  await page.goto("/preview/messages?conversation=1");
+  await page.goto("/account/messages?conversation=1");
   await expect(
     page.getByText(/Tin đã đóng \/ hết hạn\. Bạn vẫn có thể/),
   ).toBeVisible();
@@ -220,13 +225,13 @@ test("chat preserves per-thread drafts, validates, renders text safely and does 
     .getByRole("navigation", { name: "Tài khoản ứng viên", exact: true })
     .getByRole("link", { name: "Thông báo", exact: true })
     .click();
-  await expect(page).toHaveURL(/\/preview\/notifications$/);
+  await expect(page).toHaveURL(/\/account\/notifications$/);
   await page.goBack();
   await expect(page.locator(".cc-message:visible").last()).toContainText(
     payload,
   );
   expect(writes).toEqual([]);
-  await page.goto("/preview/messages?conversation=999");
+  await page.goto("/account/messages?conversation=999");
   await expect(
     page.getByRole("heading", {
       name: "Không tìm thấy hội thoại",
@@ -239,7 +244,7 @@ test("mobile chat list/detail keeps controls reachable and returns focus", async
   page,
 }) => {
   await page.setViewportSize({ width: 360, height: 900 });
-  await page.goto("/preview/messages");
+  await page.goto("/account/messages");
   await expect(
     page.getByLabel("Tin nhắn của bạn", { exact: true }),
   ).not.toBeVisible();
@@ -265,7 +270,7 @@ test("mobile chat list/detail keeps controls reachable and returns focus", async
 test("notification read state and account preferences persist between preview pages only", async ({
   page,
 }) => {
-  await page.goto("/preview/notifications?read=unread");
+  await page.goto("/account/notifications?read=unread");
   await expect(page.locator(".cu-notification:visible")).toHaveCount(2);
   await page
     .getByRole("button", { name: "Đánh dấu đã đọc", exact: true })
@@ -287,7 +292,7 @@ test("notification read state and account preferences persist between preview pa
     .getByRole("navigation", { name: "Tài khoản ứng viên", exact: true })
     .getByRole("link", { name: "Thông báo", exact: true })
     .click();
-  await expect(page).toHaveURL(/\/preview\/notifications$/);
+  await expect(page).toHaveURL(/\/account\/notifications$/);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Thông báo của bạn",
   );
@@ -295,7 +300,7 @@ test("notification read state and account preferences persist between preview pa
     page.locator(".cu-notification[data-unread=true]:visible"),
   ).toHaveCount(0);
   await page.goBack();
-  await expect(page).toHaveURL(/\/preview\/settings$/);
+  await expect(page).toHaveURL(/\/account\/settings$/);
   await expect(preference).not.toBeChecked();
   expect(
     await page.evaluate(() => ({
@@ -318,7 +323,7 @@ for (const width of [360, 768, 1440]) {
       "notifications",
       "settings",
     ]) {
-      await page.goto(`/preview/${path}`);
+      await page.goto(`/account/${path}`);
       await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
       expect(
         await page.evaluate(

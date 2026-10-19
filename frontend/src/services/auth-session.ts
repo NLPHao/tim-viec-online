@@ -2,10 +2,12 @@ import "server-only";
 import { cache } from "react";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { connection } from "next/server";
 import { AuthApiError, parseUser } from "@/features/auth/api-contract";
 import type { AuthRole, AuthUser } from "@/features/auth/types";
 import { safeJobReturnPath } from "@/lib/return-path";
-import { apiRequest, authApiEnabled } from "./auth-api";
+import { authEnabled } from "./auth-mode";
+import { authRequest } from "./auth-request";
 
 export const SESSION_COOKIE = "timviec_session";
 
@@ -38,12 +40,15 @@ export async function assertAuthOrigin() {
 
 // React cache deduplicates only within this server render, never across users.
 export const getCurrentUser = cache(async (): Promise<AuthUser | null> => {
+  // Session expiry must be evaluated at request time, including speculative
+  // partial prefetches; never during Cache Components prerendering.
+  await connection();
   const jar = await cookies();
-  if (!authApiEnabled()) return null;
+  if (!authEnabled()) return null;
   const token = jar.get(SESSION_COOKIE)?.value;
   if (!token) return null;
   try {
-    const user = parseUser(await apiRequest("/user", { token }));
+    const user = parseUser(await authRequest("/user", { token }));
     return user.status === "active" ? user : null;
   } catch (error) {
     if (error instanceof AuthApiError && [401, 403].includes(error.status))
@@ -55,14 +60,24 @@ export const getCurrentUser = cache(async (): Promise<AuthUser | null> => {
 });
 
 export function roleLanding(role: AuthRole, returnTo?: string): string {
+  const path = safeJobReturnPath(returnTo);
+  if (path === "/account/security") return path;
   if (role === "employer") return "/employer";
   if (role === "admin") return "/admin";
-  return safeJobReturnPath(returnTo);
+  return path;
 }
 
-export async function requireUser(role?: AuthRole): Promise<AuthUser> {
+export async function requireUser(
+  role?: AuthRole,
+  returnTo?: string,
+): Promise<AuthUser> {
   const user = await getCurrentUser();
-  if (!user) redirect(role === "employer" ? "/login?role=employer" : "/login");
+  if (!user) {
+    const params = new URLSearchParams();
+    if (role === "employer") params.set("role", role);
+    if (returnTo) params.set("returnTo", safeJobReturnPath(returnTo));
+    redirect(`/login${params.size ? `?${params}` : ""}`);
+  }
   if (role && user.role !== role) redirect(roleLanding(user.role));
   return user;
 }

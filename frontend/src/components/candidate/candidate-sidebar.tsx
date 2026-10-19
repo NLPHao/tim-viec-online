@@ -59,7 +59,7 @@ export function CandidateSidebar({
         <div className="cu-user-note">
           <strong>Hồ sơ của bạn</strong>
           <p>Thông tin và CV để ứng tuyển.</p>
-          <Link href={`${candidateHref("profile", preview)}#profile-info`}>
+          <Link href={`${candidateHref("profile")}#profile-info`}>
             Thiết lập hồ sơ
           </Link>
         </div>
@@ -70,7 +70,7 @@ export function CandidateSidebar({
           return (
             <Link
               key={item.key}
-              href={candidateHref(item.key, preview)}
+              href={candidateHref(item.key)}
               aria-current={item.key === active ? "page" : undefined}
             >
               <Icon aria-hidden="true" />

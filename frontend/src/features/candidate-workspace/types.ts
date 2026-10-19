@@ -51,6 +51,6 @@ export const CANDIDATE_PAGES: { key: CandidateSection; label: string }[] = [
   { key: "settings", label: "Quản lý tài khoản" },
 ];
 
-export function candidateHref(section: CandidateSection, preview: boolean) {
-  return `${preview ? "/preview" : "/account"}/${section}`;
+export function candidateHref(section: CandidateSection) {
+  return `/account/${section}`;
 }

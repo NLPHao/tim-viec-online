@@ -2,6 +2,7 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import {
   AuthApiError,
   parseLogin,
@@ -10,7 +11,8 @@ import {
 import type { AuthActionState, AuthKind } from "@/features/auth/types";
 import { readAuthForm, validateAuthValues } from "@/features/auth/validation";
 import { vietnamToday } from "@/features/jobs/formatters";
-import { apiRequest, authApiEnabled } from "@/services/auth-api";
+import { authEnabled } from "@/services/auth-mode";
+import { authRequest } from "@/services/auth-request";
 import {
   assertAuthOrigin,
   createSession,
@@ -51,7 +53,7 @@ async function validate(kind: AuthKind, form: FormData) {
         errors,
       } as AuthActionState,
     };
-  if (!authApiEnabled())
+  if (!authEnabled())
     return {
       values,
       error: {
@@ -75,10 +77,12 @@ export async function loginAction(
     if (error) return error;
     const remembered = form.get("remember") === "on";
     const login = parseLogin(
-      await apiRequest("/login", { body: { ...values, remember: remembered } }),
+      await authRequest("/login", {
+        body: { ...values, remember: remembered },
+      }),
     );
     token = login.token;
-    const user = parseUser(await apiRequest("/user", { token }));
+    const user = parseUser(await authRequest("/user", { token }));
     if (user.status !== "active")
       throw new AuthApiError(
         403,
@@ -86,9 +90,10 @@ export async function loginAction(
         "Tài khoản của bạn đã bị khóa bởi quản trị viên",
       );
     await createSession(token, remembered, login.expires_at);
+    revalidatePath("/", "layout");
     destination = roleLanding(user.role, returnTo);
   } catch (error) {
-    if (token) await apiRequest("/logout", { token }).catch(() => undefined);
+    if (token) await authRequest("/logout", { token }).catch(() => undefined);
     return failure(error);
   }
   redirect(destination);
@@ -101,7 +106,7 @@ export async function registerAction(
   try {
     const { values, error } = await validate("register", form);
     if (error) return error;
-    await apiRequest("/register", { body: values });
+    await authRequest("/register", { body: values });
   } catch (error) {
     return failure(error);
   }
@@ -115,7 +120,7 @@ export async function forgotAction(
   try {
     const { values, error } = await validate("forgot", form);
     if (error) return error;
-    await apiRequest("/forgot-password", { body: values });
+    await authRequest("/forgot-password", { body: values });
     return {
       status: "success",
       message:
@@ -133,7 +138,7 @@ export async function resetAction(
   try {
     const { values, error } = await validate("reset", form);
     if (error) return error;
-    await apiRequest("/reset-password", { body: values });
+    await authRequest("/reset-password", { body: values });
   } catch (error) {
     return failure(error);
   }
@@ -155,7 +160,7 @@ export async function changePasswordAction(
         "unauthorized",
         "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.",
       );
-    await apiRequest("/user/change-password", {
+    await authRequest("/user/change-password", {
       method: "PUT",
       body: values,
       token,
@@ -167,11 +172,12 @@ export async function changePasswordAction(
 }
 
 export async function logoutAction() {
-  if (authApiEnabled()) await assertAuthOrigin();
+  if (authEnabled()) await assertAuthOrigin();
   const jar = await cookies();
   const token = jar.get(SESSION_COOKIE)?.value;
-  if (token && authApiEnabled())
-    await apiRequest("/logout", { token }).catch(() => undefined);
+  if (token && authEnabled())
+    await authRequest("/logout", { token }).catch(() => undefined);
   jar.delete(SESSION_COOKIE);
+  revalidatePath("/", "layout");
   redirect("/login?notice=logout");
 }

@@ -77,7 +77,7 @@ export function AccountSettings() {
         </div>
         <div className="cu-form-footer">
           <span>Chỉnh sửa thông tin cá nhân tại trang hồ sơ.</span>
-          <Link className="cu-link" href="/preview/profile#profile-info">
+          <Link className="cu-link" href="/account/profile#profile-info">
             Cập nhật hồ sơ
           </Link>
         </div>
@@ -85,11 +85,10 @@ export function AccountSettings() {
       <section className="cu-card" id="account-password">
         <h2>Thay đổi mật khẩu</h2>
         <p className="cu-muted">
-          Đăng nhập tài khoản thật để xác thực mật khẩu hiện tại và thay đổi mật
-          khẩu. Bản xem trước không xử lý thông tin đăng nhập.
+          Xác thực mật khẩu hiện tại và chọn mật khẩu mới cho tài khoản.
         </p>
-        <Link href="/login" className="cu-link">
-          Đăng nhập để đổi mật khẩu
+        <Link href="/account/security" className="cu-link">
+          Đổi mật khẩu
         </Link>
       </section>
     </WorkspaceFrame>

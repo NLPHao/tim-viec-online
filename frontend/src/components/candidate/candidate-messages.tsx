@@ -123,7 +123,7 @@ export function CandidateMessages() {
   return (
     <WorkspaceFrame section="messages">
       <WorkspaceTitle title="Tin nhắn">
-        <Link href="/preview/jobs" className="cu-link">
+        <Link href="/account/jobs" className="cu-link">
           Việc đã ứng tuyển
           <ArrowUpRight aria-hidden="true" />
         </Link>
@@ -194,7 +194,7 @@ export function CandidateMessages() {
                       heading.current?.focus({ preventScroll: true });
                     else
                       router.replace(
-                        `/preview/messages?conversation=${item.id}`,
+                        `/account/messages?conversation=${item.id}`,
                         { scroll: false },
                       );
                   }}
@@ -240,7 +240,7 @@ export function CandidateMessages() {
                   aria-label="Danh sách hội thoại"
                   onClick={() => {
                     setError("");
-                    router.replace("/preview/messages", { scroll: false });
+                    router.replace("/account/messages", { scroll: false });
                   }}
                 >
                   <ArrowLeft aria-hidden="true" />
@@ -399,7 +399,7 @@ export function CandidateMessages() {
                 variant="ghost"
                 type="button"
                 onClick={() =>
-                  router.replace("/preview/messages", { scroll: false })
+                  router.replace("/account/messages", { scroll: false })
                 }
               >
                 <ArrowLeft aria-hidden="true" />
@@ -407,7 +407,7 @@ export function CandidateMessages() {
               </Button>
               <WorkspaceEmpty
                 title="Không tìm thấy hội thoại"
-                href="/preview/jobs"
+                href="/account/jobs"
                 link="Xem hồ sơ đã ứng tuyển"
               >
                 Chỉ các hội thoại gắn với hồ sơ đã ứng tuyển mới được hiển thị.

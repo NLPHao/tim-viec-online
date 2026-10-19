@@ -1,5 +1,7 @@
 # Đối chiếu frontend và Laravel — 17/10/2026
 
+> Cập nhật 19/10/2026: đã bổ sung `AUTH_MODE=mock` với hai tài khoản và bảo vệ toàn bộ route tài khoản, kể cả alias `/preview/*`. Hướng dẫn hiện hành: [mock-auth.md](mock-auth.md). Phần dưới lưu kết quả đối chiếu backend ngày 17/10; `AUTH_MODE=preview` không đăng nhập được và không mở được trang riêng.
+
 ## Kết luận
 
 Frontend Next.js hiện tại có thể dùng với Laravel REST API. Giao diện không phụ thuộc Blade hoặc database trực tiếp; code gọi API nằm trong `frontend/src/services`. Tuy nhiên backend trong repository chưa đủ chức năng để bật xác thực và tìm việc thật. Kết quả dưới đây xác nhận kiến trúc, hợp đồng và các phần thiếu; không phải nghiệm thu tích hợp đầu cuối với database/email thật.

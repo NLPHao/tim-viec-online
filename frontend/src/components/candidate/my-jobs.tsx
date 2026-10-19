@@ -44,7 +44,7 @@ export function MyJobs() {
     const params = new URLSearchParams({ tab });
     if (tab === "applied" && status) params.set("status", status);
     if (page > 1) params.set("page", String(page));
-    return `/preview/jobs?${params}`;
+    return `/account/jobs?${params}`;
   };
   return (
     <WorkspaceFrame section="jobs">
@@ -144,7 +144,7 @@ export function MyJobs() {
                 state.conversations.some((item) => item.job_id === job.id) && (
                   <Link
                     className="cu-link"
-                    href={`/preview/messages?conversation=${state.conversations.find((item) => item.job_id === job.id)!.id}`}
+                    href={`/account/messages?conversation=${state.conversations.find((item) => item.job_id === job.id)!.id}`}
                   >
                     Trao đổi với nhà tuyển dụng
                     <ArrowRight aria-hidden="true" />

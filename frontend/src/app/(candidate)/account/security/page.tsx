@@ -26,7 +26,7 @@ export default function SecurityPage() {
   );
 }
 async function SecurityForm() {
-  await requireUser();
+  await requireUser(undefined, "/account/security");
   await connection();
   return (
     <section className="surface auth-security">

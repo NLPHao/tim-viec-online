@@ -186,7 +186,7 @@ test("preview validates registration, preserves fields and sends no credentials"
   expect(storage).not.toMatch(/PreviewPass1!|preview@example.test/);
 });
 
-test("preview login supports password visibility and does not create a session", async ({
+test("invalid mock login supports password visibility without establishing a session", async ({
   page,
   context,
 }) => {
@@ -202,9 +202,7 @@ test("preview login supports password visibility and does not create a session",
   await expect(password).toHaveAttribute("type", "password");
   await page.getByRole("button", { name: "Đăng nhập", exact: true }).click();
   await expect(
-    page.getByText("Hiện chưa thể thực hiện yêu cầu. Vui lòng thử lại sau.", {
-      exact: true,
-    }),
+    page.getByText(/Email hoặc mật khẩu không chính xác/),
   ).toBeVisible();
   expect(
     (await context.cookies()).some(

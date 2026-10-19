@@ -10,6 +10,12 @@ import type { CandidateSection } from "@/features/candidate-workspace/types";
 import { Input } from "@/modules/cores/shadcn/components/ui/input";
 import { Field, FieldLabel } from "@/modules/cores/shadcn/components/ui/field";
 import { Button } from "@/modules/cores/shadcn/components/ui/button";
+import { authMockEnabled } from "@/services/auth-mode";
+import { getCandidatePreview } from "@/services/candidate-workspace";
+import { MyJobs } from "./my-jobs";
+import { CandidateMessages } from "./candidate-messages";
+import { CandidateNotifications } from "./candidate-notifications";
+import { AccountSettings } from "./account-settings";
 import "@/app/(candidate)/profile.css";
 import "@/app/(candidate)/workspace.css";
 import "@/app/(candidate)/candidate-chat.css";
@@ -43,8 +49,15 @@ async function AccountContent({
   const { section } = await params;
   if (!Object.hasOwn(titles, section) && section !== "alerts") notFound();
   // Always revalidate the authenticated role close to private data access.
-  const user = await requireUser("candidate");
+  const user = await requireUser("candidate", `/account/${section}`);
   if (section === "alerts") redirect("/account/notifications");
+  if (authMockEnabled()) {
+    await getCandidatePreview();
+    if (section === "jobs") return <MyJobs />;
+    if (section === "messages") return <CandidateMessages />;
+    if (section === "notifications") return <CandidateNotifications />;
+    return <AccountSettings />;
+  }
   const title = titles[section as keyof typeof titles];
   return (
     <WorkspaceFrame

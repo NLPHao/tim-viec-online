@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
-import { getCandidatePreview } from "@/services/candidate-workspace";
-import { CandidateNotifications } from "@/components/candidate/candidate-notifications";
-export const metadata: Metadata = {
-  title: "Thông báo của bạn",
-  robots: { index: false, follow: false },
-};
-export default async function Page() {
-  await getCandidatePreview();
-  return <CandidateNotifications />;
+import { redirectCandidatePreview } from "@/services/candidate-workspace";
+
+export const metadata = { robots: { index: false, follow: false } };
+
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  return redirectCandidatePreview("notifications", searchParams);
 }

@@ -5,7 +5,7 @@ import type { AuthKind } from "@/features/auth/types";
 import { validateAuthValues } from "@/features/auth/validation";
 import { vietnamToday } from "@/features/jobs/formatters";
 import { safeJobReturnPath } from "@/lib/return-path";
-import { authApiEnabled } from "@/services/auth-api";
+import { authEnabled, authMockEnabled } from "@/services/auth-mode";
 import { getCurrentUser, roleLanding } from "@/services/auth-session";
 import {
   changePasswordAction,
@@ -82,7 +82,7 @@ export async function AuthScreen({
           : "";
   return (
     <AuthShell kind={kind} {...content[kind]}>
-      {notice && kind === "login" && authApiEnabled() && (
+      {notice && kind === "login" && authEnabled() && (
         <p className="auth-status auth-status-success" role="status">
           {notice}
         </p>
@@ -96,7 +96,10 @@ export async function AuthScreen({
         <AuthForm
           key={`${kind}-${role}`}
           kind={kind}
-          preview={!authApiEnabled()}
+          preview={
+            !authEnabled() ||
+            (authMockEnabled() && kind !== "login" && kind !== "change")
+          }
           today={vietnamToday()}
           role={role}
           email={email}

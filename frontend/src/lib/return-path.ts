@@ -1,11 +1,14 @@
-// Limit the auth handoff to this milestone's internal job routes.
+// Allow only known internal destinations. Never trust a URL supplied by a form.
 export function safeJobReturnPath(
   value: string | string[] | undefined,
 ): string {
   if (
     typeof value !== "string" ||
     value.length > 1000 ||
-    !/^\/jobs(?:\/\d+)?(?:\?[^#\\]*)?$/.test(value)
+    /[\x00-\x1f\x7f\\]/.test(value) ||
+    !/^\/(?:jobs(?:\/\d+)?|account\/(?:profile|jobs|messages|notifications|settings|security))(?:\?[^#]*)?$/.test(
+      value,
+    )
   )
     return "/jobs";
   return value;

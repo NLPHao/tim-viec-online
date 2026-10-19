@@ -6,6 +6,8 @@ import {
   type AuthApiKind,
   type AuthApiPath,
 } from "@/features/auth/api-contract";
+import { authApiEnabled } from "./auth-mode";
+export { authApiEnabled } from "./auth-mode";
 
 const routes: Record<
   AuthApiPath,
@@ -19,10 +21,6 @@ const routes: Record<
   "/user": { kind: "user", method: "GET" },
   "/user/change-password": { kind: "change-password", method: "PUT" },
 };
-
-export function authApiEnabled(): boolean {
-  return process.env.AUTH_MODE === "api";
-}
 
 function configuredBase(): URL {
   try {

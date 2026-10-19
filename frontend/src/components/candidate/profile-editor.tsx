@@ -6,6 +6,7 @@ import {
   useLayoutEffect,
   useRef,
   useState,
+  useSyncExternalStore,
   type ChangeEvent,
 } from "react";
 import {
@@ -57,6 +58,10 @@ import {
   DialogClose,
 } from "@/modules/cores/shadcn/components/ui/dialog";
 
+const subscribeHydration = () => () => {};
+const clientHydrated = () => true;
+const serverHydrated = () => false;
+
 export function ProfileEditor({
   initial,
   cities,
@@ -66,6 +71,11 @@ export function ProfileEditor({
   cities: string[];
   today: string;
 }) {
+  const hydrated = useSyncExternalStore(
+    subscribeHydration,
+    clientHydrated,
+    serverHydrated,
+  );
   const workspace = useWorkspace();
   const [profile, setProfile] = useState(workspace.profile ?? initial);
   const [saved, setSaved] = useState(workspace.profile ?? initial);
@@ -264,21 +274,24 @@ export function ProfileEditor({
               <p className="cu-muted">CV định dạng PDF, tối đa 5 MB.</p>
               <Field>
                 <FieldLabel htmlFor="profile-cv">Chọn CV PDF</FieldLabel>
-                <Input
-                  ref={cvInput}
-                  id="profile-cv"
-                  className="hidden"
-                  tabIndex={-1}
-                  type="file"
-                  accept=".pdf,application/pdf"
-                  onChange={(event) => void selectFile("cv", event)}
-                  aria-invalid={!!fileErrors.cv}
-                  aria-describedby="cv-description cv-error"
-                />
+                {hydrated && (
+                  <Input
+                    ref={cvInput}
+                    id="profile-cv"
+                    className="hidden"
+                    tabIndex={-1}
+                    type="file"
+                    accept=".pdf,application/pdf"
+                    onChange={(event) => void selectFile("cv", event)}
+                    aria-invalid={!!fileErrors.cv}
+                    aria-describedby="cv-description cv-error"
+                  />
+                )}
                 <div className="cu-file-picker">
                   <Button
                     type="button"
                     variant="outline"
+                    disabled={!hydrated}
                     onClick={() => cvInput.current?.click()}
                   >
                     <Upload aria-hidden="true" />
@@ -544,21 +557,24 @@ export function ProfileEditor({
             {field("portfolio", "Portfolio", "url", 500)}
             <Field className="cu-field-full">
               <FieldLabel htmlFor="profile-avatar">Ảnh đại diện</FieldLabel>
-              <Input
-                ref={avatarInput}
-                id="profile-avatar"
-                className="hidden"
-                tabIndex={-1}
-                type="file"
-                accept="image/jpeg,image/png,image/webp"
-                onChange={(event) => void selectFile("avatar", event)}
-                aria-invalid={!!fileErrors.avatar}
-                aria-describedby="avatar-description avatar-error"
-              />
+              {hydrated && (
+                <Input
+                  ref={avatarInput}
+                  id="profile-avatar"
+                  className="hidden"
+                  tabIndex={-1}
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  onChange={(event) => void selectFile("avatar", event)}
+                  aria-invalid={!!fileErrors.avatar}
+                  aria-describedby="avatar-description avatar-error"
+                />
+              )}
               <div className="cu-file-picker">
                 <Button
                   type="button"
                   variant="outline"
+                  disabled={!hydrated}
                   onClick={() => avatarInput.current?.click()}
                 >
                   <Upload aria-hidden="true" />

@@ -8,6 +8,11 @@ import { getCandidateProfileAccount } from "@/services/candidate-profile";
 import { ProfileSkeleton } from "@/components/candidate/profile-skeleton";
 import { WorkspaceFrame } from "@/components/candidate/workspace-frame";
 import { Button } from "@/modules/cores/shadcn/components/ui/button";
+import { ProfileEditor } from "@/components/candidate/profile-editor";
+import { authMockEnabled } from "@/services/auth-mode";
+import { getCandidatePreview } from "@/services/candidate-workspace";
+import { getProvinceNames } from "@/services/locations";
+import { vietnamToday } from "@/features/jobs/formatters";
 import "../../profile.css";
 import "../../workspace.css";
 
@@ -28,6 +33,19 @@ export default function AccountProfilePage() {
 }
 async function AccountProfile() {
   const { user } = await getCandidateProfileAccount();
+  if (authMockEnabled()) {
+    const [initial, cities] = await Promise.all([
+      getCandidatePreview(),
+      getProvinceNames(),
+    ]);
+    return (
+      <ProfileEditor
+        initial={initial.profile}
+        cities={cities}
+        today={vietnamToday()}
+      />
+    );
+  }
   return (
     <WorkspaceFrame section="profile" preview={false} name={user.name}>
       <section className="cu-card cu-empty">

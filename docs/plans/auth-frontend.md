@@ -1,5 +1,7 @@
 # Mốc frontend xác thực
 
+> Cập nhật 19/10/2026: xác thực mẫu hiện dùng `AUTH_MODE=mock` với hai tài khoản và các trang riêng được bảo vệ. Xem [mock-auth.md](mock-auth.md) cho cách đăng nhập và chuyển sang Laravel; các quyết định preview dưới đây là lịch sử của mốc giao diện trước khi có tài khoản mẫu.
+
 ## Phạm vi và giả định
 
 Tiếp tục lộ trình đã thống nhất sau tìm việc: login, register candidate/employer, forgot/reset password, đổi mật khẩu, logout và điều hướng theo vai trò. Làm trong `frontend/` trên `feature/auth-fe`, tạo từ develop và đưa phần tìm việc đã hoàn thành vào làm dependency; giữ nguyên SRS/design người dùng đang sửa. Không sửa Laravel/MySQL, không triển khai AI/Reverb hoặc portal nghiệp vụ đầy đủ.

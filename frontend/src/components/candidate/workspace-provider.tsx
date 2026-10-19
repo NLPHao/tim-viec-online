@@ -6,9 +6,14 @@ import type {
 } from "@/features/candidate-workspace/types";
 import { validateMessage } from "@/features/candidate-workspace/rules";
 import { createProfilePreview } from "@/mocks/candidate-profile";
+import type { CandidateProfile } from "@/features/candidate-profile/types";
 
-function useWorkspaceState(initial: CandidatePreviewData) {
-  const [profile, setProfile] = useState(createProfilePreview);
+type WorkspaceInitial = CandidatePreviewData & { profile?: CandidateProfile };
+
+function useWorkspaceState(initial: WorkspaceInitial) {
+  const [profile, setProfile] = useState(
+    () => initial.profile ?? createProfilePreview(),
+  );
   const [avatar, setAvatar] = useState<File | null>(null);
   const [cv, setCv] = useState<File | null>(null);
   const [savedIds, setSavedIds] = useState(initial.savedIds);
@@ -20,13 +25,13 @@ function useWorkspaceState(initial: CandidatePreviewData) {
     messages: true,
   });
   return {
+    ...initial,
     profile,
     setProfile,
     avatar,
     setAvatar,
     cv,
     setCv,
-    ...initial,
     savedIds,
     messages,
     drafts,
@@ -71,7 +76,7 @@ export function WorkspaceProvider({
   initial,
   children,
 }: {
-  initial: CandidatePreviewData;
+  initial: WorkspaceInitial;
   children: ReactNode;
 }) {
   const value = useWorkspaceState(initial);

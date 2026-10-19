@@ -12,7 +12,7 @@ export default defineConfig({
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
   webServer: {
     command: "npm run start -- --port 3117",
-    env: { AUTH_MODE: "preview" },
+    env: { AUTH_MODE: "mock", AUTH_APP_URL: "http://localhost:3117" },
     url: "http://localhost:3117/jobs",
     reuseExistingServer: false,
     timeout: 60_000,

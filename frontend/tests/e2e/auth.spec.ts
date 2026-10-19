@@ -11,7 +11,7 @@ test("candidate workspace previews are blocked in API mode and real routes enfor
     await page.goto(`/preview/${section}`);
     await expect(page.locator(".cu-title:visible")).toHaveCount(0);
     await page.goto(`/account/${section}`);
-    await expect(page).toHaveURL(/\/login$/);
+    await expect(page).toHaveURL(/\/login(?:\?|$)/);
   }
   await login(page);
   await expect(page).toHaveURL(/\/jobs$/);
@@ -59,7 +59,7 @@ test("profile preview is unavailable in API mode and candidate profile enforces 
     page.getByRole("button", { name: "Áp dụng bản xem trước", exact: true }),
   ).toHaveCount(0);
   await page.goto("/account/profile");
-  await expect(page).toHaveURL(/\/login$/);
+  await expect(page).toHaveURL(/\/login(?:\?|$)/);
   await login(page);
   await expect(page).toHaveURL(/\/jobs$/);
   await page.goto("/account/profile");

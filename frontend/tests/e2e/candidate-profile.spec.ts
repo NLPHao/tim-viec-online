@@ -1,5 +1,10 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { loginMock } from "./helpers/mock-auth";
+
+test.beforeEach(async ({ page }) => {
+  await loginMock(page);
+});
 
 const pdf = Buffer.from(
   "%PDF-1.4\n1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj\n2 0 obj << /Type /Pages /Count 0 /Kids [] >> endobj\ntrailer << /Root 1 0 R >>\n%%EOF",
@@ -8,7 +13,7 @@ const pdf = Buffer.from(
 test("PDF modal closes across cached navigation and its blob preview is recreated", async ({
   page,
 }) => {
-  await page.goto("/preview/profile");
+  await page.goto("/account/profile");
   await page.getByLabel("Chọn CV PDF", { exact: true }).setInputFiles({
     name: "cv.pdf",
     mimeType: "application/pdf",
@@ -31,7 +36,7 @@ test("PDF modal closes across cached navigation and its blob preview is recreate
   await expect(page).toHaveURL(/\/$/);
   await expect(page.locator(".home-page")).toBeVisible();
   await page.goBack();
-  await expect(page).toHaveURL(/\/preview\/profile$/);
+  await expect(page).toHaveURL(/\/account\/profile$/);
   await expect(
     page.getByRole("dialog", { name: "Xem trước CV", exact: true }),
   ).toHaveCount(0);
@@ -51,7 +56,7 @@ test("PDF modal closes across cached navigation and its blob preview is recreate
 test("avatar selection previews an image, rejects disguised content and can be removed", async ({
   page,
 }) => {
-  await page.goto("/preview/profile");
+  await page.goto("/account/profile");
   const picker = page.getByLabel("Ảnh đại diện", { exact: true });
   await picker.setInputFiles({
     name: "fake.png",
@@ -88,7 +93,7 @@ test("profile preview edits locally, validates and never persists personal infor
   page.on("request", (request) => {
     if (request.method() === "POST") writes.push(request.url());
   });
-  await page.goto("/preview/profile");
+  await page.goto("/account/profile");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Nguyễn Minh An",
   );
@@ -143,7 +148,7 @@ test("profile preview edits locally, validates and never persists personal infor
 test("CV validation, replace, preview and removal keep the previous valid file on an invalid edit", async ({
   page,
 }) => {
-  await page.goto("/preview/profile");
+  await page.goto("/account/profile");
   const picker = page.getByLabel("Chọn CV PDF", { exact: true });
   await picker.setInputFiles({
     name: "fake.pdf",
@@ -195,11 +200,12 @@ test("CV validation, replace, preview and removal keep the previous valid file o
 test("profile skills preserve the ten-skill cap and all selections can be removed", async ({
   page,
 }) => {
-  await page.goto("/preview/profile");
+  await page.goto("/account/profile");
   const skills = page.getByRole("group", {
     name: "Kỹ năng chuyên môn",
     exact: true,
   });
+  await expect(skills.getByRole("checkbox")).toHaveCount(10);
   for (const checkbox of await skills.getByRole("checkbox").all())
     await checkbox.check();
   await expect(page.getByText("10/10", { exact: true })).toBeVisible();
@@ -213,7 +219,7 @@ for (const width of [360, 768, 1440]) {
   }, testInfo) => {
     await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ reducedMotion: "reduce" });
-    await page.goto("/preview/profile");
+    await page.goto("/account/profile");
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     expect(
       await page.evaluate(
@@ -234,9 +240,11 @@ for (const width of [360, 768, 1440]) {
   });
 }
 
-test("real account profile stays protected when preview authentication is disabled", async ({
+test("account profile requires login after the session is removed", async ({
   page,
+  context,
 }) => {
+  await context.clearCookies();
   await page.goto("/account/profile");
-  await expect(page).toHaveURL(/\/login$/);
+  await expect(page).toHaveURL(/\/login(?:\?|$)/);
 });
