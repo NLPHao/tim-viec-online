@@ -120,10 +120,11 @@ test("carousel, category arrows, trends, company links, brand and employer CTA w
     .locator(".home-company-card")
     .filter({ hasText: "FPT Software" })
     .click();
-  await expect(page).toHaveURL(/keyword=FPT\+Software/);
-  await expect(page.getByTestId("job-card").first()).toContainText(
-    "FPT Software",
-  );
+  await expect(page).toHaveURL(/\/companies\/1$/);
+  await expect(
+    page.getByRole("heading", { name: "FPT Software", exact: true }),
+  ).toBeVisible();
+  await expect(page.getByTestId("company-job-card")).toHaveCount(3);
   await page.goto("/");
   await page
     .getByRole("link", { name: "Đăng Tin Tuyển Dụng Ngay", exact: true })

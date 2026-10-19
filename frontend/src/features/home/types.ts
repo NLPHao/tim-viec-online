@@ -25,6 +25,7 @@ export type HomeCategory = {
 };
 
 export type HomeCompany = {
+  id: number;
   name: string;
   mark: string;
   brand: string;

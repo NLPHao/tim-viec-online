@@ -19,7 +19,7 @@ import type { HomeJobCard } from "../features/home/types";
 
 // Components depend on this read interface. Replace its fixture implementation
 // with the agreed Laravel API adapter when endpoints are available.
-const repository = cache(async () => {
+export const getJobRepository = cache(async () => {
   await connection();
   const now = new Date();
   return {
@@ -29,7 +29,7 @@ const repository = cache(async () => {
 });
 
 export async function getHomeContent() {
-  const { jobs, today } = await repository();
+  const { jobs, today } = await getJobRepository();
   const active = jobs.filter((job) => isJobOpen(job, today));
   const featuredIds = new Set(HOME_FEATURED.map((job) => job.id));
   const ordered = [
@@ -60,24 +60,27 @@ export async function getHomeContent() {
   return {
     jobs: cards,
     categories: HOME_CATEGORIES,
-    companies: HOME_COMPANIES,
+    companies: HOME_COMPANIES.map((company) => ({
+      ...company,
+      count: active.filter((job) => job.company_id === company.id).length,
+    })),
   };
 }
 
 export async function listJobs(query: JobQuery) {
-  const { jobs, today } = await repository();
+  const { jobs, today } = await getJobRepository();
   return paginateJobs(filterJobs(jobs, query, today), query.page);
 }
 
 export async function getJob(id: string | number): Promise<Job | null> {
   if (!/^[1-9]\d*$/.test(String(id)) || !Number.isSafeInteger(Number(id)))
     return null;
-  const { jobs } = await repository();
+  const { jobs } = await getJobRepository();
   return jobs.find((job) => job.id === Number(id)) ?? null;
 }
 
 export async function getJobCatalog() {
-  const { jobs } = await repository();
+  const { jobs } = await getJobRepository();
   return {
     categories: JOB_CATEGORIES,
     cities: [...new Set(jobs.map((job) => job.city))].sort((a, b) =>
@@ -88,7 +91,7 @@ export async function getJobCatalog() {
 }
 
 export async function findRelatedJobs(job: Job, limit = 3): Promise<Job[]> {
-  const { jobs, today } = await repository();
+  const { jobs, today } = await getJobRepository();
   const count = Number.isSafeInteger(limit) && limit > 0 ? limit : 3;
   return jobs
     .filter(

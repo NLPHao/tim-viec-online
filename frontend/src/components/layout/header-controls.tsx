@@ -127,9 +127,9 @@ export function HeaderControls({
           </div>
           <div>
             <h2>Công ty</h2>
-            <button type="button" onClick={unavailable}>
+            <Link href="/companies" onClick={() => setCategoriesOpen(false)}>
               Tất cả công ty
-            </button>
+            </Link>
           </div>
           <div>
             <h2>TimViecOnline inTECH</h2>

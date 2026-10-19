@@ -70,7 +70,11 @@ async function JobDetail({ params }: DetailProps) {
         <div className="detail-heading">
           <CompanyMark name={job.company.name} />
           <div>
-            <p className="company-name">{job.company.name}</p>
+            <p className="company-name">
+              <Link href={`/companies/${job.company_id}`}>
+                {job.company.name}
+              </Link>
+            </p>
             <h1>{job.title}</h1>
             <p className="salary">{formatSalary(job)}</p>
           </div>
@@ -146,7 +150,11 @@ async function JobDetail({ params }: DetailProps) {
         <aside className="discovery-sidebar">
           <section className="surface company-summary" id="company">
             <CompanyMark name={job.company.name} />
-            <h2>{job.company.name}</h2>
+            <h2>
+              <Link href={`/companies/${job.company_id}`}>
+                {job.company.name}
+              </Link>
+            </h2>
             <dl>
               <div>
                 <dt>Quy mô</dt>
@@ -166,9 +174,9 @@ async function JobDetail({ params }: DetailProps) {
             <p>{job.company.description}</p>
             <Link
               className="company-jobs-link"
-              href={`/jobs?keyword=${encodeURIComponent(job.company.name)}`}
+              href={`/companies/${job.company_id}`}
             >
-              Xem việc làm tại công ty →
+              Xem hồ sơ và việc làm tại công ty →
             </Link>
           </section>
         </aside>

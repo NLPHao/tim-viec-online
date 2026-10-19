@@ -13,6 +13,7 @@ export function SiteFooter() {
         <nav aria-label="Việc làm theo ngành">
           <h2>Khám phá việc làm</h2>
           <Link href="/jobs">Tất cả việc làm</Link>
+          <Link href="/companies">Doanh nghiệp tuyển dụng</Link>
           <Link href="/jobs?category_ids=1">Công nghệ thông tin</Link>
           <Link href="/jobs?category_ids=2">Marketing & truyền thông</Link>
           <Link href="/jobs?category_ids=4">Thiết kế & sáng tạo</Link>

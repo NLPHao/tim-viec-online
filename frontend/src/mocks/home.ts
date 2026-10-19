@@ -129,47 +129,47 @@ export const HOME_CATEGORIES: HomeCategory[] = [
   },
 ];
 
-export const HOME_COMPANIES: HomeCompany[] = [
+export const HOME_COMPANIES: Omit<HomeCompany, "count">[] = [
   {
+    id: 1,
     name: "FPT Software",
     mark: "FPT",
     brand: "fpt",
-    count: 18,
     location: "Hà Nội & TP.HCM",
   },
   {
+    id: 201,
     name: "Tập đoàn Viettel",
     mark: "VIETTEL",
     brand: "viettel",
-    count: 25,
     location: "Toàn quốc",
   },
   {
+    id: 202,
     name: "Vinamilk",
     mark: "VINAMILK",
     brand: "vinamilk",
-    count: 12,
     location: "TP. Hồ Chí Minh",
   },
   {
+    id: 203,
     name: "Techcombank",
     mark: "TECHCOM",
     brand: "techcom",
-    count: 15,
     location: "Hà Nội & TP.HCM",
   },
   {
+    id: 204,
     name: "Shopee Vietnam",
     mark: "SHOPEE",
     brand: "shopee",
-    count: 22,
     location: "TP. Hồ Chí Minh",
   },
   {
+    id: 205,
     name: "Vingroup",
     mark: "VINGROUP",
     brand: "vingroup",
-    count: 30,
     location: "Hà Nội & Hải Phòng",
   },
 ];

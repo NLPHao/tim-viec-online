@@ -76,10 +76,10 @@ export async function HomeContent() {
               Top Doanh Nghiệp Hàng Đầu
             </h2>
             <p className="home-section-description">
-              Các doanh nghiệp uy tín đang tuyển dụng số lượng lớn ứng viên
+              Tìm hiểu doanh nghiệp và khám phá cơ hội nghề nghiệp
             </p>
           </div>
-          <Link className="home-section-link" href="/jobs">
+          <Link className="home-section-link" href="/companies">
             Xem Tất Cả Doanh Nghiệp
             <ChevronRight size={13} aria-hidden="true" />
           </Link>
@@ -87,8 +87,8 @@ export async function HomeContent() {
         <div className="home-companies-grid">
           {content.companies.map((company) => (
             <Link
-              key={company.name}
-              href={`/jobs?${new URLSearchParams({ keyword: company.name })}`}
+              key={company.id}
+              href={`/companies/${company.id}`}
               className="home-company-card"
             >
               <span

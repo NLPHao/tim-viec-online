@@ -36,7 +36,11 @@ export function JobCard({
             <h2>
               <Link href={`/jobs/${job.id}`}>{job.title}</Link>
             </h2>
-            <p className="company-name">{job.company.name}</p>
+            <p className="company-name">
+              <Link href={`/companies/${job.company_id}`}>
+                {job.company.name}
+              </Link>
+            </p>
           </div>
           <GuestActions jobId={job.id} compact viewerRole={viewerRole} />
         </div>
