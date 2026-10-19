@@ -1,6 +1,83 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
+for (const width of [390, 1440]) {
+  test(`notification drawer slides without shifting the page at ${width}px`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/jobs");
+    const trigger = page.getByRole("button", {
+      name: "Trung tâm thông báo",
+      exact: true,
+    });
+    await expect(trigger).toBeEnabled();
+    await page.evaluate(() => document.fonts.ready);
+    const samples = await trigger.evaluate(async (node) => {
+      const pageContent = document.querySelector("main")!;
+      const baseline = pageContent.getBoundingClientRect();
+      const samples: {
+        left: number;
+        width: number;
+        drawerLeft: number;
+        state: string | null;
+      }[] = [];
+      const capture = async () => {
+        const start = performance.now();
+        await new Promise<void>((resolve) => {
+          const frame = () => {
+            const rect = pageContent.getBoundingClientRect();
+            const drawer = document.querySelector(".header-notifications");
+            samples.push({
+              left: rect.left - baseline.left,
+              width: rect.width - baseline.width,
+              drawerLeft: drawer?.getBoundingClientRect().left ?? innerWidth,
+              state: drawer?.getAttribute("data-state") ?? null,
+            });
+            if (performance.now() - start < 400) requestAnimationFrame(frame);
+            else resolve();
+          };
+          requestAnimationFrame(frame);
+        });
+      };
+      (node as HTMLElement).click();
+      await capture();
+      (document.querySelector(".notification-close") as HTMLElement).click();
+      await capture();
+      return samples;
+    });
+    expect(
+      samples.every(
+        (sample) => Math.abs(sample.left) < 1 && Math.abs(sample.width) < 1,
+      ),
+    ).toBe(true);
+    const opening = samples
+      .filter((sample) => sample.state === "open")
+      .map((sample) => sample.drawerLeft);
+    const closing = samples
+      .filter((sample) => sample.state === "closed")
+      .map((sample) => sample.drawerLeft);
+    expect(opening.length).toBeGreaterThan(3);
+    expect(closing.length).toBeGreaterThan(3);
+    expect(opening[0] - opening.at(-1)!).toBeGreaterThan(80);
+    expect(closing.at(-1)! - closing[0]).toBeGreaterThan(80);
+    expect(
+      opening.every(
+        (left, index) => index === 0 || left <= opening[index - 1] + 1,
+      ),
+    ).toBe(true);
+    expect(
+      closing.every(
+        (left, index) => index === 0 || left >= closing[index - 1] - 1,
+      ),
+    ).toBe(true);
+    await expect(
+      page.getByRole("dialog", { name: "Thông báo", exact: true }),
+    ).toBeHidden();
+    await expect(trigger).toBeFocused();
+  });
+}
+
 test("navbar keyword and location submit the existing job query contract", async ({
   page,
 }) => {

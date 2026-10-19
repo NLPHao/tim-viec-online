@@ -171,189 +171,192 @@ export function HeaderControls({
       <Link className="header-pill header-employer" href={employerUrl}>
         Dành cho Nhà tuyển dụng
       </Link>
-      <span
-        className="header-circle header-language"
-        lang="vi"
-        title="Ngôn ngữ hiện tại: Tiếng Việt"
-      >
-        Vi
-      </span>
-      <Sheet>
-        <SheetTrigger asChild>
-          <button
-            type="button"
-            className="header-circle"
-            aria-label="Trung tâm thông báo"
-            disabled={pendingSession}
-          >
-            <Bell size={15} aria-hidden="true" />
-          </button>
-        </SheetTrigger>
-        <SheetContent className="header-notifications" showCloseButton={false}>
-          <SheetHeader className="header-notification-heading">
-            <span className="notification-heading-icon">
-              <Bell size={20} aria-hidden="true" />
-            </span>
-            <div>
-              <SheetTitle>Thông báo</SheetTitle>
-              <SheetDescription>Phản hồi ứng tuyển & tin nhắn</SheetDescription>
-            </div>
-            <SheetClose
-              className="notification-close"
-              aria-label="Đóng thông báo"
+      <div className="header-account-group">
+        <Sheet>
+          <SheetTrigger asChild>
+            <button
+              type="button"
+              className="header-circle"
+              aria-label="Trung tâm thông báo"
+              disabled={pendingSession}
             >
-              <X size={20} aria-hidden="true" />
-            </SheetClose>
-          </SheetHeader>
-          <div className="notification-empty">
-            <BellOff size={56} aria-hidden="true" />
-            <h2>
-              {user
-                ? "Hiện chưa thể tải thông báo"
-                : "Đăng nhập để xem thông báo"}
-            </h2>
-            <p>
-              {user
-                ? "Vui lòng thử lại sau."
-                : "Theo dõi phản hồi ứng tuyển và thông báo từ nhà tuyển dụng."}
-            </p>
-            {!user && (
-              <SheetClose asChild>
-                <Link className="notification-login" href="/login">
-                  Đăng nhập
-                </Link>
-              </SheetClose>
-            )}
-            {user?.role === "candidate" && (
-              <SheetClose asChild>
-                <Link
-                  className="notification-login"
-                  href="/account/notifications"
-                >
-                  Xem thông báo của tôi
-                </Link>
-              </SheetClose>
-            )}
-          </div>
-        </SheetContent>
-      </Sheet>
-      <DropdownMenu modal={false}>
-        <DropdownMenuTrigger asChild>
-          <button
-            type="button"
-            className="header-circle"
-            aria-label="Tài khoản cá nhân"
-            disabled={pendingSession}
+              <Bell size={15} aria-hidden="true" />
+            </button>
+          </SheetTrigger>
+          <SheetContent
+            className="header-notifications"
+            showCloseButton={false}
           >
-            <UserRound size={15} aria-hidden="true" />
-          </button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent
-          className="header-account"
-          align="end"
-          sideOffset={12}
-          collisionPadding={16}
-        >
-          <div className="header-account-info">
-            <strong>{user?.name ?? "Chào mừng đến TimViecOnline"}</strong>
-            <span>
-              {sessionUnavailable
-                ? "Chưa xác minh được phiên đăng nhập."
-                : (user?.email ?? "Đăng nhập để quản lý tài khoản.")}
-            </span>
-          </div>
-          {user ? (
-            <>
-              {user.role !== "candidate" && (
+            <SheetHeader className="header-notification-heading">
+              <span className="notification-heading-icon">
+                <Bell size={20} aria-hidden="true" />
+              </span>
+              <div>
+                <SheetTitle>Thông báo</SheetTitle>
+                <SheetDescription>
+                  Phản hồi ứng tuyển & tin nhắn
+                </SheetDescription>
+              </div>
+              <SheetClose
+                className="notification-close"
+                aria-label="Đóng thông báo"
+              >
+                <X size={20} aria-hidden="true" />
+              </SheetClose>
+            </SheetHeader>
+            <div className="notification-empty">
+              <BellOff size={56} aria-hidden="true" />
+              <h2>
+                {user
+                  ? "Hiện chưa thể tải thông báo"
+                  : "Đăng nhập để xem thông báo"}
+              </h2>
+              <p>
+                {user
+                  ? "Vui lòng thử lại sau."
+                  : "Theo dõi phản hồi ứng tuyển và thông báo từ nhà tuyển dụng."}
+              </p>
+              {!user && (
+                <SheetClose asChild>
+                  <Link className="notification-login" href="/login">
+                    Đăng nhập
+                  </Link>
+                </SheetClose>
+              )}
+              {user?.role === "candidate" && (
+                <SheetClose asChild>
+                  <Link
+                    className="notification-login"
+                    href="/account/notifications"
+                  >
+                    Xem thông báo của tôi
+                  </Link>
+                </SheetClose>
+              )}
+            </div>
+          </SheetContent>
+        </Sheet>
+        <DropdownMenu modal={false}>
+          <DropdownMenuTrigger asChild>
+            <button
+              type="button"
+              className={`header-circle${!user && !pendingSession ? " header-login" : ""}`}
+              aria-label="Tài khoản cá nhân"
+              disabled={pendingSession}
+            >
+              <UserRound size={15} aria-hidden="true" />
+              {!user && !pendingSession && <span>Đăng nhập</span>}
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            className="header-account"
+            align="end"
+            sideOffset={12}
+            collisionPadding={16}
+          >
+            <div className="header-account-info">
+              <strong>{user?.name ?? "Chào mừng đến TimViecOnline"}</strong>
+              <span>
+                {sessionUnavailable
+                  ? "Chưa xác minh được phiên đăng nhập."
+                  : (user?.email ?? "Đăng nhập để quản lý tài khoản.")}
+              </span>
+            </div>
+            {user ? (
+              <>
+                {user.role !== "candidate" && (
+                  <DropdownMenuItem asChild>
+                    <Link
+                      href={user.role === "employer" ? "/employer" : "/admin"}
+                    >
+                      <BriefcaseBusiness />
+                      {user.role === "employer"
+                        ? "Quản lý tuyển dụng"
+                        : "Quản trị"}
+                    </Link>
+                  </DropdownMenuItem>
+                )}
+                {user.role === "candidate" && (
+                  <>
+                    <DropdownMenuItem asChild>
+                      <Link href="/account/profile">
+                        <FileText />
+                        Hồ Sơ Của Tôi
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link href="/account/jobs">
+                        <BriefcaseBusiness />
+                        Việc Làm Của Tôi
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link href="/account/messages">
+                        <MessageSquare />
+                        Tin Nhắn
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link href="/account/notifications">
+                        <Bell />
+                        Thông Báo
+                      </Link>
+                    </DropdownMenuItem>
+                  </>
+                )}
                 <DropdownMenuItem asChild>
                   <Link
-                    href={user.role === "employer" ? "/employer" : "/admin"}
+                    href={
+                      user.role === "candidate"
+                        ? "/account/settings"
+                        : "/account/security"
+                    }
                   >
-                    <BriefcaseBusiness />
-                    {user.role === "employer"
-                      ? "Quản lý tuyển dụng"
-                      : "Quản trị"}
+                    <Settings />
+                    Quản Lý Tài Khoản
                   </Link>
                 </DropdownMenuItem>
-              )}
-              {user.role === "candidate" && (
-                <>
-                  <DropdownMenuItem asChild>
-                    <Link href="/account/profile">
-                      <FileText />
-                      Hồ Sơ Của Tôi
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/account/jobs">
-                      <BriefcaseBusiness />
-                      Việc Làm Của Tôi
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/account/messages">
-                      <MessageSquare />
-                      Tin Nhắn
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/account/notifications">
-                      <Bell />
-                      Thông Báo
-                    </Link>
-                  </DropdownMenuItem>
-                </>
-              )}
-              <DropdownMenuItem asChild>
-                <Link
-                  href={
-                    user.role === "candidate"
-                      ? "/account/settings"
-                      : "/account/security"
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  variant="destructive"
+                  onSelect={() =>
+                    (
+                      document.getElementById(
+                        logoutId,
+                      ) as HTMLFormElement | null
+                    )?.requestSubmit()
                   }
                 >
-                  <Settings />
-                  Quản Lý Tài Khoản
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                variant="destructive"
-                onSelect={() =>
-                  (
-                    document.getElementById(logoutId) as HTMLFormElement | null
-                  )?.requestSubmit()
-                }
-              >
-                <LogOut />
-                Đăng xuất
-              </DropdownMenuItem>
-            </>
-          ) : (
-            <>
-              <DropdownMenuItem asChild>
-                <Link href="/login">
-                  <LogIn />
-                  Đăng nhập
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/register">
-                  <UserRound />
-                  Đăng ký tài khoản
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem asChild>
-                <Link href="/login?role=employer">
-                  <BriefcaseBusiness />
-                  Dành cho nhà tuyển dụng
-                </Link>
-              </DropdownMenuItem>
-            </>
-          )}
-        </DropdownMenuContent>
-      </DropdownMenu>
+                  <LogOut />
+                  Đăng xuất
+                </DropdownMenuItem>
+              </>
+            ) : (
+              <>
+                <DropdownMenuItem asChild>
+                  <Link href="/login">
+                    <LogIn />
+                    Đăng nhập
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/register">
+                    <UserRound />
+                    Đăng ký tài khoản
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link href="/login?role=employer">
+                    <BriefcaseBusiness />
+                    Dành cho nhà tuyển dụng
+                  </Link>
+                </DropdownMenuItem>
+              </>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
       {user && <form id={logoutId} action={logoutAction} hidden />}
     </nav>
   );
