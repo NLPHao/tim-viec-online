@@ -60,11 +60,7 @@ export const getCurrentUser = cache(async (): Promise<AuthUser | null> => {
 });
 
 export function roleLanding(role: AuthRole, returnTo?: string): string {
-  const path = safeJobReturnPath(returnTo);
-  if (path === "/account/security") return path;
-  if (role === "employer") return "/employer";
-  if (role === "admin") return "/admin";
-  return path;
+  return safeJobReturnPath(returnTo, role);
 }
 
 export async function requireUser(

@@ -7,7 +7,7 @@ export default function ProtectedError({
   retry: () => void;
 }) {
   return (
-    <main id="main" className="site-container page-content">
+    <section className="site-container page-content">
       <section className="surface empty-state" role="alert">
         <h1>Chưa xác minh được phiên đăng nhập</h1>
         <p>Vui lòng kiểm tra kết nối và thử lại.</p>
@@ -15,6 +15,6 @@ export default function ProtectedError({
           Thử lại
         </Button>
       </section>
-    </main>
+    </section>
   );
 }

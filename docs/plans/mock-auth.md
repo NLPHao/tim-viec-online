@@ -18,13 +18,13 @@ Khởi động lại `npm run dev` trong `frontend/` sau khi thay cấu hình. T
 | Ứng viên | `candidate@example.test` | `Candidate@123` | `/jobs` hoặc trang tài khoản vừa yêu cầu |
 | Nhà tuyển dụng | `employer@example.test` | `Employer@123` | `/employer` |
 
-Mock hỗ trợ đăng nhập, lấy user hiện tại, đăng xuất và đổi mật khẩu. Đăng ký mới và gửi email quên/đặt lại mật khẩu vẫn chỉ kiểm tra giao diện, không tạo tài khoản hoặc gửi email giả. Khu vực nhà tuyển dụng hiện có trang chào và đổi mật khẩu; các chức năng quản lý tuyển dụng sẽ được triển khai riêng.
+Mock hỗ trợ đăng nhập, lấy user hiện tại, đăng xuất và đổi mật khẩu. Đăng ký mới và gửi email quên/đặt lại mật khẩu vẫn chỉ kiểm tra giao diện, không tạo tài khoản hoặc gửi email giả. Khu vực nhà tuyển dụng đã có tổng quan, hồ sơ công ty, đăng/sửa/đóng/mở tin, ứng viên, chat và thông báo bằng dữ liệu phiên xem trước; xem [employer-frontend.md](employer-frontend.md).
 
 ## Quyền truy cập
 
 - Khách chỉ xem trang công khai: home, jobs và công ty; truy cập trực tiếp trang riêng chuyển đến đăng nhập.
 - `/account/profile`, `/account/jobs`, `/account/messages`, `/account/notifications`, `/account/settings`: chỉ ứng viên đã đăng nhập. Dữ liệu mock hồ sơ lấy tên/email từ user đã được server xác minh.
-- `/employer` chỉ nhà tuyển dụng; `/admin` chỉ admin. Mock không cấp tài khoản admin.
+- `/employer` và toàn bộ trang con chỉ nhà tuyển dụng; `/admin` chỉ admin. Mock không cấp tài khoản admin.
 - `/account/security` cho mọi tài khoản đã đăng nhập để đổi mật khẩu.
 - `/preview/*` là alias được bảo vệ: phải đăng nhập đúng vai trò trước khi chuyển đến `/account/*`. Không còn đường xem hồ sơ công khai qua preview.
 - Mỗi lần đọc dữ liệu riêng đều kiểm tra phiên/vai trò ở server. Layout bổ sung provider sau khi đã xác minh user; không dựa vào việc ẩn menu hoặc kiểm tra localStorage.
