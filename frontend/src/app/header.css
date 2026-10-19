@@ -236,7 +236,16 @@
   font-style: normal;
 }
 @media (min-width: 1101px) {
+  /* Free space belongs after the search, so changing its width never
+     redistributes gaps on both sides of the left anchor. */
+  .header-inner:has(.header-search) {
+    justify-content: flex-start;
+  }
+  .header-inner:has(.header-search) > .brand {
+    flex-shrink: 0;
+  }
   .header-actions {
+    margin-left: auto;
     max-width: var(--header-actions-width, 600px);
     min-width: 0;
     overflow: clip;

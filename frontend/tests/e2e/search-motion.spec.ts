@@ -1,5 +1,70 @@
 import { test, expect } from "@playwright/test";
 
+for (const width of [1440, 1920]) {
+  for (const mode of ["keyword", "location"]) {
+    test(`search left edge stays anchored when closing ${mode} at ${width}px`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.emulateMedia({ reducedMotion: "no-preference" });
+      await page.goto("/jobs");
+      const form = page.getByRole("search", {
+        name: "Tìm việc nhanh",
+        exact: true,
+      });
+      const initial = (await form.boundingBox())!;
+      await form
+        .getByRole("combobox", {
+          name:
+            mode === "keyword"
+              ? "Việc làm, công ty hoặc kỹ năng"
+              : "Địa điểm tìm nhanh",
+          exact: true,
+        })
+        .click();
+      await expect
+        .poll(async () => (await form.boundingBox())!.width)
+        .toBeGreaterThan(initial.width + 200);
+      // Wait for both expansion and panel entrance to finish.
+      await form.evaluate(async (node) => {
+        await Promise.all(
+          node.getAnimations().map((animation) => animation.finished),
+        );
+      });
+      const frames = await form.evaluate(async (node) => {
+        const backdrop = node
+          .closest(".site-header")!
+          .querySelector(".header-search-backdrop")!;
+        backdrop.dispatchEvent(
+          new PointerEvent("pointerdown", { bubbles: true }),
+        );
+        const start = performance.now();
+        const samples: { x: number; right: number; width: number }[] = [];
+        await new Promise<void>((resolve) => {
+          const sample = () => {
+            const box = node.getBoundingClientRect();
+            samples.push({ x: box.x, right: box.right, width: box.width });
+            if (performance.now() - start < 650) requestAnimationFrame(sample);
+            else resolve();
+          };
+          requestAnimationFrame(sample);
+        });
+        return samples;
+      });
+      expect(
+        Math.max(...frames.map((frame) => frame.x)) -
+          Math.min(...frames.map((frame) => frame.x)),
+      ).toBeLessThan(1);
+      expect(Math.abs(frames.at(-1)!.x - initial.x)).toBeLessThan(1);
+      expect(Math.abs(frames.at(-1)!.width - initial.width)).toBeLessThan(1);
+      for (let index = 1; index < frames.length; index++)
+        expect(frames[index].right).toBeLessThanOrEqual(
+          frames[index - 1].right + 1,
+        );
+    });
+  }
+}
+
 test("closing preserves button width until the panel retracts, then interpolates its size", async ({
   page,
 }) => {
