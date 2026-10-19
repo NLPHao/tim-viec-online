@@ -1,15 +1,28 @@
 import { Suspense } from "react";
 import { Brand } from "./brand";
 import { HeaderSearch } from "./header-search";
-import { getJobCatalog } from "@/services/jobs";
+import { getHomeContent, getJobCatalog } from "@/services/jobs";
 import {
   GuestNavigation,
   SessionNavigation,
 } from "@/components/auth/session-navigation";
 
 async function SearchNavigation() {
-  const { cities } = await getJobCatalog();
-  return <HeaderSearch cities={cities} />;
+  const [{ cities }, content] = await Promise.all([
+    getJobCatalog(),
+    getHomeContent(),
+  ]);
+  return (
+    <HeaderSearch
+      cities={cities}
+      jobs={content.jobs.map(({ id, title, company, salary }) => ({
+        id,
+        title,
+        company,
+        salary,
+      }))}
+    />
+  );
 }
 
 export function SiteHeader({

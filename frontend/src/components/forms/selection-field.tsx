@@ -122,15 +122,26 @@ export function SearchableSelectionField({
   onValueChange,
   searchLabel,
   className,
+  open: controlledOpen,
+  onOpenChange,
+  popupClassName,
+  popupOwner,
+  popupTitle,
 }: CommonProps & {
   value: string;
   onValueChange: (value: string) => void;
   searchLabel: string;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  popupClassName?: string;
+  popupOwner?: string;
+  popupTitle?: string;
 }) {
   const id = useId();
   const trigger = useRef<HTMLButtonElement>(null);
   const list = useRef<HTMLDivElement>(null);
-  const [open, setOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
+  const open = controlledOpen ?? internalOpen;
   const [search, setSearch] = useState("");
   const keyword = normalizeSearch(search);
   const selected = options.find((option) => option.value === value);
@@ -142,7 +153,12 @@ export function SearchableSelectionField({
 
   function choose(next: string) {
     onValueChange(next);
-    setOpen(false);
+    changeOpen(false);
+  }
+
+  function changeOpen(next: boolean) {
+    if (controlledOpen === undefined) setInternalOpen(next);
+    onOpenChange?.(next);
     setSearch("");
   }
 
@@ -155,13 +171,7 @@ export function SearchableSelectionField({
   return (
     <div className={cn("selection-field", className)} data-active={!!value}>
       <input type="hidden" name={name} value={value} />
-      <Popover
-        open={open}
-        onOpenChange={(next) => {
-          setOpen(next);
-          if (!next) setSearch("");
-        }}
-      >
+      <Popover open={open} onOpenChange={changeOpen}>
         <PopoverTrigger asChild>
           <button
             ref={trigger}
@@ -175,7 +185,7 @@ export function SearchableSelectionField({
             onKeyDown={(event) => {
               if (event.key === "ArrowDown" || event.key === "ArrowUp") {
                 event.preventDefault();
-                setOpen(true);
+                changeOpen(true);
               }
             }}
           >
@@ -187,12 +197,22 @@ export function SearchableSelectionField({
         </PopoverTrigger>
         <PopoverContent
           id={`${id}-popup`}
-          className="selection-menu selection-searchable-menu"
-          align="start"
+          className={cn(
+            "selection-menu selection-searchable-menu",
+            popupClassName,
+          )}
+          data-search-owner={popupOwner}
+          align={popupOwner ? "end" : "start"}
+          side="bottom"
+          sticky="always"
+          updatePositionStrategy={popupOwner ? "always" : "optimized"}
           sideOffset={6}
           collisionPadding={12}
           aria-label={label}
         >
+          {popupTitle && (
+            <h2 className="selection-popup-title">{popupTitle}</h2>
+          )}
           <div className="selection-search">
             <Search size={16} aria-hidden="true" />
             <label className="sr-only" htmlFor={`${id}-search`}>
