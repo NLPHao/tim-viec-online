@@ -16,6 +16,7 @@ import {
   HOME_FEATURED,
 } from "../mocks/home";
 import type { HomeJobCard } from "../features/home/types";
+import { getProvinceNames } from "./locations";
 
 // Components depend on this read interface. Replace its fixture implementation
 // with the agreed Laravel API adapter when endpoints are available.
@@ -80,12 +81,9 @@ export async function getJob(id: string | number): Promise<Job | null> {
 }
 
 export async function getJobCatalog() {
-  const { jobs } = await getJobRepository();
   return {
     categories: JOB_CATEGORIES,
-    cities: [...new Set(jobs.map((job) => job.city))].sort((a, b) =>
-      a.localeCompare(b, "vi"),
-    ),
+    cities: await getProvinceNames(),
     levels: [...JOB_LEVELS],
   };
 }

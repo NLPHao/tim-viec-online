@@ -281,6 +281,29 @@ test("combined filters use OR for categories and AND across independent fields",
   );
 });
 
+test("API province names match legacy city prefixes without widening to other cities", () => {
+  const expected = filterJobs(
+    jobs,
+    { ...emptyQuery(), city: "TP. Hồ Chí Minh" },
+    today,
+  ).map((job) => job.id);
+  assert.ok(expected.length > 0);
+  for (const city of [
+    "Hồ Chí Minh",
+    "Thành phố Hồ Chí Minh",
+    "TP. Hồ Chí Minh",
+  ]) {
+    assert.deepEqual(
+      filterJobs(jobs, { ...emptyQuery(), city }, today).map((job) => job.id),
+      expected,
+    );
+  }
+  assert.equal(
+    filterJobs(jobs, { ...emptyQuery(), city: "Vĩnh Long" }, today).length,
+    0,
+  );
+});
+
 test("public results exclude closed and expired records and sort update time then ID descending", () => {
   const result = filterJobs(jobs, emptyQuery(), today);
   assert.equal(result.length, 18);

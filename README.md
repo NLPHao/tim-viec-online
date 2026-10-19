@@ -288,7 +288,8 @@ DELETE /api/admin/skills/{id}           # [Admin] Xóa kỹ năng
 1. **Về Git:** Không bao giờ push code trực tiếp vào branch `main`. Mỗi tính năng tạo branch từ `develop` (ví dụ `feature/auth-fe`, `feature/job-be`, `feature/chat`), test chạy được trên máy mình rồi mới tạo Pull Request.
 2. **Về Database & phpMyAdmin:** Không tự ý sửa bảng trực tiếp trên phpMyAdmin mà không báo nhóm. Mọi thay đổi DB phải viết qua file Laravel Migration. Trước khi nộp bài cho thầy, xuất file `.sql` từ phpMyAdmin.
 3. **Về API:** Backend và Frontend phải thống nhất format JSON trả về trước khi code (Status code, message, data).
-4. **Họp nhanh:** Mỗi tối dành 10 - 15 phút nhắn tin nhóm báo cáo:
+4. **Component dùng chung:** Mọi danh sách frontend cần phân trang phải tái sử dụng `frontend/src/components/layout/pagination.tsx` và helper `frontend/src/features/pagination.ts`: tối đa 4 số trang, giữ mẫu ô vuông hiện tại. Không tạo thêm kiểu phân trang riêng. Các ô tỉnh/thành phố dùng chung service `frontend/src/services/locations.ts`, lấy đủ dữ liệu từ API `new-provinces` của tinhthanhpho.com.
+5. **Họp nhanh:** Mỗi tối dành 10 - 15 phút nhắn tin nhóm báo cáo:
    * Hôm nay đã làm xong việc gì?
    * Ngày mai sẽ làm việc gì?
    * Có vướng mắc hay lỗi gì cần hỗ trợ không?

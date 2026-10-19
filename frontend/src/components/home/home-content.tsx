@@ -4,9 +4,11 @@ import { FeaturedJobs, KeyCategories } from "./home-carousels";
 import { HomeSearch } from "./home-search";
 import { getHomeContent } from "@/services/jobs";
 import { getCurrentUser } from "@/services/auth-session";
+import { getProvinceNames } from "@/services/locations";
 import { Skeleton } from "@/modules/cores/shadcn/components/ui/skeleton";
 
-export function HomeHero() {
+export async function HomeHero() {
+  const cities = await getProvinceNames();
   return (
     <section className="home-hero" aria-labelledby="home-title">
       <div className="home-container">
@@ -26,7 +28,7 @@ export function HomeHero() {
             các doanh nghiệp uy tín hàng đầu trên toàn quốc.
           </p>
         </div>
-        <HomeSearch />
+        <HomeSearch cities={cities} />
         <div className="home-trends">
           <span>Xu hướng:</span>
           {["ReactJS", "Laravel", "Java", "Marketing", "Kế toán", "Tester"].map(

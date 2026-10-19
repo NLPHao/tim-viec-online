@@ -71,6 +71,10 @@ export function parseJobQuery(params: SearchParams): JobQuery {
   };
 }
 
+function normalizeCity(value: string): string {
+  return normalizeSearch(value).replace(/^(?:tp\.?|thanh pho|tinh)\s+/, "");
+}
+
 export function jobQueryString(
   query: JobQuery,
   overrides: Partial<JobQuery> = {},
@@ -122,7 +126,8 @@ export function filterJobs(
         isJobOpen(job, today) &&
         (!query.category_ids.length ||
           query.category_ids.includes(job.category_id)) &&
-        (!query.city || job.city === query.city) &&
+        (!query.city ||
+          normalizeCity(job.city) === normalizeCity(query.city)) &&
         (!query.job_type || job.job_type === query.job_type) &&
         (!query.level || job.job_level === query.level) &&
         matchesSalary(job, query.salary) &&

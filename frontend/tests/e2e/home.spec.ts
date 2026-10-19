@@ -26,11 +26,11 @@ test("home follows the reference sections and submits the shared job search", as
     .fill("React");
   await page.getByRole("combobox", { name: "Địa điểm tìm việc" }).click();
   await page
-    .getByRole("option", { name: "TP. Hồ Chí Minh", exact: true })
+    .getByRole("option", { name: "Hồ Chí Minh", exact: true })
     .click();
   await page.getByRole("button", { name: "Tìm kiếm", exact: true }).click();
   await expect(page).toHaveURL(/keyword=React/);
-  expect(new URL(page.url()).searchParams.get("city")).toBe("TP. Hồ Chí Minh");
+  expect(new URL(page.url()).searchParams.get("city")).toBe("Hồ Chí Minh");
   await expect(
     page.getByRole("search", { name: "Tìm việc nhanh" }),
   ).toBeVisible();

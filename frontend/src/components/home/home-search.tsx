@@ -5,7 +5,7 @@ import Form from "next/form";
 import { MapPin, Search } from "lucide-react";
 import { SelectionField } from "@/components/forms/selection-field";
 
-export function HomeSearch() {
+export function HomeSearch({ cities }: { cities: string[] }) {
   const [city, setCity] = useState("");
   return (
     <Form
@@ -38,9 +38,10 @@ export function HomeSearch() {
           name="city"
           value={city}
           onValueChange={setCity}
-          options={["TP. Hồ Chí Minh", "Hà Nội", "Đà Nẵng", "Bình Dương"].map(
-            (location) => ({ value: location, label: location }),
-          )}
+          options={cities.map((location) => ({
+            value: location,
+            label: location,
+          }))}
         />
       </div>
       <button className="home-search-submit" type="submit">
