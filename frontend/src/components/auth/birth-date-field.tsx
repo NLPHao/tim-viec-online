@@ -1,6 +1,11 @@
 "use client";
 
-import { useState, type ChangeEvent, type FocusEventHandler } from "react";
+import {
+  useRef,
+  useState,
+  type ChangeEvent,
+  type FocusEventHandler,
+} from "react";
 import { CalendarDays } from "lucide-react";
 import { vi } from "react-day-picker/locale";
 import type { DropdownProps } from "react-day-picker";
@@ -94,6 +99,7 @@ export function BirthDateField({
   onBlur: FocusEventHandler<HTMLInputElement>;
 }) {
   const [open, setOpen] = useState(false);
+  const calendarContent = useRef<HTMLDivElement>(null);
   const selected = parseBirthDate(value);
   const lastDate = parseBirthDate(latestRegistrationDob(today));
   const firstYear = Math.min(1900, selected?.getFullYear() ?? 1900);
@@ -132,11 +138,40 @@ export function BirthDateField({
             </Button>
           </PopoverTrigger>
           <PopoverContent
+            ref={calendarContent}
             className="birth-calendar"
             align="end"
             sideOffset={8}
             collisionPadding={12}
+            sticky="always"
+            updatePositionStrategy="always"
             aria-label="Lịch chọn ngày sinh"
+            onOpenAutoFocus={(event) => {
+              event.preventDefault();
+              const content = calendarContent.current;
+              // Focus only after the portal has its collision-adjusted position.
+              requestAnimationFrame(() =>
+                requestAnimationFrame(() => {
+                  if (
+                    !content?.isConnected ||
+                    content.dataset.state !== "open" ||
+                    content.contains(document.activeElement) ||
+                    content.querySelector(
+                      '[role="combobox"][data-state="open"]',
+                    )
+                  )
+                    return;
+                  const day =
+                    content.querySelector<HTMLButtonElement>(
+                      'button[data-selected-single="true"]:not(:disabled)',
+                    ) ??
+                    content.querySelector<HTMLButtonElement>(
+                      "button[data-day]:not(:disabled)",
+                    );
+                  day?.focus({ preventScroll: true });
+                }),
+              );
+            }}
           >
             <p className="birth-calendar-title">Chọn ngày sinh</p>
             <Calendar
@@ -159,7 +194,6 @@ export function BirthDateField({
               navLayout="after"
               reverseYears
               showOutsideDays={false}
-              autoFocus
               components={{ Dropdown: CalendarDropdown }}
               labels={{
                 labelMonthDropdown: () => "Chọn tháng sinh",

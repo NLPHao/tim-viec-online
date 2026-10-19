@@ -13,6 +13,9 @@ test("custom birthday calendar selects month/year and submits an ISO date", asyn
     exact: true,
   });
   await trigger.click();
+  await expect(
+    page.getByRole("combobox", { name: "Chọn năm sinh" }),
+  ).toBeInViewport();
   await page.getByRole("combobox", { name: "Chọn năm sinh" }).click();
   await page.getByRole("option", { name: "2000", exact: true }).click();
   await page.getByRole("combobox", { name: "Chọn tháng sinh" }).click();

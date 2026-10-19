@@ -8,6 +8,10 @@ Một hidden input duy nhất `name="dob"` gửi ISO `YYYY-MM-DD` như hợp đ�
 
 Calendar được thêm từ registry `radix-nova`, giữ nguyên Button đã tùy chỉnh. Các dependency mới: `react-day-picker` và `date-fns`. Dùng animation popover/select và reduced motion chung; không thêm thư viện animation hoặc tài nguyên hình ảnh.
 
+Focus ngày được đặt sau khi portal tính xong vị trí tránh va chạm màn hình, dùng `preventScroll` và không giành lại focus nếu người dùng đã thao tác menu. Chiều cao popup giới hạn theo `--radix-popover-content-available-height`, cuộn bên trong khi khoảng trống trên/dưới ô nhập không đủ; theo dõi vị trí khi trang cuộn. Điều này tránh lỗi ngẫu nhiên menu năm nằm ngoài viewport ở laptop 1280×720. Blur cũng theo dõi thao tác nhấn nút gửi để xử lý trường hợp `relatedTarget=null`; có ca mô phỏng bằng Chromium, chưa thay cho nghiệm thu Safari/iOS thật.
+
 Kiểm chứng tập trung vào chuyển đổi ngày/năm nhuận, nhập số trên mobile, ngày đủ 15 tuổi, dữ liệu ISO, focus lỗi, mở lại lịch, Escape, chọn tháng/năm, axe khi mở lịch/menu và responsive 360–1440px. Kiểm thử API dùng fixture; backend Laravel chưa có đầy đủ endpoint xác thực nên chưa thể nghiệm thu end-to-end với backend thật.
 
 Kết quả: build, lint, TypeScript và `git diff --check` đạt; 31/31 unit test, 11/11 browser test xác thực preview và 15/15 browser test API fixture đạt. Đã xem ảnh đăng nhập desktop, đăng ký desktop/mobile và lịch mở tại `localhost:3000`; kiểm tra ArrowRight → Enter chọn ngày tiếp theo, Escape trả focus. Axe khi mở lịch và menu năm trên mobile không báo vi phạm WCAG A/AA. Chưa kiểm tra Safari/Firefox hoặc trình đọc màn hình thực tế.
+
+Hoàn tất kiểm tra ngày 19/10/2026: ca chọn tháng/năm kèm kiểm tra header nằm trong viewport chạy liên tiếp 5/5 lần đạt sau khi sửa giới hạn chiều cao. Bộ preview 11/11 và API fixture 15/15 chạy lại đều đạt; build/lint/TypeScript đạt. Dev server được mở lại ở cổng 3000 để xem giao diện.

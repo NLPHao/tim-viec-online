@@ -201,7 +201,9 @@ function CalendarDayButton({
 
   const ref = React.useRef<HTMLButtonElement>(null);
   React.useEffect(() => {
-    if (modifiers.focused) ref.current?.focus();
+    // Portal placement can still be settling when a date receives focus.
+    // Keep the document in place so the calendar header stays in the viewport.
+    if (modifiers.focused) ref.current?.focus({ preventScroll: true });
   }, [modifiers.focused]);
 
   return (
