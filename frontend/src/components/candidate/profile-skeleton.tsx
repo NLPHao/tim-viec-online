@@ -1,4 +1,18 @@
 import { Skeleton } from "@/modules/cores/shadcn/components/ui/skeleton";
+export function WorkspaceContentSkeleton() {
+  return (
+    <div
+      className="grid gap-4"
+      role="status"
+      aria-label="Đang tải nội dung tài khoản"
+    >
+      <Skeleton className="h-36 rounded-xl" />
+      <Skeleton className="h-40 rounded-xl" />
+      <Skeleton className="h-64 rounded-xl" />
+      <span className="sr-only">Đang tải nội dung…</span>
+    </div>
+  );
+}
 export function ProfileSkeleton() {
   return (
     <div

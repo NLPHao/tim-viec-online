@@ -2,9 +2,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { requireUser } from "@/services/auth-session";
-import { SiteHeader } from "@/components/layout/site-header";
-import { SiteFooter } from "@/components/layout/site-footer";
-import { ProfileSkeleton } from "./profile-skeleton";
+import { WorkspaceContentSkeleton } from "./profile-skeleton";
 import { WorkspaceFrame } from "./workspace-frame";
 import type { CandidateSection } from "@/features/candidate-workspace/types";
 import { Input } from "@/modules/cores/shadcn/components/ui/input";
@@ -16,9 +14,6 @@ import { MyJobs } from "./my-jobs";
 import { CandidateMessages } from "./candidate-messages";
 import { CandidateNotifications } from "./candidate-notifications";
 import { AccountSettings } from "./account-settings";
-import "@/app/(candidate)/profile.css";
-import "@/app/(candidate)/workspace.css";
-import "@/app/(candidate)/candidate-chat.css";
 
 const titles = {
   jobs: "Việc làm của tôi",
@@ -32,13 +27,9 @@ export function AccountWorkspace({
   params: Promise<{ section: string }>;
 }) {
   return (
-    <>
-      <SiteHeader />
-      <Suspense fallback={<ProfileSkeleton />}>
-        <AccountContent params={params} />
-      </Suspense>
-      <SiteFooter />
-    </>
+    <Suspense fallback={<WorkspaceContentSkeleton />}>
+      <AccountContent params={params} />
+    </Suspense>
   );
 }
 async function AccountContent({

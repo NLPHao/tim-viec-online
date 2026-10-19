@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { connection } from "next/server";
-import { SiteHeader } from "@/components/layout/site-header";
-import { SiteFooter } from "@/components/layout/site-footer";
 import { AuthForm } from "@/components/auth/auth-form";
 import { AuthLoading } from "@/components/auth/auth-loading";
 import { requireUser } from "@/services/auth-session";
@@ -14,15 +12,11 @@ export const metadata: Metadata = {
 };
 export default function SecurityPage() {
   return (
-    <>
-      <SiteHeader />
-      <main id="main" className="site-container page-content">
-        <Suspense fallback={<AuthLoading />}>
-          <SecurityForm />
-        </Suspense>
-      </main>
-      <SiteFooter />
-    </>
+    <main id="main" className="site-container page-content">
+      <Suspense fallback={<AuthLoading />}>
+        <SecurityForm />
+      </Suspense>
+    </main>
   );
 }
 async function SecurityForm() {

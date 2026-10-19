@@ -22,7 +22,7 @@ import {
   X,
 } from "lucide-react";
 import { toast } from "sonner";
-import { CandidateSidebar } from "./candidate-sidebar";
+import { WorkspaceFrame } from "./workspace-frame";
 import { useWorkspace } from "./workspace-provider";
 import { useFileUrl } from "./use-file-url";
 import { BirthDateField } from "@/components/auth/birth-date-field";
@@ -189,13 +189,7 @@ export function ProfileEditor({
   );
 
   return (
-    <main id="main" className="candidate-area">
-      <CandidateSidebar
-        active="profile"
-        preview
-        name={saved.name}
-        avatar={avatarDisplay}
-      />
+    <WorkspaceFrame section="profile" name={saved.name}>
       <form
         ref={form}
         className="cu-content"
@@ -612,6 +606,6 @@ export function ProfileEditor({
           </div>
         </section>
       </form>
-    </main>
+    </WorkspaceFrame>
   );
 }

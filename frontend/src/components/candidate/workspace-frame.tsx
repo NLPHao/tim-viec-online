@@ -5,6 +5,7 @@ import { useOptionalWorkspace } from "./workspace-provider";
 import { useFileUrl } from "./use-file-url";
 import type { CandidateSection } from "@/features/candidate-workspace/types";
 import { CandidateSidebar } from "./candidate-sidebar";
+import { useInAccountShell } from "./account-shell";
 export function WorkspaceFrame({
   section,
   children,
@@ -17,7 +18,11 @@ export function WorkspaceFrame({
   name?: string;
 }) {
   const workspace = useOptionalWorkspace();
-  const avatarUrl = useFileUrl(preview ? (workspace?.avatar ?? null) : null);
+  const inAccountShell = useInAccountShell();
+  const avatarUrl = useFileUrl(
+    !inAccountShell && preview ? (workspace?.avatar ?? null) : null,
+  );
+  if (inAccountShell) return children;
   return (
     <main
       id="main"

@@ -2,10 +2,8 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import Link from "next/link";
 import { FileUser } from "lucide-react";
-import { SiteHeader } from "@/components/layout/site-header";
-import { SiteFooter } from "@/components/layout/site-footer";
 import { getCandidateProfileAccount } from "@/services/candidate-profile";
-import { ProfileSkeleton } from "@/components/candidate/profile-skeleton";
+import { WorkspaceContentSkeleton } from "@/components/candidate/profile-skeleton";
 import { WorkspaceFrame } from "@/components/candidate/workspace-frame";
 import { Button } from "@/modules/cores/shadcn/components/ui/button";
 import { ProfileEditor } from "@/components/candidate/profile-editor";
@@ -13,8 +11,6 @@ import { authMockEnabled } from "@/services/auth-mode";
 import { getCandidatePreview } from "@/services/candidate-workspace";
 import { getProvinceNames } from "@/services/locations";
 import { vietnamToday } from "@/features/jobs/formatters";
-import "../../profile.css";
-import "../../workspace.css";
 
 export const metadata: Metadata = {
   title: "Hồ sơ của tôi",
@@ -22,13 +18,9 @@ export const metadata: Metadata = {
 };
 export default function AccountProfilePage() {
   return (
-    <>
-      <SiteHeader />
-      <Suspense fallback={<ProfileSkeleton />}>
-        <AccountProfile />
-      </Suspense>
-      <SiteFooter />
-    </>
+    <Suspense fallback={<WorkspaceContentSkeleton />}>
+      <AccountProfile />
+    </Suspense>
   );
 }
 async function AccountProfile() {
