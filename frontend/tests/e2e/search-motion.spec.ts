@@ -1,8 +1,8 @@
 import { test, expect } from "@playwright/test";
 
-for (const width of [1440, 1920]) {
+for (const width of [1101, 1280, 1440, 1920]) {
   for (const mode of ["keyword", "location"]) {
-    test(`search left edge stays anchored when closing ${mode} at ${width}px`, async ({
+    test(`search right edge slides closed with the left edge anchored: ${mode} at ${width}px`, async ({
       page,
     }) => {
       await page.setViewportSize({ width, height: 900 });
@@ -35,15 +35,23 @@ for (const width of [1440, 1920]) {
         const backdrop = node
           .closest(".site-header")!
           .querySelector(".header-search-backdrop")!;
+        const opened = node.getBoundingClientRect();
+        const start = performance.now();
+        const samples = [
+          { time: 0, x: opened.x, right: opened.right, width: opened.width },
+        ];
         backdrop.dispatchEvent(
           new PointerEvent("pointerdown", { bubbles: true }),
         );
-        const start = performance.now();
-        const samples: { x: number; right: number; width: number }[] = [];
         await new Promise<void>((resolve) => {
           const sample = () => {
             const box = node.getBoundingClientRect();
-            samples.push({ x: box.x, right: box.right, width: box.width });
+            samples.push({
+              time: performance.now() - start,
+              x: box.x,
+              right: box.right,
+              width: box.width,
+            });
             if (performance.now() - start < 650) requestAnimationFrame(sample);
             else resolve();
           };
@@ -57,6 +65,26 @@ for (const width of [1440, 1920]) {
       ).toBeLessThan(1);
       expect(Math.abs(frames.at(-1)!.x - initial.x)).toBeLessThan(1);
       expect(Math.abs(frames.at(-1)!.width - initial.width)).toBeLessThan(1);
+      const distance = frames[0].width - initial.width;
+      // The panel retracts first. A snapped resize can pass endpoint and
+      // monotonicity checks, so also verify actual intermediate geometry.
+      expect(
+        frames
+          .filter((frame) => frame.time < 80)
+          .every((frame) => Math.abs(frame.width - frames[0].width) < 1),
+      ).toBe(true);
+      const intermediateWidths = new Set(
+        frames
+          .filter((frame) => {
+            const progress = (frames[0].width - frame.width) / distance;
+            return progress > 0.02 && progress < 0.98;
+          })
+          .map((frame) => Math.round(frame.width)),
+      );
+      expect(
+        intermediateWidths.size,
+        JSON.stringify(frames),
+      ).toBeGreaterThanOrEqual(3);
       for (let index = 1; index < frames.length; index++)
         expect(frames[index].right).toBeLessThanOrEqual(
           frames[index - 1].right + 1,

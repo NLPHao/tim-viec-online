@@ -185,7 +185,6 @@
   [data-slot="button"],
   [data-slot="input"],
   [data-slot="checkbox"],
-  .header-search,
   .header-pill,
   .header-circle,
   .header-search > button[type="submit"],
@@ -339,6 +338,8 @@
   }
 }
 
+/* Keep search sizing out of the generic :is() transition above: its most
+   specific selector would override max-width and make closing snap shut. */
 .header-search[data-mode] {
   transition:
     max-width 280ms var(--motion-ease-out),
