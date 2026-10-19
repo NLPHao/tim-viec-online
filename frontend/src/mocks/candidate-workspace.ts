@@ -7,7 +7,6 @@ import type { Job } from "@/features/jobs/types";
 export function createCandidateWorkspace(
   jobs: Job[],
   today: string,
-  cities: string[],
 ): CandidatePreviewData {
   const selected = [
     ...jobs.filter((job) => job.id <= 8),
@@ -27,7 +26,6 @@ export function createCandidateWorkspace(
   return {
     jobs,
     today,
-    cities,
     applications: selected.map((job, index) => ({
       id: index + 1,
       job_id: job.id,

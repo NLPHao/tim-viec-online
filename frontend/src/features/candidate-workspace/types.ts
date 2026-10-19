@@ -1,4 +1,4 @@
-import type { Job, JobType } from "@/features/jobs/types";
+import type { Job } from "@/features/jobs/types";
 
 export const APPLICATION_LABELS = {
   applied: "Đã ứng tuyển",
@@ -8,7 +8,7 @@ export const APPLICATION_LABELS = {
 } as const;
 export type ApplicationStatus = keyof typeof APPLICATION_LABELS;
 export type CandidateSection =
-  "profile" | "jobs" | "messages" | "alerts" | "notifications" | "settings";
+  "profile" | "jobs" | "messages" | "notifications" | "settings";
 export type Application = {
   id: number;
   job_id: number;
@@ -34,18 +34,9 @@ export type CandidateNotification = {
   conversation_id?: number;
   application_id?: number;
 };
-export type JobAlert = {
-  id: string;
-  name: string;
-  keyword: string;
-  city: string;
-  job_type: JobType | "";
-  enabled: boolean;
-};
 export type CandidatePreviewData = {
   jobs: Job[];
   today: string;
-  cities: string[];
   applications: Application[];
   savedIds: number[];
   conversations: Conversation[];
@@ -56,7 +47,7 @@ export const CANDIDATE_PAGES: { key: CandidateSection; label: string }[] = [
   { key: "profile", label: "Hồ sơ của tôi" },
   { key: "jobs", label: "Việc làm của tôi" },
   { key: "messages", label: "Tin nhắn" },
-  { key: "alerts", label: "Thông báo việc làm" },
+  { key: "notifications", label: "Thông báo" },
   { key: "settings", label: "Quản lý tài khoản" },
 ];
 

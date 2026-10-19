@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { requireUser } from "@/services/auth-session";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
@@ -12,11 +12,11 @@ import { Field, FieldLabel } from "@/modules/cores/shadcn/components/ui/field";
 import { Button } from "@/modules/cores/shadcn/components/ui/button";
 import "@/app/(candidate)/profile.css";
 import "@/app/(candidate)/workspace.css";
+import "@/app/(candidate)/candidate-chat.css";
 
 const titles = {
   jobs: "Việc làm của tôi",
   messages: "Tin nhắn",
-  alerts: "Thông báo việc làm",
   notifications: "Thông báo của bạn",
   settings: "Quản lý tài khoản",
 };
@@ -41,9 +41,10 @@ async function AccountContent({
   params: Promise<{ section: string }>;
 }) {
   const { section } = await params;
-  if (!Object.hasOwn(titles, section)) notFound();
+  if (!Object.hasOwn(titles, section) && section !== "alerts") notFound();
   // Always revalidate the authenticated role close to private data access.
   const user = await requireUser("candidate");
+  if (section === "alerts") redirect("/account/notifications");
   const title = titles[section as keyof typeof titles];
   return (
     <WorkspaceFrame

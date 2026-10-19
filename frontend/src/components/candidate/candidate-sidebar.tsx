@@ -1,4 +1,6 @@
+"use client";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 import {
   Bell,
@@ -18,7 +20,6 @@ const icons = {
   profile: FileUser,
   jobs: BriefcaseBusiness,
   messages: MessageSquare,
-  alerts: Bell,
   notifications: Bell,
   settings: Settings,
 };
@@ -33,6 +34,19 @@ export function CandidateSidebar({
   name: string;
   avatar?: ReactNode;
 }) {
+  const nav = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const container = nav.current;
+    const current = container?.querySelector<HTMLElement>(
+      '[aria-current="page"]',
+    );
+    if (container && current && container.scrollWidth > container.clientWidth) {
+      container.scrollLeft +=
+        current.getBoundingClientRect().left -
+        container.getBoundingClientRect().left -
+        (container.clientWidth - current.offsetWidth) / 2;
+    }
+  }, [active]);
   return (
     <aside className="cu-sidebar" aria-label="Điều hướng tài khoản ứng viên">
       <div className="cu-user-card">
@@ -50,18 +64,14 @@ export function CandidateSidebar({
           </Link>
         </div>
       </div>
-      <nav className="cu-nav" aria-label="Tài khoản ứng viên">
+      <nav ref={nav} className="cu-nav" aria-label="Tài khoản ứng viên">
         {CANDIDATE_PAGES.map((item) => {
           const Icon = icons[item.key];
           return (
             <Link
               key={item.key}
               href={candidateHref(item.key, preview)}
-              aria-current={
-                item.key === (active === "notifications" ? "alerts" : active)
-                  ? "page"
-                  : undefined
-              }
+              aria-current={item.key === active ? "page" : undefined}
             >
               <Icon aria-hidden="true" />
               {item.label}

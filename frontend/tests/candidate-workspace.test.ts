@@ -4,7 +4,6 @@ import {
   parseWorkspaceQuery,
   pageSlice,
   validateMessage,
-  validateAlert,
 } from "../src/features/candidate-workspace/rules";
 import { createCandidateWorkspace } from "../src/mocks/candidate-workspace";
 import { createJobFixtures } from "../src/mocks/jobs";
@@ -34,17 +33,9 @@ test("chat validates trimmed content at the exact thousand-character boundary", 
   assert.equal(validateMessage("a".repeat(1000)), null);
   assert.ok(validateMessage("a".repeat(1001)));
 });
-test("alert validation bounds names and keywords without requiring a specific city", () => {
-  assert.ok(validateAlert({ name: " ", keyword: "" }).name);
-  assert.ok(validateAlert({ name: "a".repeat(101), keyword: "" }).name);
-  assert.ok(
-    validateAlert({ name: "Việc làm", keyword: "a".repeat(201) }).keyword,
-  );
-  assert.deepEqual(validateAlert({ name: "Việc làm", keyword: "" }), {});
-});
 test("workspace fixtures link every conversation to an application and retain a closed job", () => {
   const jobs = createJobFixtures(new Date("2026-10-19T08:00:00Z"));
-  const data = createCandidateWorkspace(jobs, "2026-10-19", []);
+  const data = createCandidateWorkspace(jobs, "2026-10-19");
   assert.deepEqual(
     new Set(data.applications.map((item) => item.status)),
     new Set(Object.keys(APPLICATION_LABELS)),

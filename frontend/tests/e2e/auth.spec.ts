@@ -7,13 +7,7 @@ test("candidate workspace previews are blocked in API mode and real routes enfor
   page,
   context,
 }) => {
-  for (const section of [
-    "jobs",
-    "messages",
-    "alerts",
-    "notifications",
-    "settings",
-  ]) {
+  for (const section of ["jobs", "messages", "notifications", "settings"]) {
     await page.goto(`/preview/${section}`);
     await expect(page.locator(".cu-title:visible")).toHaveCount(0);
     await page.goto(`/account/${section}`);
@@ -21,13 +15,9 @@ test("candidate workspace previews are blocked in API mode and real routes enfor
   }
   await login(page);
   await expect(page).toHaveURL(/\/jobs$/);
-  for (const section of [
-    "jobs",
-    "messages",
-    "alerts",
-    "notifications",
-    "settings",
-  ]) {
+  await page.goto("/account/alerts");
+  await expect(page).toHaveURL(/\/account\/notifications$/);
+  for (const section of ["jobs", "messages", "notifications", "settings"]) {
     await page.goto(`/account/${section}`);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     await expect(
@@ -51,13 +41,7 @@ test("candidate workspace previews are blocked in API mode and real routes enfor
   await context.clearCookies();
   await login(page, "employer@example.test");
   await expect(page).toHaveURL(/\/employer$/);
-  for (const section of [
-    "jobs",
-    "messages",
-    "alerts",
-    "notifications",
-    "settings",
-  ]) {
+  for (const section of ["jobs", "messages", "notifications", "settings"]) {
     await page.goto(`/account/${section}`);
     await expect(page).toHaveURL(/\/employer$/);
   }

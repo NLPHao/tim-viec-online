@@ -6,6 +6,7 @@ import { WorkspaceProvider } from "@/components/candidate/workspace-provider";
 import { getCandidatePreview } from "@/services/candidate-workspace";
 import "../profile.css";
 import "../workspace.css";
+import "../candidate-chat.css";
 export default function PreviewLayout({ children }: { children: ReactNode }) {
   return (
     <>

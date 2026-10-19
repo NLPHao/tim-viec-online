@@ -19,7 +19,10 @@ export function WorkspaceFrame({
   const workspace = useOptionalWorkspace();
   const avatarUrl = useFileUrl(preview ? (workspace?.avatar ?? null) : null);
   return (
-    <main id="main" className="candidate-area">
+    <main
+      id="main"
+      className={`candidate-area${section === "messages" ? " candidate-messaging" : ""}`}
+    >
       <CandidateSidebar
         active={section}
         preview={preview}

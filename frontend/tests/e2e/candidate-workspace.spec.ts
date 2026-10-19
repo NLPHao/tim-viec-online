@@ -1,6 +1,91 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
+test("legacy alerts redirect to application and message notifications without a creation form", async ({
+  page,
+}) => {
+  await page.goto("/preview/alerts");
+  await expect(page).toHaveURL(/\/preview\/notifications$/);
+  await expect(
+    page.getByRole("heading", { name: "Ứng tuyển & tin nhắn", exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Thông báo", exact: true }),
+  ).toHaveAttribute("aria-current", "page");
+  await expect(page.getByText(/Tạo thông báo/)).toHaveCount(0);
+  await expect(
+    page.locator('a[href="/preview/alerts"], a[href="/account/alerts"]'),
+  ).toHaveCount(0);
+});
+
+test("chat composer grows, respects IME and keeps the thread bounded while reading history", async ({
+  page,
+}) => {
+  await page.goto("/preview/messages?conversation=1");
+  const composer = page.getByRole("textbox", {
+    name: "Tin nhắn của bạn",
+    exact: true,
+  });
+  const startHeight = (await composer.boundingBox())!.height;
+  await composer.fill("Một dòng\n".repeat(12));
+  await expect
+    .poll(async () => (await composer.boundingBox())!.height)
+    .toBeGreaterThan(startHeight);
+  expect((await composer.boundingBox())!.height).toBeLessThanOrEqual(132);
+  const initial = await page.locator(".cc-message:visible").count();
+  await composer.dispatchEvent("keydown", {
+    key: "Enter",
+    ctrlKey: true,
+    isComposing: true,
+  });
+  await expect(page.locator(".cc-message:visible")).toHaveCount(initial);
+  await composer.press("Control+Enter");
+  await expect(page.locator(".cc-message:visible")).toHaveCount(initial + 1);
+  await expect
+    .poll(async () => (await composer.boundingBox())!.height)
+    .toBe(startHeight);
+  for (let index = 0; index < 3; index++) {
+    await composer.fill(("Nội dung trao đổi " + index + " ").repeat(45));
+    await page.getByRole("button", { name: "Gửi", exact: true }).click();
+    await expect(composer).toHaveValue("");
+  }
+  const history = page.getByRole("region", { name: /Nội dung hội thoại với/ });
+  await history.evaluate((node) => {
+    node.scrollTop = 0;
+    node.dispatchEvent(new Event("scroll"));
+  });
+  await expect(
+    page.getByRole("button", { name: "Xuống cuối", exact: true }),
+  ).toBeVisible();
+  await composer.fill("Bản nháp khi đọc tin cũ");
+  expect(await history.evaluate((node) => node.scrollTop)).toBe(0);
+  await page.getByRole("button", { name: "Xuống cuối", exact: true }).click();
+  await expect
+    .poll(() =>
+      history.evaluate(
+        (node) => node.scrollHeight - node.clientHeight - node.scrollTop,
+      ),
+    )
+    .toBeLessThan(2);
+  await history.evaluate((node) => {
+    node.scrollTop = 0;
+    node.dispatchEvent(new Event("scroll"));
+  });
+  await expect(
+    page.getByRole("button", { name: "Xuống cuối", exact: true }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: /Đồng Hành Media/ }).click();
+  await expect(page).toHaveURL(/conversation=2$/);
+  await page.getByRole("button", { name: /FPT Software/ }).click();
+  await expect(page).toHaveURL(/conversation=1$/);
+  expect(await history.evaluate((node) => node.scrollTop)).toBe(0);
+  expect(
+    await page
+      .locator(".cc-workspace:visible")
+      .evaluate((node) => node.getBoundingClientRect().height),
+  ).toBeLessThan(900);
+});
+
 test("profile identity is shared with candidate pages and application notifications open their record", async ({
   page,
 }) => {
@@ -28,10 +113,7 @@ test("profile identity is shared with candidate pages and application notificati
   ).toContainText("Nguyễn Thanh An");
   await page
     .getByRole("navigation", { name: "Tài khoản ứng viên", exact: true })
-    .getByRole("link", { name: "Thông báo việc làm", exact: true })
-    .click();
-  await page
-    .getByRole("link", { name: /Xem thông báo ứng tuyển & tin nhắn/ })
+    .getByRole("link", { name: "Thông báo", exact: true })
     .click();
   await page
     .locator(".cu-notification:visible")
@@ -130,15 +212,15 @@ test("chat preserves per-thread drafts, validates, renders text safely and does 
     payload,
   );
   await expect(page.locator(".cc-message:visible").last()).toContainText(
-    "Chỉ trong bản xem trước",
+    "Chưa gửi",
   );
   await expect(page.locator(".cc-message:visible img")).toHaveCount(0);
   await expect(composer).toHaveValue("");
   await page
     .getByRole("navigation", { name: "Tài khoản ứng viên", exact: true })
-    .getByRole("link", { name: "Thông báo việc làm", exact: true })
+    .getByRole("link", { name: "Thông báo", exact: true })
     .click();
-  await expect(page).toHaveURL(/\/preview\/alerts$/);
+  await expect(page).toHaveURL(/\/preview\/notifications$/);
   await page.goBack();
   await expect(page.locator(".cc-message:visible").last()).toContainText(
     payload,
@@ -176,60 +258,7 @@ test("mobile chat list/detail keeps controls reachable and returns focus", async
   ).toBeFocused();
   await page.getByLabel("Tìm hội thoại", { exact: true }).fill("khongco");
   await expect(
-    page.getByText("Không tìm thấy hội thoại phù hợp.", { exact: true }),
-  ).toBeVisible();
-});
-
-test("job alert preview validates, searches cities, toggles, links to jobs and removes", async ({
-  page,
-}) => {
-  await page.goto("/preview/alerts");
-  await page
-    .getByRole("button", { name: "Tạo thông báo mới", exact: true })
-    .click();
-  await page
-    .getByRole("button", { name: "Thêm vào bản xem trước", exact: true })
-    .click();
-  await expect(page.getByLabel("Tên thông báo", { exact: true })).toBeFocused();
-  await page.getByLabel("Tên thông báo", { exact: true }).fill("Việc Laravel");
-  await page.getByLabel("Từ khóa công việc", { exact: true }).fill("Laravel");
-  await page
-    .getByRole("combobox", { name: "Tỉnh / Thành phố", exact: true })
-    .click();
-  await page.getByLabel("Tìm tỉnh/thành phố", { exact: true }).fill("da nang");
-  await page.getByRole("option", { name: "Đà Nẵng", exact: true }).click();
-  await page
-    .getByRole("button", { name: "Thêm vào bản xem trước", exact: true })
-    .click();
-  const alert = page.locator(".cu-alert:visible");
-  await expect(alert).toContainText("Việc Laravel");
-  await expect(alert).toContainText("Đà Nẵng");
-  const enabled = page.getByRole("switch", {
-    name: "Bật thông báo Việc Laravel",
-    exact: true,
-  });
-  await expect(enabled).toBeChecked();
-  await enabled.click();
-  await expect(enabled).not.toBeChecked();
-  const href = await alert
-    .getByRole("link", { name: "Xem việc làm phù hợp", exact: true })
-    .getAttribute("href");
-  expect(new URL(href!, "http://localhost").searchParams.get("city")).toBe(
-    "Đà Nẵng",
-  );
-  await page
-    .getByRole("button", { name: "Xóa thông báo Việc Laravel", exact: true })
-    .click();
-  await page
-    .getByRole("alertdialog")
-    .getByRole("button", { name: "Xác nhận", exact: true })
-    .click();
-  await expect(alert).toHaveCount(0);
-  await expect(
-    page.getByRole("heading", {
-      name: "Bạn chưa tạo thông báo việc làm nào",
-      exact: true,
-    }),
+    page.getByText("Không tìm thấy hội thoại", { exact: true }),
   ).toBeVisible();
 });
 
@@ -256,14 +285,17 @@ test("notification read state and account preferences persist between preview pa
   await expect(preference).not.toBeChecked();
   await page
     .getByRole("navigation", { name: "Tài khoản ứng viên", exact: true })
-    .getByRole("link", { name: "Thông báo việc làm", exact: true })
+    .getByRole("link", { name: "Thông báo", exact: true })
     .click();
+  await expect(page).toHaveURL(/\/preview\/notifications$/);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "Thông báo của bạn",
+  );
   await expect(
-    page.getByRole("link", {
-      name: /Xem thông báo ứng tuyển & tin nhắn \(0 chưa đọc\)/,
-    }),
-  ).toBeVisible();
+    page.locator(".cu-notification[data-unread=true]:visible"),
+  ).toHaveCount(0);
   await page.goBack();
+  await expect(page).toHaveURL(/\/preview\/settings$/);
   await expect(preference).not.toBeChecked();
   expect(
     await page.evaluate(() => ({
@@ -283,7 +315,6 @@ for (const width of [360, 768, 1440]) {
     for (const path of [
       "jobs",
       "messages?conversation=1",
-      "alerts",
       "notifications",
       "settings",
     ]) {

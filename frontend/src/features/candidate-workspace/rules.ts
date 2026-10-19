@@ -1,4 +1,4 @@
-import { APPLICATION_LABELS, type JobAlert } from "./types";
+import { APPLICATION_LABELS } from "./types";
 
 export function parseWorkspaceQuery(params: {
   get(name: string): string | null;
@@ -31,12 +31,4 @@ export function validateMessage(message: string): string | null {
   if (!message.trim()) return "Nhập nội dung tin nhắn trước khi gửi.";
   if (message.trim().length > 1000) return "Tin nhắn không quá 1.000 ký tự.";
   return null;
-}
-export function validateAlert(alert: Pick<JobAlert, "name" | "keyword">) {
-  const errors: Record<string, string> = {};
-  if (alert.name.trim().length < 2 || alert.name.trim().length > 100)
-    errors.name = "Tên thông báo cần từ 2 đến 100 ký tự.";
-  if (alert.keyword.trim().length > 200)
-    errors.keyword = "Từ khóa không quá 200 ký tự.";
-  return errors;
 }

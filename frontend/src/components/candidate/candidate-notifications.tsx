@@ -39,12 +39,7 @@ export function CandidateNotifications() {
         </Button>
       </WorkspaceTitle>
       <section className="cu-card" aria-label="Thông báo ứng tuyển và tin nhắn">
-        <nav className="cu-tabs" aria-label="Nhóm thông báo">
-          <Link href="/preview/notifications" aria-current="page">
-            Ứng tuyển & tin nhắn
-          </Link>
-          <Link href="/preview/alerts">Thông báo việc làm</Link>
-        </nav>
+        <h2 className="cu-notification-heading">Ứng tuyển & tin nhắn</h2>
         <div
           className="cu-notification-filters"
           aria-label="Lọc trạng thái đọc"

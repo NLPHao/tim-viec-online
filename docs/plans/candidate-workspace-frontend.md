@@ -1,5 +1,7 @@
 # Các trang tài khoản ứng viên tiếp theo
 
+> Cập nhật: phần tạo thông báo việc làm đã được bỏ theo yêu cầu tiếp theo. Thiết kế chat và phạm vi thông báo hiện tại được ghi tại [chat-notifications-refinement.md](chat-notifications-refinement.md); các quyết định job alerts bên dưới là lịch sử triển khai.
+
 Triển khai theo thứ tự người dùng yêu cầu: Việc làm của tôi (đã ứng tuyển/đã lưu), Tin nhắn, Thông báo việc làm và thông báo hệ thống, Quản lý tài khoản. Kế thừa nhánh hồ sơ `feature/candidate-profile-fe` trên nhánh thường `feature/candidate-workspace-fe` để dùng cùng nền giao diện; không dùng worktree.
 
 Giữ bố cục trong `design/page_candidate_jobs`, `page_saved_jobs`, `page_chat`, `page_candidate_alerts`, `page_notifications`, `page_settings`. Dùng lại font Be Vietnam Pro, màu thương hiệu, thẻ trắng và sidebar xanh, khoảng cách 16–24px, motion/reduced motion và form chung. Sidebar được tách để các trang dẫn qua lại; các danh sách dùng chung Pagination tối đa bốn số trang. Mobile tối thiểu 360px.

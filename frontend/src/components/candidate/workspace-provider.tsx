@@ -2,7 +2,6 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 import type {
   CandidatePreviewData,
-  JobAlert,
   PreviewMessage,
 } from "@/features/candidate-workspace/types";
 import { validateMessage } from "@/features/candidate-workspace/rules";
@@ -16,7 +15,6 @@ function useWorkspaceState(initial: CandidatePreviewData) {
   const [messages, setMessages] = useState(initial.messages);
   const [drafts, setDrafts] = useState<Record<number, string>>({});
   const [notifications, setNotifications] = useState(initial.notifications);
-  const [alerts, setAlerts] = useState<JobAlert[]>([]);
   const [emailPrefs, setEmailPrefs] = useState({
     applications: true,
     messages: true,
@@ -33,7 +31,6 @@ function useWorkspaceState(initial: CandidatePreviewData) {
     messages,
     drafts,
     notifications,
-    alerts,
     emailPrefs,
     setEmailPrefs,
     removeSaved: (id: number) =>
@@ -65,25 +62,6 @@ function useWorkspaceState(initial: CandidatePreviewData) {
             : item,
         ),
       ),
-    addAlert: (draft: Omit<JobAlert, "id" | "enabled">) =>
-      setAlerts((current) => [
-        ...current,
-        {
-          ...draft,
-          name: draft.name.trim(),
-          keyword: draft.keyword.trim(),
-          id: crypto.randomUUID(),
-          enabled: true,
-        },
-      ]),
-    toggleAlert: (id: string) =>
-      setAlerts((current) =>
-        current.map((item) =>
-          item.id === id ? { ...item, enabled: !item.enabled } : item,
-        ),
-      ),
-    removeAlert: (id: string) =>
-      setAlerts((current) => current.filter((item) => item.id !== id)),
   };
 }
 const WorkspaceContext = createContext<ReturnType<

@@ -69,7 +69,7 @@ export function HeaderControls({
             ? "/account/jobs?tab=saved"
             : label === "Việc đã ứng tuyển"
               ? "/account/jobs"
-              : "/account/alerts"
+              : "/account/notifications"
         }
         onClick={() => setCategoriesOpen(false)}
       >
@@ -140,7 +140,7 @@ export function HeaderControls({
             <h2>Việc của tôi</h2>
             {personalItem("Việc đã lưu")}
             {personalItem("Việc đã ứng tuyển")}
-            {personalItem("Thông báo việc làm")}
+            {personalItem("Thông báo")}
           </div>
           <div>
             <h2>Công ty</h2>
@@ -196,9 +196,7 @@ export function HeaderControls({
             </span>
             <div>
               <SheetTitle>Thông báo</SheetTitle>
-              <SheetDescription>
-                Nhận thông báo công việc & ứng tuyển
-              </SheetDescription>
+              <SheetDescription>Phản hồi ứng tuyển & tin nhắn</SheetDescription>
             </div>
             <SheetClose
               className="notification-close"
@@ -299,9 +297,9 @@ export function HeaderControls({
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/account/alerts">
+                    <Link href="/account/notifications">
                       <Bell />
-                      Thông Báo Việc Làm
+                      Thông Báo
                     </Link>
                   </DropdownMenuItem>
                 </>
