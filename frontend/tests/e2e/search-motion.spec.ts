@@ -1,5 +1,58 @@
 import { test, expect } from "@playwright/test";
 
+test("closing preserves button width until the panel retracts, then interpolates its size", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/jobs");
+  const form = page.getByRole("search", {
+    name: "Tìm việc nhanh",
+    exact: true,
+  });
+  await form
+    .getByRole("combobox", {
+      name: "Việc làm, công ty hoặc kỹ năng",
+      exact: true,
+    })
+    .click();
+  await expect
+    .poll(() =>
+      form
+        .locator('button[type="submit"]')
+        .evaluate((node) => Math.round(node.getBoundingClientRect().width)),
+    )
+    .toBe(100);
+  const samples = await form.evaluate(async (node) => {
+    const button = node.querySelector('button[type="submit"]')!;
+    const input = node.querySelector('input[name="keyword"]')!;
+    const start = performance.now();
+    input.dispatchEvent(
+      new KeyboardEvent("keydown", { key: "Escape", bubbles: true }),
+    );
+    const frames: { time: number; width: number }[] = [];
+    await new Promise<void>((resolve) => {
+      const sample = () => {
+        const time = performance.now() - start;
+        frames.push({ time, width: button.getBoundingClientRect().width });
+        if (time < 500) requestAnimationFrame(sample);
+        else resolve();
+      };
+      requestAnimationFrame(sample);
+    });
+    return frames;
+  });
+  expect(
+    samples
+      .filter((frame) => frame.time < 80)
+      .every((frame) => frame.width > 98),
+  ).toBe(true);
+  expect(samples.some((frame) => frame.width > 35 && frame.width < 90)).toBe(
+    true,
+  );
+  expect(samples.at(-1)!.width).toBeLessThan(30);
+});
+
 for (const width of [360, 1440]) {
   for (const reducedMotion of ["reduce", "no-preference"] as const) {
     test(`navbar search expansion and location sequencing at ${width}px motion=${reducedMotion}`, async ({

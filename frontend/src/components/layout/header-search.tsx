@@ -75,8 +75,20 @@ export function HeaderSearch({
       ),
     )
     .slice(0, 4);
-  const setMode = (next: Mode) =>
+  const setMode = (next: Mode) => {
+    if (next !== "idle" && mode === "idle") {
+      const header = form.current?.closest<HTMLElement>(".site-header");
+      const actions = header?.querySelector<HTMLElement>(".header-actions");
+      // Start the collapse from its actual size, avoiding the dead portion of
+      // a transition from an arbitrary max-width larger than the contents.
+      if (header && actions && actions.getBoundingClientRect().width > 0)
+        header.style.setProperty(
+          "--header-actions-width",
+          `${actions.getBoundingClientRect().width}px`,
+        );
+    }
     setInteraction((current) => ({ ...current, mode: next }));
+  };
   const close = () => setMode("idle");
 
   function focusSuggestion(last: boolean) {

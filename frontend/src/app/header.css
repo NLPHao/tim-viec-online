@@ -237,8 +237,9 @@
 }
 @media (min-width: 1101px) {
   .header-actions {
-    max-width: 600px;
+    max-width: var(--header-actions-width, 600px);
     min-width: 0;
+    overflow: clip;
     transition:
       max-width 280ms var(--motion-ease-out),
       opacity 140ms ease-out;
@@ -259,18 +260,37 @@
   .header-search:is([data-mode="keyword"], [data-mode="location"])
     > button[type="submit"] {
     background: var(--brand-orange);
-    width: auto;
-    padding-inline: 14px;
-    display: flex;
-    gap: 6px;
-    border-radius: 999px;
+    width: 100px;
   }
   .header-search:is([data-mode="keyword"], [data-mode="location"])
     > button[type="submit"]
     > span {
-    display: inline;
+    max-width: 65px;
+    opacity: 1;
+    margin-left: 6px;
+  }
+  .header-search[data-mode] > button[type="submit"] {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 999px;
+  }
+  .header-search > button[type="submit"] > svg {
+    flex-shrink: 0;
+  }
+  .header-search > button[type="submit"] > span {
+    display: block;
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    white-space: nowrap;
     font-size: 11px;
     font-weight: 600;
+    margin-left: 0;
+    transition:
+      max-width 280ms var(--motion-ease-out),
+      opacity 160ms ease-out,
+      margin-left 280ms var(--motion-ease-out);
   }
 }
 .header-search > button[type="submit"] {

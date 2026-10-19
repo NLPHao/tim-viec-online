@@ -347,8 +347,15 @@
 /* Radix keeps the closing panel mounted for --motion-exit. Collapse the
    search and restore neighbouring controls only after that panel retracts. */
 .header-search[data-mode="idle"],
-.site-header:has(.header-search[data-mode="idle"]) .header-actions {
+.site-header:has(.header-search[data-mode="idle"]) .header-actions,
+.header-search[data-mode="idle"] > button[type="submit"],
+.header-search[data-mode="idle"] > button[type="submit"] > span {
   transition-delay: var(--motion-exit);
+}
+.header-search > button[type="submit"] {
+  transition:
+    width 280ms var(--motion-ease-out),
+    background-color var(--motion-fast) ease-out;
 }
 .header-search .header-location {
   transition:
