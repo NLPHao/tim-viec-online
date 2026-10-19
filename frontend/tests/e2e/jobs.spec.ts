@@ -163,6 +163,9 @@ test("closed, expired and invalid jobs have honest states", async ({
 test("search, details and guest dialog pass automated accessibility checks", async ({
   page,
 }) => {
+  // Audit settled colors, rather than opacity during staggered card entry.
+  // Full-motion behavior is covered separately in motion.spec.ts.
+  await page.emulateMedia({ reducedMotion: "reduce" });
   for (const path of ["/jobs", "/jobs/1", "/jobs/invalid", "/login"]) {
     await page.goto(path);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
