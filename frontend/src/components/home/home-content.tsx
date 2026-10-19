@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ChevronRight, CirclePlus } from "lucide-react";
+import { ArrowRight, Building2, ChevronRight } from "lucide-react";
 import { FeaturedJobs, KeyCategories } from "./home-carousels";
 import { HomeSearch } from "./home-search";
 import { getHomeContent } from "@/services/jobs";
@@ -106,36 +106,66 @@ export async function HomeContent() {
       <section className="home-employer" aria-labelledby="home-employer-title">
         <div className="home-employer-copy">
           <span className="home-employer-eyebrow">
-            Dành Cho Doanh Nghiệp & Nhà Tuyển Dụng
+            <Building2 size={16} aria-hidden="true" />
+            Dành cho nhà tuyển dụng
           </span>
           <h2 id="home-employer-title">
-            Giải Pháp Tuyển Dụng Nhân Tài Toàn Diện Cho Doanh Nghiệp
+            Tìm cộng sự mới
+            <br />
+            cho doanh nghiệp.
           </h2>
           <p>
-            Tiếp cận hơn 2.500.000+ hồ sơ ứng viên chất lượng cao trên toàn
-            quốc. Đăng tin tuyển dụng nhanh chóng và áp dụng công nghệ lọc CV
-            thông minh.
+            Đăng tin, theo dõi hồ sơ ứng tuyển và trao đổi với ứng viên. Quản lý
+            công việc tuyển dụng tại một nơi.
           </p>
           <div className="home-employer-actions">
             <Link className="home-cta-primary" href={employerUrl}>
-              <CirclePlus size={15} aria-hidden="true" />
-              Đăng Tin Tuyển Dụng Ngay
+              Bắt đầu tuyển dụng
+              <ArrowRight size={16} aria-hidden="true" />
             </Link>
-            <Link className="home-cta-secondary" href={employerUrl}>
-              Dành cho Nhà tuyển dụng
-            </Link>
+            {user?.role !== "employer" && (
+              <Link
+                className="home-cta-secondary"
+                href="/register?role=employer"
+              >
+                Tạo tài khoản nhà tuyển dụng
+                <ChevronRight size={14} aria-hidden="true" />
+              </Link>
+            )}
           </div>
         </div>
-        <dl className="home-stats">
-          <div>
-            <dt>Việc làm đang tuyển</dt>
-            <dd>45.000+</dd>
-          </div>
-          <div>
-            <dt>Doanh nghiệp uy tín</dt>
-            <dd>12.000+</dd>
-          </div>
-        </dl>
+        <div className="home-employer-workflow">
+          <h3>Quy trình tuyển dụng rõ ràng</h3>
+          <ol>
+            <li>
+              <span className="home-employer-step" aria-hidden="true">
+                01
+              </span>
+              <div>
+                <h4>Đăng tin tuyển dụng</h4>
+                <p>Mô tả vị trí, yêu cầu và quyền lợi của công việc.</p>
+              </div>
+            </li>
+            <li>
+              <span className="home-employer-step" aria-hidden="true">
+                02
+              </span>
+              <div>
+                <h4>Xem và quản lý hồ sơ</h4>
+                <p>Theo dõi ứng viên và cập nhật kết quả ứng tuyển.</p>
+              </div>
+            </li>
+            <li>
+              <span className="home-employer-step" aria-hidden="true">
+                03
+              </span>
+              <div>
+                <h4>Trao đổi với ứng viên</h4>
+                <p>Nhắn tin trực tiếp để trao đổi về vị trí tuyển dụng.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
       </section>
     </div>
   );

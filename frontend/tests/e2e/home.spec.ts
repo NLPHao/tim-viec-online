@@ -30,12 +30,13 @@ test("home follows the reference sections and submits the shared job search", as
   await expect(keyword).toHaveCSS("box-shadow", "none");
   await keyword.focus();
   await expect(keyword).toHaveCSS("box-shadow", "none");
-  await expect(page.locator(".home-search")).toHaveCSS("outline-style", "solid");
+  await expect(page.locator(".home-search")).toHaveCSS(
+    "outline-style",
+    "solid",
+  );
   await keyword.fill("React");
   await page.getByRole("combobox", { name: "Địa điểm tìm việc" }).click();
-  await page
-    .getByRole("option", { name: "Hồ Chí Minh", exact: true })
-    .click();
+  await page.getByRole("option", { name: "Hồ Chí Minh", exact: true }).click();
   await page.getByRole("button", { name: "Tìm kiếm", exact: true }).click();
   await expect(page).toHaveURL(/keyword=React/);
   expect(new URL(page.url()).searchParams.get("city")).toBe("Hồ Chí Minh");
@@ -135,9 +136,14 @@ test("carousel, category arrows, trends, company links, brand and employer CTA w
   await expect(page.getByTestId("company-job-card")).toHaveCount(3);
   await page.goto("/");
   await page
-    .getByRole("link", { name: "Đăng Tin Tuyển Dụng Ngay", exact: true })
+    .getByRole("link", { name: "Bắt đầu tuyển dụng", exact: true })
     .click();
   await expect(page).toHaveURL(/\/login\?role=employer/);
+  await page.goto("/");
+  await page
+    .getByRole("link", { name: "Tạo tài khoản nhà tuyển dụng", exact: true })
+    .click();
+  await expect(page).toHaveURL(/\/register\?role=employer/);
 });
 
 test("home and the custom location picker pass automated accessibility", async ({
