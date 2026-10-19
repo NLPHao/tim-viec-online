@@ -14,8 +14,9 @@ import {
   paginateJobs,
   parseJobQuery,
 } from "../src/features/jobs/query";
-import type { Job } from "../src/features/jobs/types";
+import type { Job, JobQuery } from "../src/features/jobs/types";
 import { createJobFixtures, JOB_CATEGORIES } from "../src/mocks/jobs";
+import { paginationPages } from "../src/features/pagination";
 
 const now = new Date("2026-10-17T08:30:00.000Z");
 const today = "2026-10-17";
@@ -49,6 +50,7 @@ test("query parsing rejects malformed filters and normalizes repeated categories
     job_type: "",
     salary: "",
     level: "",
+    sort: "default",
     page: 1,
   });
   for (const page of [
@@ -74,6 +76,7 @@ test("query strings round-trip all supported filters and preserve explicit overr
     job_type: "remote",
     salary: "over20",
     level: "Senior",
+    sort: "salary_desc",
     page: "3",
   });
   const encoded = jobQueryString(query);
@@ -89,6 +92,107 @@ test("query strings round-trip all supported filters and preserve explicit overr
   assert.equal(overridden.has("page"), false);
   assert.equal(overridden.get("city"), "Hà Nội");
   assert.equal(jobQueryString(emptyQuery()), "");
+  assert.equal(parseJobQuery({ sort: "__proto__" }).sort, "default");
+  assert.equal(
+    parseJobQuery({ sort: ["newest", "salary_desc"] }).sort,
+    "newest",
+  );
+  assert.equal(overridden.get("sort"), "salary_desc");
+  assert.equal(
+    new URLSearchParams(jobQueryString(query, { sort: "default" })).has("sort"),
+    false,
+  );
+});
+
+test("sort distinguishes bumped updates, creation date and salary before pagination", () => {
+  const items: Job[] = [
+    {
+      ...jobs[0],
+      id: 1,
+      title: "React engineer",
+      skills: [],
+      company: { ...jobs[0].company, name: "Company" },
+      salary_min: 20,
+      salary_max: 30,
+      created_at: "2026-10-01",
+      updated_at: "2026-10-16",
+    },
+    {
+      ...jobs[0],
+      id: 2,
+      title: "Engineer",
+      skills: [{ id: 1, name: "React" }],
+      company: { ...jobs[0].company, name: "Company" },
+      salary_min: 40,
+      salary_max: null,
+      created_at: "2026-10-15",
+      updated_at: "2026-10-15",
+    },
+    {
+      ...jobs[0],
+      id: 3,
+      title: "Engineer",
+      skills: [],
+      company: { ...jobs[0].company, name: "React Company" },
+      salary_min: 999,
+      salary_max: 1000,
+      is_negotiable: true,
+      created_at: "2026-10-14",
+      updated_at: "2026-10-14",
+    },
+    {
+      ...jobs[0],
+      id: 4,
+      title: "React developer",
+      skills: [],
+      company: { ...jobs[0].company, name: "Company" },
+      salary_min: 20,
+      salary_max: 30,
+      created_at: "2026-10-13",
+      updated_at: "2026-10-13",
+    },
+    {
+      ...jobs[0],
+      id: 5,
+      title: "React developer",
+      skills: [],
+      company: { ...jobs[0].company, name: "Company" },
+      salary_min: null,
+      salary_max: null,
+      created_at: "2026-10-12",
+      updated_at: "2026-10-12",
+    },
+  ];
+  const ids = (sort: JobQuery["sort"], keyword = "") =>
+    filterJobs(items, { ...emptyQuery(), sort, keyword }, today).map(
+      (job) => job.id,
+    );
+  assert.deepEqual(ids("default"), [1, 2, 3, 4, 5]);
+  assert.deepEqual(ids("newest"), [2, 3, 4, 5, 1]);
+  assert.deepEqual(ids("salary_desc"), [2, 1, 4, 3, 5]);
+  assert.deepEqual(ids("relevance", "rÉact"), [1, 4, 5, 2, 3]);
+  assert.deepEqual(ids("relevance"), ids("default"));
+  assert.equal(
+    paginateJobs(
+      filterJobs(items, { ...emptyQuery(), sort: "salary_desc" }, today),
+      1,
+      1,
+    ).data[0].id,
+    2,
+  );
+  assert.deepEqual(
+    items.map((job) => job.id),
+    [1, 2, 3, 4, 5],
+  );
+});
+
+test("shared pagination centers seven numbers and clamps both edges with a compact mobile window", () => {
+  assert.deepEqual(paginationPages(6, 20), [3, 4, 5, 6, 7, 8, 9]);
+  assert.deepEqual(paginationPages(1, 20), [1, 2, 3, 4, 5, 6, 7]);
+  assert.deepEqual(paginationPages(100, 20), [14, 15, 16, 17, 18, 19, 20]);
+  assert.deepEqual(paginationPages(2, 4), [1, 2, 3, 4]);
+  assert.deepEqual(paginationPages(NaN, 0), [1]);
+  assert.deepEqual(paginationPages(6, 20, 3), [5, 6, 7]);
 });
 
 test("salary filters implement SRS exact boundaries and exclude negotiable jobs", () => {

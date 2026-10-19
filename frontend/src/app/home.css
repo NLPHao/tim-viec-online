@@ -40,6 +40,10 @@
   padding-bottom: 58px;
 }
 
+#top-companies {
+  scroll-margin-top: 100px;
+}
+
 .home-container {
   width: 100%;
   max-width: 1360px;

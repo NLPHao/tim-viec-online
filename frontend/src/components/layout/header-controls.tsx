@@ -106,7 +106,10 @@ export function HeaderControls({
         >
           <div>
             <h2>Việc làm</h2>
-            <Link href="/jobs" onClick={() => setCategoriesOpen(false)}>
+            <Link
+              href="/jobs?sort=newest"
+              onClick={() => setCategoriesOpen(false)}
+            >
               Việc làm mới nhất
             </Link>
             <Link href="/jobs" onClick={() => setCategoriesOpen(false)}>
@@ -127,8 +130,11 @@ export function HeaderControls({
           </div>
           <div>
             <h2>Công ty</h2>
-            <Link href="/companies" onClick={() => setCategoriesOpen(false)}>
-              Tất cả công ty
+            <Link
+              href="/#top-companies"
+              onClick={() => setCategoriesOpen(false)}
+            >
+              Khám phá doanh nghiệp
             </Link>
           </div>
           <div>

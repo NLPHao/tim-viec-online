@@ -20,6 +20,14 @@ export type JobType = keyof typeof JOB_TYPE_LABELS;
 export type JobStatus = "active" | "closed" | "expired";
 export type SalaryFilter = "" | "under10" | "10to20" | "over20" | "negotiable";
 
+export const JOB_SORT_LABELS = {
+  default: "Mặc định",
+  relevance: "Liên quan nhất",
+  salary_desc: "Lương (cao - thấp)",
+  newest: "Ngày đăng (mới nhất)",
+} as const;
+export type JobSort = keyof typeof JOB_SORT_LABELS;
+
 export interface Company {
   id: number;
   name: string;
@@ -66,6 +74,7 @@ export interface JobQuery {
   job_type: JobType | "";
   salary: SalaryFilter;
   level: string;
+  sort: JobSort;
   page: number;
 }
 

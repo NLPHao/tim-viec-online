@@ -1,5 +1,7 @@
 # Danh sách và hồ sơ doanh nghiệp — 19/10/2026
 
+> Cập nhật: phần danh sách/tìm kiếm doanh nghiệp riêng đã được bỏ theo yêu cầu tiếp theo. Xem [Trang chủ chung, sắp xếp và phân trang](shared-home-job-sorting.md). Hồ sơ doanh nghiệp vẫn được giữ; nội dung dưới đây ghi lại thiết kế ban đầu.
+
 Người dùng chọn triển khai tiếp hai trang công khai `/companies` và `/companies/[id]`. Tham chiếu `design/page_companies/index.html`, `design/page_company_detail/index.html` và FR-04.7. Giữ hướng thiết kế tuyển dụng hiện có: Be Vietnam Pro, navy/xanh, nền xám, card trắng, CTA cam, nhịp 14/22/29px theo mẫu HTML gốc 90%. Dùng chung logo/navbar/footer, focus nhẹ, menu tùy chỉnh và reduced motion.
 
 Danh sách có hero và tìm tên doanh nghiệp, bốn bộ lọc ngành dạng chip, lưới 3/2/1 cột, phân trang thật sáu công ty/trang. Từ khóa hỗ trợ không dấu; GET URL giữ ngành khi tìm kiếm/phân trang, đổi tiêu chí về trang đầu. Trang chi tiết có cover xanh và card nhận diện chồng lên cover, thông tin quy mô/địa điểm/website, danh sách việc làm bên trái và giới thiệu/chi nhánh bên phải. Chia sẻ hồ sơ và liên kết đến việc làm là các thao tác thực tế; theo dõi doanh nghiệp chưa có nghiệp vụ/API nên thay nút phụ bằng chia sẻ. Không dựng điểm AI hoặc dấu xác minh khi dữ liệu không có.

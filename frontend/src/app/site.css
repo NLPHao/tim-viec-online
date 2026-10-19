@@ -168,6 +168,7 @@ main {
 }
 .results-toolbar {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   align-items: center;
   justify-content: space-between;
@@ -349,7 +350,7 @@ main {
   margin-top: 28px;
   align-items: center;
 }
-.pagination a {
+.pagination :is(a, .pagination-control) {
   display: grid;
   place-items: center;
   min-width: 44px;
@@ -358,6 +359,56 @@ main {
   border: 1px solid var(--border);
   border-radius: 8px;
   font-size: 13px;
+}
+.pagination [aria-disabled="true"] {
+  color: var(--muted-foreground);
+  background: var(--background);
+}
+.pagination a:hover:not([aria-current]) {
+  border-color: var(--brand-blue);
+  color: var(--brand-blue);
+  background: var(--selection-background);
+}
+.job-sort {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--foreground);
+  font-size: 12px;
+}
+.job-sort .job-sort-trigger {
+  min-height: 44px;
+  height: auto;
+  min-width: 170px;
+  justify-content: space-between;
+  border-color: transparent;
+  border-radius: 6px;
+  padding-inline: 10px;
+  font-size: 12px;
+  box-shadow: none;
+}
+.job-sort .job-sort-trigger:is(:hover, [data-state="open"]) {
+  color: var(--brand-blue);
+  background: var(--selection-background);
+}
+.job-sort .job-sort-trigger:focus-visible {
+  border-color: var(--brand-blue);
+  outline: 2px solid var(--field-focus-halo);
+  outline-offset: 2px;
+}
+.job-sort-menu {
+  min-width: 220px;
+}
+@media (max-width: 600px) {
+  .pagination {
+    gap: 6px;
+  }
+  .pagination .pagination-wide-page {
+    display: none;
+  }
+  .job-sort {
+    margin-left: auto;
+  }
 }
 .pagination a[aria-current="page"] {
   background: var(--brand-blue);

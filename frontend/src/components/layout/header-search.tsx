@@ -61,7 +61,7 @@ export function HeaderSearch({ cities }: { cities: string[] }) {
         <HeaderLocation key={city} city={city} locations={locations} />
       </div>
       {pathname === "/jobs" &&
-        ["category_ids", "job_type", "salary", "level"].flatMap((name) =>
+        ["category_ids", "job_type", "salary", "level", "sort"].flatMap((name) =>
           searchParams
             .getAll(name)
             .map((value, index) => (

@@ -47,6 +47,7 @@ export function JobFilters({
       >
         <input type="hidden" name="keyword" value={filters.keyword} />
         <input type="hidden" name="city" value={filters.city} />
+        <input type="hidden" name="sort" value={filters.sort} />
         <div className="filter-row">
           <span className="filter-caption">
             <SlidersHorizontal aria-hidden="true" size={16} />

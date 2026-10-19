@@ -33,7 +33,7 @@ const ALL_VALUES = "__all_values__";
 
 // Radix traps focus and hides the page from assistive technology. Inert also
 // prevents hidden page controls from remaining programmatically focusable.
-function isolateSelectionMenu(menu: HTMLDivElement | null) {
+export function isolateSelectionMenu(menu: HTMLDivElement | null) {
   if (!menu) return;
   const outside = Array.from(document.body.children)
     .filter(

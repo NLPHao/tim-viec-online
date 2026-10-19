@@ -12,7 +12,7 @@ import {
 import { getCompany, getCompanyJobs } from "@/services/companies";
 import { getCurrentUser } from "@/services/auth-session";
 import { companyWebsite } from "@/features/companies/query";
-import { CompanyAvatar } from "@/components/companies/company-card";
+import { CompanyAvatar } from "@/components/companies/company-avatar";
 import { CompanyJobCard } from "@/components/companies/company-job-card";
 import { CompanyShare } from "@/components/companies/company-share";
 import { CompaniesSkeleton } from "@/components/companies/companies-skeleton";
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default function CompanyPage(props: Props) {
   return (
     <main id="main" className="companies-page">
-      <Suspense fallback={<CompaniesSkeleton detail />}>
+      <Suspense fallback={<CompaniesSkeleton />}>
         <Profile {...props} />
       </Suspense>
     </main>
@@ -55,9 +55,9 @@ async function Profile({ params }: Props) {
   return (
     <div className="companies-container company-profile-content">
       <nav className="company-breadcrumbs" aria-label="Đường dẫn">
-        <Link href="/companies">
+        <Link href="/#top-companies">
           <ArrowLeft size={14} aria-hidden="true" />
-          Tất cả doanh nghiệp
+          Doanh nghiệp tuyển dụng
         </Link>
         <span aria-hidden="true">/</span>
         <span>{company.short_name}</span>

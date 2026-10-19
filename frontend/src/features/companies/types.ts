@@ -8,11 +8,6 @@ export const COMPANY_SECTORS = {
 } as const;
 
 export type CompanySector = keyof typeof COMPANY_SECTORS;
-export type CompanyQuery = {
-  keyword: string;
-  sector: CompanySector | "";
-  page: number;
-};
 export type CompanyProfile = Company & {
   short_name: string;
   mark: string;
@@ -24,8 +19,4 @@ export type CompanyProfile = Company & {
   introduction: string[];
   locations: { city: string; address: string }[];
   active_jobs_count: number;
-};
-export type CompanyPage = {
-  data: CompanyProfile[];
-  meta: { total: number; page: number; per_page: number; last_page: number };
 };

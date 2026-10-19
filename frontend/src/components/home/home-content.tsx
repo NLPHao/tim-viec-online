@@ -79,10 +79,6 @@ export async function HomeContent() {
               Tìm hiểu doanh nghiệp và khám phá cơ hội nghề nghiệp
             </p>
           </div>
-          <Link className="home-section-link" href="/companies">
-            Xem Tất Cả Doanh Nghiệp
-            <ChevronRight size={13} aria-hidden="true" />
-          </Link>
         </div>
         <div className="home-companies-grid">
           {content.companies.map((company) => (

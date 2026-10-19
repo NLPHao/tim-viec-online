@@ -2,23 +2,13 @@ import "server-only";
 import { cache } from "react";
 import { getJobRepository } from "./jobs";
 import { createCompanyProfiles } from "../mocks/companies";
-import {
-  companyOpenJobs,
-  filterCompanies,
-  paginateCompanies,
-} from "../features/companies/query";
-import type { CompanyQuery } from "../features/companies/types";
+import { companyOpenJobs } from "../features/companies/query";
 
 // Replace this read adapter with GET /api/companies when Laravel is ready.
 const repository = cache(async () => {
   const { jobs, today } = await getJobRepository();
   return { companies: createCompanyProfiles(jobs, today), jobs, today };
 });
-
-export async function listCompanies(query: CompanyQuery) {
-  const { companies } = await repository();
-  return paginateCompanies(filterCompanies(companies, query), query.page);
-}
 
 export async function getCompany(id: string | number) {
   if (!/^[1-9]\d*$/.test(String(id)) || !Number.isSafeInteger(Number(id)))

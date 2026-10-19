@@ -8,6 +8,8 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { JobFilters } from "@/components/jobs/job-filters";
+import { JobSort } from "@/components/jobs/job-sort";
+import { Pagination } from "@/components/layout/pagination";
 import { JobCard } from "@/components/jobs/job-card";
 import { JobsSkeleton } from "@/components/jobs/jobs-skeleton";
 import { parseJobQuery, jobQueryString } from "@/features/jobs/query";
@@ -49,17 +51,6 @@ async function JobsResults({ searchParams }: SearchProps) {
     getCurrentUser().catch(() => null),
   ]);
   const currentQuery = { ...query, page: result.meta.page };
-  const pages = [
-    ...new Set([
-      1,
-      result.meta.page - 1,
-      result.meta.page,
-      result.meta.page + 1,
-      result.meta.last_page,
-    ]),
-  ]
-    .filter((page) => page > 0 && page <= result.meta.last_page)
-    .sort((a, b) => a - b);
   const pageUrl = (page: number) =>
     `/jobs?${jobQueryString(currentQuery, { page })}`;
   return (
@@ -73,9 +64,8 @@ async function JobsResults({ searchParams }: SearchProps) {
                 {result.meta.total} việc làm{" "}
                 {query.keyword ? `cho “${query.keyword}”` : "phù hợp"}
               </h2>
-              <p>Cập nhật mới nhất</p>
             </div>
-            <span className="demo-pill">Dữ liệu minh họa</span>
+            <JobSort query={currentQuery} />
           </div>
           {result.data.length > 0 ? (
             <>
@@ -84,42 +74,12 @@ async function JobsResults({ searchParams }: SearchProps) {
                   <JobCard job={job} key={job.id} viewerRole={user?.role} />
                 ))}
               </div>
-              {result.meta.last_page > 1 && (
-                <nav className="pagination" aria-label="Phân trang việc làm">
-                  {result.meta.page > 1 && (
-                    <Link
-                      href={pageUrl(result.meta.page - 1)}
-                      aria-label="Trang trước"
-                    >
-                      ←
-                    </Link>
-                  )}
-                  {pages.map((page, index) => (
-                    <span className="contents" key={page}>
-                      {index > 0 && page - pages[index - 1] > 1 && (
-                        <span aria-hidden="true">…</span>
-                      )}
-                      <Link
-                        href={pageUrl(page)}
-                        aria-label={`Trang ${page}`}
-                        aria-current={
-                          page === result.meta.page ? "page" : undefined
-                        }
-                      >
-                        {page}
-                      </Link>
-                    </span>
-                  ))}
-                  {result.meta.page < result.meta.last_page && (
-                    <Link
-                      href={pageUrl(result.meta.page + 1)}
-                      aria-label="Trang sau"
-                    >
-                      →
-                    </Link>
-                  )}
-                </nav>
-              )}
+              <Pagination
+                page={result.meta.page}
+                lastPage={result.meta.last_page}
+                pageUrl={pageUrl}
+                label="Phân trang việc làm"
+              />
             </>
           ) : (
             <div className="surface empty-state">

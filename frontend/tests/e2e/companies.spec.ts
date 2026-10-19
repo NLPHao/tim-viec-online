@@ -1,68 +1,18 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-test("directory uses real pagination and preserves industry and search in URLs", async ({
+test("legacy company directory URLs lead to the shared home section", async ({
   page,
 }) => {
-  await page.goto("/companies");
-  await expect(page.getByTestId("company-card")).toHaveCount(6);
-  await expect(page.locator(".company-filter-bar")).toContainText("17");
-  await page
-    .getByRole("link", { name: "Trang doanh nghiệp 2", exact: true })
-    .click();
-  await expect(page).toHaveURL(/page=2/);
-  await expect(page.getByTestId("company-card").first()).toContainText(
-    "Đồng Hành Media",
-  );
-  await page
-    .getByRole("navigation", { name: "Lọc theo ngành doanh nghiệp" })
-    .getByRole("link", { name: "Công nghệ thông tin (IT)", exact: true })
-    .click();
-  await expect(page).toHaveURL(/sector=technology$/);
-  await page
-    .getByRole("link", { name: "Trang doanh nghiệp 2", exact: true })
-    .click();
-  await expect(page).toHaveURL(/sector=technology&page=2/);
-  await expect(page.getByTestId("company-card")).toHaveCount(1);
-  await page.goBack();
-  await expect(
-    page.getByRole("link", { name: "Trang doanh nghiệp 1", exact: true }),
-  ).toHaveAttribute("aria-current", "page");
-  await page
-    .getByRole("navigation", { name: "Lọc theo ngành doanh nghiệp" })
-    .getByRole("link", { name: "Ngân hàng / Tài chính", exact: true })
-    .click();
-  await expect(page).toHaveURL(/sector=finance$/);
-  await expect(
-    page.locator('.company-search input[name="sector"]'),
-  ).toHaveValue("finance");
-  await page
-    .getByRole("searchbox", { name: "Tên doanh nghiệp", exact: true })
-    .fill("ngan hang");
-  await page.getByRole("button", { name: "Tìm công ty", exact: true }).click();
-  await expect(page).toHaveURL(/keyword=ngan\+hang&sector=finance$/);
-  expect(new URL(page.url()).searchParams.get("sector")).toBe("finance");
-  await expect(page.getByTestId("company-card")).toHaveCount(1);
-  await expect(page.getByTestId("company-card")).toContainText("Kỹ Thương");
-  await page.reload();
-  await expect(
-    page.getByRole("searchbox", { name: "Tên doanh nghiệp", exact: true }),
-  ).toHaveValue("ngan hang");
-});
-
-test("directory search has an honest empty state and resets filters", async ({
-  page,
-}) => {
-  await page.goto("/companies?keyword=does-not-exist&sector=retail&page=999");
-  await expect(
-    page.getByRole("heading", { name: "Không tìm thấy doanh nghiệp phù hợp" }),
-  ).toBeVisible();
-  await expect(page.getByTestId("company-card")).toHaveCount(0);
-  await page
-    .getByRole("link", { name: "Xem tất cả doanh nghiệp", exact: true })
-    .click();
-  await expect(page).toHaveURL(/\/companies$/);
-  await expect(page.getByTestId("company-card")).toHaveCount(6);
+  for (const path of [
+    "/companies",
+    "/companies?keyword=FPT&sector=retail&page=3",
+  ]) {
+    await page.goto(path);
+    await expect(page).toHaveURL(/\/#top-companies$/);
+    await expect(page.locator("#top-companies")).toBeVisible();
+    await expect(page.locator(".company-search")).toHaveCount(0);
+  }
 });
 
 test("each featured company has its own profile and consistent open-job count", async ({
@@ -77,9 +27,9 @@ test("each featured company has its own profile and consistent open-job count", 
     { id: 205, name: "Vingroup", count: 0 },
   ];
   for (const company of companies) {
-    await page.goto("/companies");
+    await page.goto("/");
     await page
-      .getByRole("link", { name: `Xem hồ sơ ${company.name}`, exact: true })
+      .locator(`#top-companies a[href="/companies/${company.id}"]`)
       .click();
     await expect(page).toHaveURL(new RegExp(`/companies/${company.id}$`));
     await expect(
@@ -137,23 +87,19 @@ test("company vacancies exclude closed jobs and link to the correct job and comp
   ).toBeFocused();
 });
 
-test("company directory is reachable from header and home, and sharing copies its URL", async ({
+test("company discovery uses the shared home and sharing copies the profile URL", async ({
   page,
   context,
 }) => {
-  await page.goto("/");
-  await page
-    .getByRole("link", { name: "Xem Tất Cả Doanh Nghiệp", exact: true })
-    .click();
-  await expect(page).toHaveURL(/\/companies$/);
+  await page.goto("/jobs");
   await page
     .getByRole("button", { name: "Tất cả danh mục", exact: true })
     .click();
-  await page.getByRole("link", { name: "Tất cả công ty", exact: true }).click();
-  await expect(page).toHaveURL(/\/companies$/);
   await page
-    .getByRole("link", { name: "Xem hồ sơ FPT Software", exact: true })
+    .getByRole("link", { name: "Khám phá doanh nghiệp", exact: true })
     .click();
+  await expect(page).toHaveURL(/\/#top-companies$/);
+  await page.locator('#top-companies a[href="/companies/1"]').click();
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   await page
     .getByRole("button", { name: "Chia sẻ hồ sơ", exact: true })
@@ -180,7 +126,7 @@ test("missing or malformed company IDs show a useful not-found state", async ({
     ).toBeVisible();
     await expect(
       page.getByRole("link", {
-        name: "Xem danh sách doanh nghiệp",
+        name: "Khám phá doanh nghiệp",
         exact: true,
       }),
     ).toBeVisible();
@@ -197,7 +143,7 @@ for (const width of [360, 390, 768, 1024, 1440]) {
   }, testInfo) => {
     await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ reducedMotion: "reduce" });
-    for (const path of ["/companies", "/companies/1", "/companies/201"]) {
+    for (const path of ["/companies/1", "/companies/201"]) {
       await page.goto(path);
       await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
       expect(

@@ -1,6 +1,7 @@
 import { isJobOpen } from "./formatters";
 import {
   JOB_LEVELS,
+  JOB_SORT_LABELS,
   JOB_TYPE_LABELS,
   type Job,
   type JobPage,
@@ -63,6 +64,9 @@ export function parseJobQuery(params: SearchParams): JobQuery {
       : "",
     salary: salaryFilters.includes(rawSalary) ? rawSalary : "",
     level: (JOB_LEVELS as readonly string[]).includes(rawLevel) ? rawLevel : "",
+    sort: Object.hasOwn(JOB_SORT_LABELS, first("sort"))
+      ? (first("sort") as JobQuery["sort"])
+      : "default",
     page,
   };
 }
@@ -86,6 +90,7 @@ export function jobQueryString(
     if (normalized[key]) params.set(key, normalized[key]);
   }
   if (normalized.page > 1) params.set("page", String(normalized.page));
+  if (normalized.sort !== "default") params.set("sort", normalized.sort);
   return params.toString();
 }
 
@@ -130,7 +135,30 @@ export function filterJobs(
             ].join(" "),
           ).includes(keyword)),
     )
-    .sort((a, b) => b.updated_at.localeCompare(a.updated_at) || b.id - a.id);
+    .sort((a, b) => {
+      const fallback = b.updated_at.localeCompare(a.updated_at) || b.id - a.id;
+      if (query.sort === "newest")
+        return b.created_at.localeCompare(a.created_at) || b.id - a.id;
+      if (query.sort === "salary_desc") {
+        // Use the advertised upper bound (or starting salary). Undisclosed and
+        // negotiable salaries follow every numeric salary, including zero.
+        const salary = (job: Job) =>
+          job.is_negotiable ? -1 : (job.salary_max ?? job.salary_min ?? -1);
+        return salary(b) - salary(a) || fallback;
+      }
+      if (query.sort === "relevance" && keyword) {
+        const score = (job: Job) =>
+          (normalizeSearch(job.title).includes(keyword) ? 3 : 0) +
+          (job.skills.some((skill) =>
+            normalizeSearch(skill.name).includes(keyword),
+          )
+            ? 2
+            : 0) +
+          (normalizeSearch(job.company.name).includes(keyword) ? 1 : 0);
+        return score(b) - score(a) || fallback;
+      }
+      return fallback;
+    });
 }
 
 export function paginateJobs(
