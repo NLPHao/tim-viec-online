@@ -21,3 +21,9 @@ Kiểm chứng:
 - Kiểm tra trực tiếp localhost:3000 nhận đủ 35 lựa chọn; xem ảnh menu khi cuộn tới Vĩnh Long.
 
 Chưa kiểm tra Firefox/Safari hoặc tải lớn ngoài môi trường cục bộ. Backend Laravel chưa được thay đổi để nhận mã tỉnh, nên query `city` tiếp tục truyền tên.
+
+Ô tìm nhanh trong dropdown: Home và navbar dùng chung `SearchableSelectionField`, ghép từ Popover/Input hiện có. Ô “Tìm tỉnh/thành phố…” ở đầu popup, danh sách cuộn bên dưới. Lọc tên không phân biệt dấu bằng dữ liệu đã tải, không gửi từ khóa tìm địa điểm tới API hoặc form Jobs. Không thay đổi địa điểm đã chọn khi chỉ nhập từ khóa; chọn một mục mới cập nhật hidden `city`. Giữ “Tất cả địa điểm” và nút xóa khi không tìm kiếm. Đóng popup sẽ xóa từ khóa tìm tạm.
+
+Bàn phím: ArrowDown/Up mở popup và từ ô tìm chuyển vào danh sách; Arrow/Home/End điều hướng lựa chọn; Enter chọn; Escape đóng và trả focus. Home/End trong ô nhập giữ hành vi chỉnh sửa văn bản; hỗ trợ nhập tiếng Việt đang composition. Có trạng thái không tìm thấy tỉnh/thành phố. Đã xem ảnh thực tế ở 360/1440px và kiểm tra tìm `da nang` ra “Đà Nẵng”.
+
+Kiểm chứng cập nhật ô tìm kiếm: lint/build và toàn bộ 55 browser tests Chromium thành công. Kiểm tra tìm không dấu, không có kết quả, nhập/chọn bằng bàn phím không tự gửi form, giữ sort khi gửi tìm việc, reset từ khóa khi mở lại, danh sách đủ 34 tỉnh/thành và Axe ở desktop/mobile. Chỉ đổi component chọn địa điểm; các Select của bộ lọc khác giữ nguyên.

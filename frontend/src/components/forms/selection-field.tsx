@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useRef, useState } from "react";
-import { ChevronDown, Search, X } from "lucide-react";
+import { Check, ChevronDown, Search, X } from "lucide-react";
 import { cn } from "cn";
 import { normalizeSearch } from "@/features/jobs/query";
 import { Input } from "@/modules/cores/shadcn/components/ui/input";
@@ -96,6 +96,176 @@ export function SelectionField({
           ))}
         </SelectContent>
       </Select>
+      {value && (
+        <button
+          className="selection-clear"
+          type="button"
+          aria-label={`Xóa ${label.toLocaleLowerCase("vi")}`}
+          onClick={() => {
+            onValueChange("");
+            trigger.current?.focus();
+          }}
+        >
+          <X size={14} aria-hidden="true" />
+        </button>
+      )}
+    </div>
+  );
+}
+
+export function SearchableSelectionField({
+  label,
+  placeholder,
+  name,
+  options,
+  value,
+  onValueChange,
+  searchLabel,
+  className,
+}: CommonProps & {
+  value: string;
+  onValueChange: (value: string) => void;
+  searchLabel: string;
+}) {
+  const id = useId();
+  const trigger = useRef<HTMLButtonElement>(null);
+  const list = useRef<HTMLDivElement>(null);
+  const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  const keyword = normalizeSearch(search);
+  const selected = options.find((option) => option.value === value);
+  const visible = keyword
+    ? options.filter((option) =>
+        normalizeSearch(option.label).includes(keyword),
+      )
+    : [{ value: "", label: placeholder }, ...options];
+
+  function choose(next: string) {
+    onValueChange(next);
+    setOpen(false);
+    setSearch("");
+  }
+
+  function focusOption(index: number) {
+    const items =
+      list.current?.querySelectorAll<HTMLButtonElement>('[role="option"]');
+    if (items?.length) items[(index + items.length) % items.length].focus();
+  }
+
+  return (
+    <div className={cn("selection-field", className)} data-active={!!value}>
+      <input type="hidden" name={name} value={value} />
+      <Popover
+        open={open}
+        onOpenChange={(next) => {
+          setOpen(next);
+          if (!next) setSearch("");
+        }}
+      >
+        <PopoverTrigger asChild>
+          <button
+            ref={trigger}
+            className="selection-trigger"
+            type="button"
+            role="combobox"
+            aria-label={label}
+            aria-expanded={open}
+            aria-haspopup="dialog"
+            aria-controls={open ? `${id}-popup` : undefined}
+            onKeyDown={(event) => {
+              if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+                event.preventDefault();
+                setOpen(true);
+              }
+            }}
+          >
+            <span className="selection-value">
+              <span>{selected?.label ?? placeholder}</span>
+            </span>
+            <ChevronDown size={16} aria-hidden="true" />
+          </button>
+        </PopoverTrigger>
+        <PopoverContent
+          id={`${id}-popup`}
+          className="selection-menu selection-searchable-menu"
+          align="start"
+          sideOffset={6}
+          collisionPadding={12}
+          aria-label={label}
+        >
+          <div className="selection-search">
+            <Search size={16} aria-hidden="true" />
+            <label className="sr-only" htmlFor={`${id}-search`}>
+              {searchLabel}
+            </label>
+            <Input
+              id={`${id}-search`}
+              value={search}
+              placeholder={`${searchLabel}…`}
+              maxLength={100}
+              autoComplete="off"
+              aria-controls={`${id}-list`}
+              onChange={(event) => setSearch(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.nativeEvent.isComposing) return;
+                if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+                  event.preventDefault();
+                  focusOption(event.key === "ArrowDown" ? 0 : -1);
+                } else if (event.key === "Enter") {
+                  event.preventDefault();
+                  if (visible[0]) choose(visible[0].value);
+                }
+              }}
+            />
+          </div>
+          <div
+            id={`${id}-list`}
+            ref={list}
+            role="listbox"
+            aria-label={label}
+            className="selection-options"
+            onKeyDown={(event) => {
+              const items = Array.from(
+                list.current?.querySelectorAll('[role="option"]') ?? [],
+              );
+              const index = items.indexOf(event.target as Element);
+              if (["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) {
+                event.preventDefault();
+                focusOption(
+                  event.key === "Home"
+                    ? 0
+                    : event.key === "End"
+                      ? -1
+                      : index + (event.key === "ArrowDown" ? 1 : -1),
+                );
+              }
+            }}
+          >
+            {visible.map((option) => (
+              <button
+                type="button"
+                role="option"
+                tabIndex={-1}
+                key={option.value}
+                aria-selected={option.value === value}
+                data-state={option.value === value ? "checked" : "unchecked"}
+                className="selection-option"
+                onClick={() => choose(option.value)}
+              >
+                <span className="selection-single-check" aria-hidden="true">
+                  {option.value === value && <Check size={14} />}
+                </span>
+                <span>{option.label}</span>
+              </button>
+            ))}
+          </div>
+          {visible.length === 0 && (
+            <p className="selection-empty" role="status">
+              Không tìm thấy tỉnh/thành phố.
+            </p>
+          )}
+        </PopoverContent>
+      </Popover>
       {value && (
         <button
           className="selection-clear"

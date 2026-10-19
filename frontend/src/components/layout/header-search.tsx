@@ -4,7 +4,7 @@ import { MapPin, Search } from "lucide-react";
 import { useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Form from "next/form";
-import { SelectionField } from "@/components/forms/selection-field";
+import { SearchableSelectionField } from "@/components/forms/selection-field";
 
 function HeaderLocation({
   city,
@@ -15,7 +15,8 @@ function HeaderLocation({
 }) {
   const [value, setValue] = useState(city);
   return (
-    <SelectionField
+    <SearchableSelectionField
+      searchLabel="Tìm tỉnh/thành phố"
       className="header-city-selection"
       label="Địa điểm tìm nhanh"
       placeholder="Tất cả địa điểm"

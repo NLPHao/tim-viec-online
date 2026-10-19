@@ -176,6 +176,37 @@
 .selection-search {
   position: relative;
 }
+.selection-searchable-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 300px;
+  max-height: min(380px, var(--radix-popover-content-available-height));
+  padding: 10px;
+}
+.selection-searchable-menu .selection-search {
+  flex-shrink: 0;
+}
+.selection-searchable-menu .selection-options {
+  min-height: 0;
+}
+.selection-searchable-menu .selection-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+}
+.selection-searchable-menu .selection-option:is(:hover, :focus-visible) {
+  background: var(--selection-hover);
+  color: var(--brand-blue);
+  outline: none;
+}
+.selection-single-check {
+  position: absolute;
+  display: grid;
+  place-items: center;
+}
 .selection-search > svg {
   position: absolute;
   left: 10px;
@@ -232,7 +263,7 @@
 }
 .header-city-selection[data-active="true"]
   .selection-trigger
-  > [data-slot="select-value"] {
+  > :is([data-slot="select-value"], .selection-value) {
   max-width: calc(100% - 38px);
 }
 .header-city-selection .selection-trigger > svg {

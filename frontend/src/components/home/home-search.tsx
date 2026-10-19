@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Form from "next/form";
 import { MapPin, Search } from "lucide-react";
-import { SelectionField } from "@/components/forms/selection-field";
+import { SearchableSelectionField } from "@/components/forms/selection-field";
 
 export function HomeSearch({ cities }: { cities: string[] }) {
   const [city, setCity] = useState("");
@@ -31,7 +31,8 @@ export function HomeSearch({ cities }: { cities: string[] }) {
       <span className="home-search-divider" aria-hidden="true" />
       <div className="home-location">
         <MapPin size={15} aria-hidden="true" />
-        <SelectionField
+        <SearchableSelectionField
+          searchLabel="Tìm tỉnh/thành phố"
           className="home-city-selection"
           label="Địa điểm tìm việc"
           placeholder="Tất cả địa điểm"
