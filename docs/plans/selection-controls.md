@@ -12,6 +12,12 @@ Yêu cầu: áp dụng mẫu người dùng cung cấp cho toàn bộ dropdown �
 
 Radix có thể tạo select ẩn để hỗ trợ form; phần người dùng tương tác hoàn toàn là trigger/menu tùy chỉnh. Không dùng CSS để che menu native rồi giữ hành vi native.
 
+## Ô vuông trong danh sách lọc — 19/10/2026
+
+Dropdown hình thức làm việc, mức lương, cấp bậc và địa điểm dùng ô vuông 16px bên trái, đồng bộ với ngành nghề. Mục được chọn có nền xanh và dấu tích trắng; dấu tích cũ bên phải chuyển vào ô vuông. Đây là thay đổi hiển thị trong `selection.css`, giữ nguyên lựa chọn đơn, URL và thao tác bàn phím của Radix Select. Ngành nghề tiếp tục chọn nhiều; menu tháng/năm của lịch giữ kiểu hiện tại.
+
+Kiểm chứng: build và `git diff --check` đạt; 3/3 browser test bộ lọc đạt, bao gồm bàn phím, xóa/lùi URL, axe và menu ở 360/1440px. Đã xem ảnh dropdown hình thức làm việc, kiểm tra ô vuông/dấu tích bên trái ở cả bốn dropdown trên `localhost:3000`.
+
 ## Kết quả thực hiện
 
 - Có `SelectionField` và `MultiSelectionField` dùng chung, dựa trên Select được tạo từ CLI shadcn theo `radix-nova`, Popover và Checkbox hiện có. Không thêm dependency. Kiểu nằm trong `selection.css`, dùng biến màu thương hiệu; bỏ CSS cho select/details cũ.

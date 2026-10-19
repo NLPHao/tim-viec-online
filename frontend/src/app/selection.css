@@ -121,6 +121,41 @@
   cursor: pointer;
   overflow-wrap: anywhere;
 }
+/* Match the category checkboxes visually; Radix keeps single-select semantics. */
+.selection-menu:not(.birth-calendar-menu) .selection-option {
+  min-height: 42px;
+  gap: 10px;
+  padding: 8px 10px;
+}
+.selection-menu:not(.birth-calendar-menu) .selection-option::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  border: 1px solid var(--input);
+  border-radius: 4px;
+  background: var(--card);
+}
+.selection-menu:not(.birth-calendar-menu)
+  .selection-option[data-state="checked"]::before {
+  border-color: var(--brand-blue);
+  background: var(--brand-blue);
+}
+.selection-menu:not(.birth-calendar-menu) .selection-option > span:first-child {
+  left: 10px;
+  right: auto;
+  width: 16px;
+  height: 16px;
+  color: var(--primary-foreground);
+}
+.selection-menu:not(.birth-calendar-menu)
+  .selection-option
+  > span:first-child
+  svg {
+  width: 14px;
+  height: 14px;
+  color: var(--primary-foreground);
+}
 .selection-menu .selection-option[data-state="checked"] {
   color: var(--brand-blue);
   background: var(--selection-background);
