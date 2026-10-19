@@ -48,6 +48,7 @@ for (const width of [360, 1440]) {
   }, testInfo) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/jobs");
+    await expect(page.locator(".search-panel")).toBeVisible();
     if (width === 360) {
       for (const field of await page
         .locator(".search-panel .selection-field")

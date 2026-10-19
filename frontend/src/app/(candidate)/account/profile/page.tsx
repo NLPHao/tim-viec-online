@@ -1,0 +1,41 @@
+import type { Metadata } from "next";
+import { Suspense } from "react";
+import Link from "next/link";
+import { FileUser } from "lucide-react";
+import { SiteHeader } from "@/components/layout/site-header";
+import { SiteFooter } from "@/components/layout/site-footer";
+import { getCandidateProfileAccount } from "@/services/candidate-profile";
+import { ProfileSkeleton } from "@/components/candidate/profile-skeleton";
+import { Button } from "@/modules/cores/shadcn/components/ui/button";
+import "../../profile.css";
+
+export const metadata: Metadata = {
+  title: "Hồ sơ của tôi",
+  robots: { index: false },
+};
+export default function AccountProfilePage() {
+  return (
+    <>
+      <SiteHeader />
+      <Suspense fallback={<ProfileSkeleton />}>
+        <AccountProfile />
+      </Suspense>
+      <SiteFooter />
+    </>
+  );
+}
+async function AccountProfile() {
+  const { user } = await getCandidateProfileAccount();
+  return (
+    <main id="main" className="site-container page-content">
+      <section className="surface empty-state">
+        <FileUser aria-hidden="true" size={40} />
+        <h1>Hồ sơ của {user.name}</h1>
+        <p>Hồ sơ hiện chưa khả dụng. Vui lòng quay lại sau.</p>
+        <Button asChild>
+          <Link href="/jobs">Khám phá việc làm</Link>
+        </Button>
+      </section>
+    </main>
+  );
+}

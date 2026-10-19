@@ -256,9 +256,11 @@ export function HeaderControls({
               )}
               {user.role === "candidate" && (
                 <>
-                  <DropdownMenuItem onSelect={unavailable}>
-                    <FileText />
-                    Hồ Sơ Của Tôi
+                  <DropdownMenuItem asChild>
+                    <Link href="/account/profile">
+                      <FileText />
+                      Hồ Sơ Của Tôi
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem onSelect={unavailable}>
                     <BriefcaseBusiness />

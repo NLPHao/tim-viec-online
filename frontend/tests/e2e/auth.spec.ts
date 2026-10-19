@@ -3,6 +3,37 @@ import AxeBuilder from "@axe-core/playwright";
 
 const password = "SafeFixture1!";
 
+test("profile preview is unavailable in API mode and candidate profile enforces the authenticated role", async ({
+  page,
+  context,
+}) => {
+  await page.goto("/preview/profile");
+  await expect(
+    page.getByRole("heading", { name: "Nguyễn Minh An", exact: true }),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole("button", { name: "Áp dụng bản xem trước", exact: true }),
+  ).toHaveCount(0);
+  await page.goto("/account/profile");
+  await expect(page).toHaveURL(/\/login$/);
+  await login(page);
+  await expect(page).toHaveURL(/\/jobs$/);
+  await page.goto("/account/profile");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(
+    "Hồ sơ của",
+  );
+  await expect(
+    page.getByText("Hồ sơ hiện chưa khả dụng. Vui lòng quay lại sau.", {
+      exact: true,
+    }),
+  ).toBeVisible();
+  await context.clearCookies();
+  await login(page, "employer@example.test");
+  await expect(page).toHaveURL(/\/employer$/);
+  await page.goto("/account/profile");
+  await expect(page).toHaveURL(/\/employer$/);
+});
+
 async function login(
   page: Page,
   email = "candidate@example.test",
