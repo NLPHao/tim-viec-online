@@ -18,12 +18,20 @@ test("home follows the reference sections and submits the shared job search", as
       .getByRole("navigation", { name: "Nhóm việc làm nổi bật" })
       .getByRole("button"),
   ).toHaveCount(6);
-  await expect(page.locator(".home-search input[name=keyword]")).toHaveValue(
-    "Senior Fullstack Developer",
+  const keyword = page.getByLabel("Việc làm, công ty hoặc kỹ năng", {
+    exact: true,
+  });
+  await expect(keyword).toHaveValue("");
+  await expect(keyword).toHaveAttribute(
+    "placeholder",
+    "Tìm kiếm việc làm, công ty, kỹ năng",
   );
-  await page
-    .getByLabel("Việc làm, công ty hoặc kỹ năng", { exact: true })
-    .fill("React");
+  await keyword.hover();
+  await expect(keyword).toHaveCSS("box-shadow", "none");
+  await keyword.focus();
+  await expect(keyword).toHaveCSS("box-shadow", "none");
+  await expect(page.locator(".home-search")).toHaveCSS("outline-style", "solid");
+  await keyword.fill("React");
   await page.getByRole("combobox", { name: "Địa điểm tìm việc" }).click();
   await page
     .getByRole("option", { name: "Hồ Chí Minh", exact: true })

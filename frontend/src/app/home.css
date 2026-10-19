@@ -156,6 +156,22 @@
   opacity: 1;
 }
 
+.home-keyword input:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.home-search:has(.home-keyword input:focus-visible) {
+  outline: 2px solid var(--field-focus-border);
+  outline-offset: 2px;
+}
+
+@media (forced-colors: active) {
+  .home-search:has(.home-keyword input:focus-visible) {
+    outline-color: Highlight;
+  }
+}
+
 .home-search-divider {
   display: none;
   flex-shrink: 0;

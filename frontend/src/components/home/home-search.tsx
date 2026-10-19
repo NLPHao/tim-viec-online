@@ -23,7 +23,6 @@ export function HomeSearch({ cities }: { cities: string[] }) {
           id="home-keyword"
           type="text"
           name="keyword"
-          defaultValue="Senior Fullstack Developer"
           placeholder="Tìm kiếm việc làm, công ty, kỹ năng"
           maxLength={200}
         />
