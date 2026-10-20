@@ -17,6 +17,7 @@ export function useFileUrl(file: File | null) {
     return () => {
       disposed = true;
       URL.revokeObjectURL(url);
+      setCurrent((active) => (active?.url === url ? null : active));
     };
   }, [file]);
   return file && current?.file === file ? current.url : "";

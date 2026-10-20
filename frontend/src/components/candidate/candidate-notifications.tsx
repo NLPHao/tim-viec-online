@@ -3,11 +3,13 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { CheckCheck, FileCheck, MessageSquare } from "lucide-react";
 import { pageSlice } from "@/features/candidate-workspace/rules";
+import { candidateNotificationHref } from "@/features/candidate-workspace/notification-link";
+import { RelativeTime } from "@/components/feedback/relative-time";
 import { Pagination } from "@/components/layout/pagination";
 import { Button } from "@/modules/cores/shadcn/components/ui/button";
 import { useWorkspace } from "./workspace-provider";
 import { WorkspaceFrame } from "./workspace-frame";
-import { WorkspaceEmpty, WorkspaceTitle, workspaceDate } from "./workspace-ui";
+import { WorkspaceEmpty, WorkspaceTitle } from "./workspace-ui";
 
 export function CandidateNotifications() {
   const state = useWorkspace();
@@ -80,19 +82,11 @@ export function CandidateNotifications() {
               <h2>{item.title}</h2>
               <p>{item.content}</p>
               <Link
-                href={
-                  item.type === "new_message"
-                    ? `/account/messages?conversation=${item.conversation_id}`
-                    : (() => {
-                        const application = state.applications.find(
-                          (application) =>
-                            application.id === item.application_id,
-                        );
-                        return application
-                          ? `/account/jobs?status=${application.status}#application-${application.id}`
-                          : "/account/jobs";
-                      })()
-                }
+                href={candidateNotificationHref(
+                  item,
+                  state.applications,
+                  state.conversations,
+                )}
                 className="cu-link"
                 onClick={() => state.markRead(item.id)}
               >
@@ -101,10 +95,8 @@ export function CandidateNotifications() {
                   : "Theo dõi ứng tuyển"}
               </Link>
               <p className="cu-muted">
-                <time dateTime={item.created_at}>
-                  {workspaceDate(item.created_at, true)}
-                </time>{" "}
-                · {item.read_at ? "Đã đọc" : "Chưa đọc"}
+                <RelativeTime value={item.created_at} /> ·{" "}
+                {item.read_at ? "Đã đọc" : "Chưa đọc"}
               </p>
               {!item.read_at && (
                 <Button

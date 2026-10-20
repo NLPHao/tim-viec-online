@@ -1,7 +1,8 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useId, useLayoutEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Bell,
   BellOff,
@@ -18,6 +19,8 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import type { AuthUser } from "@/features/auth/types";
+import { useOptionalWorkspace } from "@/components/candidate/workspace-provider";
+import { CandidateNotificationList } from "./candidate-notification-list";
 import { logoutAction } from "@/app/(auth)/actions";
 import {
   Popover,
@@ -54,6 +57,24 @@ export function HeaderControls({
   pendingSession = false,
 }: Props) {
   const [categoriesOpen, setCategoriesOpen] = useState(false);
+  const pathname = usePathname();
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [accountOpen, setAccountOpen] = useState(false);
+  // Cached pages are hidden by Activity. Dismiss portals before they outlive
+  // their header and keep the new page inert or scroll-locked.
+  useLayoutEffect(
+    () => () => {
+      setCategoriesOpen(false);
+      setNotificationsOpen(false);
+      setAccountOpen(false);
+    },
+    [pathname],
+  );
+  const workspace = useOptionalWorkspace();
+  const candidateNotifications = user?.role === "candidate" && !!workspace;
+  const unread = candidateNotifications
+    ? workspace.notifications.filter((item) => !item.read_at).length
+    : 0;
   const logoutId = useId();
   const employerUrl =
     user?.role === "employer" ? "/employer" : "/login?role=employer";
@@ -74,6 +95,23 @@ export function HeaderControls({
         onClick={() => setCategoriesOpen(false)}
       >
         {label}
+      </Link>
+    ) : user?.role === "employer" ? (
+      <Link
+        href={
+          label === "Việc đã lưu"
+            ? "/employer/jobs"
+            : label === "Việc đã ứng tuyển"
+              ? "/employer/candidates"
+              : "/employer/notifications"
+        }
+        onClick={() => setCategoriesOpen(false)}
+      >
+        {label === "Việc đã lưu"
+          ? "Tin tuyển dụng"
+          : label === "Việc đã ứng tuyển"
+            ? "Hồ sơ ứng viên"
+            : label}
       </Link>
     ) : user ? (
       <button type="button" onClick={unavailable}>
@@ -137,7 +175,11 @@ export function HeaderControls({
             </Link>
           </div>
           <div>
-            <h2>Việc của tôi</h2>
+            <h2>
+              {user?.role === "employer"
+                ? "Tuyển dụng của tôi"
+                : "Việc của tôi"}
+            </h2>
             {personalItem("Việc đã lưu")}
             {personalItem("Việc đã ứng tuyển")}
             {personalItem("Thông báo")}
@@ -172,15 +214,26 @@ export function HeaderControls({
         Dành cho Nhà tuyển dụng
       </Link>
       <div className="header-account-group">
-        <Sheet>
+        <Sheet open={notificationsOpen} onOpenChange={setNotificationsOpen}>
           <SheetTrigger asChild>
             <button
               type="button"
               className="header-circle"
               aria-label="Trung tâm thông báo"
+              aria-describedby={unread ? `${logoutId}-unread` : undefined}
               disabled={pendingSession}
             >
               <Bell size={15} aria-hidden="true" />
+              {!!unread && (
+                <span className="header-unread-count" aria-hidden="true">
+                  {unread > 99 ? "99+" : unread}
+                </span>
+              )}
+              {!!unread && (
+                <span id={`${logoutId}-unread`} className="sr-only">
+                  {unread} thông báo chưa đọc
+                </span>
+              )}
             </button>
           </SheetTrigger>
           <SheetContent
@@ -204,39 +257,57 @@ export function HeaderControls({
                 <X size={20} aria-hidden="true" />
               </SheetClose>
             </SheetHeader>
-            <div className="notification-empty">
-              <BellOff size={56} aria-hidden="true" />
-              <h2>
-                {user
-                  ? "Hiện chưa thể tải thông báo"
-                  : "Đăng nhập để xem thông báo"}
-              </h2>
-              <p>
-                {user
-                  ? "Vui lòng thử lại sau."
-                  : "Theo dõi phản hồi ứng tuyển và thông báo từ nhà tuyển dụng."}
-              </p>
-              {!user && (
-                <SheetClose asChild>
-                  <Link className="notification-login" href="/login">
-                    Đăng nhập
-                  </Link>
-                </SheetClose>
-              )}
-              {user?.role === "candidate" && (
-                <SheetClose asChild>
-                  <Link
-                    className="notification-login"
-                    href="/account/notifications"
-                  >
-                    Xem thông báo của tôi
-                  </Link>
-                </SheetClose>
-              )}
-            </div>
+            {candidateNotifications ? (
+              <CandidateNotificationList />
+            ) : (
+              <div className="notification-empty">
+                <BellOff size={56} aria-hidden="true" />
+                <h2>
+                  {user
+                    ? "Hiện chưa thể tải thông báo"
+                    : "Đăng nhập để xem thông báo"}
+                </h2>
+                <p>
+                  {user
+                    ? "Vui lòng thử lại sau."
+                    : "Theo dõi phản hồi ứng tuyển và thông báo từ nhà tuyển dụng."}
+                </p>
+                {!user && (
+                  <SheetClose asChild>
+                    <Link className="notification-login" href="/login">
+                      Đăng nhập
+                    </Link>
+                  </SheetClose>
+                )}
+                {user?.role === "candidate" && (
+                  <SheetClose asChild>
+                    <Link
+                      className="notification-login"
+                      href="/account/notifications"
+                    >
+                      Xem thông báo của tôi
+                    </Link>
+                  </SheetClose>
+                )}
+                {user?.role === "employer" && (
+                  <SheetClose asChild>
+                    <Link
+                      className="notification-login"
+                      href="/employer/notifications"
+                    >
+                      Xem thông báo tuyển dụng
+                    </Link>
+                  </SheetClose>
+                )}
+              </div>
+            )}
           </SheetContent>
         </Sheet>
-        <DropdownMenu modal={false}>
+        <DropdownMenu
+          modal={false}
+          open={accountOpen}
+          onOpenChange={setAccountOpen}
+        >
           <DropdownMenuTrigger asChild>
             <button
               type="button"

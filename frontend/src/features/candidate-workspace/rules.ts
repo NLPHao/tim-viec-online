@@ -1,5 +1,7 @@
 import { APPLICATION_LABELS } from "./types";
 
+export const WORKSPACE_PAGE_SIZE = 6;
+
 export function parseWorkspaceQuery(params: {
   get(name: string): string | null;
 }) {
@@ -18,7 +20,11 @@ export function parseWorkspaceQuery(params: {
     page,
   };
 }
-export function pageSlice<T>(items: T[], requested: number, perPage = 6) {
+export function pageSlice<T>(
+  items: T[],
+  requested: number,
+  perPage = WORKSPACE_PAGE_SIZE,
+) {
   const lastPage = Math.max(1, Math.ceil(items.length / perPage));
   const page = Math.min(Math.max(1, requested), lastPage);
   return {

@@ -71,6 +71,21 @@ export function CandidateSidebar({
             <Link
               key={item.key}
               href={candidateHref(item.key)}
+              scroll={false}
+              onClick={(event) => {
+                if (
+                  event.button !== 0 ||
+                  event.metaKey ||
+                  event.ctrlKey ||
+                  event.shiftKey ||
+                  event.altKey ||
+                  event.defaultPrevented
+                )
+                  return;
+                // Start each section at the top; Next's automatic scrolling can
+                // retain a small font/scroll-anchor offset and expose the footer.
+                window.scrollTo({ top: 0, behavior: "instant" });
+              }}
               aria-current={item.key === active ? "page" : undefined}
             >
               <Icon aria-hidden="true" />

@@ -33,6 +33,23 @@
   display: grid;
   gap: 16px;
 }
+.application-summary-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.application-summary-actions > * {
+  min-height: 44px;
+}
+.job-apply-dialog.application-summary-preview {
+  width: min(900px, calc(100% - 32px));
+}
+.application-summary-pdf {
+  width: 100%;
+  height: min(60dvh, 640px);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
 .apply-sources {
   display: grid;
   gap: 10px;

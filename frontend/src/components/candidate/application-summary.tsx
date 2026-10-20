@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import type { Application } from "@/features/candidate-workspace/types";
 import { useWorkspace } from "./workspace-provider";
 import { useFileUrl } from "./use-file-url";
@@ -20,17 +21,32 @@ export function ApplicationSummary({
 }) {
   const state = useWorkspace();
   const file = state.applicationFiles[application.id] ?? null;
-  const url = useFileUrl(file);
   const [open, setOpen] = useState(false);
-  useEffect(() => () => setOpen(false), []);
+  const [preview, setPreview] = useState(false);
+  const url = useFileUrl(open ? file : null);
+  useLayoutEffect(
+    () => () => {
+      setOpen(false);
+      setPreview(false);
+    },
+    [],
+  );
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog
+      open={open}
+      onOpenChange={(value) => {
+        setOpen(value);
+        if (!value) setPreview(false);
+      }}
+    >
       <DialogTrigger asChild>
         <Button variant="link" className="px-0">
           Hồ sơ đã nộp
         </Button>
       </DialogTrigger>
-      <DialogContent className="job-apply-dialog">
+      <DialogContent
+        className={`job-apply-dialog${preview ? " application-summary-preview" : ""}`}
+      >
         <DialogHeader>
           <DialogTitle>Hồ sơ đã nộp</DialogTitle>
           <DialogDescription>
@@ -43,11 +59,35 @@ export function ApplicationSummary({
             <p className="break-all">{application.cv_name}</p>
           </div>
           {url && (
-            <Button variant="outline" asChild>
-              <a href={url} download={application.cv_name}>
-                Tải CV đã nộp
-              </a>
-            </Button>
+            <div className="application-summary-actions">
+              <Button
+                type="button"
+                variant="outline"
+                aria-expanded={preview}
+                onClick={() => setPreview((value) => !value)}
+              >
+                {preview ? (
+                  <EyeOff aria-hidden="true" />
+                ) : (
+                  <Eye aria-hidden="true" />
+                )}
+                {preview ? "Ẩn xem trước CV" : "Xem CV đã nộp"}
+              </Button>
+              <Button variant="outline" asChild>
+                <a href={url} download={application.cv_name}>
+                  Tải CV đã nộp
+                </a>
+              </Button>
+            </div>
+          )}
+          {preview && url && (
+            <iframe
+              className="application-summary-pdf"
+              src={url}
+              title="CV đã nộp"
+              tabIndex={-1}
+              referrerPolicy="no-referrer"
+            />
           )}
           <div>
             <h3 className="font-semibold">Thư giới thiệu</h3>

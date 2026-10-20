@@ -88,8 +88,16 @@ export function MyJobs() {
             title={
               saved ? "Bạn chưa lưu việc làm nào" : "Chưa có hồ sơ phù hợp"
             }
+            href={!saved && query.status ? "/account/jobs" : "/jobs"}
+            link={
+              !saved && query.status
+                ? "Xóa bộ lọc trạng thái"
+                : "Khám phá việc làm"
+            }
           >
-            Khám phá công việc phù hợp và theo dõi tại đây.
+            {!saved && query.status
+              ? "Chưa có hồ sơ ở trạng thái này. Xem tất cả hồ sơ hoặc chọn trạng thái khác."
+              : "Khám phá công việc phù hợp và theo dõi tại đây."}
           </WorkspaceEmpty>
         )}
         {result.items.map(({ job, application }) => (

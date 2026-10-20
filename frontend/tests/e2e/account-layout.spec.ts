@@ -38,6 +38,7 @@ for (const width of [390, 768, 1024, 1440]) {
           width: number;
           opacity: string;
           footerTop: number;
+          scrollY: number;
         }[] = [];
         const start = performance.now();
         (node as HTMLElement).click();
@@ -47,6 +48,7 @@ for (const width of [390, 768, 1024, 1440]) {
               connected: sidebar.isConnected,
               width: sidebar.getBoundingClientRect().width,
               opacity: getComputedStyle(sidebar).opacity,
+              scrollY: window.scrollY,
               footerTop: document
                 .querySelector(".site-footer")!
                 .getBoundingClientRect().top,
@@ -83,7 +85,10 @@ for (const width of [390, 768, 1024, 1440]) {
             sample.opacity === "1",
         ),
       ).toBe(true);
-      expect(samples.every((sample) => sample.footerTop >= 999)).toBe(true);
+      expect(
+        samples.every((sample) => sample.footerTop >= 999),
+        `${section}: footer ${Math.min(...samples.map((sample) => sample.footerTop))}, scroll ${Math.max(...samples.map((sample) => sample.scrollY))}`,
+      ).toBe(true);
       expect(
         await page.evaluate(
           () => document.documentElement.scrollWidth - innerWidth,

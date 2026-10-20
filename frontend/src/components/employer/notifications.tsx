@@ -18,6 +18,7 @@ import { Pagination } from "@/components/layout/pagination";
 import { pageSlice } from "@/features/candidate-workspace/rules";
 import { isJobOpen, vietnamToday } from "@/features/jobs/formatters";
 import { Button } from "@/modules/cores/shadcn/components/ui/button";
+import { RelativeTime } from "@/components/feedback/relative-time";
 import { useEmployer } from "./employer-provider";
 import "./employer-notifications.css";
 
@@ -161,8 +162,9 @@ export function EmployerNotifications() {
             const target = new URL(safeHref, "https://workspace.invalid");
             const isMessage = target.pathname === "/employer/messages";
             const applicationId =
-              target.pathname.match(/^\/employer\/candidates\/([1-9]\d*)$/)?.[1] ??
-              target.searchParams.get("application");
+              target.pathname.match(
+                /^\/employer\/candidates\/([1-9]\d*)$/,
+              )?.[1] ?? target.searchParams.get("application");
             const conversation = state.conversations.find(
               (entry) =>
                 isMessage &&
@@ -183,23 +185,6 @@ export function EmployerNotifications() {
                 entry.company_id === state.company.id,
             );
             const href = job ? safeHref : "/employer/candidates";
-            const daysAgo = Math.round(
-              (Date.parse(`${state.today}T00:00:00+07:00`) -
-                Date.parse(`${notificationDay}T00:00:00+07:00`)) /
-                86400000,
-            );
-            const relativeTime =
-              daysAgo === 0
-                ? `Hôm nay, ${new Intl.DateTimeFormat("vi-VN", {
-                    timeZone: "Asia/Ho_Chi_Minh",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  }).format(new Date(item.created_at))}`
-                : daysAgo === 1
-                  ? "Hôm qua"
-                  : daysAgo > 1
-                    ? `${daysAgo} ngày trước`
-                    : date(item.created_at, true);
             return (
               <Fragment key={item.id}>
                 {(index === 0 ||
@@ -251,12 +236,7 @@ export function EmployerNotifications() {
                           Đánh dấu đã đọc
                         </button>
                       )}
-                      <time
-                        dateTime={item.created_at}
-                        title={date(item.created_at, true)}
-                      >
-                        {relativeTime}
-                      </time>
+                      <RelativeTime value={item.created_at} />
                       <Link
                         className="ep-text-link"
                         href={href}

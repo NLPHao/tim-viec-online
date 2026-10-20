@@ -296,6 +296,8 @@ Truy cập `/login`. Các trang `/account/*`, `/employer`, `/admin` và alias `/
 
 ## 8. Quy tắc làm việc nhóm
 
+Phạm vi frontend ứng viên/nhà tuyển dụng và các điểm nối backend được tổng hợp tại [rà soát hoàn thiện frontend](docs/plans/frontend-completion-audit.md). Theo yêu cầu cập nhật ngày 20/10/2026, kết quả đánh giá AI **chỉ hiển thị cho nhà tuyển dụng**, không hiển thị cho ứng viên. Dữ liệu nghiệp vụ trong chế độ mock chỉ tồn tại trong phiên xem trước; upload, AI, WebSocket và email thật cần tích hợp backend.
+
 1. **Về Git:** Không bao giờ push code trực tiếp vào branch `main`. Mỗi tính năng tạo branch từ `develop` (ví dụ `feature/auth-fe`, `feature/job-be`, `feature/chat`), test chạy được trên máy mình rồi mới tạo Pull Request.
 2. **Về Database & phpMyAdmin:** Không tự ý sửa bảng trực tiếp trên phpMyAdmin mà không báo nhóm. Mọi thay đổi DB phải viết qua file Laravel Migration. Trước khi nộp bài cho thầy, xuất file `.sql` từ phpMyAdmin.
 3. **Về API:** Backend và Frontend phải thống nhất format JSON trả về trước khi code (Status code, message, data).

@@ -98,6 +98,42 @@ test("application validates a PDF, submits once and preserves its CV and letter 
   await expect(
     snapshot.getByRole("link", { name: "Tải CV đã nộp" }),
   ).toHaveAttribute("href", /^blob:/);
+  const preview = snapshot.getByRole("button", {
+    name: "Xem CV đã nộp",
+    exact: true,
+  });
+  await preview.click();
+  await expect(snapshot.locator("iframe")).toHaveAttribute("src", /^blob:/);
+  await expect(snapshot.locator("iframe")).toHaveAttribute(
+    "title",
+    "CV đã nộp",
+  );
+  await snapshot
+    .getByRole("button", { name: "Ẩn xem trước CV", exact: true })
+    .click();
+  await expect(snapshot.locator("iframe")).toHaveCount(0);
+  await expect(first.locator(".cu-status")).toHaveText("Đã ứng tuyển");
+  await page.keyboard.press("Escape");
+  await expect(snapshot).toBeHidden();
+  await first
+    .getByRole("button", { name: "Hồ sơ đã nộp", exact: true })
+    .click();
+  await expect(snapshot.locator("iframe")).toHaveCount(0);
+  await expect
+    .poll(async () => {
+      const href = await snapshot
+        .getByRole("link", { name: "Tải CV đã nộp" })
+        .getAttribute("href");
+      if (!href) return false;
+      return page.evaluate(async (url) => {
+        try {
+          return (await (await fetch(url)).text()).startsWith("%PDF-");
+        } catch {
+          return false;
+        }
+      }, href);
+    })
+    .toBe(true);
   await page
     .locator(".site-header .brand:visible")
     .evaluate((link) => (link as HTMLElement).click());
