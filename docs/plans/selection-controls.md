@@ -43,3 +43,11 @@ Khoảng `scrollbar-gutter` vẫn hiện nền trang khi scrollbar bị ẩn. Kh
 Regression `gutter-paint.spec.ts` đối chiếu pixel ở mép nội dung với toàn bộ dải mép phải tại 901/1440px trên trang việc làm, tài khoản, nhà tuyển dụng và trang chủ. Kiểm tra thêm mở menu ở 900px rồi tăng cửa sổ lên desktop; giữ các bài kiểm tra vị trí từng frame, bàn phím, navbar và sidebar hiện có.
 
 Kiểm chứng: production build/TypeScript, lint và 29 E2E Chromium đạt. Đã xem ảnh mép phải trang việc làm: header, phần giới thiệu và nền nội dung phủ liền tới mép cửa sổ. Menu Select được chụp trong viewport hiện tại vì Radix chủ động đóng khi resize; ảnh toàn trang dùng dialog trang chủ để kiểm tra thêm footer.
+
+## Giữ thanh cuộn cho ba bộ lọc việc làm
+
+Theo yêu cầu đồng bộ với ô ngành nghề, hình thức làm việc, mức lương và cấp bậc chuyển sang Popover không modal. Tái sử dụng `SearchableSelectionField` với ô tìm kiếm tùy chọn; ba bộ lọc ngắn không hiện tìm kiếm. Giữ một lựa chọn, mục bỏ lọc, nút xóa riêng, hidden input và cập nhật URL như cũ. Menu hỗ trợ mũi tên, Home/End, gõ nhãn để di chuyển, Enter/Space để chọn, Escape và trả focus.
+
+Không áp dụng khóa cuộn hoặc inert cho ba Popover này. Các Select ở trang tài khoản, nhà tuyển dụng và sắp xếp tiếp tục giữ hành vi hiện tại. Kiểm tra hồi quy xác nhận ba bộ lọc không khóa body và cuộn chuột ngoài menu vẫn cuộn trang tại 360/1440px; kiểm tra bố cục qua từng frame vẫn bao phủ 360/900/901/1440px, trang ngắn/dài.
+
+Kiểm chứng: build/TypeScript, lint và 20 E2E đạt, gồm bàn phím, axe, URL, xóa bộ lọc, cuộn trang, hình học mở/đóng và màu mép trang của các overlay còn dùng scroll lock. Đã xem ảnh dropdown mới tại 1440px.

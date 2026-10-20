@@ -50,10 +50,7 @@ for (const width of [901, 1440]) {
         content: "::-webkit-scrollbar {width:17px;height:17px}",
       });
       await page.evaluate(() => document.fonts.ready);
-      if (area === "jobs")
-        await page
-          .getByRole("combobox", { name: "Hình thức làm việc", exact: true })
-          .click();
+      if (area === "jobs") await page.locator(".job-sort-trigger").click();
       else if (area === "account")
         await page
           .getByRole("combobox", { name: "Trạng thái ứng tuyển", exact: true })

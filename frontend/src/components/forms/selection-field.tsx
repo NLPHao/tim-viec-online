@@ -146,7 +146,7 @@ export function SearchableSelectionField({
 }: CommonProps & {
   value: string;
   onValueChange: (value: string) => void;
-  searchLabel: string;
+  searchLabel?: string;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   popupClassName?: string;
@@ -156,6 +156,7 @@ export function SearchableSelectionField({
   const id = useId();
   const trigger = useRef<HTMLButtonElement>(null);
   const list = useRef<HTMLDivElement>(null);
+  const typeahead = useRef({ text: "", time: 0 });
   const [internalOpen, setInternalOpen] = useState(false);
   const open = controlledOpen ?? internalOpen;
   const [search, setSearch] = useState("");
@@ -176,6 +177,7 @@ export function SearchableSelectionField({
     if (controlledOpen === undefined) setInternalOpen(next);
     onOpenChange?.(next);
     setSearch("");
+    typeahead.current = { text: "", time: 0 };
   }
 
   function focusOption(index: number) {
@@ -215,6 +217,7 @@ export function SearchableSelectionField({
           id={`${id}-popup`}
           className={cn(
             "selection-menu selection-searchable-menu",
+            !searchLabel && "selection-plain-menu",
             popupClassName,
           )}
           data-search-owner={popupOwner}
@@ -225,35 +228,50 @@ export function SearchableSelectionField({
           sideOffset={6}
           collisionPadding={12}
           aria-label={label}
+          onOpenAutoFocus={
+            searchLabel
+              ? undefined
+              : (event) => {
+                  event.preventDefault();
+                  focusOption(
+                    Math.max(
+                      0,
+                      visible.findIndex((option) => option.value === value),
+                    ),
+                  );
+                }
+          }
         >
           {popupTitle && (
             <h2 className="selection-popup-title">{popupTitle}</h2>
           )}
-          <div className="selection-search">
-            <Search size={16} aria-hidden="true" />
-            <label className="sr-only" htmlFor={`${id}-search`}>
-              {searchLabel}
-            </label>
-            <Input
-              id={`${id}-search`}
-              value={search}
-              placeholder={`${searchLabel}…`}
-              maxLength={100}
-              autoComplete="off"
-              aria-controls={`${id}-list`}
-              onChange={(event) => setSearch(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.nativeEvent.isComposing) return;
-                if (event.key === "ArrowDown" || event.key === "ArrowUp") {
-                  event.preventDefault();
-                  focusOption(event.key === "ArrowDown" ? 0 : -1);
-                } else if (event.key === "Enter") {
-                  event.preventDefault();
-                  if (visible[0]) choose(visible[0].value);
-                }
-              }}
-            />
-          </div>
+          {searchLabel && (
+            <div className="selection-search">
+              <Search size={16} aria-hidden="true" />
+              <label className="sr-only" htmlFor={`${id}-search`}>
+                {searchLabel}
+              </label>
+              <Input
+                id={`${id}-search`}
+                value={search}
+                placeholder={`${searchLabel}…`}
+                maxLength={100}
+                autoComplete="off"
+                aria-controls={`${id}-list`}
+                onChange={(event) => setSearch(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.nativeEvent.isComposing) return;
+                  if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+                    event.preventDefault();
+                    focusOption(event.key === "ArrowDown" ? 0 : -1);
+                  } else if (event.key === "Enter") {
+                    event.preventDefault();
+                    if (visible[0]) choose(visible[0].value);
+                  }
+                }}
+              />
+            </div>
+          )}
           <div
             id={`${id}-list`}
             ref={list}
@@ -274,6 +292,27 @@ export function SearchableSelectionField({
                       ? -1
                       : index + (event.key === "ArrowDown" ? 1 : -1),
                 );
+              } else if (
+                event.key.length === 1 &&
+                event.key !== " " &&
+                !event.ctrlKey &&
+                !event.metaKey &&
+                !event.altKey &&
+                !event.nativeEvent.isComposing
+              ) {
+                event.preventDefault();
+                const now = performance.now();
+                const text =
+                  now - typeahead.current.time < 700
+                    ? typeahead.current.text + event.key
+                    : event.key;
+                typeahead.current = { text, time: now };
+                const match = visible.findIndex((option) =>
+                  normalizeSearch(option.label).startsWith(
+                    normalizeSearch(text),
+                  ),
+                );
+                if (match >= 0) focusOption(match);
               }
             }}
           >

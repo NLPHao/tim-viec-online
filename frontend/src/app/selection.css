@@ -192,6 +192,11 @@
 .selection-searchable-menu .selection-search {
   flex-shrink: 0;
 }
+.selection-plain-menu {
+  width: max(220px, var(--radix-popover-trigger-width));
+  padding: 5px;
+  gap: 0;
+}
 .selection-searchable-menu .selection-options {
   min-height: 0;
 }

@@ -148,7 +148,7 @@ for (const width of [360, 900, 901, 1440]) {
         await verifyMenu(
           page,
           page.getByRole("combobox", { name: label, exact: true }),
-          true,
+          false,
         );
       }
       await verifyMenu(page, page.locator(".job-sort-trigger"), true);

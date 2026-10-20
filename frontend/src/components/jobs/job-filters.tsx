@@ -9,7 +9,7 @@ import { JOB_TYPE_LABELS } from "@/features/jobs/types";
 import { jobQueryString } from "@/features/jobs/query";
 import {
   MultiSelectionField,
-  SelectionField,
+  SearchableSelectionField,
 } from "@/components/forms/selection-field";
 
 export function JobFilters({
@@ -68,7 +68,7 @@ export function JobFilters({
               apply({ category_ids: values.map(Number) })
             }
           />
-          <SelectionField
+          <SearchableSelectionField
             className="select-filter"
             label="Hình thức làm việc"
             placeholder="Hình thức làm việc"
@@ -82,7 +82,7 @@ export function JobFilters({
               apply({ job_type: value as JobQuery["job_type"] })
             }
           />
-          <SelectionField
+          <SearchableSelectionField
             className="select-filter"
             label="Mức lương"
             placeholder="Tất cả mức lương"
@@ -98,7 +98,7 @@ export function JobFilters({
               apply({ salary: value as JobQuery["salary"] })
             }
           />
-          <SelectionField
+          <SearchableSelectionField
             className="select-filter"
             label="Cấp bậc"
             placeholder="Tất cả cấp bậc"

@@ -1,6 +1,34 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
+for (const width of [360, 1440]) {
+  test(`all single job filters preserve document scrolling at ${width}px`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 700 });
+    await page.goto("/jobs");
+    for (const label of ["Hình thức làm việc", "Mức lương", "Cấp bậc"]) {
+      const trigger = page.getByRole("combobox", { name: label, exact: true });
+      await trigger.click();
+      await expect(page.locator("body")).not.toHaveAttribute(
+        "data-scroll-locked",
+      );
+      const before = await page.evaluate(() => scrollY);
+        // Stay outside the popup even when it nearly fills a mobile viewport.
+        await page.mouse.move(2, 650);
+      await page.mouse.wheel(0, 180);
+      await expect
+        .poll(() => page.evaluate(() => scrollY))
+        .toBeGreaterThan(before);
+      await expect(
+        page.getByRole("dialog", { name: label, exact: true }),
+      ).toBeVisible();
+      await page.keyboard.press("Escape");
+      await expect(trigger).toBeFocused();
+    }
+  });
+}
+
 test("selected filters turn blue and clear independently without losing the search", async ({
   page,
 }) => {
