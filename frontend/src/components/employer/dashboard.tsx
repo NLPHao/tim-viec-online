@@ -175,7 +175,7 @@ export function EmployerDashboard() {
                 </span>
                 <Link
                   className="ep-text-link"
-                  href={`/employer/candidates?application=${app.id}`}
+                  href={`/employer/candidates/${app.id}`}
                 >
                   Xem hồ sơ
                   <ArrowRight className="ep-icon" />

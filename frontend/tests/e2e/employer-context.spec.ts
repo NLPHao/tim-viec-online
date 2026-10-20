@@ -24,52 +24,113 @@ test("mobile applicants keep the list accessible behind a compact expandable fil
   await expect(page.locator(".ec-applied-job").first()).toBeVisible();
 });
 
-test("every applicant shows the applied job before opening and details follow the selected application", async ({
+test("applicants open a dedicated page with the correct job and return to the list", async ({
   page,
 }) => {
-  await loginMock(page, "employer", "/employer/candidates?application=1");
+  await loginMock(page, "employer", "/employer/candidates");
   const rows = page.locator(".ec-candidate");
   await expect(rows).toHaveCount(6);
+  await expect(page.locator(".ea-detail:visible")).toHaveCount(0);
   for (const row of await rows.all()) {
-    await expect(
-      row.locator(".ec-candidate-toggle .ec-applied-job"),
-    ).toBeVisible();
+    await expect(row.locator(".ec-applied-job")).toBeVisible();
     await expect(row.locator(".ec-person-meta")).toContainText(
       /Tin #\d+ · Hồ sơ #\d+/,
     );
   }
-  const profile = page.locator("#candidate-profile");
-  await expect(profile.locator(".ec-application-context")).toContainText(
-    backendTitle,
-  );
-  await expect(profile.locator(".ec-application-context")).toContainText(
-    "Tin #1",
-  );
-  await expect(profile.locator(".ec-status")).toHaveText("Đã ứng tuyển");
-  await page.getByRole("button", { name: /Trần Thị Linh/ }).click();
+  await page.getByRole("link", { name: /Xem hồ sơ Trần Thị Linh cho/ }).click();
+  await expect(page).toHaveURL(/\/employer\/candidates\/2$/);
+  const profile = page.locator(".ea-detail:visible");
   await expect(
-    profile.getByRole("heading", { name: "Trần Thị Linh", exact: true }),
+    page.getByRole("heading", { name: "Trần Thị Linh", level: 1 }),
   ).toBeVisible();
-  await expect(profile.locator(".ec-application-context")).toContainText(
-    frontendTitle,
-  );
-  await expect(profile.locator(".ec-application-context")).toContainText(
-    "Tin #2",
-  );
+  await expect(profile.locator(".ea-job-context")).toContainText(frontendTitle);
+  await expect(profile.locator(".ea-job-context")).toContainText("Tin #2");
   await expect(
     profile.getByRole("link", { name: "Xem / sửa tin", exact: true }),
   ).toHaveAttribute("href", "/employer/jobs/2/edit");
   await profile
     .getByRole("link", { name: "Hồ sơ cùng tin", exact: true })
     .click();
-  await expect(page).toHaveURL(/job_id=2/);
+  await expect(page).toHaveURL(/candidates\?job_id=2$/);
+  await expect(rows).toHaveCount(3);
   for (const row of await rows.all())
     await expect(row.locator(".ec-applied-job")).toContainText(frontendTitle);
-  await expect(page.locator(".ec-filtered-title")).toHaveText(frontendTitle);
   await page.goBack();
-  await expect(profile.locator(".ec-application-context")).toContainText(
-    frontendTitle,
+  await expect(page).toHaveURL(/\/candidates\/2$/);
+  await page
+    .getByRole("link", { name: "Danh sách hồ sơ", exact: true })
+    .click();
+  await expect(page).toHaveURL(/\/candidates$/);
+});
+
+test("detail back link preserves list sorting and pagination without carrying arbitrary return URLs", async ({
+  page,
+}) => {
+  await loginMock(page, "employer", "/employer/candidates?sort=newest&page=2");
+  const first = page.locator(".ec-candidate").first().getByRole("link");
+  const name = await first.getAttribute("aria-label");
+  await first.click();
+  await expect(
+    page.getByRole("link", { name: "Danh sách hồ sơ", exact: true }),
+  ).toHaveAttribute("href", "/employer/candidates?sort=newest&page=2");
+  await page
+    .getByRole("link", { name: "Danh sách hồ sơ", exact: true })
+    .click();
+  await expect(page).toHaveURL(/candidates\?sort=newest&page=2$/);
+  await expect(
+    page.locator(".ec-candidate").first().getByRole("link"),
+  ).toHaveAttribute("aria-label", name!);
+});
+
+test("legacy application links resolve to guarded detail pages and missing applications show no profile", async ({
+  page,
+}) => {
+  await loginMock(
+    page,
+    "employer",
+    "/employer/candidates?application=1&job_id=1&sort=newest",
   );
+  await expect(page).toHaveURL(/\/candidates\/1\?job_id=1&sort=newest$/);
+  await expect(page.locator(".ea-detail:visible .ec-status")).toHaveText(
+    "Đã ứng tuyển",
+  );
+  await expect(
+    page.getByRole("link", { name: "Danh sách hồ sơ", exact: true }),
+  ).toHaveAttribute("href", "/employer/candidates?job_id=1&sort=newest");
+  await page.goto("/employer/candidates/999999");
+  await expect(
+    page.getByRole("heading", { name: "404", exact: true }),
+  ).toBeVisible();
+  await expect(page.locator(".ea-detail")).toHaveCount(0);
+});
+
+test("leaving a detail page closes its PDF and restores the reviewed state on return", async ({
+  page,
+}) => {
+  await loginMock(page, "employer", "/employer/candidates/1");
+  await page
+    .getByRole("button", { name: "Xem CV ứng tuyển", exact: true })
+    .click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  // Simulate client navigation while the modal is open; Activity can retain the route.
+  await page
+    .getByRole("link", {
+      name: "Danh sách hồ sơ",
+      exact: true,
+      includeHidden: true,
+    })
+    .evaluate((node: HTMLAnchorElement) => node.click());
+  await expect(page).toHaveURL(/\/candidates$/);
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await page.getByRole("link", { name: /Xem hồ sơ Nguyễn Văn An cho/ }).click();
+  await expect(page).toHaveURL(/\/candidates\/1$/);
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await expect(page.locator(".ea-detail:visible .ec-status")).toHaveText(
+    "Đang xem xét",
+  );
+  await expect(
+    page.getByRole("button", { name: "Xem CV ứng tuyển", exact: true }),
+  ).toBeEnabled();
 });
 
 test("notifications identify their job, open the matching sender conversation and share the unread badge", async ({
@@ -115,7 +176,7 @@ test("job rows lead to applications and editing retains the same recruitment ide
   await expect(page).toHaveURL(/candidates\?job_id=1/);
   await expect(page.locator(".ec-filtered-title")).toHaveText(backendTitle);
   await page
-    .locator("#candidate-profile")
+    .locator(".ec-job-meta")
     .getByRole("link", { name: "Xem / sửa tin", exact: true })
     .click();
   await expect(page).toHaveURL(/jobs\/1\/edit$/);

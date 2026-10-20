@@ -40,6 +40,7 @@ test("employer handoff only permits implemented employer destinations", () => {
     "/employer/jobs/new",
     "/employer/jobs/12/edit",
     "/employer/candidates?job_id=1&status=applied",
+    "/employer/candidates/12?job_id=2&page=2",
     "/employer/messages?conversation=2",
     "/employer/notifications",
     "/employer/company",
@@ -50,6 +51,10 @@ test("employer handoff only permits implemented employer destinations", () => {
   }
   for (const path of [
     "/employer/arbitrary",
+    "/employer/candidates/0",
+    "/employer/candidates/-1",
+    "/employer/candidates/01",
+    "/employer/candidates/1/delete",
     "/employer/jobs/0/edit",
     "/employer/jobs/-1/edit",
     "/employer/jobs/01/edit",

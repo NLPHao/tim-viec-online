@@ -1,13 +1,17 @@
 import { Suspense } from "react";
 import Link from "next/link";
+import { notFound, redirect } from "next/navigation";
 import { requireUser } from "@/services/auth-session";
 import { authMockEnabled } from "@/services/auth-mode";
+import { getEmployerData } from "@/services/employer";
+import { employerApplicationHref } from "@/features/employer/candidate-navigation";
 import { EmployerLoading } from "./employer-loading";
 import { EmployerDashboard } from "./dashboard";
 import { EmployerJobs } from "./jobs";
 import { CompanyForm } from "./company-form";
 import { JobForm } from "./job-form";
 import { EmployerCandidates } from "./candidates";
+import { EmployerApplicationDetail } from "./application-detail";
 import { EmployerMessages } from "./messages";
 import { EmployerNotifications } from "./notifications";
 import type { EmployerSection } from "@/features/employer/types";
@@ -78,8 +82,31 @@ async function Content({
       return <CompanyForm />;
     case "post":
       return <JobForm id={id} />;
-    case "candidates":
+    case "candidates": {
+      if (id !== undefined) {
+        const data = await getEmployerData();
+        const application = data?.applications.find((item) => item.id === id);
+        if (
+          !data ||
+          !application ||
+          !data.jobs.some(
+            (job) =>
+              job.id === application.job_id &&
+              job.company_id === data.company.id,
+          )
+        )
+          notFound();
+        return <EmployerApplicationDetail id={id} />;
+      }
+      const legacyId = query.get("application");
+      if (
+        legacyId &&
+        /^[1-9]\d*$/.test(legacyId) &&
+        Number.isSafeInteger(Number(legacyId))
+      )
+        redirect(employerApplicationHref(Number(legacyId), query));
       return <EmployerCandidates />;
+    }
     case "messages":
       return <EmployerMessages />;
     case "notifications":

@@ -316,7 +316,7 @@ export function EmployerMessages() {
                   </p>
                 </div>
                 <Link
-                  href={`/employer/candidates?application=${application.id}`}
+                  href={`/employer/candidates/${application.id}`}
                   className="ep-text-link em-chat-profile"
                 >
                   Xem hồ sơ ứng tuyển

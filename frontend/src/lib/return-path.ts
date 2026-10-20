@@ -9,7 +9,7 @@ export function safeJobReturnPath(
     typeof value !== "string" ||
     value.length > 1000 ||
     /[\x00-\x1f\x7f\\]/.test(value) ||
-    !/^\/(?:jobs(?:\/\d+)?|account\/(?:profile|jobs|messages|notifications|settings|security)|employer(?:\/(?:jobs(?:\/new|\/[1-9]\d*\/edit)?|candidates|messages|notifications|company))?)(?:\?[^#]*)?$/.test(
+    !/^\/(?:jobs(?:\/\d+)?|account\/(?:profile|jobs|messages|notifications|settings|security)|employer(?:\/(?:jobs(?:\/new|\/[1-9]\d*\/edit)?|candidates(?:\/[1-9]\d*)?|messages|notifications|company))?)(?:\?[^#]*)?$/.test(
       value,
     )
   )

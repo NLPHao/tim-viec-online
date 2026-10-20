@@ -153,21 +153,27 @@ export function EmployerNotifications() {
                   ? UserMinus
                   : FilePlus2;
             const safeHref =
-              /^\/employer\/(?:candidates|messages)(?:\?[^#]*)?$/.test(
+              /^\/employer\/(?:candidates(?:\/[1-9]\d*)?|messages)(?:\?[^#]*)?$/.test(
                 item.href,
               )
                 ? item.href
                 : "/employer/candidates";
             const target = new URL(safeHref, "https://workspace.invalid");
+            const isMessage = target.pathname === "/employer/messages";
+            const applicationId =
+              target.pathname.match(/^\/employer\/candidates\/([1-9]\d*)$/)?.[1] ??
+              target.searchParams.get("application");
             const conversation = state.conversations.find(
               (entry) =>
+                isMessage &&
                 entry.employer_id === state.user.id &&
                 String(entry.id) === target.searchParams.get("conversation"),
             );
             const application = state.applications.find(
               (entry) =>
-                String(entry.id) === target.searchParams.get("application") ||
-                (entry.id === conversation?.application_id &&
+                (!isMessage && String(entry.id) === applicationId) ||
+                (isMessage &&
+                  entry.id === conversation?.application_id &&
                   entry.job_id === conversation.job_id &&
                   entry.candidate_user_id === conversation.candidate_id),
             );

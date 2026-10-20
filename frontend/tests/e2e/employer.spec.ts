@@ -45,7 +45,7 @@ test("employer leaf routes reject anonymous access without exposing workspace da
     "/employer/jobs",
     "/employer/jobs/new",
     "/employer/jobs/1/edit",
-    "/employer/candidates?application=1",
+    "/employer/candidates/1",
     "/employer/messages?conversation=1",
     "/employer/notifications",
   ]) {
@@ -287,9 +287,7 @@ test("closing a job preserves its applications and permits reopening through con
   await expect(page.locator(".ec-candidate")).toHaveCount(
     Number(applicationCount),
   );
-  await expect(
-    page.getByRole("button", { name: /Nguyễn Văn An/ }),
-  ).toBeVisible();
+  await expect(page.getByRole("link", { name: /Nguyễn Văn An/ })).toBeVisible();
   await navigate(page, "Tin tuyển dụng");
   await row.getByRole("button", { name: "Mở lại tin", exact: true }).click();
   await page
@@ -303,8 +301,8 @@ test("opening the real demo PDF transitions an applied CV to waiting and restore
   page,
   request,
 }) => {
-  await loginMock(page, "employer", "/employer/candidates?application=1");
-  const profile = page.locator("#candidate-profile");
+  await loginMock(page, "employer", "/employer/candidates/1");
+  const profile = page.locator(".ea-detail:visible");
   await expect(profile.locator(".ec-status")).toHaveText("Đã ứng tuyển");
   const open = profile.getByRole("button", {
     name: "Xem CV ứng tuyển",
@@ -341,8 +339,8 @@ test("opening the real demo PDF transitions an applied CV to waiting and restore
 test("withdrawn applications block review and new conversations while missing CVs retain applied status", async ({
   page,
 }) => {
-  await loginMock(page, "employer", "/employer/candidates?application=5");
-  const profile = page.locator("#candidate-profile");
+  await loginMock(page, "employer", "/employer/candidates/5");
+  const profile = page.locator(".ea-detail:visible");
   await expect(
     profile.getByRole("heading", { name: "Phạm Quang Huy", exact: true }),
   ).toBeVisible();
@@ -359,8 +357,8 @@ test("withdrawn applications block review and new conversations while missing CV
   await expect(
     profile.getByRole("button", { name: "Nhắn tin cho ứng viên", exact: true }),
   ).toBeDisabled();
-  await expect(page).toHaveURL(/application=5/);
-  await page.goto("/employer/candidates?application=8");
+  await expect(page).toHaveURL(/candidates\/5$/);
+  await page.goto("/employer/candidates/8");
   await expect(
     profile.getByRole("heading", { name: "Bùi Ngọc Mai", exact: true }),
   ).toBeVisible();
@@ -439,8 +437,8 @@ test("notification read filters, action destinations and mark-all persist across
     .locator(".em-not-item")
     .filter({ hasText: "Nguyễn Văn An vừa ứng tuyển" });
   await first.getByRole("link", { name: "Xem hồ sơ", exact: true }).click();
-  await expect(page).toHaveURL(/\/employer\/candidates\?application=1$/);
-  await expect(page.locator("#candidate-profile")).toContainText(
+  await expect(page).toHaveURL(/\/employer\/candidates\/1$/);
+  await expect(page.locator(".ea-detail:visible")).toContainText(
     "Nguyễn Văn An",
   );
   await navigate(page, "Thông báo");
@@ -499,7 +497,7 @@ test("mobile chat opens one thread at a time and restores list focus without mar
 test("required dropdowns have unique choices, retain selection and support keyboard navigation", async ({
   page,
 }) => {
-  await loginMock(page, "employer", "/employer/candidates?application=2");
+  await loginMock(page, "employer", "/employer/candidates");
   const sort = page.getByRole("combobox", {
     name: "Sắp xếp hồ sơ",
     exact: true,
@@ -512,6 +510,7 @@ test("required dropdowns have unique choices, retain selection and support keybo
   await page.keyboard.press("Escape");
   await expect(page.getByRole("listbox")).toBeHidden();
   await expect(sort).toBeFocused();
+  await page.goto("/employer/candidates/2");
   const review = page.getByRole("combobox", {
     name: "Trạng thái xét duyệt",
     exact: true,
@@ -573,7 +572,8 @@ for (const width of [360, 768, 1440]) {
       ["jobs", "/employer/jobs"],
       ["company", "/employer/company"],
       ["new-job", "/employer/jobs/new"],
-      ["candidates", "/employer/candidates?application=1"],
+      ["candidates", "/employer/candidates"],
+      ["application-detail", "/employer/candidates/1"],
       ["messages", "/employer/messages?conversation=1"],
       ["notifications", "/employer/notifications"],
     ]) {

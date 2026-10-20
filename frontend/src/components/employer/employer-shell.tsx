@@ -54,7 +54,12 @@ export function EmployerShell({ children }: { children: ReactNode }) {
   const unreadId = useId();
   const unread = notifications.filter((item) => !item.read_at).length;
   const current =
-    EMPLOYER_PAGES.find((page) => page.href === pathname) ?? EMPLOYER_PAGES[1];
+    EMPLOYER_PAGES.find(
+      (page) =>
+        page.href === pathname ||
+        (page.key === "candidates" && pathname.startsWith(`${page.href}/`)),
+    ) ?? EMPLOYER_PAGES[1];
+  const candidateDetail = pathname.startsWith("/employer/candidates/");
   const nav = (
     <>
       <p className="ep-nav-label">Không gian tuyển dụng</p>
@@ -204,11 +209,19 @@ export function EmployerShell({ children }: { children: ReactNode }) {
           <div className="ep-breadcrumb">
             <House className="ep-icon" aria-hidden="true" />
             Nhà tuyển dụng<span>/</span>
-            <span>
-              {pathname.endsWith("/edit")
-                ? "Chỉnh sửa tin tuyển dụng"
-                : current.label}
-            </span>
+            {candidateDetail ? (
+              <>
+                <Link href="/employer/candidates">Hồ sơ ứng viên</Link>
+                <span>/</span>
+                <span>Chi tiết hồ sơ ứng tuyển</span>
+              </>
+            ) : (
+              <span>
+                {pathname.endsWith("/edit")
+                  ? "Chỉnh sửa tin tuyển dụng"
+                  : current.label}
+              </span>
+            )}
           </div>
           <div className="ep-content-slot">{children}</div>
           <p className="ep-preview-note">

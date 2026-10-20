@@ -5,7 +5,7 @@ Nguồn nghiệp vụ: `docs/SRS.md` (FR-04, FR-06, FR-07, FR-08), cấu trúc `
 ## Phạm vi và các quyết định
 
 - Dùng header trắng, sidebar 224px và bố cục navy/xanh của thiết kế. Logo, font, dropdown, lịch, hộp thoại và phân trang tái sử dụng hệ thống frontend; phân trang luôn dùng component chung, tối đa bốn số trang.
-- Các route: `/employer`, `/employer/jobs`, `/employer/jobs/new`, `/employer/jobs/:id/edit`, `/employer/company`, `/employer/candidates`, `/employer/messages`, `/employer/notifications`.
+- Các route: `/employer`, `/employer/jobs`, `/employer/jobs/new`, `/employer/jobs/:id/edit`, `/employer/company`, `/employer/candidates`, `/employer/candidates/:id`, `/employer/messages`, `/employer/notifications`.
 - Layout giữ provider, header và sidebar qua điều hướng. Mọi trang con vẫn gọi `requireUser("employer", returnTo)` trong server boundary. Đăng nhập giữ query của liên kết hồ sơ/hội thoại; candidate không thể truy cập dữ liệu employer.
 - Tiếp tục dùng hai tài khoản mock đã có. Dữ liệu công ty/các tin/hồ sơ/hội thoại thuộc một employer; không lấy toàn bộ danh sách việc làm công khai làm dữ liệu riêng của doanh nghiệp.
 - Thao tác hiện chạy trong bộ nhớ phiên xem trước, không LocalStorage, không giả lập backend thành công. Tải lại trang khôi phục dữ liệu mẫu. AI là kết quả mẫu; PDF demo công khai chỉ chứa dữ liệu hư cấu. Không gửi tin nhắn thực hoặc tuyên bố có WebSocket.
@@ -47,3 +47,13 @@ Tinh chỉnh UX: `SelectionField clearable={false}` dùng cho lựa chọn bắt
 - Tăng độ rõ chữ, kích thước vùng bấm và bố cục mobile trên toàn bộ employer, giữ màu/font/layout chung. Không thay đổi enum nghiệp vụ hoặc bổ sung backend, AI hay WebSocket thật.
 
 Kiểm chứng đợt hoàn thiện: build/typecheck, lint, 56 unit test và 20 E2E employer/ngữ cảnh ứng tuyển đạt. E2E kiểm tra liên kết đúng ứng viên–tin–hội thoại, badge chưa đọc, bộ lọc mobile, quy tắc duyệt CV, giữ hồ sơ khi đóng tin và responsive/axe cho toàn bộ trang ở 360/768/1440px. Đã xem ảnh thực tế của dashboard và danh sách ứng viên desktop/mobile.
+
+## Trang chi tiết hồ sơ ứng tuyển
+
+- Danh sách dùng liên kết “Xem hồ sơ” mở `/employer/candidates/:id`, thay cho accordion và sidebar chi tiết. `id` là mã đơn ứng tuyển, không phải mã ứng viên: thông tin CV, tin tuyển dụng và điểm AI luôn cùng một đơn.
+- Trang riêng gồm thông tin ứng viên, tin đã ứng tuyển, CV, thư giới thiệu, xét duyệt và phân tích AI; có liên kết hồ sơ cùng tin, sửa đúng tin và nhắn tin đúng hội thoại. Desktop chia cột nội dung và tác vụ; mobile xếp dọc.
+- Liên kết quay về chỉ mang theo các bộ lọc hợp lệ, thứ tự và trang danh sách; không nhận URL quay về tùy ý. Dashboard, thông báo và tin nhắn dẫn thẳng đến route mới; bookmark cũ `?application=:id` được chuyển hướng tương thích.
+- Route kiểm tra phiên và vai trò trước khi tra cứu đơn, xác minh tin thuộc công ty hiện tại; mã sai hoặc đơn không thuộc quyền truy cập hiển thị 404. Chế độ API vẫn không dùng dữ liệu mẫu thay thế.
+- Mở trang chi tiết không đánh dấu đã xem CV. Chỉ nút xem PDF thực hiện quy tắc FR-06.5; rời trang đóng PDF, quay lại giữ trạng thái xét duyệt trong provider. Các quy tắc đơn đã rút, tin đóng/hết hạn và PDF minh họa vẫn giữ nguyên.
+
+Kiểm chứng trang chi tiết: build/typecheck, lint, 58 unit test, 23 E2E employer và 17 E2E xác thực qua API fixture đều đạt. Có kiểm tra quay lại đúng bộ lọc/trang, chuyển hướng bookmark cũ, 404, đóng modal khi điều hướng, quy tắc xem CV và responsive/axe ở 360/768/1440px; đã xem ảnh danh sách và trang chi tiết desktop/mobile.
