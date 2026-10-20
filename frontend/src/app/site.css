@@ -2,6 +2,14 @@
   html {
     scrollbar-gutter: stable;
   }
+  @supports (scrollbar-gutter: stable) {
+    /* The root already reserves the scrollbar width. Radix's extra body
+       margin would reserve it twice when any modal Select/menu opens.
+       Outrank its dynamically injected body[data-scroll-locked] rule. */
+    html body[data-scroll-locked] {
+      margin-right: 0 !important;
+    }
+  }
 }
 .site-container {
   width: min(100% - 48px, 1312px);

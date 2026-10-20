@@ -25,3 +25,13 @@ Kiểm chứng: build và `git diff --check` đạt; 3/3 browser test bộ lọc
 - Build production, ESLint, TypeScript đạt. 16 kịch bản Chromium đạt, gồm tìm kiếm/lọc hiện có và kiểm tra mới: viền xanh khi có giá trị, xóa từng tiêu chí, giữ keyword/city, Back/reload, menu tùy chỉnh và trạng thái tìm ngành rỗng, focus/bàn phím, axe khi menu mở. Kiểm tra responsive 360/390/768/1024/1440px; kiểm tra menu mở tại 360 và 1440px.
 - Kiểm tra trực tiếp cổng 3000 trên desktop và mobile: bốn bộ lọc có giá trị, địa điểm đã chọn trên navbar, kết quả đúng và không có lỗi JavaScript. Đã xem ảnh menu và trạng thái chọn; tại 360px, mỗi bộ lọc rộng 140px, xếp hai cột. Bộ kiểm tra bổ sung kiểm soát chiều rộng tối thiểu để tránh ô chọn co thành một hàng quá nhỏ.
 - Chưa kiểm tra trình đọc màn hình thật, Safari/Firefox hoặc backend Laravel thật. Không phát sinh ô chọn ngày mới trong thay đổi này.
+
+## Khắc phục lệch trang khi mở bộ lọc
+
+Trên desktop, `html` đã giữ sẵn khoảng thanh cuộn bằng `scrollbar-gutter: stable`, còn Radix Select tiếp tục thêm `margin-right` vào body khi khóa cuộn. Các bản sửa trước chỉ bao phủ dialog, notification và employer, bỏ sót Select trên trang việc làm.
+
+CSS chung trong `site.css` đặt `html body[data-scroll-locked] { margin-right: 0 !important; }` tại breakpoint từ 901px, có kiểm tra hỗ trợ `scrollbar-gutter`. Selector đủ ưu tiên để thắng style được Radix chèn sau. Giữ nguyên khóa cuộn, focus trap, inert và cơ chế bù scrollbar của màn hình từ 900px trở xuống.
+
+Regression `filter-layout.spec.ts` đo vị trí/chiều rộng header, tiêu đề, bộ lọc, kết quả và footer qua từng frame mở/đóng. Bao phủ bộ lọc một lựa chọn, sắp xếp, nhiều ngành và tìm địa điểm; trang dài/ngắn, các mốc 360/900/901/1440px. Khi Chromium headless không báo chiều rộng scrollbar native, test giả lập metric `clientWidth` của scrollbar cổ điển để thực sự kích hoạt khoảng bù khác 0. Đã xác nhận test thất bại trước sửa với độ lệch 17px, đạt sau sửa; không thay đổi scroll lock để né lỗi.
+
+Kiểm chứng: production build/TypeScript và lint đạt; 24 E2E cho hình học dropdown, bộ lọc, sắp xếp, navbar và account layout đều đạt.
