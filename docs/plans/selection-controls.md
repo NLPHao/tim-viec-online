@@ -35,3 +35,11 @@ CSS chung trong `site.css` đặt `html body[data-scroll-locked] { margin-right:
 Regression `filter-layout.spec.ts` đo vị trí/chiều rộng header, tiêu đề, bộ lọc, kết quả và footer qua từng frame mở/đóng. Bao phủ bộ lọc một lựa chọn, sắp xếp, nhiều ngành và tìm địa điểm; trang dài/ngắn, các mốc 360/900/901/1440px. Khi Chromium headless không báo chiều rộng scrollbar native, test giả lập metric `clientWidth` của scrollbar cổ điển để thực sự kích hoạt khoảng bù khác 0. Đã xác nhận test thất bại trước sửa với độ lệch 17px, đạt sau sửa; không thay đổi scroll lock để né lỗi.
 
 Kiểm chứng: production build/TypeScript và lint đạt; 24 E2E cho hình học dropdown, bộ lọc, sắp xếp, navbar và account layout đều đạt.
+
+## Xóa dải trắng ở mép phải khi khóa cuộn
+
+Khoảng `scrollbar-gutter` vẫn hiện nền trang khi scrollbar bị ẩn. Khi Radix khóa cuộn trên desktop, thay khoảng này bằng padding body có cùng kích thước; nền header, tiêu đề, hero và footer phủ kín phần padding. Nội dung giữ nguyên chiều rộng, overlay vẫn phủ toàn màn hình. `ScrollbarLayout` đo khoảng scrollbar lúc chưa khóa, theo dõi thay đổi kích thước và đo độc lập nếu đổi breakpoint trong lúc menu đang mở. Không thay đổi cơ chế khóa cuộn hoặc focus của Radix.
+
+Regression `gutter-paint.spec.ts` đối chiếu pixel ở mép nội dung với toàn bộ dải mép phải tại 901/1440px trên trang việc làm, tài khoản, nhà tuyển dụng và trang chủ. Kiểm tra thêm mở menu ở 900px rồi tăng cửa sổ lên desktop; giữ các bài kiểm tra vị trí từng frame, bàn phím, navbar và sidebar hiện có.
+
+Kiểm chứng: production build/TypeScript, lint và 29 E2E Chromium đạt. Đã xem ảnh mép phải trang việc làm: header, phần giới thiệu và nền nội dung phủ liền tới mép cửa sổ. Menu Select được chụp trong viewport hiện tại vì Radix chủ động đóng khi resize; ảnh toàn trang dùng dialog trang chủ để kiểm tra thêm footer.

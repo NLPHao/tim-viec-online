@@ -3,11 +3,55 @@
     scrollbar-gutter: stable;
   }
   @supports (scrollbar-gutter: stable) {
-    /* The root already reserves the scrollbar width. Radix's extra body
-       margin would reserve it twice when any modal Select/menu opens.
-       Outrank its dynamically injected body[data-scroll-locked] rule. */
+    /* Replace the native gutter with body padding while locked. Content keeps
+       its width, and backgrounds/overlays can paint to the viewport edge. */
+    html:has(body[data-scroll-locked]) {
+      scrollbar-gutter: auto;
+    }
     html body[data-scroll-locked] {
       margin-right: 0 !important;
+      padding-right: var(--page-scrollbar-gap, 0px) !important;
+    }
+    /* Continue full-width backgrounds through the replacement padding. */
+    body[data-scroll-locked]
+      :is(.page-intro, .site-footer, .auth-header, .home-hero) {
+      position: relative;
+    }
+    body[data-scroll-locked] .home-hero {
+      overflow: visible;
+    }
+    body[data-scroll-locked]
+      :is(
+        .site-header,
+        .page-intro,
+        .site-footer,
+        .auth-header,
+        .home-hero,
+        .ep-header
+      )::after {
+      content: "";
+      position: absolute;
+      inset-block: 0;
+      left: 100%;
+      width: var(--page-scrollbar-gap, 0px);
+      background: inherit;
+      pointer-events: none;
+    }
+    body[data-scroll-locked] :is(.site-header, .page-intro)::after {
+      bottom: -1px;
+      border-bottom: inherit;
+    }
+    body[data-scroll-locked] .auth-header::after {
+      bottom: -3px;
+      border-bottom: inherit;
+    }
+    body[data-scroll-locked] .ep-header::after {
+      top: -3px;
+      bottom: -1px;
+      border-block: inherit;
+    }
+    body[data-scroll-locked] .home-hero::after {
+      background: var(--home-blue);
     }
   }
 }

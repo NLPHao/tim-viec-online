@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { CandidateWorkspaceSession } from "@/components/candidate/workspace-session";
 import { Be_Vietnam_Pro } from "next/font/google";
 import { AppToaster } from "@/components/feedback/app-toaster";
+import { ScrollbarLayout } from "@/components/layout/scrollbar-layout";
 import "./globals.css";
 import "./site.css";
 import "./auth.css";
@@ -41,6 +42,7 @@ export default function RootLayout({
   return (
     <html lang="vi" className={`${brandFont.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
+        <ScrollbarLayout />
         <Suspense
           fallback={
             <main className="site-container py-16" role="status">
