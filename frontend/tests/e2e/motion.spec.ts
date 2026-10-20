@@ -42,6 +42,7 @@ for (const reducedMotion of ["no-preference", "reduce"] as const) {
     const save = page
       .getByRole("button", { name: "Lưu việc làm", exact: true })
       .first();
+    const headerBeforeDialog = await page.locator(".site-header").boundingBox();
     await save.click();
     const dialog = page.getByRole("dialog");
     await expect(dialog).toBeVisible();
@@ -53,7 +54,15 @@ for (const reducedMotion of ["no-preference", "reduce"] as const) {
       );
     });
     const bounds = (await dialog.boundingBox())!;
-    expect(Math.abs(bounds.x + bounds.width / 2 - width / 2)).toBeLessThan(2);
+    const contentWidth = await page.evaluate(
+      () => document.documentElement.getBoundingClientRect().width,
+    );
+    expect(
+      Math.abs(bounds.x + bounds.width / 2 - contentWidth / 2),
+    ).toBeLessThan(2);
+    expect(await page.locator(".site-header").boundingBox()).toEqual(
+      headerBeforeDialog,
+    );
     expect(Math.abs(bounds.y + bounds.height / 2 - 450)).toBeLessThan(2);
     await page.keyboard.press("Escape");
     await expect(dialog).toHaveCount(0);

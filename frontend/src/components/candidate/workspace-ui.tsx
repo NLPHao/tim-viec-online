@@ -8,6 +8,7 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
+  AlertDialogMedia,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
@@ -82,6 +83,9 @@ export function ConfirmRemoval({
         }}
       >
         <AlertDialogHeader>
+          <AlertDialogMedia>
+            <Trash2 aria-hidden="true" />
+          </AlertDialogMedia>
           <AlertDialogTitle>{title}</AlertDialogTitle>
           <AlertDialogDescription>
             Thay đổi này chỉ áp dụng cho bản xem trước hiện tại.

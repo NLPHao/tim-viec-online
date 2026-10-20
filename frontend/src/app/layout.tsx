@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { CandidateWorkspaceSession } from "@/components/candidate/workspace-session";
 import { Be_Vietnam_Pro } from "next/font/google";
-import { Toaster } from "sonner";
+import { AppToaster } from "@/components/feedback/app-toaster";
 import "./globals.css";
 import "./site.css";
 import "./auth.css";
@@ -11,6 +11,7 @@ import "./selection.css";
 import "./motion.css";
 import "./home.css";
 import "./application.css";
+import "./feedback.css";
 
 const brandFont = Be_Vietnam_Pro({
   variable: "--font-brand",
@@ -49,7 +50,7 @@ export default function RootLayout({
         >
           <CandidateWorkspaceSession>{children}</CandidateWorkspaceSession>
         </Suspense>
-        <Toaster position="bottom-right" richColors closeButton />
+        <AppToaster />
       </body>
     </html>
   );

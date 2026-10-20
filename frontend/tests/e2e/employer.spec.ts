@@ -513,6 +513,7 @@ test("required dropdowns have unique choices, retain selection and support keybo
     page.getByRole("option", { name: "Điểm AI cao nhất", exact: true }),
   ).toHaveCount(1);
   await page.keyboard.press("Escape");
+  await expect(page.getByRole("listbox")).toBeHidden();
   await expect(sort).toBeFocused();
   const review = page.getByRole("combobox", {
     name: "Trạng thái xét duyệt",
@@ -525,6 +526,9 @@ test("required dropdowns have unique choices, retain selection and support keybo
     page.getByRole("option", { name: "Đang xem xét", exact: true }),
   ).toHaveCount(1);
   await page.keyboard.press("End");
+  await expect(
+    page.getByRole("option", { name: "Từ chối", exact: true }),
+  ).toBeFocused();
   await page.keyboard.press("Enter");
   await expect(page.getByRole("listbox")).toBeHidden();
   await expect(review).toHaveText("Từ chối");

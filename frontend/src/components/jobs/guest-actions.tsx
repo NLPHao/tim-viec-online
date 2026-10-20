@@ -106,7 +106,10 @@ export function GuestActions({
               {!compact && "Lưu việc làm"}
             </Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="feedback-message">
+            <span className="feedback-symbol" aria-hidden="true">
+              <Bookmark />
+            </span>
             <DialogHeader>
               <DialogTitle>Lưu cơ hội bạn quan tâm</DialogTitle>
               <DialogDescription>
@@ -123,7 +126,10 @@ export function GuestActions({
               </DialogClose>
             ) : (
               <Button asChild className="h-11">
-                <Link href={loginUrl}>Đến trang đăng nhập</Link>
+                <Link href={loginUrl}>
+                  Đến trang đăng nhập
+                  <ArrowRight aria-hidden="true" />
+                </Link>
               </Button>
             )}
           </DialogContent>

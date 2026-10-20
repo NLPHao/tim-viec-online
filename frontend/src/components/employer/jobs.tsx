@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Eye, Pencil, Plus, Search } from "lucide-react";
+import { Eye, Pencil, Plus, Search, BriefcaseBusiness } from "lucide-react";
 import { toast } from "sonner";
 import { useEmployer } from "./employer-provider";
 import { effectiveJobStatus } from "@/features/employer/rules";
@@ -14,6 +14,7 @@ import { Pagination } from "@/components/layout/pagination";
 import {
   AlertDialog,
   AlertDialogContent,
+  AlertDialogMedia,
   AlertDialogDescription,
   AlertDialogHeader,
   AlertDialogTitle,
@@ -42,6 +43,9 @@ function StatusAction({ job }: { job: EmployerJob }) {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
+          <AlertDialogMedia>
+            <BriefcaseBusiness aria-hidden="true" />
+          </AlertDialogMedia>
           <AlertDialogTitle>
             {status === "active"
               ? "Đóng tin tuyển dụng?"
