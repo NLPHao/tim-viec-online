@@ -125,22 +125,27 @@ export function createEmployerData(
             ],
           },
   }));
-  const conversations = [applications[0], applications[1], applications[5]].map(
-    (app, index) => ({
-      id: index + 1,
-      application_id: app.id,
-      candidate_id: app.candidate_user_id,
-      employer_id: user.id,
-      job_id: app.job_id,
-    }),
-  );
+  const conversations = [
+    applications[0],
+    applications[1],
+    applications[5],
+    applications[2],
+  ].map((app, index) => ({
+    id: index + 1,
+    application_id: app.id,
+    candidate_id: app.candidate_user_id,
+    employer_id: user.id,
+    job_id: app.job_id,
+  }));
   const messages = conversations.flatMap((conv) => [
     {
       id: `${conv.id}-1`,
       conversation_id: conv.id,
       sender_id: conv.candidate_id,
       message:
-        "Chào anh/chị, em đã gửi hồ sơ ứng tuyển và rất mong có cơ hội trao đổi thêm về công việc ạ.",
+        conv.application_id === 3
+          ? "Em đã bổ sung thông tin về kinh nghiệm dự án. Anh/chị có thể trao đổi thêm với em tại đây ạ."
+          : "Chào anh/chị, em đã gửi hồ sơ ứng tuyển và rất mong có cơ hội trao đổi thêm về công việc ạ.",
       created_at: iso(-1),
       is_read: conv.id !== 1,
     },
@@ -198,7 +203,7 @@ export function createEmployerData(
         type: "new_message",
         title: "Lê Minh Hoàng đã gửi tin nhắn",
         content: "Ứng viên đã bổ sung thông tin về kinh nghiệm dự án.",
-        href: "/employer/candidates?application=3",
+        href: "/employer/messages?conversation=4",
         read_at: iso(-1),
         created_at: iso(-1),
       },

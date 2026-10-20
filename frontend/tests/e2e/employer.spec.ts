@@ -356,12 +356,9 @@ test("withdrawn applications block review and new conversations while missing CV
       exact: true,
     }),
   ).toHaveCount(0);
-  await profile
-    .getByRole("button", { name: "Nhắn tin cho ứng viên", exact: true })
-    .click();
   await expect(
-    page.getByText("Không thể mở hội thoại cho hồ sơ này.", { exact: true }),
-  ).toBeVisible();
+    profile.getByRole("button", { name: "Nhắn tin cho ứng viên", exact: true }),
+  ).toBeDisabled();
   await expect(page).toHaveURL(/application=5/);
   await page.goto("/employer/candidates?application=8");
   await expect(

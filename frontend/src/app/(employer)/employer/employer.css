@@ -20,7 +20,7 @@ body:has(.employer-page) {
   color: var(--ep-text);
   background: var(--ep-bg);
   font:
-    13px/1.6 var(--font-brand),
+    14px/1.6 var(--font-brand),
     sans-serif;
 }
 
@@ -142,8 +142,8 @@ body:has(.employer-page) {
 .ep-icon-button {
   border: 1px solid var(--ep-border);
   background: var(--ep-white);
-  width: 37px;
-  height: 37px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -162,6 +162,23 @@ body:has(.employer-page) {
   right: 4px;
   border: 2px solid var(--ep-white);
   box-sizing: content-box;
+}
+.ep-unread-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  min-width: 20px;
+  height: 20px;
+  padding-inline: 4px;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--ep-white);
+  border-radius: 999px;
+  background: var(--ep-blue);
+  color: var(--ep-white);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .ep-user {
@@ -238,7 +255,7 @@ body:has(.employer-page) {
   gap: 12px;
   padding: 12px 14px;
   border-radius: 7px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
 }
 
@@ -293,7 +310,7 @@ body:has(.employer-page) {
 
 .ep-breadcrumb {
   color: var(--ep-muted);
-  font-size: 10px;
+  font-size: 12px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -324,7 +341,7 @@ body:has(.employer-page) {
 .ep-page-heading p {
   color: var(--ep-muted);
   margin: 0;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .ep-button {
@@ -332,12 +349,13 @@ body:has(.employer-page) {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border-radius: 6px;
+  border-radius: 9px;
+  min-height: 44px;
   padding: 10px 16px;
   border: 1px solid var(--ep-border);
   background: var(--ep-white);
   color: var(--ep-text);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   white-space: nowrap;
   transition: background 0.15s;
@@ -531,7 +549,7 @@ body:has(.employer-page) {
 .ep-panel {
   background: var(--ep-white);
   border: 1px solid var(--ep-border);
-  border-radius: 10px;
+  border-radius: 14px;
   box-shadow: var(--ep-shadow);
   overflow: hidden;
   min-width: 0;
@@ -546,7 +564,7 @@ body:has(.employer-page) {
 }
 
 .ep-panel-heading h2 {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
   margin: 0;
   letter-spacing: -0.3px;
@@ -554,13 +572,13 @@ body:has(.employer-page) {
 
 .ep-panel-heading p {
   color: var(--ep-muted);
-  font-size: 10px;
+  font-size: 12px;
   margin: 3px 0 0;
 }
 
 .ep-text-link {
   color: var(--ep-navy);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   display: inline-flex;
   align-items: center;

@@ -21,7 +21,9 @@ import {
 import { toast } from "sonner";
 import { useEmployer } from "./employer-provider";
 import { DeadlineField } from "./deadline-field";
-import { companyReady } from "@/features/employer/rules";
+import { companyReady, effectiveJobStatus } from "@/features/employer/rules";
+import { JOB_STATUS_LABELS } from "@/features/employer/types";
+import { formatSalary } from "@/features/jobs/formatters";
 import type {
   JobValues,
   EmployerJob,
@@ -213,6 +215,27 @@ function JobEditor({ existing }: { existing?: EmployerJob }) {
     initialValues(existing),
   );
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const salaryMinimum = Number(values.salary_min);
+  const salaryMaximum = Number(values.salary_max);
+  const validSalary =
+    values.salary_mode === "negotiable" ||
+    (/^\d+$/.test(values.salary_min) &&
+      Number.isSafeInteger(salaryMinimum) &&
+      salaryMinimum > 0 &&
+      (values.salary_mode === "starting" ||
+        (/^\d+$/.test(values.salary_max) &&
+          Number.isSafeInteger(salaryMaximum) &&
+          salaryMaximum >= salaryMinimum)));
+  const salaryPreview = validSalary
+    ? formatSalary({
+        is_negotiable: values.salary_mode === "negotiable",
+        salary_min: values.salary_mode === "negotiable" ? null : salaryMinimum,
+        salary_max: values.salary_mode === "range" ? salaryMaximum : null,
+      })
+    : "Hoàn tất mức lương hợp lệ để xem trước";
+  const existingStatus = existing
+    ? effectiveJobStatus(existing, today)
+    : undefined;
   const change = <K extends keyof JobValues>(key: K, value: JobValues[K]) =>
     setValues((current) => ({ ...current, [key]: value }));
   const attributes = (name: keyof JobValues) => ({
@@ -235,6 +258,15 @@ function JobEditor({ existing }: { existing?: EmployerJob }) {
             {existing ? "Chỉnh sửa tin tuyển dụng" : "Đăng tin tuyển dụng"}
           </h1>
           <p>Một tin rõ ràng là khởi đầu cho những hồ sơ phù hợp.</p>
+          {existing && existingStatus && (
+            <div className="ep-edit-job-context">
+              <span>Mã tin #{existing.id}</span>
+              <strong>{existing.title}</strong>
+              <span className={`ep-badge ep-badge-${existingStatus}`}>
+                {JOB_STATUS_LABELS[existingStatus]}
+              </span>
+            </div>
+          )}
         </div>
         <Link className="ep-button" href="/employer/jobs">
           Quay lại danh sách tin
@@ -303,9 +335,14 @@ function JobEditor({ existing }: { existing?: EmployerJob }) {
                 placeholder="VD: Lập trình viên Backend Laravel (Middle)"
                 onChange={(event) => change("title", event.target.value)}
               />
-              <small>
-                Từ 10 đến 200 ký tự. Nên nêu rõ vị trí và chuyên môn chính.
-              </small>
+              <div className="ep-field-meta">
+                <small>
+                  Từ 10 đến 200 ký tự. Nên nêu rõ vị trí và chuyên môn chính.
+                </small>
+                <span className="ep-field-counter">
+                  {values.title.length} / 200
+                </span>
+              </div>
             </JobField>
             <JobField
               name="category_id"
@@ -521,13 +558,17 @@ function JobEditor({ existing }: { existing?: EmployerJob }) {
                 <span>VNĐ / tháng</span>
               </div>
             </JobField>
-            <p className="ep-field-full ep-salary-hint" aria-live="polite">
-              {values.salary_mode === "negotiable"
-                ? "Mức lương hiển thị: Thỏa thuận."
-                : values.salary_mode === "starting"
-                  ? "Chỉ nhập lương tối thiểu. Tin sẽ hiển thị lương khởi điểm."
-                  : "Nhập lương theo VNĐ. Lương tối thiểu không được lớn hơn lương tối đa."}
-            </p>
+            <div className="ep-field-full ep-salary-preview">
+              <span>Mức lương ứng viên nhìn thấy</span>
+              <strong>{salaryPreview}</strong>
+              <p className="ep-salary-hint">
+                {values.salary_mode === "negotiable"
+                  ? "Mức lương hiển thị: Thỏa thuận."
+                  : values.salary_mode === "starting"
+                    ? "Chỉ nhập lương tối thiểu. Tin sẽ hiển thị lương khởi điểm."
+                    : "Nhập lương theo VNĐ. Lương tối thiểu không được lớn hơn lương tối đa."}
+              </p>
+            </div>
           </JobSection>
           <JobSection
             index={3}
@@ -568,6 +609,9 @@ function JobEditor({ existing }: { existing?: EmployerJob }) {
                   placeholder={placeholder}
                   onChange={(event) => change(key, event.target.value)}
                 />
+                <span className="ep-field-counter">
+                  {values[key].length.toLocaleString("vi-VN")} / 15.000 ký tự
+                </span>
               </JobField>
             ))}
           </JobSection>

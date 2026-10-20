@@ -51,6 +51,8 @@ export function EmployerShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const logoutId = useId();
+  const unreadId = useId();
+  const unread = notifications.filter((item) => !item.read_at).length;
   const current =
     EMPLOYER_PAGES.find((page) => page.href === pathname) ?? EMPLOYER_PAGES[1];
   const nav = (
@@ -116,10 +118,18 @@ export function EmployerShell({ children }: { children: ReactNode }) {
             className="ep-icon-button"
             href="/employer/notifications"
             aria-label="Thông báo tuyển dụng"
+            aria-describedby={unread ? unreadId : undefined}
           >
             <Bell size={18} />
-            {notifications.some((item) => !item.read_at) && (
-              <span className="ep-dot" />
+            {unread > 0 && (
+              <>
+                <span className="ep-unread-count" aria-hidden="true">
+                  {unread > 99 ? "99+" : unread}
+                </span>
+                <span id={unreadId} className="sr-only">
+                  {unread} thông báo chưa đọc
+                </span>
+              </>
             )}
           </Link>
           <DropdownMenu modal={false}>

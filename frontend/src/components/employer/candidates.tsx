@@ -1,16 +1,24 @@
 "use client";
 
-import { useRef, useState, type FormEvent } from "react";
+import {
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type FormEvent,
+} from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   ArrowUpRight,
+  BriefcaseBusiness,
   ChevronDown,
   FileText,
   Mail,
   MessageSquare,
   Phone,
   Search,
+  SlidersHorizontal,
   Sparkles,
   Users,
 } from "lucide-react";
@@ -23,6 +31,7 @@ import {
   type EmployerApplication,
 } from "@/features/employer/types";
 import { normalizeSearch } from "@/features/jobs/query";
+import { effectiveJobStatus } from "@/features/employer/rules";
 import { Pagination } from "@/components/layout/pagination";
 import { SelectionField } from "@/components/forms/selection-field";
 import { Input } from "@/modules/cores/shadcn/components/ui/input";
@@ -71,11 +80,21 @@ function ApplicationBadge({ status }: { status: ApplicationStatus }) {
 
 export function EmployerCandidates() {
   const previewTrigger = useRef<HTMLElement | null>(null);
-  const { applications, jobs, openConversation, reviewApplication } =
-    useEmployer();
+  const searchId = useId();
+  const filterId = useId();
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const {
+    applications,
+    jobs,
+    today,
+    conversations,
+    openConversation,
+    reviewApplication,
+  } = useEmployer();
   // The PDF remains open even when reviewing removes the row from an Applied filter.
   const [previewApplication, setPreviewApplication] =
     useState<EmployerApplication | null>(null);
+  useLayoutEffect(() => () => setPreviewApplication(null), []);
   const params = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -164,8 +183,8 @@ export function EmployerCandidates() {
         <div>
           <h1>Hồ sơ ứng viên</h1>
           <p>
-            Tìm ứng viên phù hợp và theo dõi từng hồ sơ trong quá trình tuyển
-            dụng.
+            Xem hồ sơ theo từng tin tuyển dụng, đánh giá CV và theo dõi kết quả
+            xét duyệt.
           </p>
         </div>
         <Link className="ep-button" href="/employer/messages">
@@ -188,9 +207,11 @@ export function EmployerCandidates() {
           {
             label: "Phù hợp từ 80%",
             count: jobApplications.filter(
-              (a) => (a.analysis?.match_score ?? 0) >= 80,
+              (a) =>
+                a.status !== "withdrawn" &&
+                (a.analysis?.match_score ?? 0) >= 80,
             ).length,
-            note: "Dựa trên Match Score",
+            note: "Đánh giá theo tin ứng tuyển",
           },
           {
             label: "Đã trúng tuyển",
@@ -208,99 +229,123 @@ export function EmployerCandidates() {
       </section>
       <section
         className="ep-panel ec-filter-panel"
+        data-expanded={filtersOpen}
         aria-labelledby="filter-heading"
       >
         <div className="ec-filter-heading">
-          <h2 id="filter-heading">Lọc hồ sơ theo vị trí tuyển dụng</h2>
+          <h2 id="filter-heading">Lọc hồ sơ</h2>
+          <button
+            type="button"
+            className="ep-button ec-filter-toggle"
+            aria-controls={filterId}
+            aria-expanded={filtersOpen}
+            onClick={() => setFiltersOpen((value) => !value)}
+          >
+            <SlidersHorizontal size={16} aria-hidden="true" />
+            Bộ lọc
+          </button>
           {selectedJob && (
-            <span className={`ec-active-job ec-job-${selectedJob.status}`}>
-              {JOB_STATUS_LABELS[selectedJob.status]}
-            </span>
-          )}
-        </div>
-        <div className="ec-filters">
-          <div className="ep-field ec-job-field">
-            <span className="ec-field-label">Tin tuyển dụng</span>
-            <SelectionField
-              name="job_id"
-              label="Lọc theo tin tuyển dụng"
-              placeholder="Tất cả tin tuyển dụng"
-              options={jobs.map((job) => ({
-                value: String(job.id),
-                label: job.title,
-              }))}
-              value={jobId}
-              onValueChange={(value) => filter("job_id", value)}
-            />
-          </div>
-          <form className="ep-field" onSubmit={submitSearch}>
-            <label htmlFor="candidate-search">Tìm ứng viên</label>
-            <div className="ec-search">
-              <Input
-                key={keyword}
-                id="candidate-search"
-                name="keyword"
-                type="search"
-                placeholder="Họ tên hoặc email"
-                defaultValue={keyword}
-              />
-              <button type="submit" aria-label="Tìm ứng viên">
-                <Search size={16} aria-hidden="true" />
-              </button>
-            </div>
-          </form>
-          <div className="ep-field">
-            <span className="ec-field-label">Trạng thái</span>
-            <SelectionField
-              name="status"
-              label="Lọc trạng thái hồ sơ"
-              placeholder="Tất cả trạng thái"
-              options={statusOptions}
-              value={status}
-              onValueChange={(value) => filter("status", value)}
-            />
-          </div>
-          <div className="ep-field">
-            <span className="ec-field-label">Điểm phù hợp AI</span>
-            <SelectionField
-              name="match_score"
-              label="Lọc điểm phù hợp AI"
-              placeholder="Tất cả mức điểm"
-              options={scoreOptions}
-              value={minimum}
-              onValueChange={(value) => filter("match_score", value)}
-            />
-          </div>
-        </div>
-        <div className="ec-job-meta">
-          {selectedJob ? (
-            <>
-              <span>
-                Mã tin <strong>#{selectedJob.id}</strong>
-              </span>
-              <span>{selectedJob.city}</span>
-              <span>
-                Hạn nhận hồ sơ:{" "}
-                <strong>{dateLabel(selectedJob.deadline)}</strong>
-              </span>
-              <Link href={`/jobs/${selectedJob.id}`}>
-                Xem tin tuyển dụng <ArrowUpRight size={12} aria-hidden="true" />
-              </Link>
-            </>
-          ) : (
-            <span>
-              Hồ sơ và hội thoại vẫn được giữ lại khi tin tuyển dụng đã đóng.
-            </span>
-          )}
-          {(jobId || status || minimum || keyword) && (
-            <button
-              type="button"
-              className="ec-text-button"
-              onClick={() => router.replace(pathname, { scroll: false })}
+            <span
+              className={`ec-active-job ec-job-${effectiveJobStatus(selectedJob, today)}`}
             >
-              Xóa bộ lọc
-            </button>
+              {JOB_STATUS_LABELS[effectiveJobStatus(selectedJob, today)]}
+            </span>
           )}
+        </div>
+        <p className="ec-filter-summary">
+          {selectedJob
+            ? `Tin #${selectedJob.id} · ${selectedJob.title}`
+            : "Tất cả tin tuyển dụng"}
+          {status || minimum || keyword ? " · Đang áp dụng bộ lọc" : ""}
+        </p>
+        <div id={filterId} className="ec-filter-content">
+          <div className="ec-filters">
+            <div className="ep-field ec-job-field">
+              <span className="ec-field-label">Tin tuyển dụng</span>
+              <SelectionField
+                name="job_id"
+                label="Lọc theo tin tuyển dụng"
+                placeholder="Tất cả tin tuyển dụng"
+                options={jobs.map((job) => ({
+                  value: String(job.id),
+                  label: `${job.title} · #${job.id}`,
+                }))}
+                value={jobId}
+                onValueChange={(value) => filter("job_id", value)}
+              />
+            </div>
+            <form className="ep-field" onSubmit={submitSearch}>
+              <label htmlFor={searchId}>Tìm ứng viên</label>
+              <div className="ec-search">
+                <Input
+                  key={keyword}
+                  id={searchId}
+                  name="keyword"
+                  type="search"
+                  placeholder="Họ tên hoặc email"
+                  defaultValue={keyword}
+                />
+                <button type="submit" aria-label="Tìm ứng viên">
+                  <Search size={16} aria-hidden="true" />
+                </button>
+              </div>
+            </form>
+            <div className="ep-field">
+              <span className="ec-field-label">Trạng thái</span>
+              <SelectionField
+                name="status"
+                label="Lọc trạng thái hồ sơ"
+                placeholder="Tất cả trạng thái"
+                options={statusOptions}
+                value={status}
+                onValueChange={(value) => filter("status", value)}
+              />
+            </div>
+            <div className="ep-field">
+              <span className="ec-field-label">Điểm phù hợp AI</span>
+              <SelectionField
+                name="match_score"
+                label="Lọc điểm phù hợp AI"
+                placeholder="Tất cả mức điểm"
+                options={scoreOptions}
+                value={minimum}
+                onValueChange={(value) => filter("match_score", value)}
+              />
+            </div>
+          </div>
+          <div className="ec-job-meta">
+            {selectedJob ? (
+              <>
+                <strong className="ec-filtered-title">
+                  {selectedJob.title}
+                </strong>
+                <span>
+                  Mã tin <strong>#{selectedJob.id}</strong>
+                </span>
+                <span>{selectedJob.city}</span>
+                <span>
+                  Hạn nhận hồ sơ:{" "}
+                  <strong>{dateLabel(selectedJob.deadline)}</strong>
+                </span>
+                <Link href={`/employer/jobs/${selectedJob.id}/edit`}>
+                  Xem / sửa tin <ArrowUpRight size={12} aria-hidden="true" />
+                </Link>
+              </>
+            ) : (
+              <span>
+                Hồ sơ và hội thoại vẫn được giữ lại khi tin tuyển dụng đã đóng.
+              </span>
+            )}
+            {(jobId || status || minimum || keyword) && (
+              <button
+                type="button"
+                className="ec-text-button"
+                onClick={() => router.replace(pathname, { scroll: false })}
+              >
+                Xóa bộ lọc
+              </button>
+            )}
+          </div>
         </div>
       </section>
       <div className="ec-workspace">
@@ -313,7 +358,10 @@ export function EmployerCandidates() {
               <h2 id="candidate-list-heading" tabIndex={-1}>
                 Danh sách ứng viên <span>{filtered.length}</span>
               </h2>
-              <p>Mở hồ sơ để xem thông tin ứng tuyển.</p>
+              <p>
+                Tin ứng tuyển luôn hiển thị cùng hồ sơ. Chọn một hồ sơ để xem
+                chi tiết.
+              </p>
             </div>
             <div className="ec-sort">
               <span className="ec-field-label">Sắp xếp</span>
@@ -363,7 +411,20 @@ export function EmployerCandidates() {
                       {application.title} · {application.experience_years} năm
                       kinh nghiệm
                     </small>
+                    <span className="ec-applied-job">
+                      <BriefcaseBusiness size={14} aria-hidden="true" />
+                      <span>
+                        <span className="ec-applied-label">
+                          Ứng tuyển vào tin
+                        </span>
+                        <span className="ec-applied-title">
+                          {jobs.find((job) => job.id === application.job_id)
+                            ?.title ?? "Tin không còn khả dụng"}
+                        </span>
+                      </span>
+                    </span>
                     <span className="ec-person-meta">
+                      Tin #{application.job_id} · Hồ sơ #{application.id} ·{" "}
                       {application.city} · Nộp{" "}
                       {dateLabel(application.created_at)}
                     </span>
@@ -389,40 +450,47 @@ export function EmployerCandidates() {
                     aria-hidden="true"
                   />
                 </button>
-                {selected?.id === application.id && (
-                  <div
-                    className="ec-candidate-details"
-                    id={`candidate-details-${application.id}`}
-                  >
-                    <div className="ec-skill-list">
-                      {application.skills.map((skill) => (
-                        <span key={skill}>{skill}</span>
-                      ))}
-                    </div>
-                    <p>
-                      <a href={`mailto:${application.email}`}>
-                        {application.email}
-                      </a>
-                      <span>{application.phone}</span>
-                    </p>
-                    <p>
-                      Ứng tuyển:{" "}
-                      {jobs.find((job) => job.id === application.job_id)?.title}
-                    </p>
-                    <div className="ec-inline-actions">
-                      <a className="ec-detail-link" href="#candidate-profile">
-                        Xem chi tiết hồ sơ →
-                      </a>
-                      <button
-                        type="button"
-                        className="ec-text-button"
-                        onClick={() => message(application)}
-                      >
-                        Nhắn tin
-                      </button>
-                    </div>
+                <div
+                  className="ec-candidate-details"
+                  id={`candidate-details-${application.id}`}
+                  hidden={selected?.id !== application.id}
+                >
+                  <div className="ec-skill-list">
+                    {application.skills.map((skill) => (
+                      <span key={skill}>{skill}</span>
+                    ))}
                   </div>
-                )}
+                  <p>
+                    <a href={`mailto:${application.email}`}>
+                      {application.email}
+                    </a>
+                    <span>{application.phone}</span>
+                  </p>
+                  <div className="ec-inline-actions">
+                    <a className="ec-detail-link" href="#candidate-profile">
+                      Xem chi tiết hồ sơ →
+                    </a>
+                    <Link
+                      className="ec-detail-link"
+                      href={url({ job_id: String(application.job_id) })}
+                    >
+                      Hồ sơ cùng tin
+                    </Link>
+                    <button
+                      type="button"
+                      className="ec-text-button"
+                      onClick={() => message(application)}
+                      disabled={
+                        application.status === "withdrawn" &&
+                        !conversations.some(
+                          (item) => item.application_id === application.id,
+                        )
+                      }
+                    >
+                      Nhắn tin
+                    </button>
+                  </div>
+                </div>
               </article>
             ))}
             {!visible.length && (
@@ -530,10 +598,13 @@ function CandidateProfile({
   onMessage: () => void;
   onPreview: () => void;
 }) {
-  const { setApplicationStatus, jobs } = useEmployer();
+  const { setApplicationStatus, jobs, today, conversations } = useEmployer();
   const [nextStatus, setNextStatus] = useState<string | null>(null);
   const withdrawn = application.status === "withdrawn";
   const job = jobs.find((item) => item.id === application.job_id);
+  const canMessage =
+    !withdrawn ||
+    conversations.some((item) => item.application_id === application.id);
   const analysis = application.analysis;
   // The demonstration PDF is intentionally allowlisted; never embed a supplied URL.
   const cvPath =
@@ -570,8 +641,39 @@ function CandidateProfile({
     >
       <section className="ep-panel ec-profile" id="candidate-profile">
         <div className="ec-profile-top">
-          <span className="ec-eyebrow">HỒ SƠ ĐANG XEM</span>
+          <span className="ec-eyebrow">HỒ SƠ #{application.id}</span>
           <ApplicationBadge status={application.status} />
+        </div>
+        <div
+          className="ec-application-context"
+          aria-label="Tin tuyển dụng đã ứng tuyển"
+        >
+          <span className="ec-applied-label">
+            <BriefcaseBusiness size={15} aria-hidden="true" />
+            Tin tuyển dụng đã ứng tuyển
+          </span>
+          <h3>{job?.title ?? "Tin không còn khả dụng"}</h3>
+          <div className="ec-application-meta">
+            <span>Tin #{application.job_id}</span>
+            {job && (
+              <span
+                className={`ec-active-job ec-job-${effectiveJobStatus(job, today)}`}
+              >
+                {JOB_STATUS_LABELS[effectiveJobStatus(job, today)]}
+              </span>
+            )}
+          </div>
+          <div className="ec-context-actions">
+            <Link href={`/employer/candidates?job_id=${application.job_id}`}>
+              Hồ sơ cùng tin
+            </Link>
+            {job && (
+              <Link href={`/employer/jobs/${job.id}/edit`}>
+                Xem / sửa tin
+                <ArrowUpRight size={12} aria-hidden="true" />
+              </Link>
+            )}
+          </div>
         </div>
         <div className="ec-profile-person">
           <span className="ec-avatar ec-avatar-large ec-avatar-blue">
@@ -602,11 +704,12 @@ function CandidateProfile({
           className="ep-button ep-button-blue ec-chat-button"
           type="button"
           onClick={onMessage}
+          disabled={!canMessage}
         >
           <MessageSquare size={15} aria-hidden="true" />
           Nhắn tin cho ứng viên
         </button>
-        {job?.status !== "active" && (
+        {job && effectiveJobStatus(job, today) !== "active" && (
           <p className="ec-cover-letter ec-closed-note">
             Tin tuyển dụng đã đóng / hết hạn. Bạn vẫn có thể xét duyệt hồ sơ và
             tiếp tục trao đổi.
@@ -625,13 +728,20 @@ function CandidateProfile({
             <FileText size={16} aria-hidden="true" />
           </div>
           {cvPath && !withdrawn ? (
-            <button
-              type="button"
-              className="ep-button ec-cv-open"
-              onClick={onPreview}
-            >
-              Xem CV ứng tuyển
-            </button>
+            <>
+              <button
+                type="button"
+                className="ep-button ec-cv-open"
+                onClick={onPreview}
+              >
+                Xem CV ứng tuyển
+              </button>
+              {!application.reviewed_at && (
+                <p className="ec-cv-note ec-cover-letter">
+                  Lần mở CV đầu tiên sẽ chuyển hồ sơ sang Đang xem xét.
+                </p>
+              )}
+            </>
           ) : (
             <p className="ec-cover-letter ec-cv-note">
               {withdrawn
@@ -681,12 +791,17 @@ function CandidateProfile({
       </section>
       <section
         className="ep-panel ec-ai-panel"
+        data-score={analysis ? scoreClass(analysis.match_score) : "pending"}
         aria-labelledby="ai-summary-heading"
       >
         <div className="ec-ai-title">
           <Sparkles size={16} aria-hidden="true" />
           <h2 id="ai-summary-heading">Đánh giá độ phù hợp</h2>
         </div>
+        <p className="ec-ai-job">
+          Đối chiếu với:{" "}
+          <strong>{job?.title ?? `Tin #${application.job_id}`}</strong>
+        </p>
         {analysis ? (
           <>
             <p className="ec-preview-label">Phân tích AI minh họa</p>

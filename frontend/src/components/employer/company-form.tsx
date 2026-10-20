@@ -2,7 +2,14 @@
 
 import "./employer-forms.css";
 
-import { useRef, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useId,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -45,6 +52,7 @@ const SIZES = [
   "501-1000 nhân viên",
   "1000+ nhân viên",
 ];
+const CompanyFormIdContext = createContext("");
 
 function CompanyField({
   name,
@@ -61,20 +69,21 @@ function CompanyField({
   full?: boolean;
   required?: boolean;
 }) {
+  const prefix = useContext(CompanyFormIdContext);
   return (
     <Field
       className={`ep-field${full ? " ep-field-full" : ""}`}
       data-invalid={!!error}
       aria-labelledby={
         name === "city" || name === "company_size"
-          ? `company-${name}-label`
+          ? `${prefix}-${name}-label`
           : undefined
       }
-      aria-describedby={error ? `company-${name}-error` : undefined}
+      aria-describedby={error ? `${prefix}-${name}-error` : undefined}
     >
       <FieldLabel
-        id={`company-${name}-label`}
-        htmlFor={`company-${name}`}
+        id={`${prefix}-${name}-label`}
+        htmlFor={`${prefix}-${name}`}
         onClick={(event) => {
           if (name === "city" || name === "company_size") {
             event.currentTarget
@@ -88,12 +97,13 @@ function CompanyField({
         {required && <span className="ep-required" aria-hidden="true" />}
       </FieldLabel>
       {children}
-      {error && <FieldError id={`company-${name}-error`}>{error}</FieldError>}
+      {error && <FieldError id={`${prefix}-${name}-error`}>{error}</FieldError>}
     </Field>
   );
 }
 
 export function CompanyForm() {
+  const prefix = useId();
   const { company, cities, user, logo, setLogo, saveCompany } = useEmployer();
   const [values, setValues] = useState<CompanyValues>(() => ({
     name: company.name,
@@ -105,6 +115,16 @@ export function CompanyForm() {
   }));
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [logoError, setLogoError] = useState("");
+  const [saved, setSaved] = useState(false);
+  const dirty = (Object.keys(values) as (keyof CompanyValues)[]).some(
+    (key) => (values[key] ?? "") !== (company[key] ?? ""),
+  );
+  const completed = [
+    values.name,
+    values.description,
+    values.address,
+    values.city,
+  ].filter((value) => value.trim()).length;
   const logoRequest = useRef(0);
   const logoInput = useRef<HTMLInputElement>(null);
   const logoUrl = useFileUrl(logo);
@@ -117,14 +137,14 @@ export function CompanyForm() {
   const change = (key: keyof CompanyValues, value: string) =>
     setValues((current) => ({ ...current, [key]: value }));
   const attributes = (name: keyof CompanyValues) => ({
-    id: `company-${name}`,
+    id: `${prefix}-${name}`,
     name,
     "aria-required": ["name", "city", "address", "description"].includes(name),
     "aria-invalid": !!errors[name],
-    "aria-describedby": errors[name] ? `company-${name}-error` : undefined,
+    "aria-describedby": errors[name] ? `${prefix}-${name}-error` : undefined,
   });
   return (
-    <>
+    <CompanyFormIdContext.Provider value={prefix}>
       <div className="ep-page-heading">
         <div>
           <h1>Hồ sơ công ty &amp; tài khoản</h1>
@@ -141,13 +161,13 @@ export function CompanyForm() {
         <div className="ep-profile-editor">
           <section
             className="ep-panel ep-profile-section"
-            id="company"
-            aria-labelledby="company-title"
+            id={`${prefix}-company`}
+            aria-labelledby={`${prefix}-company-title`}
           >
             <div className="ep-panel-heading">
               <div>
                 <span className="ep-section-label">01 / DOANH NGHIỆP</span>
-                <h2 id="company-title">Thông tin công ty</h2>
+                <h2 id={`${prefix}-company-title`}>Thông tin công ty</h2>
                 <p>
                   Thông tin hiển thị trên trang công ty và tin tuyển dụng của
                   bạn.
@@ -175,10 +195,12 @@ export function CompanyForm() {
                       behavior: "smooth",
                     });
                   });
-                } else
+                } else {
+                  setSaved(true);
                   toast.success(
                     "Đã lưu thông tin công ty trong phiên xem trước.",
                   );
+                }
               }}
             >
               <div className="ep-form-body">
@@ -197,14 +219,15 @@ export function CompanyForm() {
                     )}
                   </span>
                   <div className="ep-logo-control">
-                    <label htmlFor="company-logo">Logo công ty</label>
+                    <label htmlFor={`${prefix}-logo`}>Logo công ty</label>
                     <input
-                      id="company-logo"
+                      id={`${prefix}-logo`}
                       ref={logoInput}
                       hidden
                       type="file"
                       accept="image/png,image/jpeg,image/webp"
-                      aria-describedby="company-logo-hint"
+                      aria-invalid={!!logoError}
+                      aria-describedby={`${prefix}-logo-hint${logoError ? ` ${prefix}-logo-error` : ""}`}
                       onChange={async (event) => {
                         const input = event.target;
                         const file = input.files?.[0];
@@ -226,6 +249,7 @@ export function CompanyForm() {
                         size="sm"
                         onClick={() => logoInput.current?.click()}
                         aria-label="Chọn ảnh logo công ty"
+                        aria-describedby={`${prefix}-logo-hint${logoError ? ` ${prefix}-logo-error` : ""}`}
                       >
                         <Upload size={14} aria-hidden="true" />
                         Chọn ảnh logo
@@ -250,20 +274,32 @@ export function CompanyForm() {
                         </Button>
                       )}
                     </div>
-                    <small id="company-logo-hint">
+                    <small id={`${prefix}-logo-hint`}>
                       Ảnh PNG, JPG hoặc WebP, tối đa 2 MB. Nên dùng ảnh vuông.
                     </small>
                     {logoError && (
-                      <p className="ep-field-error" role="alert">
+                      <p
+                        id={`${prefix}-logo-error`}
+                        className="ep-field-error"
+                        role="alert"
+                      >
                         {logoError}
                       </p>
                     )}
                   </div>
                 </div>
-                <p className="ep-required-note">
-                  Cần hoàn tất tên, giới thiệu, địa chỉ và tỉnh / thành phố
-                  trước khi đăng tin đầu tiên.
-                </p>
+                <div className="ep-required-note ep-company-completion">
+                  <strong>Đã điền {completed}/4 thông tin bắt buộc</strong>
+                  <span>
+                    Tên, giới thiệu, địa chỉ và tỉnh / thành phố cần đầy đủ
+                    trước khi đăng tin đầu tiên.
+                  </span>
+                  <progress
+                    aria-label="Thông tin công ty bắt buộc đã điền"
+                    value={completed}
+                    max={4}
+                  />
+                </div>
                 <div className="ep-form-grid">
                   <CompanyField
                     name="name"
@@ -363,11 +399,25 @@ export function CompanyForm() {
                       Giới thiệu hoạt động, môi trường làm việc và những giá trị
                       mà doanh nghiệp hướng đến.
                     </small>
+                    <span className="ep-field-counter">
+                      {values.description.length.toLocaleString("vi-VN")} /
+                      15.000 ký tự
+                    </span>
                   </CompanyField>
                 </div>
               </div>
               <div className="ep-form-footer">
-                <span>Thông tin có dấu * là bắt buộc.</span>
+                <span
+                  className="ep-save-state"
+                  data-dirty={dirty}
+                  role="status"
+                >
+                  {dirty
+                    ? "Có thay đổi chưa lưu"
+                    : saved
+                      ? "Đã lưu thông tin trong phiên xem trước"
+                      : "Thông tin công ty hiện tại"}
+                </span>
                 <button className="ep-button ep-button-primary" type="submit">
                   <Save size={16} aria-hidden="true" />
                   Lưu thông tin công ty
@@ -377,13 +427,13 @@ export function CompanyForm() {
           </section>
           <section
             className="ep-panel ep-profile-section"
-            id="contact"
-            aria-labelledby="contact-title"
+            id={`${prefix}-contact`}
+            aria-labelledby={`${prefix}-contact-title`}
           >
             <div className="ep-panel-heading">
               <div>
                 <span className="ep-section-label">02 / TÀI KHOẢN</span>
-                <h2 id="contact-title">Thông tin người liên hệ</h2>
+                <h2 id={`${prefix}-contact-title`}>Thông tin người liên hệ</h2>
                 <p>Thông tin được xác minh từ tài khoản đăng nhập hiện tại.</p>
               </div>
               <UserRound aria-hidden="true" />
@@ -391,11 +441,15 @@ export function CompanyForm() {
             <div className="ep-form-body">
               <div className="ep-form-grid">
                 <CompanyField name="contact-name" label="Họ và tên">
-                  <Input id="company-contact-name" value={user.name} readOnly />
+                  <Input
+                    id={`${prefix}-contact-name`}
+                    value={user.name}
+                    readOnly
+                  />
                 </CompanyField>
                 <CompanyField name="contact-email" label="Email đăng nhập">
                   <Input
-                    id="company-contact-email"
+                    id={`${prefix}-contact-email`}
                     value={user.email}
                     readOnly
                   />
@@ -411,13 +465,13 @@ export function CompanyForm() {
           </section>
           <section
             className="ep-panel ep-profile-section"
-            id="password"
-            aria-labelledby="password-title"
+            id={`${prefix}-password`}
+            aria-labelledby={`${prefix}-password-title`}
           >
             <div className="ep-panel-heading">
               <div>
                 <span className="ep-section-label">03 / BẢO MẬT</span>
-                <h2 id="password-title">Đổi mật khẩu</h2>
+                <h2 id={`${prefix}-password-title`}>Đổi mật khẩu</h2>
                 <p>Cập nhật mật khẩu để bảo vệ tài khoản doanh nghiệp.</p>
               </div>
               <LockKeyhole aria-hidden="true" />
@@ -486,7 +540,7 @@ export function CompanyForm() {
               ["contact", "Thông tin người liên hệ"],
               ["password", "Đổi mật khẩu"],
             ].map(([anchor, label], index) => (
-              <a key={anchor} href={`#${anchor}`}>
+              <a key={anchor} href={`#${prefix}-${anchor}`}>
                 <span>0{index + 1}</span>
                 {label}
                 <ArrowDownRight size={14} aria-hidden="true" />
@@ -502,6 +556,6 @@ export function CompanyForm() {
           </div>
         </aside>
       </div>
-    </>
+    </CompanyFormIdContext.Provider>
   );
 }

@@ -150,10 +150,8 @@ export function EmployerMessages() {
     <>
       <div className="ep-page-heading">
         <div>
-          <h1>Mỗi cuộc trao đổi, một kết nối mới.</h1>
-          <p>
-            Trò chuyện với ứng viên đã ứng tuyển vào các vị trí của công ty.
-          </p>
+          <h1>Tin nhắn</h1>
+          <p>Trao đổi với ứng viên theo từng hồ sơ và vị trí tuyển dụng.</p>
         </div>
         <Button asChild variant="outline">
           <Link href="/employer/candidates">
@@ -260,6 +258,9 @@ export function EmployerMessages() {
                       )}
                     </span>
                     <span className="em-chat-position">{position?.title}</span>
+                    <span className="em-chat-thread-context">
+                      Tin #{item.job_id} · Hồ sơ #{person.id}
+                    </span>
                     <span className="em-chat-preview">
                       {last
                         ? `${last.sender_id === state.user.id ? "Bạn: " : ""}${last.message}`
@@ -310,24 +311,27 @@ export function EmployerMessages() {
                   <h2 id="em-chat-title" ref={heading} tabIndex={-1}>
                     {application.name}
                   </h2>
-                  <p>Ứng viên · {application.title}</p>
+                  <p>
+                    Hồ sơ #{application.id} · {application.title}
+                  </p>
                 </div>
                 <Link
                   href={`/employer/candidates?application=${application.id}`}
                   className="ep-text-link em-chat-profile"
                 >
-                  Xem hồ sơ
+                  Xem hồ sơ ứng tuyển
                   <ArrowUpRight size={16} aria-hidden="true" />
                 </Link>
               </header>
               <div className="em-chat-context">
                 <BriefcaseBusiness size={18} aria-hidden="true" />
                 <div>
-                  <Link href={`/employer/jobs/${job.id}/edit`}>
-                    {job.title}
-                  </Link>
+                  <span className="em-chat-context-label">
+                    Vị trí ứng tuyển
+                  </span>
+                  <strong>{job.title}</strong>
                   <p>
-                    Mã tin TV-{String(job.id).padStart(3, "0")} ·{" "}
+                    Tin #{job.id} · Hồ sơ #{application.id} ·{" "}
                     {APPLICATION_LABELS[application.status]}
                   </p>
                 </div>

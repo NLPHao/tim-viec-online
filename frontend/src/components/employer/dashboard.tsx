@@ -5,19 +5,33 @@ import {
   ArrowUpRight,
   BriefcaseBusiness,
   CheckCircle2,
+  Circle,
   Files,
   Lightbulb,
   Plus,
   ScanText,
   UserCheck,
-  UserRound,
+  MessageSquare,
 } from "lucide-react";
 import { useEmployer } from "./employer-provider";
-import { companyReady, effectiveJobStatus } from "@/features/employer/rules";
+import { effectiveJobStatus } from "@/features/employer/rules";
 import { EmployerJobs } from "./jobs";
+import "./employer-overview.css";
 export function EmployerDashboard() {
   const { company, jobs, applications, notifications, today } = useEmployer();
-  const ready = companyReady(company);
+  const companyChecks = [
+    { label: "Tên công ty", complete: !!company.name.trim() },
+    { label: "Giới thiệu công ty", complete: !!company.description.trim() },
+    { label: "Địa chỉ trụ sở", complete: !!company.address.trim() },
+    { label: "Tỉnh / thành phố", complete: !!company.city.trim() },
+  ];
+  const completed = companyChecks.filter((check) => check.complete).length;
+  const unseen = applications.filter((app) => app.status === "applied").length;
+  const unread = notifications.filter((item) => !item.read_at).length;
+  const featured = applications
+    .filter((app) => app.analysis && app.status !== "withdrawn")
+    .sort((a, b) => b.analysis!.match_score - a.analysis!.match_score)
+    .slice(0, 3);
   const metrics = [
     {
       label: "Tin đang tuyển",
@@ -44,17 +58,17 @@ export function EmployerDashboard() {
       icon: ScanText,
     },
     {
-      label: "Ứng viên trúng tuyển",
+      label: "Hồ sơ trúng tuyển",
       value: applications.filter((app) => app.status === "accepted").length,
       note: "Đã xác nhận tuyển dụng",
       icon: UserCheck,
     },
   ];
   return (
-    <>
+    <div className="ep-overview">
       <div className="ep-page-heading">
         <div>
-          <h1>Tuyển đúng người. Xây đúng đội ngũ.</h1>
+          <h1>Tổng quan tuyển dụng</h1>
           <p>
             Chào {company.name}, cùng theo dõi hoạt động tuyển dụng hôm nay.
           </p>
@@ -64,34 +78,38 @@ export function EmployerDashboard() {
           Đăng tin tuyển dụng
         </Link>
       </div>
-      <section className="ep-welcome">
-        <div>
-          <span className="ep-eyebrow">
-            Ít thời gian sàng lọc hơn · Nhiều kết nối phù hợp hơn
+      <section
+        className="ep-overview-actions"
+        aria-label="Công việc cần theo dõi"
+      >
+        <Link href="/employer/candidates?status=applied">
+          <Files className="ep-icon" aria-hidden="true" />
+          <span>
+            <strong>{unseen} hồ sơ mới</strong>
+            <small>Xem hồ sơ và bắt đầu xét duyệt</small>
           </span>
-          <h2>Ứng viên phù hợp, ngay trong tầm tay.</h2>
-          <p>
-            Xem điểm phù hợp CV, nhận diện thế mạnh và kỹ năng còn thiếu để chọn
-            người phù hợp với từng vị trí.
-          </p>
-          <Link href="/employer/candidates">
-            Khám phá hồ sơ ứng viên
-            <ArrowRight className="ep-icon" />
-          </Link>
-        </div>
-        <div className="ep-welcome-art" aria-hidden="true">
-          <div className="ep-paper">
-            <div className="ep-avatar">
-              <UserRound />
-            </div>
-            <div className="ep-paper-line" />
-            <div className="ep-paper-line" />
-            <div className="ep-paper-line" />
-          </div>
-          <div className="ep-art-score">
-            88<small>%</small>
-          </div>
-        </div>
+          <ArrowRight className="ep-icon" aria-hidden="true" />
+        </Link>
+        <Link href="/employer/notifications?read=unread">
+          <MessageSquare className="ep-icon" aria-hidden="true" />
+          <span>
+            <strong>{unread} thông báo chưa đọc</strong>
+            <small>Theo dõi cập nhật từ ứng viên</small>
+          </span>
+          <ArrowRight className="ep-icon" aria-hidden="true" />
+        </Link>
+        <Link href="/employer/company">
+          <BriefcaseBusiness className="ep-icon" aria-hidden="true" />
+          <span>
+            <strong>
+              {completed === 4
+                ? "Hồ sơ công ty đã sẵn sàng"
+                : "Hoàn thiện hồ sơ công ty"}
+            </strong>
+            <small>{completed}/4 thông tin bắt buộc đã bổ sung</small>
+          </span>
+          <ArrowRight className="ep-icon" aria-hidden="true" />
+        </Link>
       </section>
       <section className="ep-metrics" aria-label="Thống kê tuyển dụng">
         {metrics.map(({ label, value, note, icon: Icon }) => (
@@ -119,33 +137,60 @@ export function EmployerDashboard() {
                 <ArrowRight className="ep-icon" />
               </Link>
             </div>
-            {applications
-              .filter((app) => app.analysis && app.status !== "withdrawn")
-              .sort((a, b) => b.analysis!.match_score - a.analysis!.match_score)
-              .slice(0, 3)
-              .map((app) => (
-                <article className="ep-candidate" key={app.id}>
-                  <span className="ep-avatar">
-                    {app.name
-                      .split(" ")
-                      .slice(-2)
-                      .map((word) => word[0])
-                      .join("")}
-                  </span>
-                  <div className="ep-candidate-info">
-                    <strong>{app.name}</strong>
-                    <p>{app.title}</p>
-                  </div>
-                  <span className="ep-score">{app.analysis!.match_score}%</span>
+            {featured.map((app) => (
+              <article className="ep-candidate" key={app.id}>
+                <span className="ep-avatar">
+                  {app.name
+                    .split(" ")
+                    .slice(-2)
+                    .map((word) => word[0])
+                    .join("")}
+                </span>
+                <div className="ep-candidate-info">
+                  <strong>{app.name}</strong>
+                  <p>{app.title}</p>
                   <Link
-                    className="ep-text-link"
-                    href={`/employer/candidates?application=${app.id}`}
+                    className="ep-featured-job"
+                    href={`/employer/candidates?job_id=${app.job_id}`}
                   >
-                    Xem hồ sơ
-                    <ArrowRight className="ep-icon" />
+                    <BriefcaseBusiness className="ep-icon" aria-hidden="true" />
+                    Ứng tuyển:{" "}
+                    {jobs.find((job) => job.id === app.job_id)?.title ??
+                      "Tin tuyển dụng"}{" "}
+                    · #{app.job_id}
                   </Link>
-                </article>
-              ))}
+                </div>
+                <span
+                  className="ep-score"
+                  data-score-tone={
+                    app.analysis!.match_score >= 80
+                      ? "high"
+                      : app.analysis!.match_score >= 60
+                        ? "medium"
+                        : "low"
+                  }
+                  aria-label={`Điểm phù hợp với tin #${app.job_id}: ${app.analysis!.match_score}%`}
+                >
+                  {app.analysis!.match_score}%
+                </span>
+                <Link
+                  className="ep-text-link"
+                  href={`/employer/candidates?application=${app.id}`}
+                >
+                  Xem hồ sơ
+                  <ArrowRight className="ep-icon" />
+                </Link>
+              </article>
+            ))}
+            {!featured.length && (
+              <div className="ep-empty">
+                <strong>Chưa có hồ sơ được phân tích</strong>
+                <p>Các hồ sơ có kết quả phù hợp CV sẽ xuất hiện tại đây.</p>
+                <Link className="ep-button" href="/employer/candidates">
+                  Xem hồ sơ ứng viên
+                </Link>
+              </div>
+            )}
           </section>
         </div>
         <aside className="ep-aside">
@@ -164,27 +209,32 @@ export function EmployerDashboard() {
             </div>
             <div className="ep-progress-label">
               <span>Thông tin bắt buộc</span>
-              <strong>{ready ? "Hoàn tất" : "Cần bổ sung"}</strong>
+              <strong>{completed}/4 đã bổ sung</strong>
             </div>
             <div
               className="ep-progress"
               role="progressbar"
               aria-label="Mức hoàn thiện hồ sơ công ty"
-              aria-valuenow={ready ? 100 : 0}
+              aria-valuenow={completed * 25}
               aria-valuemin={0}
               aria-valuemax={100}
             >
-              <span style={{ width: ready ? "100%" : "0%" }} />
+              <span style={{ width: `${completed * 25}%` }} />
             </div>
             <ul className="ep-company-checks">
-              <li>
-                <CheckCircle2 className="ep-icon" />
-                Tên và giới thiệu công ty
-              </li>
-              <li>
-                <CheckCircle2 className="ep-icon" />
-                Địa chỉ và tỉnh / thành phố
-              </li>
+              {companyChecks.map((check) => (
+                <li key={check.label} data-complete={check.complete}>
+                  {check.complete ? (
+                    <CheckCircle2 className="ep-icon" aria-hidden="true" />
+                  ) : (
+                    <Circle className="ep-icon" aria-hidden="true" />
+                  )}
+                  <span>
+                    {check.label}
+                    {!check.complete && " · Chưa bổ sung"}
+                  </span>
+                </li>
+              ))}
             </ul>
             <Link className="ep-button" href="/employer/company">
               Cập nhật hồ sơ công ty
@@ -193,23 +243,32 @@ export function EmployerDashboard() {
           </section>
           <section className="ep-panel ep-activity">
             <h2>Hoạt động gần đây</h2>
-            {notifications.slice(0, 3).map((item) => (
-              <div className="ep-event" key={item.id}>
-                <span className="ep-event-icon">
-                  <Files className="ep-icon" />
-                </span>
-                <div>
-                  <p>
-                    <Link href={item.href}>{item.title}</Link>
-                  </p>
-                  <small>
-                    {new Date(item.created_at).toLocaleDateString("vi-VN", {
-                      timeZone: "Asia/Ho_Chi_Minh",
-                    })}
-                  </small>
+            {[...notifications]
+              .sort((a, b) => b.created_at.localeCompare(a.created_at))
+              .slice(0, 3)
+              .map((item) => (
+                <div className="ep-event" key={item.id}>
+                  <span className="ep-event-icon">
+                    <Files className="ep-icon" />
+                  </span>
+                  <div>
+                    <p>
+                      <Link href={item.href}>{item.title}</Link>
+                    </p>
+                    <small>
+                      {new Date(item.created_at).toLocaleDateString("vi-VN", {
+                        timeZone: "Asia/Ho_Chi_Minh",
+                      })}
+                    </small>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            {!notifications.length && (
+              <p className="ep-overview-no-activity">
+                Chưa có hoạt động mới. Hồ sơ và tin nhắn từ ứng viên sẽ xuất
+                hiện tại đây.
+              </p>
+            )}
             <Link className="ep-text-link" href="/employer/notifications">
               Xem tất cả thông báo
               <ArrowRight className="ep-icon" />
@@ -226,6 +285,6 @@ export function EmployerDashboard() {
           </section>
         </aside>
       </div>
-    </>
+    </div>
   );
 }

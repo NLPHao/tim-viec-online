@@ -36,3 +36,14 @@ Build/type check, lint; unit tests ràng buộc công ty/lương/ngày/trạng t
 Kết quả kiểm chứng: build và lint đạt; 54 unit test, 8 server mock-auth test, 25 E2E cho employer/navbar/account layout và 17 E2E xác thực qua API fixture đạt. Đã kiểm tra thêm 7 luồng xác thực mock trên trình duyệt. PDF demo được giữ dạng binary trong Git để tránh đổi CRLF làm sai byte offset.
 
 Tinh chỉnh UX: `SelectionField clearable={false}` dùng cho lựa chọn bắt buộc và sắp xếp, không tạo lựa chọn placeholder trùng với giá trị thật hoặc nút xóa. Bộ lọc vẫn giữ khả năng xóa độc lập. Trạng thái xét duyệt hiển thị giá trị thực, chỉ lưu khi xác nhận. Nút đọc tất cả nằm ngay đầu khung thông báo, cập nhật số chưa đọc và phản hồi kết quả; các ô số lượng/lương giữ phần đơn vị riêng trong layout. Build, lint và 23 E2E employer/selection/sorting đã qua sau thay đổi.
+
+## Hoàn thiện ngữ cảnh tuyển dụng và cách hiển thị
+
+- Mỗi dòng hồ sơ luôn hiển thị tên tin đã ứng tuyển, mã tin và mã đơn, phân biệt với chức danh cá nhân. Chi tiết hồ sơ và phần AI nhắc rõ tin đối chiếu; có liên kết lọc hồ sơ cùng tin và chỉnh sửa đúng tin thuộc employer. Không mở nhầm dữ liệu việc làm công khai từ ID mẫu trùng nhau.
+- Bộ lọc trên mobile có thể thu gọn để ưu tiên danh sách; desktop giữ bộ lọc mở. Phân trang dùng component chung. Tin đóng/hết hạn vẫn giữ hồ sơ, CV và hội thoại; chỉ ngăn mở hội thoại mới cho đơn đã rút, hội thoại cũ vẫn được giữ.
+- Dashboard ưu tiên tác vụ thật (hồ sơ chưa xem, thông báo chưa đọc, tiến độ bốn trường công ty) và ngữ cảnh tin trên hồ sơ nổi bật, loại bỏ điểm 88% trang trí. Danh sách tin phân biệt tổng hồ sơ và hồ sơ chưa xem, dùng hành động có nhãn.
+- Form công ty có tiến độ, trạng thái chưa lưu và ID riêng; form sửa tin có mã/tiêu đề/trạng thái, bộ đếm nội dung và xem trước cách hiển thị lương. Lịch giới hạn theo chiều cao còn lại để thao tác được ở gần mép màn hình.
+- Tin nhắn và thông báo hiển thị tin/mã hồ sơ tương ứng. Thông báo thứ tư đã có hội thoại/tin nhắn mẫu đúng ứng viên; chuông hiển thị số chưa đọc. Giữ phân biệt đã đọc/chưa đọc và thao tác đọc tất cả.
+- Tăng độ rõ chữ, kích thước vùng bấm và bố cục mobile trên toàn bộ employer, giữ màu/font/layout chung. Không thay đổi enum nghiệp vụ hoặc bổ sung backend, AI hay WebSocket thật.
+
+Kiểm chứng đợt hoàn thiện: build/typecheck, lint, 56 unit test và 20 E2E employer/ngữ cảnh ứng tuyển đạt. E2E kiểm tra liên kết đúng ứng viên–tin–hội thoại, badge chưa đọc, bộ lọc mobile, quy tắc duyệt CV, giữ hồ sơ khi đóng tin và responsive/axe cho toàn bộ trang ở 360/768/1440px. Đã xem ảnh thực tế của dashboard và danh sách ứng viên desktop/mobile.

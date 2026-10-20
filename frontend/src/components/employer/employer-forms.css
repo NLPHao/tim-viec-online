@@ -30,7 +30,7 @@
 }
 .employer-page .ep-section-label {
   display: block;
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 600;
   letter-spacing: 1.3px;
   color: var(--ep-muted);
@@ -52,13 +52,13 @@
   flex-direction: column;
   gap: 7px;
   min-width: 0;
-  font-size: 12px;
+  font-size: 13px;
 }
 .employer-page .ep-field-full {
   grid-column: 1/-1;
 }
 .employer-page .ep-field > [data-slot="field-label"] {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   line-height: 1.6;
 }
@@ -67,7 +67,7 @@
 .employer-page .ep-input-suffix input {
   width: 100%;
   min-width: 0;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.6;
   border: 1px solid var(--ep-border);
   border-radius: 6px;
@@ -90,13 +90,13 @@
 }
 .employer-page .ep-field small {
   color: var(--ep-muted);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.8;
 }
 .employer-page .ep-field [data-slot="field-error"],
 .employer-page .ep-field-error {
   color: #bc2440;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.7;
   margin: 0;
 }
@@ -114,7 +114,7 @@
   min-height: 43px;
   height: auto;
   border-radius: 6px;
-  font-size: 12px;
+  font-size: 13px;
 }
 .employer-page .ep-logo-row {
   display: flex;
@@ -148,14 +148,14 @@
   min-width: 0;
 }
 .employer-page .ep-logo-control label {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
 }
 .employer-page .ep-logo-control input {
   width: 100%;
   min-width: 0;
   max-width: 330px;
-  font-size: 11px;
+  font-size: 12px;
   height: auto;
   padding: 0;
   border: 0;
@@ -173,7 +173,7 @@
   cursor: pointer;
 }
 .employer-page .ep-logo-control small {
-  font-size: 10px;
+  font-size: 12px;
   color: var(--ep-muted);
 }
 .employer-page .ep-logo-picker-row {
@@ -191,7 +191,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--ep-muted);
 }
 .employer-page .ep-required-note {
@@ -200,8 +200,104 @@
   padding: 11px 13px;
   margin: 0 0 24px;
   color: var(--ep-navy);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.8;
+}
+.employer-page .ep-company-completion {
+  display: grid;
+  gap: 5px;
+}
+.employer-page .ep-company-completion strong {
+  font-size: 13px;
+}
+.employer-page .ep-company-completion progress {
+  display: block;
+  width: 100%;
+  height: 5px;
+  margin-top: 6px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 999px;
+  appearance: none;
+  background: var(--ep-border);
+  accent-color: var(--ep-blue);
+}
+.employer-page .ep-company-completion progress::-webkit-progress-bar {
+  background: var(--ep-border);
+}
+.employer-page .ep-company-completion progress::-webkit-progress-value {
+  background: var(--ep-blue);
+  border-radius: 999px;
+}
+.employer-page .ep-company-completion progress::-moz-progress-bar {
+  background: var(--ep-blue);
+  border-radius: 999px;
+}
+.employer-page .ep-save-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  line-height: 1.7;
+}
+.employer-page .ep-save-state::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--ep-muted);
+}
+.employer-page .ep-save-state[data-dirty="true"]::before {
+  background: var(--ep-orange);
+}
+.employer-page .ep-field-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+}
+.employer-page .ep-field-counter {
+  display: block;
+  text-align: right;
+  align-self: flex-end;
+  color: var(--ep-muted);
+  font-size: 11px;
+  line-height: 1.7;
+  font-variant-numeric: tabular-nums;
+}
+.employer-page .ep-edit-job-context {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--ep-muted);
+  max-width: 720px;
+}
+.employer-page .ep-edit-job-context strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--ep-text);
+  font-weight: 500;
+}
+.employer-page .ep-salary-preview {
+  display: grid;
+  gap: 7px;
+  padding: 16px 18px;
+  border: 1px solid var(--ep-border);
+  border-radius: 8px;
+  background: var(--ep-bg);
+}
+.employer-page .ep-salary-preview > span {
+  color: var(--ep-muted);
+  font-size: 12px;
+}
+.employer-page .ep-salary-preview > strong {
+  color: var(--ep-navy);
+  font-size: 15px;
+  line-height: 1.7;
 }
 .employer-page .ep-form-footer {
   display: flex;
@@ -212,7 +308,7 @@
   border-top: 1px solid var(--ep-border);
 }
 .employer-page .ep-form-footer > span {
-  font-size: 10px;
+  font-size: 12px;
   color: var(--ep-muted);
 }
 .employer-page .ep-account-meta {
@@ -224,7 +320,7 @@
   border-top: 1px solid var(--ep-border);
   padding-top: 20px;
   color: var(--ep-muted);
-  font-size: 11px;
+  font-size: 12px;
 }
 .employer-page .ep-company-preview {
   padding: 24px 22px;
@@ -253,7 +349,7 @@
   align-items: flex-start;
   gap: 9px;
   color: var(--ep-muted);
-  font-size: 10px;
+  font-size: 12px;
   overflow-wrap: anywhere;
 }
 .employer-page .ep-company-preview li svg {
@@ -268,7 +364,7 @@
   padding: 22px;
 }
 .employer-page .ep-form-outline h2 {
-  font-size: 12px;
+  font-size: 13px;
   margin: 0 0 13px;
 }
 .employer-page .ep-form-outline a {
@@ -277,14 +373,14 @@
   gap: 9px;
   padding: 12px 0;
   color: var(--ep-muted);
-  font-size: 10px;
+  font-size: 12px;
 }
 .employer-page .ep-form-outline a + a {
   border-top: 1px solid var(--ep-border);
 }
 .employer-page .ep-form-outline a > span {
   color: var(--ep-navy);
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 600;
 }
 .employer-page .ep-form-outline a > svg {
@@ -306,7 +402,7 @@
 }
 .employer-page .ep-form-tip p {
   margin: 0;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.9;
 }
 .employer-page .ep-job-layout {
@@ -320,7 +416,7 @@
 }
 .employer-page .ep-job-required-note {
   margin: 0 0 14px;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--ep-muted);
 }
 .employer-page .ep-job-section {
@@ -342,7 +438,7 @@
   border-radius: 7px;
   background: var(--ep-blue-soft);
   color: var(--ep-navy);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
 }
 .employer-page .ep-job-section-heading h2 {
@@ -353,7 +449,7 @@
 .employer-page .ep-job-section-heading p {
   margin: 0;
   color: var(--ep-muted);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.8;
 }
 .employer-page .ep-job-fields {
@@ -395,7 +491,7 @@
   flex-shrink: 0;
   padding-right: 13px;
   color: var(--ep-muted);
-  font-size: 10px;
+  font-size: 12px;
   white-space: nowrap;
   pointer-events: none;
 }
@@ -407,12 +503,12 @@
 }
 .employer-page .ep-job-skills legend {
   padding: 0;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
 }
 .employer-page .ep-job-skills > p {
   margin: 4px 0 12px;
-  font-size: 10px;
+  font-size: 12px;
   color: var(--ep-muted);
 }
 .employer-page .ep-skill-options {
@@ -428,7 +524,7 @@
   border: 1px solid var(--ep-border);
   border-radius: 5px;
   color: var(--ep-muted);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
   cursor: pointer;
 }
@@ -440,7 +536,7 @@
 .employer-page .ep-salary-hint {
   margin: 0;
   color: var(--ep-muted);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.8;
 }
 .employer-page .ep-job-form-footer {
@@ -451,12 +547,12 @@
   padding: 20px 24px;
 }
 .employer-page .ep-job-form-footer strong {
-  font-size: 12px;
+  font-size: 13px;
 }
 .employer-page .ep-job-form-footer p {
   margin: 4px 0 0;
   color: var(--ep-muted);
-  font-size: 10px;
+  font-size: 12px;
 }
 .employer-page .ep-form-actions {
   display: flex;
@@ -483,7 +579,7 @@
   align-items: center;
   margin: 14px 0;
   color: var(--ep-muted);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.9;
 }
 .employer-page .ep-writing-guide {
@@ -505,11 +601,11 @@
 }
 .employer-page .ep-writing-guide strong {
   color: var(--ep-navy);
-  font-size: 11px;
+  font-size: 12px;
 }
 .employer-page .ep-writing-guide p {
   margin: 4px 0 0;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.9;
   color: var(--ep-muted);
 }
@@ -543,12 +639,15 @@
   border-radius: 6px;
   background: #fff;
   padding: 11px 12px;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--ep-text);
   cursor: pointer;
 }
 .ep-deadline-calendar {
   width: min(340px, calc(100vw - 24px));
+  max-height: var(--radix-popover-content-available-height);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 16px;
   border-radius: 12px;
   background: #fff;
@@ -563,7 +662,7 @@
   display: block;
   padding-top: 10px;
   border-top: 1px solid #e5eaf1;
-  font-size: 11px;
+  font-size: 12px;
   color: #64748b;
 }
 .ep-deadline-calendar [data-slot="calendar"] {
@@ -574,9 +673,16 @@
 .ep-calendar-select .selection-trigger {
   height: 34px;
   min-height: 34px;
-  font-size: 12px;
+  font-size: 13px;
   gap: 7px;
   padding: 6px 10px;
+}
+@media (min-width: 1201px) and (min-height: 960px) {
+  .employer-page .ep-job-aside,
+  .employer-page .ep-profile-aside {
+    position: sticky;
+    top: 96px;
+  }
 }
 @media (max-width: 1200px) {
   .employer-page .ep-profile-workspace,

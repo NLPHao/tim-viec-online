@@ -8,15 +8,15 @@ import {
   ArrowRight,
   Bell,
   BellRing,
+  BriefcaseBusiness,
   CheckCheck,
   FilePlus2,
   MessageSquare,
-  MessagesSquare,
   UserMinus,
 } from "lucide-react";
 import { Pagination } from "@/components/layout/pagination";
 import { pageSlice } from "@/features/candidate-workspace/rules";
-import { vietnamToday } from "@/features/jobs/formatters";
+import { isJobOpen, vietnamToday } from "@/features/jobs/formatters";
 import { Button } from "@/modules/cores/shadcn/components/ui/button";
 import { useEmployer } from "./employer-provider";
 import "./employer-notifications.css";
@@ -40,6 +40,20 @@ export function EmployerNotifications() {
         ? "read"
         : "all";
   const unread = state.notifications.filter((item) => !item.read_at).length;
+  const newApplications = state.applications.filter(
+    (item) => item.status === "applied",
+  ).length;
+  const unreadConversations = state.conversations.filter((conversation) =>
+    state.messages.some(
+      (message) =>
+        message.conversation_id === conversation.id &&
+        message.sender_id !== state.user.id &&
+        !message.is_read,
+    ),
+  ).length;
+  const openJobs = state.jobs.filter((job) =>
+    isJobOpen(job, state.today),
+  ).length;
   const sorted = [...state.notifications].sort((a, b) =>
     b.created_at.localeCompare(a.created_at),
   );
@@ -56,8 +70,8 @@ export function EmployerNotifications() {
     <>
       <div className="ep-page-heading">
         <div>
-          <h1>Không bỏ lỡ một cơ hội kết nối.</h1>
-          <p>Cập nhật hồ sơ mới và những trao đổi quan trọng với ứng viên.</p>
+          <h1>Thông báo</h1>
+          <p>Theo dõi hồ sơ mới và tin nhắn theo từng vị trí tuyển dụng.</p>
         </div>
       </div>
       <div className="em-not-layout">
@@ -138,12 +152,48 @@ export function EmployerNotifications() {
                 : item.type === "withdrawn"
                   ? UserMinus
                   : FilePlus2;
-            const href =
+            const safeHref =
               /^\/employer\/(?:candidates|messages)(?:\?[^#]*)?$/.test(
                 item.href,
               )
                 ? item.href
                 : "/employer/candidates";
+            const target = new URL(safeHref, "https://workspace.invalid");
+            const conversation = state.conversations.find(
+              (entry) =>
+                entry.employer_id === state.user.id &&
+                String(entry.id) === target.searchParams.get("conversation"),
+            );
+            const application = state.applications.find(
+              (entry) =>
+                String(entry.id) === target.searchParams.get("application") ||
+                (entry.id === conversation?.application_id &&
+                  entry.job_id === conversation.job_id &&
+                  entry.candidate_user_id === conversation.candidate_id),
+            );
+            const job = state.jobs.find(
+              (entry) =>
+                entry.id === application?.job_id &&
+                entry.company_id === state.company.id,
+            );
+            const href = job ? safeHref : "/employer/candidates";
+            const daysAgo = Math.round(
+              (Date.parse(`${state.today}T00:00:00+07:00`) -
+                Date.parse(`${notificationDay}T00:00:00+07:00`)) /
+                86400000,
+            );
+            const relativeTime =
+              daysAgo === 0
+                ? `Hôm nay, ${new Intl.DateTimeFormat("vi-VN", {
+                    timeZone: "Asia/Ho_Chi_Minh",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  }).format(new Date(item.created_at))}`
+                : daysAgo === 1
+                  ? "Hôm qua"
+                  : daysAgo > 1
+                    ? `${daysAgo} ngày trước`
+                    : date(item.created_at, true);
             return (
               <Fragment key={item.id}>
                 {(index === 0 ||
@@ -172,6 +222,20 @@ export function EmployerNotifications() {
                       )}
                     </div>
                     <p>{item.content}</p>
+                    {job && application && (
+                      <div className="em-not-job-context">
+                        <BriefcaseBusiness size={16} aria-hidden="true" />
+                        <div>
+                          <strong>{job.title}</strong>
+                          <span>
+                            Tin #{job.id} · Hồ sơ #{application.id}
+                            {!isJobOpen(job, state.today)
+                              ? " · Tin đã đóng / hết hạn"
+                              : ""}
+                          </span>
+                        </div>
+                      </div>
+                    )}
                     <div className="em-not-footer">
                       {!item.read_at && (
                         <button
@@ -181,8 +245,11 @@ export function EmployerNotifications() {
                           Đánh dấu đã đọc
                         </button>
                       )}
-                      <time dateTime={item.created_at}>
-                        {date(item.created_at, true)}
+                      <time
+                        dateTime={item.created_at}
+                        title={date(item.created_at, true)}
+                      >
+                        {relativeTime}
                       </time>
                       <Link
                         className="ep-text-link"
@@ -216,11 +283,8 @@ export function EmployerNotifications() {
             <span className="em-not-aside-icon">
               <BellRing aria-hidden="true" />
             </span>
-            <h2>Theo sát từng bước tuyển dụng</h2>
-            <p>
-              Tất cả cập nhật về hồ sơ và tin nhắn của ứng viên được tập trung
-              tại đây.
-            </p>
+            <h2>Tóm tắt thông báo</h2>
+            <p>Số thông báo chưa đọc theo từng loại cập nhật.</p>
             <dl>
               {[
                 ["new_applicant", "Hồ sơ mới"],
@@ -231,24 +295,31 @@ export function EmployerNotifications() {
                   <dt>{label}</dt>
                   <dd>
                     {
-                      state.notifications.filter((item) => item.type === type)
-                        .length
+                      state.notifications.filter(
+                        (item) => item.type === type && !item.read_at,
+                      ).length
                     }
                   </dd>
                 </div>
               ))}
             </dl>
           </section>
-          <section className="em-not-guide">
-            <MessagesSquare aria-hidden="true" />
-            <h2>Phản hồi sớm, kết nối tốt hơn.</h2>
-            <p>
-              Một lời phản hồi rõ ràng giúp ứng viên chủ động chuẩn bị cho bước
-              tiếp theo.
-            </p>
+          <section className="ep-panel em-not-summary em-not-work-summary">
+            <h2>Cần theo dõi</h2>
+            <Link href="/employer/candidates?status=applied">
+              <span>Hồ sơ mới chưa xem CV</span>
+              <strong>{newApplications}</strong>
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
             <Link href="/employer/messages">
-              Đến hộp thư ứng viên
-              <ArrowRight size={17} aria-hidden="true" />
+              <span>Hội thoại chưa đọc</span>
+              <strong>{unreadConversations}</strong>
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+            <Link href="/employer/jobs?status=active">
+              <span>Tin đang tuyển</span>
+              <strong>{openJobs}</strong>
+              <ArrowRight size={16} aria-hidden="true" />
             </Link>
           </section>
         </aside>

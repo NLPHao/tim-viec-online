@@ -11,6 +11,7 @@ import { normalizeSearch } from "@/features/jobs/query";
 import { formatSalary } from "@/features/jobs/formatters";
 import { SelectionField } from "@/components/forms/selection-field";
 import { Pagination } from "@/components/layout/pagination";
+import "./employer-overview.css";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -80,9 +81,9 @@ export function EmployerJobs({ compact = false }: { compact?: boolean }) {
   const params = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
-  const status = params.get("status") ?? "all";
-  const keyword = params.get("keyword") ?? "";
-  const sort = params.get("sort") ?? "updated";
+  const status = compact ? "all" : (params.get("status") ?? "all");
+  const keyword = compact ? "" : (params.get("keyword") ?? "");
+  const sort = compact ? "updated" : (params.get("sort") ?? "updated");
   const setQuery = (key: string, value: string) => {
     const next = new URLSearchParams(params);
     if (value) next.set(key, value);
@@ -92,6 +93,9 @@ export function EmployerJobs({ compact = false }: { compact?: boolean }) {
   };
   const count = (id: number) =>
     applications.filter((app) => app.job_id === id).length;
+  const newCount = (id: number) =>
+    applications.filter((app) => app.job_id === id && app.status === "applied")
+      .length;
   const filtered = jobs
     .filter(
       (job) =>
@@ -139,66 +143,73 @@ export function EmployerJobs({ compact = false }: { compact?: boolean }) {
           </Link>
         </div>
       )}
-      <section className="ep-panel" aria-label="Danh sách tin tuyển dụng">
+      <section
+        className={`ep-panel ep-owned-jobs${compact ? " ep-owned-jobs-compact" : ""}`}
+        aria-label="Danh sách tin tuyển dụng"
+      >
         {compact && (
           <div className="ep-panel-heading">
             <div>
               <h2>Tin tuyển dụng của bạn</h2>
-              <p>Quản lý tin đăng và theo dõi hồ sơ theo từng vị trí.</p>
+              <p>Các tin cập nhật gần đây và hồ sơ cần xử lý.</p>
             </div>
             <Link className="ep-text-link" href="/employer/jobs">
               Xem tất cả
             </Link>
           </div>
         )}
-        <nav className="ep-tabs" aria-label="Lọc trạng thái tin tuyển dụng">
-          {[["all", "Tất cả"], ...Object.entries(JOB_STATUS_LABELS)].map(
-            ([key, label]) => (
-              <button
-                className="ep-tab"
-                key={key}
-                type="button"
-                aria-pressed={status === key}
-                data-active={status === key}
-                onClick={() => setQuery("status", key)}
-              >
-                {label}
-                <span>
-                  {key === "all"
-                    ? jobs.length
-                    : jobs.filter(
-                        (job) => effectiveJobStatus(job, today) === key,
-                      ).length}
-                </span>
-              </button>
-            ),
-          )}
-        </nav>
-        <div className="ep-filters">
-          <label className="ep-search">
-            <Search className="ep-icon" />
-            <input
-              type="search"
-              aria-label="Tìm tin tuyển dụng"
-              placeholder="Tìm theo vị trí hoặc mã tin..."
-              value={keyword}
-              onChange={(event) => setQuery("keyword", event.target.value)}
-            />
-          </label>
-          <SelectionField
-            name="job_sort"
-            label="Sắp xếp tin tuyển dụng"
-            placeholder="Cập nhật mới nhất"
-            value={sort}
-            clearable={false}
-            onValueChange={(value) => setQuery("sort", value || "updated")}
-            options={[
-              { value: "updated", label: "Cập nhật mới nhất" },
-              { value: "applications", label: "Nhiều hồ sơ nhất" },
-              { value: "deadline", label: "Hạn nộp gần nhất" },
-            ]}
-          />
-        </div>
+        {!compact && (
+          <>
+            <nav className="ep-tabs" aria-label="Lọc trạng thái tin tuyển dụng">
+              {[["all", "Tất cả"], ...Object.entries(JOB_STATUS_LABELS)].map(
+                ([key, label]) => (
+                  <button
+                    className="ep-tab"
+                    key={key}
+                    type="button"
+                    aria-pressed={status === key}
+                    data-active={status === key}
+                    onClick={() => setQuery("status", key)}
+                  >
+                    {label}
+                    <span>
+                      {key === "all"
+                        ? jobs.length
+                        : jobs.filter(
+                            (job) => effectiveJobStatus(job, today) === key,
+                          ).length}
+                    </span>
+                  </button>
+                ),
+              )}
+            </nav>
+            <div className="ep-filters">
+              <label className="ep-search">
+                <Search className="ep-icon" />
+                <input
+                  type="search"
+                  aria-label="Tìm tin tuyển dụng"
+                  placeholder="Tìm theo vị trí hoặc mã tin..."
+                  value={keyword}
+                  onChange={(event) => setQuery("keyword", event.target.value)}
+                />
+              </label>
+              <SelectionField
+                name="job_sort"
+                label="Sắp xếp tin tuyển dụng"
+                placeholder="Cập nhật mới nhất"
+                value={sort}
+                clearable={false}
+                onValueChange={(value) => setQuery("sort", value || "updated")}
+                options={[
+                  { value: "updated", label: "Cập nhật mới nhất" },
+                  { value: "applications", label: "Nhiều hồ sơ nhất" },
+                  { value: "deadline", label: "Hạn nộp gần nhất" },
+                ]}
+              />
+            </div>
+          </>
+        )}
         {visible.length ? (
           <table className="ep-job-table">
             <caption className="sr-only">
@@ -220,6 +231,7 @@ export function EmployerJobs({ compact = false }: { compact?: boolean }) {
                       <Link
                         className="ep-job-title"
                         href={`/employer/jobs/${job.id}/edit`}
+                        aria-label={`Xem/sửa tin ${job.title}`}
                       >
                         {job.title}
                       </Link>
@@ -233,11 +245,22 @@ export function EmployerJobs({ compact = false }: { compact?: boolean }) {
                     </td>
                     <td>
                       <Link
-                        className="ep-job-count ep-application-count"
+                        className="ep-job-count"
                         href={`/employer/candidates?job_id=${job.id}`}
                       >
-                        {count(job.id)}
+                        <span className="ep-application-count">
+                          {count(job.id)}
+                        </span>{" "}
+                        <span>hồ sơ</span>
                       </Link>
+                      {newCount(job.id) > 0 && (
+                        <Link
+                          className="ep-job-new"
+                          href={`/employer/candidates?job_id=${job.id}&status=applied`}
+                        >
+                          {newCount(job.id)} chưa xem
+                        </Link>
+                      )}
                     </td>
                     <td>
                       <span className={`ep-badge ep-badge-${status} ep-status`}>
@@ -247,14 +270,17 @@ export function EmployerJobs({ compact = false }: { compact?: boolean }) {
                         <Link
                           href={`/employer/candidates?job_id=${job.id}`}
                           aria-label={`Xem hồ sơ cho ${job.title}`}
+                          className="ep-job-review"
                         >
-                          <Eye size={15} />
+                          <Eye size={15} aria-hidden="true" />
+                          Xem hồ sơ
                         </Link>
                         <Link
                           href={`/employer/jobs/${job.id}/edit`}
                           aria-label={`Sửa tin ${job.title}`}
                         >
-                          <Pencil size={15} />
+                          <Pencil size={15} aria-hidden="true" />
+                          Sửa tin
                         </Link>
                         <StatusAction job={job} />
                       </div>
@@ -266,15 +292,33 @@ export function EmployerJobs({ compact = false }: { compact?: boolean }) {
           </table>
         ) : (
           <div className="ep-empty">
-            <strong>Không tìm thấy tin tuyển dụng</strong>
-            <p>Thử một từ khóa hoặc trạng thái khác.</p>
-            <button
-              type="button"
-              className="ep-button"
-              onClick={() => router.push(pathname, { scroll: false })}
-            >
-              Xóa bộ lọc
-            </button>
+            <BriefcaseBusiness className="ep-icon" aria-hidden="true" />
+            <strong>
+              {jobs.length
+                ? "Không tìm thấy tin tuyển dụng"
+                : "Chưa có tin tuyển dụng"}
+            </strong>
+            <p>
+              {jobs.length
+                ? "Thử một từ khóa hoặc trạng thái khác."
+                : "Tạo tin đầu tiên để giới thiệu cơ hội và nhận hồ sơ ứng tuyển."}
+            </p>
+            {jobs.length ? (
+              <button
+                type="button"
+                className="ep-button"
+                onClick={() => router.push(pathname, { scroll: false })}
+              >
+                Xóa bộ lọc
+              </button>
+            ) : (
+              <Link
+                className="ep-button ep-button-primary"
+                href="/employer/jobs/new"
+              >
+                Đăng tin tuyển dụng
+              </Link>
+            )}
           </div>
         )}
         {!compact && (
@@ -286,7 +330,11 @@ export function EmployerJobs({ compact = false }: { compact?: boolean }) {
           />
         )}
         <div className="ep-table-footer">
-          <span role="status">{filtered.length} tin tuyển dụng</span>
+          <span role="status">
+            {compact
+              ? `${visible.length}/${jobs.length} tin tuyển dụng`
+              : `${filtered.length ? (page - 1) * size + 1 : 0}–${Math.min(page * size, filtered.length)} / ${filtered.length} tin tuyển dụng`}
+          </span>
           <span>Hồ sơ vẫn được lưu khi đóng tin</span>
         </div>
       </section>
