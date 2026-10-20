@@ -210,9 +210,11 @@ export function HeaderControls({
           </div>
         </PopoverContent>
       </Popover>
-      <Link className="header-pill header-employer" href={employerUrl}>
-        Dành cho Nhà tuyển dụng
-      </Link>
+      {!pendingSession && user?.role !== "candidate" && (
+        <Link className="header-pill header-employer" href={employerUrl}>
+          Dành cho Nhà tuyển dụng
+        </Link>
+      )}
       <div className="header-account-group">
         <Sheet open={notificationsOpen} onOpenChange={setNotificationsOpen}>
           <SheetTrigger asChild>
