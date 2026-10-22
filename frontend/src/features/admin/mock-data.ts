@@ -517,6 +517,28 @@ export function formatNumber(val: number): string {
   return new Intl.NumberFormat("vi-VN").format(val);
 }
 
+export function formatSalary(job: AdminJob): string {
+  if (job.is_negotiable) return "Thỏa thuận";
+  if (job.salary_min && job.salary_max) {
+    return `${formatNumber(job.salary_min)} – ${formatNumber(job.salary_max)} VNĐ`;
+  }
+  if (job.salary_min) return `Từ ${formatNumber(job.salary_min)} VNĐ`;
+  return "Chưa có thông tin";
+}
+
+export const JOB_TYPE_LABELS: Record<string, string> = {
+  full_time: "Toàn thời gian",
+  part_time: "Bán thời gian",
+  remote: "Từ xa",
+  internship: "Thực tập",
+};
+
+export const JOB_STATUS_LABELS: Record<string, string> = {
+  active: "Đang tuyển",
+  closed: "Đã đóng",
+  expired: "Hết hạn",
+};
+
 export function getInitials(name: string): string {
   if (!name) return "";
   const parts = name.trim().split(/\s+/);

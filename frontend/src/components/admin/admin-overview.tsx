@@ -513,7 +513,7 @@ export function AdminOverview() {
                     <div>
                       <Link
                         className="ap-cell-title font-medium hover:text-blue-600"
-                        href={`/admin/jobs?job=${job.id}`}
+                        href={`/admin/jobs/${job.id}`}
                       >
                         {job.title}
                       </Link>
@@ -523,7 +523,7 @@ export function AdminOverview() {
                       </p>
                       <Link
                         className="ap-text-link"
-                        href={`/admin/jobs?job=${job.id}`}
+                        href={`/admin/jobs/${job.id}`}
                       >
                         Kiểm tra nội dung{" "}
                         <ArrowRight className="ap-icon" aria-hidden="true" />

@@ -129,10 +129,10 @@ body.admin-page:has(dialog[open]) { overflow: hidden; }
 .ap-chart-points { fill: var(--ap-white); stroke: var(--ap-green); stroke-width: 2; }
 .ap-chart-footnote { color: var(--ap-muted); font-size: 10px; margin-top: 15px !important; }
 .ap-segments { display: flex; flex-wrap: wrap; gap: 4px; padding: 16px 24px 0; }
-.ap-segments a { display: inline-flex; align-items: center; gap: 7px; color: var(--ap-muted); border: 1px solid transparent; padding: 8px 12px; border-radius: 6px; font-size: 11px; }
-.ap-segments a:hover { background: var(--ap-subtle); }
-.ap-segments a[aria-current] { color: var(--ap-navy); background: var(--ap-blue-soft); border-color: var(--ap-line); font-weight: 600; }
-.ap-segments a span { background: var(--ap-white); padding: 0 5px; border-radius: 3px; font-size: 10px; }
+.ap-segments a, .ap-segments button { display: inline-flex; align-items: center; gap: 7px; color: var(--ap-muted); border: 1px solid transparent; padding: 8px 12px; border-radius: 6px; font-size: 11px; background: transparent; cursor: pointer; font-family: inherit; }
+.ap-segments a:hover, .ap-segments button:hover { background: var(--ap-subtle); }
+.ap-segments a[aria-current], .ap-segments button[aria-current] { color: var(--ap-navy); background: var(--ap-blue-soft); border-color: var(--ap-line); font-weight: 600; }
+.ap-segments a span, .ap-segments button span { background: var(--ap-white); padding: 0 5px; border-radius: 3px; font-size: 10px; }
 .ap-toolbar { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; padding: 20px 24px; }
 .ap-filter { display: grid; gap: 5px; min-width: 140px; }
 .ap-filter > span { font-size: 10px; color: var(--ap-muted); font-weight: 500; }
@@ -288,7 +288,7 @@ a.ap-cell-title:hover { color: var(--ap-blue); }
   .ap-filter :is(input, select), .ap-field :is(input, textarea) { font-size: 16px; }
   .ap-filter select { font-size: 12px; }
   .ap-segments { padding: 14px 16px 0; }
-  .ap-segments a { padding: 7px 9px; font-size: 10px; }
+  .ap-segments a, .ap-segments button { padding: 7px 9px; font-size: 10px; }
   .ap-table-footer { padding: 16px; gap: 12px; }
   .ap-summary-list { padding-inline: 16px; }
   .ap-panel-bottom { padding: 14px 16px; }
