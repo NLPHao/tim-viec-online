@@ -135,8 +135,11 @@ export function AdminShell({ children, reportedCount = 3 }: AdminShellProps) {
           Mỗi quyết định góp phần xây dựng một môi trường tuyển dụng an toàn.
         </p>
         <form action={logoutAction}>
-          <button type="submit">
-            <LogOut className="ap-icon" aria-hidden="true" />
+          <button
+            type="submit"
+            className="flex items-center gap-2 text-[var(--ap-muted)] hover:text-[var(--ap-blue)] text-[11px] bg-transparent border-0 p-0 cursor-pointer font-inherit"
+          >
+            <LogOut className="ap-icon shrink-0" aria-hidden="true" />
             <span>Về trang đăng nhập</span>
           </button>
         </form>

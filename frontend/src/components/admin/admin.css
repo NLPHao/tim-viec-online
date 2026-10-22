@@ -64,7 +64,8 @@ body.admin-page:has(dialog[open]) { overflow: hidden; }
 .ap-sidebar-bottom > .ap-icon { color: var(--ap-navy); margin-bottom: 8px; }
 .ap-sidebar-bottom strong { display: block; font-size: 11px; }
 .ap-sidebar-bottom p { color: var(--ap-muted); font-size: 10px; margin: 5px 0 18px; }
-.ap-sidebar-bottom a { display: flex; gap: 8px; align-items: center; color: var(--ap-muted); font-size: 11px; }
+.ap-sidebar-bottom a, .ap-sidebar-bottom button { display: flex; gap: 8px; align-items: center; color: var(--ap-muted); font-size: 11px; background: none; border: 0; padding: 0; cursor: pointer; font-family: inherit; }
+.ap-sidebar-bottom a:hover, .ap-sidebar-bottom button:hover { color: var(--ap-blue); }
 .ap-main { padding: 25px 32px 40px; min-width: 0; min-height: calc(100dvh - 76px); }
 .ap-breadcrumb { display: flex; gap: 9px; align-items: center; color: var(--ap-muted); font-size: 11px; margin-bottom: 23px; flex-wrap: wrap; }
 .ap-breadcrumb .ap-icon { width: 14px; height: 14px; }

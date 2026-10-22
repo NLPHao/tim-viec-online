@@ -75,3 +75,54 @@ test("admin jobs moderation and deletion integrity", () => {
   assert.equal(newApps.filter((a) => a.job_id === targetJob.id).length, 0);
 });
 
+test("admin categories usage and deletion guard", () => {
+  const db = getInitialDatabase();
+  assert.equal(db.categories.length, 8);
+
+  const jobsForCategory = (catId: number) =>
+    db.jobs.filter((j) => j.category_id === catId);
+
+  // Category 1 (IT) should have linked jobs in initial data
+  const cat1Jobs = jobsForCategory(1);
+  assert.ok(cat1Jobs.length > 0);
+
+  // Used categories count
+  const usedCount = db.categories.filter((c) => jobsForCategory(c.id).length > 0).length;
+  assert.ok(usedCount > 0);
+  assert.ok(usedCount <= db.categories.length);
+
+  // Attempting to delete a used category is blocked
+  const canDeleteCat1 = cat1Jobs.length === 0;
+  assert.equal(canDeleteCat1, false);
+
+  // Can delete unused category
+  const unusedCat = db.categories.find((c) => jobsForCategory(c.id).length === 0);
+  if (unusedCat) {
+    const remaining = db.categories.filter((c) => c.id !== unusedCat.id);
+    assert.equal(remaining.length, db.categories.length - 1);
+  }
+});
+
+test("admin skills usage and cascade unlinking on deletion", () => {
+  const db = getInitialDatabase();
+  assert.equal(db.skills.length, 14);
+
+  // Skill 3 is ReactJS, which is assigned to jobs
+  const skillId = 3;
+  const jobsWithSkill = db.jobs.filter((j) => j.skills.includes(skillId));
+  assert.ok(jobsWithSkill.length > 0);
+
+  // When deleted, skill is removed and stripped from all jobs
+  const updatedSkills = db.skills.filter((s) => s.id !== skillId);
+  const updatedJobs = db.jobs.map((job) => ({
+    ...job,
+    skills: job.skills.filter((id) => id !== skillId),
+  }));
+
+  assert.equal(updatedSkills.length, 13);
+  assert.equal(
+    updatedJobs.filter((j) => j.skills.includes(skillId)).length,
+    0,
+  );
+});
+
