@@ -469,28 +469,26 @@ export function AdminJobDetail({ jobId, preview = false }: AdminJobDetailProps) 
           </DialogHeader>
 
           {owner && (
-            <div className="space-y-4 pt-1" id="owner-account-desc">
-              <div className="ap-account-heading flex items-center gap-3">
-                <span className="ap-avatar text-base font-bold">
+            <div className="pt-2" id="owner-account-desc">
+              <div className="ap-account-heading">
+                <span className="ap-avatar ap-avatar-company">
                   {getInitials(owner.name)}
                 </span>
                 <div>
-                  <h3 className="font-semibold text-sm text-[var(--ap-navy)]">
-                    {owner.name}
-                  </h3>
-                  <p className="text-xs text-[var(--ap-muted)]">{owner.email}</p>
+                  <h3>{owner.name}</h3>
+                  <p>{owner.email}</p>
                 </div>
               </div>
 
-              <dl className="ap-account-facts divide-y divide-gray-100 text-xs">
-                <div className="py-2 flex justify-between">
-                  <dt className="text-[var(--ap-muted)]">Vai trò</dt>
+              <dl className="ap-account-facts">
+                <div>
+                  <dt>Vai trò</dt>
                   <dd>
                     <span className="ap-badge ap-badge-green">Nhà tuyển dụng</span>
                   </dd>
                 </div>
-                <div className="py-2 flex justify-between">
-                  <dt className="text-[var(--ap-muted)]">Trạng thái</dt>
+                <div>
+                  <dt>Trạng thái</dt>
                   <dd>
                     <span
                       className={`ap-badge ${
@@ -503,29 +501,23 @@ export function AdminJobDetail({ jobId, preview = false }: AdminJobDetailProps) 
                     </span>
                   </dd>
                 </div>
-                <div className="py-2 flex justify-between">
-                  <dt className="text-[var(--ap-muted)]">Số điện thoại</dt>
-                  <dd className="font-medium text-[var(--ap-navy)]">
-                    {owner.phone || "Chưa cập nhật"}
-                  </dd>
+                <div>
+                  <dt>Số điện thoại</dt>
+                  <dd>{owner.phone || "Chưa cập nhật"}</dd>
                 </div>
-                <div className="py-2 flex justify-between">
-                  <dt className="text-[var(--ap-muted)]">Ngày tham gia</dt>
-                  <dd className="font-medium text-[var(--ap-navy)]">
-                    {formatDateVN(owner.created_at)}
-                  </dd>
+                <div>
+                  <dt>Ngày tham gia</dt>
+                  <dd>{formatDateVN(owner.created_at)}</dd>
                 </div>
                 {company && (
                   <>
-                    <div className="py-2 flex justify-between">
-                      <dt className="text-[var(--ap-muted)]">Doanh nghiệp</dt>
-                      <dd className="font-semibold text-[var(--ap-navy)]">
-                        {company.name}
-                      </dd>
+                    <div>
+                      <dt>Doanh nghiệp</dt>
+                      <dd>{company.name}</dd>
                     </div>
-                    <div className="py-2 flex justify-between">
-                      <dt className="text-[var(--ap-muted)]">Tin đã đăng</dt>
-                      <dd className="font-medium text-[var(--ap-navy)]">
+                    <div>
+                      <dt>Tin đã đăng</dt>
+                      <dd>
                         {db.jobs.filter((j) => j.company_id === company.id).length} tin
                       </dd>
                     </div>
@@ -533,7 +525,7 @@ export function AdminJobDetail({ jobId, preview = false }: AdminJobDetailProps) 
                 )}
               </dl>
 
-              <div className="flex justify-end pt-3 border-t border-[var(--ap-line)]">
+              <div className="flex justify-end pt-5">
                 <button
                   type="button"
                   className="ap-button"

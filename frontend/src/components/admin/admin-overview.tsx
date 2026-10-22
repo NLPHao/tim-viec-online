@@ -600,15 +600,19 @@ export function AdminOverview() {
                     </td>
                     <td data-label="Vai trò">
                       {user.role === "admin" && (
-                        <span className="ap-badge ap-badge-blue">
+                        <span className="ap-badge ap-badge-amber">
                           Quản trị viên
                         </span>
                       )}
                       {user.role === "employer" && (
-                        <span className="ap-badge">Nhà tuyển dụng</span>
+                        <span className="ap-badge ap-badge-green">
+                          Nhà tuyển dụng
+                        </span>
                       )}
                       {user.role === "candidate" && (
-                        <span className="ap-badge">Ứng viên</span>
+                        <span className="ap-badge ap-badge-blue">
+                          Ứng viên
+                        </span>
                       )}
                     </td>
                     <td className="ap-number" data-label="Ngày tham gia">
@@ -679,7 +683,7 @@ export function AdminOverview() {
         open={!!selectedUser}
         onOpenChange={(open) => !open && setSelectedUser(null)}
       >
-        <DialogContent className="sm:max-w-[480px]">
+        <DialogContent className="max-w-[480px] p-6">
           <DialogHeader>
             <DialogTitle className="text-base font-semibold">
               Chi tiết tài khoản
@@ -687,52 +691,55 @@ export function AdminOverview() {
           </DialogHeader>
 
           {selectedUser && (
-            <div className="space-y-4">
-              <div className="ap-user-preview">
-                <div className="ap-person">
-                  <span
-                    className={`ap-avatar ${
-                      selectedUser.role === "employer" ? "ap-avatar-company" : ""
-                    }`}
-                  >
-                    {getInitials(selectedUser.name)}
-                  </span>
-                  <div>
-                    <strong className="ap-cell-title text-sm">
-                      {selectedUser.name}
-                    </strong>
-                    <span className="ap-cell-sub">{selectedUser.email}</span>
-                  </div>
-                </div>
-                <div className="ap-status-stack">
-                  {selectedUser.role === "admin" && (
-                    <span className="ap-badge ap-badge-blue">
-                      Quản trị viên
-                    </span>
-                  )}
-                  {selectedUser.role === "employer" && (
-                    <span className="ap-badge">Nhà tuyển dụng</span>
-                  )}
-                  {selectedUser.role === "candidate" && (
-                    <span className="ap-badge">Ứng viên</span>
-                  )}
-
-                  {selectedUser.status === "locked" ? (
-                    <span className="ap-badge ap-badge-red">Bị khóa</span>
-                  ) : (
-                    <span className="ap-badge ap-badge-green">Hoạt động</span>
-                  )}
+            <div className="pt-2">
+              <div className="ap-account-heading">
+                <span
+                  className={`ap-avatar ${
+                    selectedUser.role === "employer" ? "ap-avatar-company" : ""
+                  }`}
+                >
+                  {getInitials(selectedUser.name)}
+                </span>
+                <div>
+                  <h3>{selectedUser.name}</h3>
+                  <p>{selectedUser.email}</p>
                 </div>
               </div>
 
-              <dl className="ap-dl">
+              <dl className="ap-account-facts">
                 <div>
-                  <dt>Mã định danh</dt>
-                  <dd>#{selectedUser.id}</dd>
+                  <dt>Vai trò</dt>
+                  <dd>
+                    {selectedUser.role === "admin" && (
+                      <span className="ap-badge ap-badge-amber">
+                        Quản trị viên
+                      </span>
+                    )}
+                    {selectedUser.role === "employer" && (
+                      <span className="ap-badge ap-badge-green">
+                        Nhà tuyển dụng
+                      </span>
+                    )}
+                    {selectedUser.role === "candidate" && (
+                      <span className="ap-badge ap-badge-blue">
+                        Ứng viên
+                      </span>
+                    )}
+                  </dd>
                 </div>
                 <div>
-                  <dt>Email</dt>
-                  <dd>{selectedUser.email}</dd>
+                  <dt>Trạng thái</dt>
+                  <dd>
+                    <span
+                      className={`ap-badge ${
+                        selectedUser.status === "locked"
+                          ? "ap-badge-red"
+                          : "ap-badge-green"
+                      }`}
+                    >
+                      {selectedUser.status === "locked" ? "Bị khóa" : "Hoạt động"}
+                    </span>
+                  </dd>
                 </div>
                 <div>
                   <dt>Số điện thoại</dt>
@@ -756,14 +763,14 @@ export function AdminOverview() {
                 )}
               </dl>
 
-              <div className="flex justify-end pt-2">
-                <Button
+              <div className="flex justify-end pt-5">
+                <button
                   type="button"
-                  variant="outline"
+                  className="ap-button"
                   onClick={() => setSelectedUser(null)}
                 >
                   Đóng
-                </Button>
+                </button>
               </div>
             </div>
           )}

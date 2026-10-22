@@ -4,8 +4,11 @@ import {
   calculateTrendPoints,
   formatDateVN,
   formatNumber,
+  formatSalary,
   getInitials,
   getInitialDatabase,
+  JOB_STATUS_LABELS,
+  JOB_TYPE_LABELS,
 } from "../src/features/admin/mock-data";
 
 test("admin mock database initial data integrity", () => {
@@ -29,8 +32,9 @@ test("admin mock database initial data integrity", () => {
 test("admin helper functions format correctly", () => {
   assert.equal(formatDateVN("2026-10-16"), "16/10/2026");
   assert.equal(formatNumber(1250000), "1.250.000");
-  assert.equal(getInitials("Quản Trị Viên"), "QV");
+  assert.equal(getInitials("Quản Trị Viên"), "TV");
   assert.equal(getInitials("Admin"), "AD");
+  assert.equal(getInitials("Công ty Cổ phần Bình Minh"), "BM");
 });
 
 test("calculateTrendPoints returns correct points for 7 and 14 days", () => {
@@ -41,5 +45,33 @@ test("calculateTrendPoints returns correct points for 7 and 14 days", () => {
 
   const points14 = calculateTrendPoints(db.jobs, db.applications, 14);
   assert.equal(points14.length, 14);
+});
+
+test("formatSalary formats negotiable, ranges, and minimums correctly", () => {
+  const db = getInitialDatabase();
+  const negotiableJob = db.jobs.find((j) => j.is_negotiable);
+  assert.ok(negotiableJob);
+  assert.equal(formatSalary(negotiableJob), "Thỏa thuận");
+
+  const rangeJob = db.jobs.find((j) => !j.is_negotiable && j.salary_min && j.salary_max);
+  assert.ok(rangeJob);
+  assert.match(formatSalary(rangeJob), /VNĐ$/);
+
+  assert.equal(JOB_STATUS_LABELS["active"], "Đang tuyển");
+  assert.equal(JOB_TYPE_LABELS["full_time"], "Toàn thời gian");
+});
+
+test("admin jobs moderation and deletion integrity", () => {
+  const db = getInitialDatabase();
+  const initialJobCount = db.jobs.length;
+  const targetJob = db.jobs.find((j) => j.is_reported);
+  assert.ok(targetJob);
+
+  // Simulate deletion
+  const newJobs = db.jobs.filter((j) => j.id !== targetJob.id);
+  const newApps = db.applications.filter((a) => a.job_id !== targetJob.id);
+
+  assert.equal(newJobs.length, initialJobCount - 1);
+  assert.equal(newApps.filter((a) => a.job_id === targetJob.id).length, 0);
 });
 

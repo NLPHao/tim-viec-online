@@ -348,15 +348,19 @@ export function AdminUsers() {
                       </td>
                       <td data-label="Vai trò">
                         {user.role === "admin" && (
-                          <span className="ap-badge ap-badge-blue">
+                          <span className="ap-badge ap-badge-amber">
                             Quản trị viên
                           </span>
                         )}
                         {user.role === "employer" && (
-                          <span className="ap-badge">Nhà tuyển dụng</span>
+                          <span className="ap-badge ap-badge-green">
+                            Nhà tuyển dụng
+                          </span>
                         )}
                         {user.role === "candidate" && (
-                          <span className="ap-badge">Ứng viên</span>
+                          <span className="ap-badge ap-badge-blue">
+                            Ứng viên
+                          </span>
                         )}
                       </td>
                       <td data-label="Trạng thái">
@@ -530,8 +534,8 @@ export function AdminUsers() {
           </DialogHeader>
 
           {viewingUser && (
-            <div className="space-y-4">
-              <div className="ap-account-heading flex items-center gap-3.5 mb-5">
+            <div className="pt-2">
+              <div className="ap-account-heading">
                 <span
                   className={`ap-avatar ${
                     viewingUser.role === "employer" ? "ap-avatar-company" : ""
@@ -540,77 +544,77 @@ export function AdminUsers() {
                   {getInitials(viewingUser.name)}
                 </span>
                 <div>
-                  <h3 className="text-base font-semibold text-foreground">
-                    {viewingUser.name}
-                  </h3>
-                  <p className="text-xs text-muted-foreground">
-                    {viewingUser.email}
-                  </p>
+                  <h3>{viewingUser.name}</h3>
+                  <p>{viewingUser.email}</p>
                 </div>
               </div>
 
-              <dl className="ap-account-facts text-xs">
-                <div className="py-2.5 border-b border-border grid grid-cols-[130px_1fr] gap-3.5">
-                  <dt className="text-muted-foreground">Mã định danh</dt>
-                  <dd className="font-medium">#{viewingUser.id}</dd>
-                </div>
-                <div className="py-2.5 border-b border-border grid grid-cols-[130px_1fr] gap-3.5">
-                  <dt className="text-muted-foreground">Vai trò</dt>
+              <dl className="ap-account-facts">
+                <div>
+                  <dt>Vai trò</dt>
                   <dd>
                     {viewingUser.role === "admin" && (
-                      <span className="ap-badge ap-badge-blue">
+                      <span className="ap-badge ap-badge-amber">
                         Quản trị viên
                       </span>
                     )}
                     {viewingUser.role === "employer" && (
-                      <span className="ap-badge">Nhà tuyển dụng</span>
+                      <span className="ap-badge ap-badge-green">
+                        Nhà tuyển dụng
+                      </span>
                     )}
                     {viewingUser.role === "candidate" && (
-                      <span className="ap-badge">Ứng viên</span>
+                      <span className="ap-badge ap-badge-blue">
+                        Ứng viên
+                      </span>
                     )}
                   </dd>
                 </div>
-                <div className="py-2.5 border-b border-border grid grid-cols-[130px_1fr] gap-3.5">
-                  <dt className="text-muted-foreground">Trạng thái</dt>
+                <div>
+                  <dt>Trạng thái</dt>
                   <dd>
-                    {viewingUser.status === "locked" ? (
-                      <span className="ap-badge ap-badge-red">Bị khóa</span>
-                    ) : (
-                      <span className="ap-badge ap-badge-green">Hoạt động</span>
-                    )}
+                    <span
+                      className={`ap-badge ${
+                        viewingUser.status === "locked"
+                          ? "ap-badge-red"
+                          : "ap-badge-green"
+                      }`}
+                    >
+                      {viewingUser.status === "locked" ? "Bị khóa" : "Hoạt động"}
+                    </span>
                   </dd>
                 </div>
-                <div className="py-2.5 border-b border-border grid grid-cols-[130px_1fr] gap-3.5">
-                  <dt className="text-muted-foreground">Số điện thoại</dt>
+                <div>
+                  <dt>Số điện thoại</dt>
                   <dd>{viewingUser.phone || "Chưa cập nhật"}</dd>
                 </div>
-                <div className="py-2.5 border-b border-border grid grid-cols-[130px_1fr] gap-3.5">
-                  <dt className="text-muted-foreground">Ngày tham gia</dt>
+                <div>
+                  <dt>Ngày tham gia</dt>
                   <dd>{formatDateVN(viewingUser.created_at)}</dd>
                 </div>
 
                 {viewingCompany && (
                   <>
-                    <div className="py-2.5 border-b border-border grid grid-cols-[130px_1fr] gap-3.5">
-                      <dt className="text-muted-foreground">Doanh nghiệp</dt>
-                      <dd className="font-medium">{viewingCompany.name}</dd>
+                    <div>
+                      <dt>Doanh nghiệp</dt>
+                      <dd>{viewingCompany.name}</dd>
                     </div>
-                    <div className="py-2.5 border-b border-border grid grid-cols-[130px_1fr] gap-3.5">
-                      <dt className="text-muted-foreground">Tin đã đăng</dt>
-                      <dd className="font-medium">{viewingJobsCount} tin</dd>
+                    <div>
+                      <dt>Tin đã đăng</dt>
+                      <dd>{viewingJobsCount} tin</dd>
                     </div>
                   </>
                 )}
               </dl>
 
-              <div className="flex justify-end pt-3">
-                <Button
+              <div className="flex justify-end pt-5">
+                <button
                   type="button"
-                  variant="outline"
+                  className="ap-button"
                   onClick={() => setViewingUser(null)}
                 >
                   Đóng
-                </Button>
+                </button>
               </div>
             </div>
           )}
