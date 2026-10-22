@@ -1,23 +1,30 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { SiteHeader } from "@/components/layout/site-header";
-import { SiteFooter } from "@/components/layout/site-footer";
-import { ProtectedLanding } from "@/components/auth/protected-landing";
-import { AuthLoading } from "@/components/auth/auth-loading";
+import { requireUser } from "@/services/auth-session";
+import { AdminShell } from "@/components/admin/admin-shell";
+import { AdminOverview } from "@/components/admin/admin-overview";
+import { AdminLoading } from "@/components/admin/admin-loading";
+
 export const metadata: Metadata = {
-  title: "Khu vực quản trị",
+  title: "Tổng quan hệ thống | Quản trị TimViecOnline",
+  description: "Theo dõi hoạt động tuyển dụng và những nội dung cần xử lý.",
   robots: { index: false },
 };
+
 export default function AdminPage() {
   return (
-    <>
-      <SiteHeader />
-      <main id="main" className="site-container page-content">
-        <Suspense fallback={<AuthLoading />}>
-          <ProtectedLanding role="admin" />
-        </Suspense>
-      </main>
-      <SiteFooter />
-    </>
+    <Suspense fallback={<AdminLoading />}>
+      <AdminContent />
+    </Suspense>
+  );
+}
+
+async function AdminContent() {
+  await requireUser("admin", "/admin");
+
+  return (
+    <AdminShell reportedCount={3}>
+      <AdminOverview />
+    </AdminShell>
   );
 }

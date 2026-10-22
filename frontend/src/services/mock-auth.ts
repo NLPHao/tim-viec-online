@@ -23,6 +23,18 @@ function store(): Store {
     accounts: [
       {
         user: {
+          id: 1,
+          name: "Quản Trị Viên",
+          email: "admin@example.test",
+          role: "admin",
+          status: "active",
+        },
+        salt: "timviec-admin-demo-v1",
+        passwordHash:
+          "cbf0c03f47db2deff0be4abf848109b6870a80606f09e407182ecc91bfdc594abb564acb558e6c6d04a8e489ddd18b6292e3ebc74ff5386be6c552127abc694e",
+      },
+      {
+        user: {
           id: 101,
           name: "Nguyễn Minh An",
           email: "candidate@example.test",
