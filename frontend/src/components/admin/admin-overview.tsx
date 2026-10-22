@@ -43,6 +43,7 @@ import type {
   AdminJob,
   AdminUser,
 } from "@/features/admin/types";
+import "./admin.css";
 
 export function AdminOverview() {
   const [db, setDb] = useState<AdminDatabase>(() => getInitialDatabase());

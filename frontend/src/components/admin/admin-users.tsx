@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
   Building2,
@@ -18,14 +18,6 @@ import {
 } from "lucide-react";
 import { Button } from "@/modules/cores/shadcn/components/ui/button";
 import { Badge } from "@/modules/cores/shadcn/components/ui/badge";
-import { Input } from "@/modules/cores/shadcn/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/modules/cores/shadcn/components/ui/select";
 import {
   Dialog,
   DialogContent,
@@ -45,6 +37,7 @@ import type {
   AdminUser,
   AdminUserStatus,
 } from "@/features/admin/types";
+import "./admin.css";
 
 const PAGE_SIZE = 6;
 
@@ -69,9 +62,6 @@ export function AdminUsers() {
   const [togglingUser, setTogglingUser] = useState<AdminUser | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  const searchInputId = useId();
-  const roleSelectId = useId();
-  const statusSelectId = useId();
 
   // Reset preview data
   const handleResetPreview = () => {
@@ -252,14 +242,13 @@ export function AdminUsers() {
           onSubmit={(e) => e.preventDefault()}
         >
           {/* Search Field */}
-          <div className="ap-filter ap-filter-search">
-            <label htmlFor={searchInputId} className="text-[10px] text-muted-foreground font-medium">
-              Tìm kiếm
-            </label>
-            <div className="ap-input-wrap">
+          <label className="ap-filter ap-filter-search">
+            <span>Tìm kiếm</span>
+            <span className="ap-input-wrap">
               <Search className="ap-icon" aria-hidden="true" />
               <input
-                id={searchInputId}
+                id="listSearch"
+                data-list-search
                 type="search"
                 value={query}
                 onChange={(e) => {
@@ -269,60 +258,49 @@ export function AdminUsers() {
                 placeholder="Họ tên hoặc địa chỉ email…"
                 autoComplete="off"
               />
-            </div>
-          </div>
+            </span>
+          </label>
 
           {/* Role Filter */}
-          <div className="ap-filter">
-            <label htmlFor={roleSelectId} className="text-[10px] text-muted-foreground font-medium">
-              Vai trò
-            </label>
-            <Select
+          <label className="ap-filter">
+            <span>Vai trò</span>
+            <select
+              id="listRole"
               value={roleFilter}
-              onValueChange={(val) => {
-                setRoleFilter(val);
+              onChange={(e) => {
+                setRoleFilter(e.target.value);
                 setCurrentPage(1);
               }}
             >
-              <SelectTrigger id={roleSelectId} className="h-[42px] bg-white text-xs">
-                <SelectValue placeholder="Tất cả vai trò" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Tất cả vai trò</SelectItem>
-                <SelectItem value="candidate">Ứng viên</SelectItem>
-                <SelectItem value="employer">Nhà tuyển dụng</SelectItem>
-                <SelectItem value="admin">Quản trị viên</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+              <option value="all">Tất cả vai trò</option>
+              <option value="candidate">Ứng viên</option>
+              <option value="employer">Nhà tuyển dụng</option>
+              <option value="admin">Quản trị viên</option>
+            </select>
+          </label>
 
           {/* Status Filter */}
-          <div className="ap-filter">
-            <label htmlFor={statusSelectId} className="text-[10px] text-muted-foreground font-medium">
-              Trạng thái
-            </label>
-            <Select
+          <label className="ap-filter">
+            <span>Trạng thái</span>
+            <select
+              id="listStatus"
               value={statusFilter}
-              onValueChange={(val) => {
-                setStatusFilter(val);
+              onChange={(e) => {
+                setStatusFilter(e.target.value);
                 setCurrentPage(1);
               }}
             >
-              <SelectTrigger id={statusSelectId} className="h-[42px] bg-white text-xs">
-                <SelectValue placeholder="Tất cả trạng thái" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Tất cả trạng thái</SelectItem>
-                <SelectItem value="active">Hoạt động</SelectItem>
-                <SelectItem value="locked">Bị khóa</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+              <option value="all">Tất cả trạng thái</option>
+              <option value="active">Hoạt động</option>
+              <option value="locked">Bị khóa</option>
+            </select>
+          </label>
 
           {/* Clear Button */}
           <button
             type="button"
-            className="ap-clear cursor-pointer"
+            className="ap-clear"
+            data-clear-filters
             onClick={handleClearFilters}
           >
             Xóa bộ lọc
@@ -736,3 +714,4 @@ export function AdminUsers() {
     </>
   );
 }
+
